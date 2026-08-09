@@ -31,7 +31,8 @@ work/               Local caches and renders (ignored by Git)
 ```
 
 Start with [docs/PROJECT_PLAN.md](docs/PROJECT_PLAN.md), then read
-[docs/WORKFLOW.md](docs/WORKFLOW.md).
+[docs/WORKFLOW.md](docs/WORKFLOW.md). The immediate implementation sequence is in
+[docs/VERTICAL_SLICE_PLAN.md](docs/VERTICAL_SLICE_PLAN.md).
 
 ## Quick start
 
