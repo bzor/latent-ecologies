@@ -1,0 +1,40 @@
+{
+  "$schema": "../../schemas/study.schema.json",
+  "schema_version": 1,
+  "id": "001-memory-field",
+  "title": "Memory Field",
+  "status": "concept",
+  "reproducibility": "open",
+  "seed": 18432,
+  "simulation": {
+    "frame_start": 1,
+    "frame_end": 240,
+    "fps": 30,
+    "rule_genome": {
+      "fields": ["resource", "inhibition", "occupancy"],
+      "neighborhoods": ["local-sensing", "collision"],
+      "update_rules": ["sense", "steer", "consume", "deposit", "decay"],
+      "mutations": []
+    }
+  },
+  "presentation": {
+    "quality": "probe",
+    "mode": "instrument",
+    "look": "field-study",
+    "camera": "static-observation",
+    "depth_of_field": false,
+    "overlays": ["field-gradient", "recent-memory", "agent-lineage"]
+  },
+  "render": {
+    "format": "png",
+    "width": 1280,
+    "height": 720,
+    "output_pattern": "work/renders/001-memory-field/beauty.$F4.png"
+  },
+  "publication": {
+    "state": "private",
+    "approval_required": true,
+    "outputs": ["archive-master", "website", "x-landscape", "preview-loop"]
+  }
+}
+

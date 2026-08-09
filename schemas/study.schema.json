@@ -1,0 +1,33 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://example.invalid/houdini-ai/study.schema.json",
+  "title": "Houdini AI study",
+  "type": "object",
+  "required": ["schema_version", "id", "title", "status", "reproducibility", "seed", "simulation", "presentation", "render", "publication"],
+  "properties": {
+    "schema_version": { "const": 1 },
+    "id": { "type": "string", "pattern": "^[0-9]{3}-[a-z0-9-]+$" },
+    "title": { "type": "string", "minLength": 1 },
+    "status": { "enum": ["concept", "prototype", "selected", "rendering", "published", "archived"] },
+    "reproducibility": { "enum": ["open", "partial", "documented", "artifact"] },
+    "seed": { "type": "integer", "minimum": 0 },
+    "simulation": {
+      "type": "object",
+      "required": ["frame_start", "frame_end", "fps", "rule_genome"]
+    },
+    "presentation": {
+      "type": "object",
+      "required": ["quality", "mode", "look", "camera", "depth_of_field", "overlays"]
+    },
+    "render": {
+      "type": "object",
+      "required": ["format", "width", "height", "output_pattern"]
+    },
+    "publication": {
+      "type": "object",
+      "required": ["state", "approval_required", "outputs"]
+    }
+  },
+  "additionalProperties": true
+}
+

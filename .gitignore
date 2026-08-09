@@ -1,0 +1,32 @@
+# Houdini
+*.hipnc
+*.hiplc
+*.hip~
+*.bak
+houdini/otls/*.hda
+
+# Generated work
+work/*
+!work/.gitkeep
+studies/*/output/
+studies/*/cache/
+
+# Python
+__pycache__/
+*.py[cod]
+.venv/
+dist/
+build/
+*.egg-info/
+
+# Editors / OS
+.DS_Store
+Thumbs.db
+.idea/
+.vscode/
+
+# Secrets
+.env
+.env.*
+!env.example
+

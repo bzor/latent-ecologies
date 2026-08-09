@@ -1,0 +1,17 @@
+{
+  "project": "houdini-ai",
+  "title": "Computational Natural History",
+  "work_dir": "work",
+  "publish_mode": "approval_required",
+  "default_fps": 30,
+  "default_frame_range": [1, 240],
+  "render_contract": {
+    "everyday_format": "png",
+    "exception_format": "exr",
+    "color_intent": "final-look-from-karma",
+    "resume_missing_frames": true
+  },
+  "quality_tiers": ["probe", "study", "specimen"],
+  "presentation_modes": ["organism", "instrument", "analysis"]
+}
+
