@@ -62,6 +62,8 @@ code with a useful explanation when a required dependency is unavailable.
 
 ## Milestone 2 — Job model and workspace
 
+**Status: complete (2026-08-10).**
+
 ### Work
 
 - Define a job identifier derived from study, seed, quality, and source state.
@@ -199,8 +201,8 @@ interrupted run resumes correctly.
 
 ## Next-session starting point
 
-Milestone 1 is complete. Begin Milestone 2 with the deterministic job identifier,
-repository-root path resolution, effective configuration snapshot, and `plan` command.
+Milestones 1 and 2 are complete. Begin Milestone 3 with the versioned Houdini scene
+builder, generated job-local HIP, and single diagnostic-frame gate.
 
 Verified 2026-08-10:
 

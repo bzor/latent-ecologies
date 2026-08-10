@@ -9,6 +9,7 @@ from jsonschema import Draft202012Validator
 from jsonschema.exceptions import SchemaError
 
 from .doctor import inspect_workstation
+from .jobs import job_status, load_job, prepare_job, set_stage_state
 
 
 ROOT = Path(__file__).resolve().parents[2]
@@ -67,6 +68,59 @@ def command_doctor(_: argparse.Namespace) -> int:
     return 1 if errors else 0
 
 
+def _job_from_args(args: argparse.Namespace):
+    return load_job(ROOT, Path(args.manifest))
+
+
+def _print_job(job, receipts) -> None:
+    print(f"job: {job.job_id}")
+    print(f"workspace: {job.directory}")
+    print(f"source: {job.source_state}")
+    for receipt in receipts:
+        state = receipt.get("state", "pending")
+        reason = "reusable" if state == "complete" else "will run" if state in {"pending", "stale", "failed"} else state
+        print(f"{receipt['stage']}: {state} ({reason})")
+
+
+def command_plan(args: argparse.Namespace) -> int:
+    errors = validate_manifest(Path(args.manifest).resolve())
+    if errors:
+        for error in errors:
+            print(f"ERROR {error}")
+        return 1
+    job = _job_from_args(args)
+    _print_job(job, prepare_job(job))
+    print("plan only: no Houdini process was started")
+    return 0
+
+
+def command_status(args: argparse.Namespace) -> int:
+    errors = validate_manifest(Path(args.manifest).resolve())
+    if errors:
+        for error in errors:
+            print(f"ERROR {error}")
+        return 1
+    job = _job_from_args(args)
+    _print_job(job, job_status(job))
+    return 0
+
+
+def command_run(args: argparse.Namespace) -> int:
+    errors = validate_manifest(Path(args.manifest).resolve())
+    if errors:
+        for error in errors:
+            print(f"ERROR {error}")
+        return 1
+    job = _job_from_args(args)
+    prepare_job(job)
+    set_stage_state(job, "validate", "running")
+    set_stage_state(job, "validate", "complete", summary="study manifest passed schema and semantic validation")
+    print(f"job: {job.job_id}")
+    print("validate: complete")
+    print("remaining stages: pending (their implementations begin in Milestone 3)")
+    return 0
+
+
 def build_parser() -> argparse.ArgumentParser:
     parser = argparse.ArgumentParser(prog="houdini-ai")
     subparsers = parser.add_subparsers(required=True)
@@ -75,6 +129,14 @@ def build_parser() -> argparse.ArgumentParser:
     validate = subparsers.add_parser("validate", help="validate a study manifest")
     validate.add_argument("manifest")
     validate.set_defaults(func=command_validate)
+    for name, handler, help_text in (
+        ("plan", command_plan, "create or refresh a job plan without launching Houdini"),
+        ("run", command_run, "run implemented stages for a study job"),
+        ("status", command_status, "show stage states for a study job"),
+    ):
+        command = subparsers.add_parser(name, help=help_text)
+        command.add_argument("manifest")
+        command.set_defaults(func=handler)
     return parser
 
 

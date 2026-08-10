@@ -41,6 +41,9 @@ Python 3.10 or newer is supported.
 ```powershell
 python -m houdini_ai doctor
 python -m houdini_ai validate studies/001-memory-field/study.json
+python -m houdini_ai plan studies/001-memory-field/study.json
+python -m houdini_ai run studies/001-memory-field/study.json
+python -m houdini_ai status studies/001-memory-field/study.json
 python -m unittest discover -s tests
 python -m ruff check src tests houdini/diagnostic_scene.py
 ```
