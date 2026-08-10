@@ -5,44 +5,42 @@ import json
 import sys
 from pathlib import Path
 
+from jsonschema import Draft202012Validator
+from jsonschema.exceptions import SchemaError
+
 from .doctor import inspect_workstation
 
 
 ROOT = Path(__file__).resolve().parents[2]
-REQUIRED_KEYS = {
-    "schema_version",
-    "id",
-    "title",
-    "status",
-    "reproducibility",
-    "seed",
-    "simulation",
-    "presentation",
-    "render",
-    "publication",
-}
+SCHEMA_PATH = ROOT / "schemas" / "study.schema.json"
 
 
 def validate_manifest(path: Path) -> list[str]:
-    errors: list[str] = []
     try:
         data = json.loads(path.read_text(encoding="utf-8"))
     except FileNotFoundError:
         return [f"manifest not found: {path}"]
+    except OSError as exc:
+        return [f"could not read manifest {path}: {exc}"]
     except json.JSONDecodeError as exc:
         return [f"invalid JSON at line {exc.lineno}, column {exc.colno}: {exc.msg}"]
 
-    missing = sorted(REQUIRED_KEYS - data.keys())
-    if missing:
-        errors.append(f"missing required keys: {', '.join(missing)}")
-    if data.get("schema_version") != 1:
-        errors.append("schema_version must be 1")
-    if data.get("render", {}).get("format") not in {"png", "exr"}:
-        errors.append("render.format must be png or exr")
-    if data.get("publication", {}).get("approval_required") is not True:
-        errors.append("publication.approval_required must be true in the initial scaffold")
-    simulation = data.get("simulation", {})
-    if simulation.get("frame_end", 0) < simulation.get("frame_start", 1):
+    try:
+        schema = json.loads(SCHEMA_PATH.read_text(encoding="utf-8"))
+        Draft202012Validator.check_schema(schema)
+        validator = Draft202012Validator(schema)
+    except (OSError, json.JSONDecodeError, SchemaError) as exc:
+        return [f"could not load study schema {SCHEMA_PATH}: {exc}"]
+
+    errors = []
+    for error in sorted(validator.iter_errors(data), key=lambda item: list(item.absolute_path)):
+        location = ".".join(str(part) for part in error.absolute_path) or "manifest"
+        errors.append(f"{location}: {error.message}")
+    if errors:
+        return errors
+
+    simulation = data["simulation"]
+    if simulation["frame_end"] < simulation["frame_start"]:
         errors.append("simulation.frame_end must not precede frame_start")
     return errors
 

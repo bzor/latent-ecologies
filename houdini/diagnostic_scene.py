@@ -3,9 +3,15 @@
 from __future__ import annotations
 
 import os
+import sys
 from pathlib import Path
 
 import hou
+
+ROOT = Path(os.environ.get("HDAI_PROJECT_ROOT", Path.cwd())).resolve()
+sys.path.insert(0, str(ROOT / "src"))
+
+from houdini_ai.diagnostic import build_receipt, validate_diagnostic_png, write_receipt  # noqa: E402
 
 
 def set_parm(node: hou.Node, name: str, value: object) -> None:
@@ -16,11 +22,12 @@ def set_parm(node: hou.Node, name: str, value: object) -> None:
 
 
 def main() -> None:
-    root = Path(os.environ.get("HDAI_PROJECT_ROOT", Path.cwd())).resolve()
+    root = ROOT
     output_dir = root / "work" / "diagnostics"
     output_dir.mkdir(parents=True, exist_ok=True)
     image_path = output_dir / "karma-headless.0001.png"
     hip_path = output_dir / "karma-headless.hiplc"
+    receipt_path = output_dir / "karma-headless.receipt.json"
 
     stage = hou.node("/stage")
     if stage is None:
@@ -60,11 +67,23 @@ def main() -> None:
     hou.hipFile.save(str(hip_path))
     render.render(frame_range=(1, 1, 1))
 
-    if not image_path.is_file() or image_path.stat().st_size < 1024:
-        raise RuntimeError(f"Karma did not produce a valid diagnostic image: {image_path}")
+    image_metadata = validate_diagnostic_png(image_path)
+    receipt = build_receipt(
+        root,
+        image_path,
+        hip_path,
+        image_metadata,
+        {
+            "build": hou.applicationVersionString(),
+            "license": hou.licenseCategory().name(),
+            "renderer": "Karma CPU",
+        },
+    )
+    write_receipt(receipt_path, receipt)
     print(f"diagnostic_hip: {hip_path}")
     print(f"diagnostic_image: {image_path}")
     print(f"diagnostic_bytes: {image_path.stat().st_size}")
+    print(f"diagnostic_receipt: {receipt_path}")
 
 
 if __name__ == "__main__":

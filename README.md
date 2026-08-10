@@ -42,6 +42,7 @@ Python 3.10 or newer is supported.
 python -m houdini_ai doctor
 python -m houdini_ai validate studies/001-memory-field/study.json
 python -m unittest discover -s tests
+python -m ruff check src tests houdini/diagnostic_scene.py
 ```
 
 `doctor` searches `HOUDINI_BIN` and `FFMPEG_BIN`, then `PATH`, then standard
@@ -61,8 +62,17 @@ New-Item -ItemType Directory -Force $env:HOUDINI_TEMP_DIR | Out-Null
 & "C:\Program Files\Side Effects Software\Houdini 22.0.368\bin\hython.exe" houdini\diagnostic_scene.py
 ```
 
-The command writes `karma-headless.hiplc` and `karma-headless.0001.png` beneath
-`work/diagnostics/` and fails if the PNG is missing or suspiciously small.
+The command writes `karma-headless.hiplc`, `karma-headless.0001.png`, and a
+deterministically serialized `karma-headless.receipt.json` beneath
+`work/diagnostics/`. It decodes the PNG and verifies dimensions, color mode,
+visible content, and alpha before recording source, environment, and artifact
+checksums in the receipt.
+
+For a repeatable development environment, install with the checked-in constraints:
+
+```powershell
+python -m pip install -c constraints.txt -e ".[dev]"
+```
 
 For local development without installing the package:
 

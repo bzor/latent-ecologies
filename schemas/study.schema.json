@@ -5,7 +5,8 @@
   "type": "object",
   "required": ["schema_version", "id", "title", "status", "reproducibility", "seed", "simulation", "presentation", "render", "publication"],
   "properties": {
-    "schema_version": { "const": 1 },
+    "$schema": { "type": "string" },
+    "schema_version": { "type": "integer", "const": 1 },
     "id": { "type": "string", "pattern": "^[0-9]{3}-[a-z0-9-]+$" },
     "title": { "type": "string", "minLength": 1 },
     "status": { "enum": ["concept", "prototype", "selected", "rendering", "published", "archived"] },
@@ -13,21 +14,50 @@
     "seed": { "type": "integer", "minimum": 0 },
     "simulation": {
       "type": "object",
-      "required": ["frame_start", "frame_end", "fps", "rule_genome"]
+      "required": ["frame_start", "frame_end", "fps", "rule_genome"],
+      "properties": {
+        "frame_start": { "type": "integer", "minimum": 0 },
+        "frame_end": { "type": "integer", "minimum": 0 },
+        "fps": { "type": "number", "exclusiveMinimum": 0 },
+        "rule_genome": { "type": "object" }
+      },
+      "additionalProperties": false
     },
     "presentation": {
       "type": "object",
-      "required": ["quality", "mode", "look", "camera", "depth_of_field", "overlays"]
+      "required": ["quality", "mode", "look", "camera", "depth_of_field", "overlays"],
+      "properties": {
+        "quality": { "enum": ["probe", "study", "specimen"] },
+        "mode": { "enum": ["organism", "instrument", "analysis"] },
+        "look": { "type": "string", "minLength": 1 },
+        "camera": { "type": "string", "minLength": 1 },
+        "depth_of_field": { "type": "boolean" },
+        "overlays": { "type": "array", "items": { "type": "string", "minLength": 1 }, "uniqueItems": true }
+      },
+      "additionalProperties": false
     },
     "render": {
       "type": "object",
-      "required": ["format", "width", "height", "output_pattern"]
+      "required": ["format", "width", "height", "output_pattern"],
+      "properties": {
+        "format": { "enum": ["png", "exr"] },
+        "width": { "type": "integer", "minimum": 1 },
+        "height": { "type": "integer", "minimum": 1 },
+        "output_pattern": { "type": "string", "minLength": 1 }
+      },
+      "additionalProperties": false
     },
     "publication": {
       "type": "object",
-      "required": ["state", "approval_required", "outputs"]
+      "required": ["state", "approval_required", "outputs"],
+      "properties": {
+        "state": { "enum": ["private", "draft", "approved", "published"] },
+        "approval_required": { "const": true },
+        "outputs": { "type": "array", "items": { "type": "string", "minLength": 1 }, "uniqueItems": true }
+      },
+      "additionalProperties": false
     }
   },
-  "additionalProperties": true
+  "additionalProperties": false
 }
 

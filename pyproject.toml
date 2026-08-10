@@ -7,10 +7,20 @@ name = "houdini-ai-lab"
 version = "0.1.0"
 description = "Automation for a Houdini computational-natural-history laboratory"
 requires-python = ">=3.10"
-dependencies = []
+dependencies = [
+  "jsonschema>=4.23,<5",
+  "Pillow>=10.4,<12",
+]
+
+[project.optional-dependencies]
+dev = ["ruff>=0.12,<0.13"]
 
 [project.scripts]
 houdini-ai = "houdini_ai.cli:main"
 
 [tool.setuptools.packages.find]
 where = ["src"]
+
+[tool.ruff]
+line-length = 120
+target-version = "py310"
