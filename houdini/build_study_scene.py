@@ -28,6 +28,42 @@ def add_spare_parms(node: hou.Node, values: dict[str, float | int]) -> None:
     node.setParmTemplateGroup(group)
 
 
+def create_material(
+    parent: hou.Node,
+    name: str,
+    base: tuple[float, float, float],
+    roughness: float,
+    emission: float = 0.0,
+) -> hou.Node:
+    shader = parent.createNode("mtlxstandard_surface", f"{name}_shader")
+    surface = parent.createNode("mtlxsurfacematerial", name)
+    surface.setInput(0, shader)
+    for channel, value in zip(("base_colorr", "base_colorg", "base_colorb"), base):
+        set_parm(shader, channel, value)
+    set_parm(shader, "specular_roughness", roughness)
+    if emission:
+        set_parm(shader, "emission", emission)
+        for channel, value in zip(("emission_colorr", "emission_colorg", "emission_colorb"), base):
+            set_parm(shader, channel, value)
+    return surface
+
+
+def create_copy_branch(parent: hou.Node, source: hou.Node, name: str, snippet: str) -> hou.Node:
+    select = parent.createNode("attribwrangle", f"select_{name}")
+    select.setInput(0, source)
+    set_parm(select, "snippet", snippet)
+    sphere = parent.createNode("sphere", f"{name}_sphere")
+    set_parm(sphere, "type", "poly")
+    set_parm(sphere, "rows", 6)
+    set_parm(sphere, "cols", 8)
+    copy = parent.createNode("copytopoints::2.0", f"{name}_geometry")
+    copy.setInput(0, sphere)
+    copy.setInput(1, select)
+    output = parent.createNode("null", f"OUT_{name.upper()}")
+    output.setInput(0, copy)
+    return output
+
+
 def build(config_path: Path, hip_path: Path, image_path: Path) -> None:
     effective = json.loads(config_path.read_text(encoding="utf-8"))
     study = effective["study"]
@@ -61,6 +97,83 @@ def build(config_path: Path, hip_path: Path, image_path: Path) -> None:
     output.setDisplayFlag(True)
     output.setRenderFlag(True)
     simulation_geo.layoutChildren()
+
+    look_geo = obj.createNode("geo", "field_study_geometry")
+    for child in look_geo.children():
+        child.destroy()
+    cache_file = look_geo.createNode("file", "cached_state")
+    set_parm(cache_file, "file", "")
+    create_copy_branch(
+        look_geo,
+        cache_file,
+        "agents",
+        "if (i@kind != 0) removepoint(0, @ptnum); else { @P.z = 0.22; f@pscale = 0.065; }",
+    )
+    create_copy_branch(
+        look_geo,
+        cache_file,
+        "resource",
+        "if (i@kind != 1 || f@resource < 0.22 || i@grid_x % 4 || i@grid_y % 4) removepoint(0, @ptnum); "
+        "else { @P.z = 0.015; f@pscale = fit(f@resource, 0.22, 1.0, 0.018, 0.055); }",
+    )
+    create_copy_branch(
+        look_geo,
+        cache_file,
+        "memory",
+        "if (i@kind != 1 || f@inhibition < 0.025 || i@grid_x % 3 || i@grid_y % 3) removepoint(0, @ptnum); "
+        "else { @P.z = 0.055; f@pscale = fit(f@inhibition, 0.025, 1.0, 0.015, 0.05); }",
+    )
+    artifact = look_geo.createNode("python", "artifact_geometry")
+    artifact_code = f'''node = hou.pwd()
+geo = node.geometry()
+import math
+hub = {system["relic"]["relic_hub_radius"]!r}
+length = {system["relic"]["relic_prong_length"]!r}
+power = {system["relic"]["relic_prong_power"]!r}
+orientation = {system["relic"]["relic_orientation"]!r}
+segments = 120
+top = []
+bottom = []
+for index in range(segments):
+    angle = math.tau * index / segments
+    prong = max(0.0, math.cos(3.0 * (angle - orientation)))
+    radius = hub + length * prong ** power
+    for collection, z in ((top, 0.22), (bottom, -0.18)):
+        point = geo.createPoint()
+        point.setPosition((math.cos(angle) * radius, math.sin(angle) * radius, z))
+        collection.append(point)
+top_center = geo.createPoint()
+top_center.setPosition((0, 0, 0.22))
+bottom_center = geo.createPoint()
+bottom_center.setPosition((0, 0, -0.18))
+for index in range(segments):
+    next_index = (index + 1) % segments
+    top_face = geo.createPolygon()
+    top_face.setIsClosed(True)
+    for point in (top_center, top[index], top[next_index]):
+        top_face.addVertex(point)
+    bottom_face = geo.createPolygon()
+    bottom_face.setIsClosed(True)
+    for point in (bottom_center, bottom[next_index], bottom[index]):
+        bottom_face.addVertex(point)
+    side = geo.createPolygon()
+    side.setIsClosed(True)
+    for point in (bottom[index], bottom[next_index], top[next_index], top[index]):
+        side.addVertex(point)
+'''
+    set_parm(artifact, "python", artifact_code)
+    artifact_out = look_geo.createNode("null", "OUT_ARTIFACT")
+    artifact_out.setInput(0, artifact)
+    ground = look_geo.createNode("grid", "ground_geometry")
+    set_parm(ground, "orient", "xy")
+    set_parm(ground, "sizex", system["domain"]["domain_width"] * 1.08)
+    set_parm(ground, "sizey", system["domain"]["domain_height"] * 1.04)
+    ground_transform = look_geo.createNode("xform", "ground_depth")
+    ground_transform.setInput(0, ground)
+    set_parm(ground_transform, "tz", -0.22)
+    ground_out = look_geo.createNode("null", "OUT_GROUND")
+    ground_out.setInput(0, ground_transform)
+    look_geo.layoutChildren()
 
     stage = hou.node("/stage")
     if stage is None:
@@ -102,6 +215,60 @@ def build(config_path: Path, hip_path: Path, image_path: Path) -> None:
     set_parm(render, "renderer", "Karma CPU")
     set_parm(render, "soho_foreground", True)
     set_parm(render, "mkpath", True)
+
+    previous = None
+    imports = {}
+    for name in ("ground", "resource", "memory", "artifact", "agents"):
+        sop_import = stage.createNode("sopimport", f"import_{name}")
+        if previous is not None:
+            sop_import.setInput(0, previous)
+        set_parm(sop_import, "soppath", f"/obj/field_study_geometry/OUT_{name.upper()}")
+        set_parm(sop_import, "primpath", f"/world/{name}")
+        set_parm(sop_import, "pathprefix", f"/world/{name}")
+        imports[name] = sop_import
+        previous = sop_import
+    material_library = stage.createNode("materiallibrary", "field_study_materials")
+    material_library.setInput(0, previous)
+    materials = {
+        "artifact": create_material(material_library, "artifact", (0.012, 0.018, 0.022), 0.3),
+        "agents": create_material(material_library, "agents", (0.72, 0.92, 0.86), 0.42, 1.4),
+        "resource": create_material(material_library, "resource", (0.035, 0.28, 0.52), 0.5, 1.8),
+        "memory": create_material(material_library, "memory", (0.48, 0.12, 0.045), 0.55, 1.25),
+        "ground": create_material(material_library, "ground", (0.008, 0.014, 0.02), 0.72),
+    }
+    material_library.layoutChildren()
+    assign = stage.createNode("assignmaterial", "field_study_assignments")
+    assign.setInput(0, material_library)
+    set_parm(assign, "nummaterials", len(materials))
+    for index, name in enumerate(materials, 1):
+        set_parm(assign, f"primpattern{index}", f"/world/{name} /world/{name}/**")
+        set_parm(assign, f"matspecpath{index}", f"/materials/{name}")
+
+    field_camera = stage.createNode("camera", "field_study_camera")
+    field_camera.setInput(0, assign)
+    set_parm(field_camera, "primpath", "/cameras/field_study")
+    set_parm(field_camera, "tz", 23.0)
+    set_parm(field_camera, "aspectratiox", render_config["width"])
+    set_parm(field_camera, "aspectratioy", render_config["height"])
+    key = stage.createNode("distantlight::2.0", "field_study_key")
+    key.setInput(0, field_camera)
+    set_parm(key, "primpath", "/lights/field_study_key")
+    set_parm(key, "rx", -28.0)
+    set_parm(key, "ry", 32.0)
+    set_parm(key, "xn__inputsintensity_i0a", 1.4)
+    set_parm(key, "xn__inputsangle_zta", 7.0)
+    look_settings = stage.createNode("karmarendersettings", "field_study_settings")
+    look_settings.setInput(0, key)
+    set_parm(look_settings, "camera", "/cameras/field_study")
+    set_parm(look_settings, "picture", image_path.with_name("field-study.$F4.png").as_posix())
+    set_parm(look_settings, "res_mode", "autoheight")
+    set_parm(look_settings, "resolutionx", render_config["width"])
+    set_parm(look_settings, "samplesperpixel", 8)
+    look_render = stage.createNode("usdrender_rop", "field_study_render")
+    look_render.setInput(0, look_settings)
+    set_parm(look_render, "renderer", "Karma CPU")
+    set_parm(look_render, "soho_foreground", True)
+    set_parm(look_render, "mkpath", True)
 
     stage.layoutChildren()
     hip_path.parent.mkdir(parents=True, exist_ok=True)

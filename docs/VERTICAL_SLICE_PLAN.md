@@ -133,6 +133,8 @@ explain at least resource attraction and memory avoidance.
 
 ## Milestone 5 — Karma looks and camera
 
+**Status: complete (2026-08-10).**
+
 ### Work
 
 - Implement initial `field-study` look.
@@ -206,8 +208,8 @@ interrupted run resumes correctly.
 
 ## Next-session starting point
 
-Milestones 1 through 4 are complete. Begin Milestone 5 with the `field-study` Karma
-look, `static-observation` camera, organism palette, and semantic instrument accents.
+Milestones 1 through 5 are complete. Begin Milestone 6 with subprocess-driven PNG
+sequence rendering, frame validation, and missing-frame-only resume behavior.
 
 Verified 2026-08-10:
 
@@ -229,6 +231,10 @@ Verified 2026-08-10:
 - Probe 002 recomposes the field as a 9 x 16 domain sampled at 72 x 128, with native
   1080 x 1920 output and portrait-aware review media. Probe 001 remains the preserved
   landscape baseline.
+- The `field-study` Karma look imports cached simulation geometry into Solaris, uses
+  MaterialX charcoal, pale-organism, cyan-resource, and amber-memory materials, and
+  renders through the portrait `static-observation` camera with depth of field off.
+  Frames 1, 120, and 240 plus the instrument still form the accepted look-development set.
 
 Useful orientation files:
 

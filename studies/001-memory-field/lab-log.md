@@ -87,3 +87,19 @@ artifact contacts to 253 without trapping agents; 45 approaches reached all peri
 sectors and near-artifact circulation remained balanced at 46.1 percent clockwise.
 
 **Status:** Probe 004 accepted as the refined artifact silhouette for Milestone 5.
+
+## 2026-08-10 — Field-study look
+
+**Shared proposal:** Translate the accepted cache into a restrained Karma field-study
+language: a near-black mineral ground, charcoal dimensional artifact, pale luminous
+agents, cyan resource samples, amber inhibitory-memory samples, and soft trajectory-like
+shadows. Use the fixed portrait static-observation camera and keep depth of field off so
+the instrument layer remains legible.
+
+**Look-development observation:** The initial MaterialX binding pass exposed a gray
+fallback render and invalid concave-cap triangulation. Moving the shaders inside the
+Solaris Material Library and explicitly triangulating the artifact caps restored the
+semantic palette and clean silhouette. Frames 1, 120, and 240 remain readable at social
+scale and show a coherent transition from initial field to accumulated memory.
+
+**Status:** Milestone 5 field-study look accepted for sequence rendering.

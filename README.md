@@ -54,7 +54,8 @@ fresh `hython` process, reopens it in a second process, and renders and validate
 single diagnostic frame. A repeated run reuses checksum-verified build and probe
 artifacts. It then runs deterministic simulation gates and writes the full cache,
 metrics, contact sheet, instrument frame, and lightweight preview beneath the job's
-`simulation/` and `review/` directories.
+`simulation/` and `review/` directories. The accepted `field-study` look also writes
+Karma stills for the first, midpoint, and final frames beneath `lookdev/`.
 
 `doctor` searches `HOUDINI_BIN` and `FFMPEG_BIN`, then `PATH`, standard SideFX
 installation directories, and WinGet FFmpeg packages on Windows. It probes Houdini

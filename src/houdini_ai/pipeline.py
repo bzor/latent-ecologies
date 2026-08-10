@@ -206,3 +206,61 @@ def run_simulation(job: Job) -> str:
     except Exception as exc:
         set_stage_state(job, "simulate", "failed", error=str(exc), log="logs/simulate-*.log")
         raise
+
+
+def run_lookdev(job: Job) -> str:
+    look_dir = job.directory / "lookdev"
+    receipt_path = look_dir / "receipt.json"
+    frames = (
+        int(job.effective_config["study"]["simulation"]["frame_start"]),
+        round(
+            (
+                job.effective_config["study"]["simulation"]["frame_start"]
+                + job.effective_config["study"]["simulation"]["frame_end"]
+            )
+            / 2
+        ),
+        int(job.effective_config["study"]["simulation"]["frame_end"]),
+    )
+    images = [look_dir / f"field-study.{frame:04d}.png" for frame in frames]
+    try:
+        receipt = json.loads(receipt_path.read_text(encoding="utf-8"))
+    except (OSError, json.JSONDecodeError):
+        receipt = {}
+    if receipt.get("input_digest") == job.input_digest and all(
+        image.is_file() and receipt.get("images", {}).get(image.name) == sha256_path(image) for image in images
+    ):
+        for image in images:
+            validate_diagnostic_png(image, expected_size=_expected_size(job))
+        return "lookdev: complete (reused verified stills)"
+
+    hython = next(tool for tool in discover_tools() if tool.name == "hython").path
+    if hython is None:
+        raise RuntimeError("hython is required; run houdini-ai doctor for setup guidance")
+    look_dir.mkdir(parents=True, exist_ok=True)
+    hip_path = job.directory / "artifacts" / "scene" / "memory-field.hiplc"
+    script = job.root / "houdini" / "render_field_study.py"
+    env = dict(os.environ)
+    env["HDAI_PROJECT_ROOT"] = str(job.root)
+    env["HOUDINI_TEMP_DIR"] = str(job.directory / "temp")
+    for frame, image in zip(frames, images):
+        cache = job.directory / "simulation" / "cache" / f"state.{frame:04d}.bgeo.sc"
+        command = (str(hython), str(script), str(hip_path), str(cache), str(image), str(frame))
+        _run_logged(command, job.directory / "logs" / f"lookdev-{frame:04d}.log", env, timeout=300)
+        validate_diagnostic_png(image, expected_size=_expected_size(job))
+    instrument_source = job.directory / "review" / "instrument-frame.png"
+    instrument_target = look_dir / "instrument-frame.png"
+    if instrument_source.is_file():
+        instrument_target.write_bytes(instrument_source.read_bytes())
+    receipt = {
+        "receipt_version": 1,
+        "input_digest": job.input_digest,
+        "frames": list(frames),
+        "images": {image.name: sha256_path(image) for image in images},
+        "instrument": instrument_target.name if instrument_target.is_file() else "unavailable",
+        "depth_of_field": False,
+        "camera": "static-observation",
+        "look": "field-study",
+    }
+    receipt_path.write_text(json.dumps(receipt, indent=2, sort_keys=True) + "\n", encoding="utf-8")
+    return "lookdev: complete"
