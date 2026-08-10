@@ -45,9 +45,11 @@ python -m unittest discover -s tests
 python -m ruff check src tests houdini/diagnostic_scene.py
 ```
 
-`doctor` searches `HOUDINI_BIN` and `FFMPEG_BIN`, then `PATH`, then standard
-SideFX installation directories on Windows. It probes Houdini licensing and LOP/Karma
-availability and exits nonzero when a required tool is missing or unusable. Either
+`doctor` searches `HOUDINI_BIN` and `FFMPEG_BIN`, then `PATH`, standard SideFX
+installation directories, and WinGet FFmpeg packages on Windows. It probes Houdini
+licensing and LOP/Karma availability and exits nonzero when a required tool is missing
+or unusable. When SideFX's `hgpuinfo` is available, it summarizes CPU and GPU OpenCL
+render devices without making optional accelerators a hard requirement. Either
 environment variable may point to an executable or its containing directory; copy
 `env.example` to `.env` as a reference, but load those values through your shell or
 environment manager before invoking the CLI.

@@ -73,9 +73,23 @@ def discover_tools(environ: Mapping[str, str] | None = None) -> list[Tool]:
             if configured:
                 return Tool(name, configured, "FFMPEG_BIN", required)
         found = shutil.which(executable) or shutil.which(name)
-        return Tool(name, Path(found).resolve() if found else None, "PATH" if found else "not found", required)
+        if found:
+            return Tool(name, Path(found).resolve(), "PATH", required)
+        if os.name == "nt" and environ is None:
+            local_app_data = os.environ.get("LOCALAPPDATA")
+            packages = Path(local_app_data) / "Microsoft" / "WinGet" / "Packages" if local_app_data else None
+            if packages and packages.is_dir():
+                matches = sorted(packages.glob(f"Gyan.FFmpeg_*/*/bin/{executable}"), reverse=True)
+                if matches:
+                    return Tool(name, matches[0].resolve(), "WinGet package", required)
+        return Tool(name, None, "not found", required)
 
-    return [find_houdini("hython"), find_houdini("hbatch"), find_media("ffmpeg"), find_media("ffprobe")]
+    tools = [find_houdini("hython"), find_houdini("hbatch"), find_media("ffmpeg"), find_media("ffprobe")]
+    hython = tools[0]
+    hgpuinfo_name = "hgpuinfo.exe" if os.name == "nt" else "hgpuinfo"
+    hgpuinfo = hython.path.with_name(hgpuinfo_name) if hython.path else None
+    tools.append(Tool("hgpuinfo", hgpuinfo if hgpuinfo and hgpuinfo.is_file() else None, "Houdini bin", False))
+    return tools
 
 
 def run_probe(command: Sequence[str], timeout: int = 60) -> tuple[bool, str]:
@@ -132,6 +146,35 @@ def inspect_workstation(environ: Mapping[str, str] | None = None) -> tuple[list[
         lines.extend(f"  {line}" for line in output.splitlines()[-4:])
         if not ok:
             errors.append("hbatch was found but could not initialize Houdini")
+
+    hgpuinfo = by_name["hgpuinfo"]
+    if hgpuinfo.path:
+        ok, output = _probe_tool(hgpuinfo, ("-c", "-l"), timeout=30)
+        lines.append("render devices: " + ("OK" if ok else "UNAVAILABLE"))
+        if ok:
+            devices: list[tuple[str, str, str]] = []
+            current: dict[str, str] = {}
+            for line in output.splitlines():
+                match = re.match(r"(?:\[\*HFS )?(OpenCL Device|OpenCL Type|Global Memory)\*?\]?\s+(.+)", line.strip())
+                if not match:
+                    continue
+                key, value = match.groups()
+                if key == "OpenCL Device" and current.get("OpenCL Device"):
+                    devices.append((current["OpenCL Type"], current["OpenCL Device"], current.get("Global Memory", "unknown memory")))
+                    current = {}
+                current[key] = value.strip()
+            if current.get("OpenCL Device") and current.get("OpenCL Type"):
+                devices.append((current["OpenCL Type"], current["OpenCL Device"], current.get("Global Memory", "unknown memory")))
+            devices = list(dict.fromkeys(devices))
+            if devices:
+                for device_type, name, memory in devices:
+                    lines.append(f"  {device_type}: {name} ({memory})")
+            else:
+                lines.append("  no OpenCL devices reported")
+        else:
+            lines.append("  hgpuinfo could not enumerate devices; Karma CPU rendering may still be available")
+    else:
+        lines.append("render devices: hgpuinfo not found; Karma CPU rendering may still be available")
 
     for name in ("ffmpeg", "ffprobe"):
         tool = by_name[name]

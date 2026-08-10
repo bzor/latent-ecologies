@@ -44,6 +44,8 @@ anything externally.
 
 ## Milestone 1 — Workstation discovery
 
+**Status: complete (2026-08-10).**
+
 ### Work
 
 - Locate installed Houdini versions and `hython`/`hbatch` executables.
@@ -197,8 +199,8 @@ interrupted run resumes correctly.
 
 ## Next-session starting point
 
-Finish Milestone 1 by adding render-device details to the doctor output, then begin
-Milestone 2. The headless Karma diagnostic gate has been verified successfully.
+Milestone 1 is complete. Begin Milestone 2 with the deterministic job identifier,
+repository-root path resolution, effective configuration snapshot, and `plan` command.
 
 Verified 2026-08-10:
 
@@ -209,7 +211,7 @@ Verified 2026-08-10:
 - FFmpeg 9.0 and FFprobe are installed through WinGet and pass executable probes.
 - A headless Karma CPU render succeeds through `hython`; its generated HIP and validated
   320 x 180 RGBA PNG are written under `work/diagnostics/`.
-- A render-device inventory remains to be added to the diagnostic output.
+- `hgpuinfo` inventory reports the available CPU and GPU OpenCL render devices.
 
 Useful orientation files:
 
