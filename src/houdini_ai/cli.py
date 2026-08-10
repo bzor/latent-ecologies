@@ -10,6 +10,7 @@ from jsonschema.exceptions import SchemaError
 
 from .doctor import inspect_workstation
 from .jobs import job_status, load_job, prepare_job, set_stage_state
+from .pipeline import run_milestone3
 
 
 ROOT = Path(__file__).resolve().parents[2]
@@ -117,7 +118,13 @@ def command_run(args: argparse.Namespace) -> int:
     set_stage_state(job, "validate", "complete", summary="study manifest passed schema and semantic validation")
     print(f"job: {job.job_id}")
     print("validate: complete")
-    print("remaining stages: pending (their implementations begin in Milestone 3)")
+    try:
+        for message in run_milestone3(job):
+            print(message)
+    except RuntimeError as exc:
+        print(f"ERROR {exc}")
+        return 1
+    print("remaining stages: pending (their implementations begin in Milestone 4)")
     return 0
 
 

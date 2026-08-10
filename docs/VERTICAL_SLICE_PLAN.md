@@ -80,6 +80,8 @@ artifacts will be written, and why any prior artifact is reusable or stale.
 
 ## Milestone 3 — Generated Houdini smoke scene
 
+**Status: complete (2026-08-10).**
+
 ### Work
 
 - Create a versioned Python scene builder executed through `hython`.
@@ -201,8 +203,8 @@ interrupted run resumes correctly.
 
 ## Next-session starting point
 
-Milestones 1 and 2 are complete. Begin Milestone 3 with the versioned Houdini scene
-builder, generated job-local HIP, and single diagnostic-frame gate.
+Milestones 1 through 3 are complete. Begin Milestone 4 with the deterministic
+Memory Field rule system, instrumentation attributes, and simulation metrics.
 
 Verified 2026-08-10:
 
@@ -214,6 +216,9 @@ Verified 2026-08-10:
 - A headless Karma CPU render succeeds through `hython`; its generated HIP and validated
   320 x 180 RGBA PNG are written under `work/diagnostics/`.
 - `hgpuinfo` inventory reports the available CPU and GPU OpenCL render devices.
+- The versioned Study 001 builder creates a job-local Solaris/Karma HIP. A separate
+  `hython` process reopens it and renders a validated 1280 x 720 RGBA diagnostic PNG;
+  reruns reuse checksum-verified HIP and PNG artifacts.
 
 Useful orientation files:
 

@@ -48,6 +48,12 @@ python -m unittest discover -s tests
 python -m ruff check src tests houdini/diagnostic_scene.py
 ```
 
+`plan` creates a deterministic workspace and stage receipts without launching
+Houdini. `run` validates the manifest, generates a job-local Solaris/Karma HIP in a
+fresh `hython` process, reopens it in a second process, and renders and validates the
+single diagnostic frame. A repeated run reuses checksum-verified build and probe
+artifacts.
+
 `doctor` searches `HOUDINI_BIN` and `FFMPEG_BIN`, then `PATH`, standard SideFX
 installation directories, and WinGet FFmpeg packages on Windows. It probes Houdini
 licensing and LOP/Karma availability and exits nonzero when a required tool is missing
