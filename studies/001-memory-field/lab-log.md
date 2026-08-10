@@ -70,3 +70,20 @@ more legible tip and hub interactions while circulation remained balanced at 46.
 percent clockwise near the artifact.
 
 **Status:** Probe 003 accepted as the artifact silhouette for Milestone 5.
+
+## 2026-08-10 — Probe 004: slender artifact
+
+**Artist direction:** Make the three prongs thinner and longer, and reduce the size
+of the central circular hub.
+
+**Shared proposal:** Reduce the hub radius from 0.72 to 0.52 field units, extend each
+prong from 1.38 to 1.75 units, and increase the angular falloff power from 5 to 7.
+This preserves the established orientation and interaction model while producing a
+lighter, more refined silhouette with clearer separation between hub and arms.
+
+**Probe 004 observation:** The revised proportions produce a lighter emblem with
+clearly longer, slimmer arms and a modest circular joint. The added arm length raised
+artifact contacts to 253 without trapping agents; 45 approaches reached all perimeter
+sectors and near-artifact circulation remained balanced at 46.1 percent clockwise.
+
+**Status:** Probe 004 accepted as the refined artifact silhouette for Milestone 5.
