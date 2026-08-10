@@ -4,6 +4,7 @@ from __future__ import annotations
 
 import argparse
 import json
+import os
 from pathlib import Path
 
 import hou
@@ -16,10 +17,22 @@ def set_parm(node: hou.Node, name: str, value: object) -> None:
     parm.set(value)
 
 
+def add_spare_parms(node: hou.Node, values: dict[str, float | int]) -> None:
+    group = node.parmTemplateGroup()
+    for name, value in values.items():
+        if isinstance(value, int):
+            template = hou.IntParmTemplate(name, name.replace("_", " ").title(), 1, default_value=(value,))
+        else:
+            template = hou.FloatParmTemplate(name, name.replace("_", " ").title(), 1, default_value=(value,))
+        group.append(template)
+    node.setParmTemplateGroup(group)
+
+
 def build(config_path: Path, hip_path: Path, image_path: Path) -> None:
     effective = json.loads(config_path.read_text(encoding="utf-8"))
     study = effective["study"]
     simulation = study["simulation"]
+    system = simulation["rule_genome"]["system"]
     render_config = study["render"]
 
     hou.hipFile.clear(suppress_save_prompt=True)
@@ -27,6 +40,27 @@ def build(config_path: Path, hip_path: Path, image_path: Path) -> None:
     hou.playbar.setFrameRange(simulation["frame_start"], simulation["frame_end"])
     hou.playbar.setPlaybackRange(simulation["frame_start"], simulation["frame_end"])
     hou.setFrame(simulation["frame_start"])
+
+    root = Path(os.environ.get("HDAI_PROJECT_ROOT", Path.cwd())).resolve()
+    obj = hou.node("/obj")
+    simulation_geo = obj.createNode("geo", "memory_field_simulation")
+    for child in simulation_geo.children():
+        child.destroy()
+    state_file = simulation_geo.createNode("file", "previous_state")
+    set_parm(state_file, "file", "")
+    agent_update = simulation_geo.createNode("attribwrangle", "update_agents")
+    agent_update.setInput(0, state_file)
+    set_parm(agent_update, "snippet", (root / "houdini" / "vex" / "memory_field_agents.vfl").read_text())
+    add_spare_parms(agent_update, {"fps": simulation["fps"], **system["agent"], **system["domain"], **system["relic"]})
+    field_update = simulation_geo.createNode("attribwrangle", "update_fields")
+    field_update.setInput(0, agent_update)
+    set_parm(field_update, "snippet", (root / "houdini" / "vex" / "memory_field_fields.vfl").read_text())
+    add_spare_parms(field_update, {"fps": simulation["fps"], **system["field"]})
+    output = simulation_geo.createNode("null", "OUT_STATE")
+    output.setInput(0, field_update)
+    output.setDisplayFlag(True)
+    output.setRenderFlag(True)
+    simulation_geo.layoutChildren()
 
     stage = hou.node("/stage")
     if stage is None:

@@ -1,0 +1,105 @@
+// Memory Field agent update. Field points and agents share one geometry stream.
+if (i@kind != 0)
+    return;
+
+float dt = 1.0 / chf("fps");
+float sense = chf("sense_radius");
+vector resource_sum = 0;
+vector inhibition_sum = 0;
+vector occupancy_sum = 0;
+float resource_weight = 0;
+float inhibition_weight = 0;
+int occupancy_count = 0;
+
+int nearby[] = nearpoints(0, @P, sense, 96);
+foreach (int point_number; nearby)
+{
+    int kind = point(0, "kind", point_number);
+    vector sample_position = point(0, "P", point_number);
+    vector offset = sample_position - @P;
+    float distance_weight = max(0.0, 1.0 - length(offset) / sense);
+    if (kind == 1)
+    {
+        float resource = point(0, "resource", point_number);
+        float inhibition = point(0, "inhibition", point_number);
+        resource_sum += offset * resource * distance_weight;
+        inhibition_sum += offset * inhibition * distance_weight;
+        resource_weight += resource * distance_weight;
+        inhibition_weight += inhibition * distance_weight;
+    }
+    else if (kind == 0 && point_number != @ptnum)
+    {
+        occupancy_sum -= normalize(offset + set(1e-6, 0, 0)) * distance_weight;
+        occupancy_count++;
+    }
+}
+
+v@resource_steer = resource_weight > 1e-6 ? normalize(resource_sum) : 0;
+v@inhibition_steer = inhibition_weight > 1e-6 ? -normalize(inhibition_sum) : 0;
+v@occupancy_steer = occupancy_count > 0 ? normalize(occupancy_sum) : 0;
+f@local_resource = resource_weight / max(1, len(nearby));
+f@local_inhibition = inhibition_weight / max(1, len(nearby));
+
+float angle = atan2(@P.y, @P.x);
+float relic_radius = chf("relic_radius") *
+    (1.0 + chf("relic_facets") * cos(chf("relic_sides") * angle + chf("relic_rotation")));
+float radial_distance = length(set(@P.x, @P.y, 0));
+f@relic_distance = radial_distance - relic_radius;
+vector relic_normal = normalize(set(@P.x, @P.y, 0) + set(1e-6, 0, 0));
+v@relic_normal = relic_normal;
+v@relic_tangent = i@orbit_direction >= 0 ? set(-relic_normal.y, relic_normal.x, 0) :
+    set(relic_normal.y, -relic_normal.x, 0);
+v@relic_avoidance = f@relic_distance < chf("relic_avoid_distance") ?
+    relic_normal * (1.0 - max(0, f@relic_distance) / chf("relic_avoid_distance")) : 0;
+v@relic_resource_attraction = f@relic_distance < chf("relic_attract_distance") && f@relic_distance > 0 ?
+    -relic_normal * (1.0 - f@relic_distance / chf("relic_attract_distance")) : 0;
+
+vector boundary = 0;
+float half_width = chf("domain_width") * 0.5;
+float half_height = chf("domain_height") * 0.5;
+float margin = chf("boundary_margin");
+if (@P.x > half_width - margin) boundary.x -= 1.0 - (half_width - @P.x) / margin;
+if (@P.x < -half_width + margin) boundary.x += 1.0 - (half_width + @P.x) / margin;
+if (@P.y > half_height - margin) boundary.y -= 1.0 - (half_height - @P.y) / margin;
+if (@P.y < -half_height + margin) boundary.y += 1.0 - (half_height + @P.y) / margin;
+v@boundary_steer = boundary;
+
+vector acceleration =
+    v@resource_steer * chf("resource_weight") +
+    v@inhibition_steer * chf("inhibition_weight") +
+    v@occupancy_steer * chf("occupancy_weight") +
+    v@relic_avoidance * chf("relic_avoid_weight") +
+    v@relic_tangent * length(v@relic_avoidance) * chf("relic_tangent_weight") +
+    v@relic_resource_attraction * chf("relic_attract_weight") +
+    v@boundary_steer * chf("boundary_weight");
+
+v@v += acceleration * dt;
+float speed = length(v@v);
+if (speed > chf("max_speed"))
+    v@v = normalize(v@v) * chf("max_speed");
+if (speed < chf("min_speed"))
+    v@v = normalize(v@v + set(1e-6, 0, 0)) * chf("min_speed");
+
+vector candidate = @P + v@v * dt;
+float candidate_angle = atan2(candidate.y, candidate.x);
+float candidate_radius = chf("relic_radius") *
+    (1.0 + chf("relic_facets") * cos(chf("relic_sides") * candidate_angle + chf("relic_rotation")));
+if (length(set(candidate.x, candidate.y, 0)) <= candidate_radius)
+{
+    candidate = normalize(candidate + set(1e-6, 0, 0)) * (candidate_radius + 0.02);
+    v@v = reflect(v@v, -normalize(candidate));
+    i@boundary_contact = 1;
+}
+else
+    i@boundary_contact = 0;
+if (abs(candidate.x) > half_width || abs(candidate.y) > half_height)
+    i@boundary_contact = 1;
+candidate.x = clamp(candidate.x, -half_width, half_width);
+candidate.y = clamp(candidate.y, -half_height, half_height);
+@P = candidate;
+
+f@speed = length(v@v);
+f@resource_intake += f@local_resource * chf("consume_rate") * dt;
+f@deposit_strength = clamp(f@speed / chf("max_speed"), 0, 1);
+i@age += 1;
+i@state = f@speed < chf("dormant_speed") ? 1 : 0;

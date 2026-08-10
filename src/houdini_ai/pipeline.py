@@ -1,6 +1,7 @@
 from __future__ import annotations
 
 import hashlib
+import json
 import os
 import subprocess
 from pathlib import Path
@@ -9,6 +10,7 @@ from typing import Sequence
 from .diagnostic import validate_diagnostic_png
 from .doctor import discover_tools
 from .jobs import Job, job_status, set_stage_state
+from .simulation import create_review_bundle, sha256_path, validate_metrics
 
 
 def _sha256(path: Path) -> str:
@@ -113,3 +115,94 @@ def run_milestone3(job: Job) -> list[str]:
 def _expected_size(job: Job) -> tuple[int, int]:
     render = job.effective_config["study"]["render"]
     return int(render["width"]), int(render["height"])
+
+
+def _cache_digest(cache_dir: Path) -> str:
+    digest = hashlib.sha256()
+    for path in sorted(cache_dir.glob("state.*.bgeo.sc")):
+        digest.update(path.name.encode())
+        digest.update(sha256_path(path).encode())
+    return digest.hexdigest()
+
+
+def run_simulation(job: Job) -> str:
+    receipt = next(item for item in job_status(job) if item["stage"] == "simulate")
+    simulation = job.effective_config["study"]["simulation"]
+    expected_count = simulation["frame_end"] - simulation["frame_start"] + 1
+    metrics_path = job.directory / "simulation" / "metrics.json"
+    cache_dir = job.directory / "simulation" / "cache"
+    cache_files = list(cache_dir.glob("state.*.bgeo.sc"))
+    if (
+        receipt.get("state") == "complete"
+        and receipt.get("input_digest") == job.input_digest
+        and metrics_path.is_file()
+        and receipt.get("metrics_sha256") == sha256_path(metrics_path)
+        and len(cache_files) == expected_count
+        and receipt.get("cache_sha256") == _cache_digest(cache_dir)
+    ):
+        validate_metrics(metrics_path, job.effective_config)
+        create_review_bundle(job, metrics_path)
+        return "simulate: complete (reused verified cache)"
+
+    hython = next(tool for tool in discover_tools() if tool.name == "hython").path
+    if hython is None:
+        raise RuntimeError("hython is required; run houdini-ai doctor for setup guidance")
+    script = job.root / "houdini" / "simulate_memory_field.py"
+    hip_path = job.directory / "artifacts" / "scene" / "memory-field.hiplc"
+    config_path = job.directory / "effective-config.json"
+    env = dict(os.environ)
+    env["HDAI_PROJECT_ROOT"] = str(job.root)
+    env["HOUDINI_TEMP_DIR"] = str(job.directory / "temp")
+    simulation_dir = job.directory / "simulation"
+    simulation_dir.mkdir(parents=True, exist_ok=True)
+    set_stage_state(job, "simulate", "running")
+
+    def invoke(label: str, config: Path, output_cache: Path, output_metrics: Path, frame_end: int | None) -> None:
+        command = [str(hython), str(script), str(hip_path), str(config), str(output_cache), str(output_metrics)]
+        if frame_end is not None:
+            command.extend(("--frame-end", str(frame_end)))
+        _run_logged(command, job.directory / "logs" / f"simulate-{label}.log", env, timeout=300)
+
+    try:
+        smoke_end = min(simulation["frame_start"] + 23, simulation["frame_end"])
+        smoke_a = simulation_dir / "smoke-a.json"
+        smoke_b = simulation_dir / "smoke-b.json"
+        invoke("smoke-a", config_path, simulation_dir / "smoke-a-cache", smoke_a, smoke_end)
+        invoke("smoke-b", config_path, simulation_dir / "smoke-b-cache", smoke_b, smoke_end)
+        validate_metrics(smoke_a, job.effective_config, smoke_end)
+        validate_metrics(smoke_b, job.effective_config, smoke_end)
+        if sha256_path(smoke_a) != sha256_path(smoke_b):
+            raise RuntimeError("same-seed smoke simulations produced different metrics")
+
+        variant = json.loads(json.dumps(job.effective_config))
+        variant["study"]["seed"] += 1
+        variant_path = simulation_dir / "changed-seed-config.json"
+        variant_path.write_text(json.dumps(variant, indent=2, sort_keys=True) + "\n", encoding="utf-8")
+        variant_metrics = simulation_dir / "changed-seed.json"
+        invoke("changed-seed", variant_path, simulation_dir / "changed-seed-cache", variant_metrics, smoke_end)
+        validate_metrics(variant_metrics, variant, smoke_end)
+        if sha256_path(smoke_a) == sha256_path(variant_metrics):
+            raise RuntimeError("changed seed did not produce a distinct simulation")
+
+        invoke("full", config_path, cache_dir, metrics_path, None)
+        summary = validate_metrics(metrics_path, job.effective_config)
+        if len(list(cache_dir.glob("state.*.bgeo.sc"))) != expected_count:
+            raise RuntimeError("full simulation cache is incomplete")
+        review = create_review_bundle(job, metrics_path)
+        set_stage_state(
+            job,
+            "simulate",
+            "complete",
+            metrics="simulation/metrics.json",
+            metrics_sha256=sha256_path(metrics_path),
+            cache="simulation/cache",
+            cache_sha256=_cache_digest(cache_dir),
+            smoke_deterministic=True,
+            changed_seed_distinct=True,
+            summary=summary,
+            review=review,
+        )
+        return "simulate: complete"
+    except Exception as exc:
+        set_stage_state(job, "simulate", "failed", error=str(exc), log="logs/simulate-*.log")
+        raise

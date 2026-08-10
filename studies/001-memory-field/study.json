@@ -14,7 +14,45 @@
       "fields": ["resource", "inhibition", "occupancy"],
       "neighborhoods": ["local-sensing", "collision"],
       "update_rules": ["sense", "steer", "consume", "deposit", "decay"],
-      "mutations": []
+      "mutations": [],
+      "system": {
+        "agent_count": 64,
+        "grid_width": 128,
+        "grid_height": 72,
+        "domain": {
+          "domain_width": 16.0,
+          "domain_height": 9.0,
+          "boundary_margin": 0.75,
+          "boundary_weight": 3.0
+        },
+        "agent": {
+          "sense_radius": 0.8,
+          "resource_weight": 1.4,
+          "inhibition_weight": 1.8,
+          "occupancy_weight": 0.75,
+          "relic_avoid_weight": 4.0,
+          "relic_tangent_weight": 1.4,
+          "relic_attract_weight": 0.7,
+          "max_speed": 1.25,
+          "min_speed": 0.2,
+          "consume_rate": 0.08,
+          "dormant_speed": 0.08
+        },
+        "field": {
+          "interaction_radius": 0.18,
+          "consume_rate": 0.12,
+          "deposit_rate": 0.28,
+          "memory_decay": 0.08
+        },
+        "relic": {
+          "relic_radius": 1.65,
+          "relic_facets": 0.11,
+          "relic_sides": 7,
+          "relic_rotation": 0.37,
+          "relic_avoid_distance": 0.7,
+          "relic_attract_distance": 1.8
+        }
+      }
     }
   },
   "presentation": {
@@ -37,4 +75,3 @@
     "outputs": ["archive-master", "website", "x-landscape", "preview-loop"]
   }
 }
-

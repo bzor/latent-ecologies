@@ -52,7 +52,9 @@ python -m ruff check src tests houdini/diagnostic_scene.py
 Houdini. `run` validates the manifest, generates a job-local Solaris/Karma HIP in a
 fresh `hython` process, reopens it in a second process, and renders and validates the
 single diagnostic frame. A repeated run reuses checksum-verified build and probe
-artifacts.
+artifacts. It then runs deterministic simulation gates and writes the full cache,
+metrics, contact sheet, instrument frame, and lightweight preview beneath the job's
+`simulation/` and `review/` directories.
 
 `doctor` searches `HOUDINI_BIN` and `FFMPEG_BIN`, then `PATH`, standard SideFX
 installation directories, and WinGet FFmpeg packages on Windows. It probes Houdini

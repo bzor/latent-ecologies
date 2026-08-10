@@ -1,0 +1,23 @@
+// Memory Field resource consumption, occupancy, and inhibitory memory update.
+if (i@kind != 1)
+    return;
+
+float dt = 1.0 / chf("fps");
+int nearby[] = nearpoints(0, @P, chf("interaction_radius"), 48);
+int agent_count = 0;
+float deposit = 0;
+foreach (int point_number; nearby)
+{
+    if (point(0, "kind", point_number) == 0)
+    {
+        agent_count++;
+        deposit += point(0, "deposit_strength", point_number);
+    }
+}
+i@occupancy = agent_count;
+f@resource = max(0, f@resource - agent_count * chf("consume_rate") * dt);
+f@inhibition = clamp(
+    f@inhibition * exp(-chf("memory_decay") * dt) + deposit * chf("deposit_rate") * dt,
+    0,
+    1
+);

@@ -97,6 +97,8 @@ expected resolution, frame number, and nonempty image content.
 
 ## Milestone 4 — Memory Field prototype
 
+**Status: complete (2026-08-10).**
+
 ### Minimal rule system
 
 - Agents sense a resource field.
@@ -203,8 +205,8 @@ interrupted run resumes correctly.
 
 ## Next-session starting point
 
-Milestones 1 through 3 are complete. Begin Milestone 4 with the deterministic
-Memory Field rule system, instrumentation attributes, and simulation metrics.
+Milestones 1 through 4 are complete. Begin Milestone 5 with the `field-study` Karma
+look, `static-observation` camera, organism palette, and semantic instrument accents.
 
 Verified 2026-08-10:
 
@@ -219,6 +221,10 @@ Verified 2026-08-10:
 - The versioned Study 001 builder creates a job-local Solaris/Karma HIP. A separate
   `hython` process reopens it and renders a validated 1280 x 720 RGBA diagnostic PNG;
   reruns reuse checksum-verified HIP and PNG artifacts.
+- Study 001 now caches a deterministic 64-agent, 128 x 72 field simulation with a
+  seeded seven-lobed relic, resource consumption, inhibitory memory, bounded motion,
+  instrumentation attributes, per-frame metrics, reproducibility gates, and an
+  automatically encoded local review bundle.
 
 Useful orientation files:
 
