@@ -82,7 +82,11 @@ def create_initial_geometry(config: dict[str, Any]) -> hou.Geometry:
             if distance <= 0:
                 resource = 0.0
             else:
-                halo = math.exp(-((distance - 0.55) ** 2) / 0.18) * 0.72
+                # Bias the halo into broad opposing sectors so portrait traffic
+                # develops a vertical rhythm without imposing a global flow force.
+                angle = math.atan2(y, x)
+                sector_bias = 0.62 + 0.38 * abs(math.sin(angle + relic["relic_rotation"] * 0.5))
+                halo = math.exp(-((distance - 0.55) ** 2) / 0.18) * 0.72 * sector_bias
                 patch_resource = sum(
                     amplitude * math.exp(-((x - px) ** 2 + (y - py) ** 2) / 3.2)
                     for px, py, amplitude in patches

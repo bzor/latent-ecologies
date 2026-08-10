@@ -80,6 +80,8 @@ def build(config_path: Path, hip_path: Path, image_path: Path) -> None:
     camera.setInput(0, sphere)
     set_parm(camera, "primpath", "/cameras/static_observation")
     set_parm(camera, "tz", 8.0)
+    set_parm(camera, "aspectratiox", render_config["width"])
+    set_parm(camera, "aspectratioy", render_config["height"])
 
     light = stage.createNode("distantlight::2.0", "field_study_light")
     light.setInput(0, camera)
@@ -91,12 +93,8 @@ def build(config_path: Path, hip_path: Path, image_path: Path) -> None:
     settings.setInput(0, light)
     set_parm(settings, "camera", "/cameras/static_observation")
     set_parm(settings, "picture", image_path.as_posix())
-    set_parm(settings, "res_mode", "manual")
+    set_parm(settings, "res_mode", "autoheight")
     set_parm(settings, "resolutionx", render_config["width"])
-    # Karma derives Y from X by default and locks the expression-backed channel.
-    # Unlock it so the versioned manifest remains authoritative for both axes.
-    settings.parm("resolutiony").lock(False)
-    set_parm(settings, "resolutiony", render_config["height"])
     set_parm(settings, "samplesperpixel", 4)
 
     render = stage.createNode("usdrender_rop", "diagnostic_render")

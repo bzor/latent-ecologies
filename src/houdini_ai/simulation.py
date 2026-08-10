@@ -155,20 +155,29 @@ def create_review_bundle(job: Job, metrics_path: Path) -> dict[str, str]:
     frames_dir = review_dir / "frames"
     frames_dir.mkdir(parents=True, exist_ok=True)
     field_records = [record for record in frames if "field" in record]
-    panels = [_render_frame(record, system, (320, 180), False) for record in field_records]
-    contact = Image.new("RGBA", (960, 360), (5, 7, 10, 255))
-    positions = ((0, 0), (320, 0), (640, 0), (160, 180), (480, 180))
+    render = job.effective_config["study"]["render"]
+    portrait = render["height"] > render["width"]
+    panel_size = (180, 320) if portrait else (320, 180)
+    panels = [_render_frame(record, system, panel_size, False) for record in field_records]
+    contact_size = (540, 640) if portrait else (960, 360)
+    contact = Image.new("RGBA", contact_size, (5, 7, 10, 255))
+    positions = (
+        ((0, 0), (180, 0), (360, 0), (90, 320), (270, 320))
+        if portrait
+        else ((0, 0), (320, 0), (640, 0), (160, 180), (480, 180))
+    )
     for panel, position in zip(panels, positions):
         contact.alpha_composite(panel, position)
     contact_path = review_dir / "contact-sheet.png"
     contact.save(contact_path)
     instrument_path = review_dir / "instrument-frame.png"
-    _render_frame(field_records[-1], system, (1280, 720), True).save(instrument_path)
+    _render_frame(field_records[-1], system, (render["width"], render["height"]), True).save(instrument_path)
 
+    preview_size = (360, 640) if portrait else (640, 360)
     for index, record in enumerate(frames[::3]):
         nearest = min(field_records, key=lambda candidate: abs(candidate["frame"] - record["frame"]))
         preview_record = {**record, "field": nearest["field"]}
-        _render_frame(preview_record, system, (640, 360), False).save(frames_dir / f"preview.{index:04d}.png")
+        _render_frame(preview_record, system, preview_size, False).save(frames_dir / f"preview.{index:04d}.png")
     ffmpeg = next(tool.path for tool in discover_tools() if tool.name == "ffmpeg")
     preview_path = review_dir / "preview.mp4"
     if ffmpeg:

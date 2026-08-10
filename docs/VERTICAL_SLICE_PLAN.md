@@ -23,7 +23,8 @@ containing:
 - A complete Karma PNG sequence.
 - An archival video master.
 - A website video and poster frame.
-- An X-compatible landscape video.
+- A 9:16 social master compatible with Instagram Reels, TikTok, and X.
+- A 4:5 feed derivative.
 - A lightweight preview loop.
 - A manifest snapshot, job receipt, render log, caption draft, and alt text.
 - A local field-note page or structured field-note payload.
@@ -165,7 +166,7 @@ rebuilding valid simulation caches or rerendering the complete sequence.
 ### Work
 
 - Encode an archival master from the PNG sequence.
-- Generate website, X landscape, and preview-loop variants from the master.
+- Generate 9:16 social, 4:5 feed, website, and preview-loop variants from the master.
 - Select or configure a poster frame.
 - Validate duration, dimensions, frame rate, and successful decoding.
 - Generate caption and alt-text drafts from study metadata.
@@ -221,10 +222,13 @@ Verified 2026-08-10:
 - The versioned Study 001 builder creates a job-local Solaris/Karma HIP. A separate
   `hython` process reopens it and renders a validated 1280 x 720 RGBA diagnostic PNG;
   reruns reuse checksum-verified HIP and PNG artifacts.
-- Study 001 now caches a deterministic 64-agent, 128 x 72 field simulation with a
+- Probe 001 established a deterministic 64-agent, 128 x 72 field simulation with a
   seeded seven-lobed relic, resource consumption, inhibitory memory, bounded motion,
   instrumentation attributes, per-frame metrics, reproducibility gates, and an
   automatically encoded local review bundle.
+- Probe 002 recomposes the field as a 9 x 16 domain sampled at 72 x 128, with native
+  1080 x 1920 output and portrait-aware review media. Probe 001 remains the preserved
+  landscape baseline.
 
 Useful orientation files:
 

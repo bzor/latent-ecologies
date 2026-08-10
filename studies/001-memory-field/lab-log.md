@@ -29,3 +29,24 @@ but stable, so its strong circulation is retained as the baseline rather than tu
 away before look development.
 
 **Status:** Milestone 4 prototype accepted as the baseline for visual development.
+
+## 2026-08-10 — Probe 002: portrait field
+
+**Artist direction:** Make portrait the primary social composition rather than
+cropping the landscape simulation after the fact.
+
+**Shared proposal:** Preserve Probe 001 as the landscape baseline, then recompose the
+executable field as a 9 x 16 domain with a 72 x 128 grid and 1080 x 1920 output. Keep
+the relic and dense circulation inside a central 4:5-safe region while allowing sparse
+agents and memory traces to occupy the upper and lower field. Bias the resource halo
+into broad opposing sectors to encourage vertical rhythm without adding an artificial
+global-flow force.
+
+**Probe 002 observation:** The portrait run retained stable, balanced circulation while
+using the tall field naturally. Sparse approaches and memory traces occupy the upper
+and lower regions, the relic remains dominant inside a central feed-safe crop, all 12
+perimeter sectors were visited, and clockwise near-relic motion remained balanced at
+46.1 percent rather than becoming a forced vertical stream.
+
+**Status:** Probe 002 accepted as the social master composition and basis for
+Milestone 5 look development.

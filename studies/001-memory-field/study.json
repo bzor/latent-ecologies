@@ -17,11 +17,11 @@
       "mutations": [],
       "system": {
         "agent_count": 64,
-        "grid_width": 128,
-        "grid_height": 72,
+        "grid_width": 72,
+        "grid_height": 128,
         "domain": {
-          "domain_width": 16.0,
-          "domain_height": 9.0,
+          "domain_width": 9.0,
+          "domain_height": 16.0,
           "boundary_margin": 0.75,
           "boundary_weight": 3.0
         },
@@ -65,13 +65,13 @@
   },
   "render": {
     "format": "png",
-    "width": 1280,
-    "height": 720,
+    "width": 1080,
+    "height": 1920,
     "output_pattern": "work/renders/001-memory-field/beauty.$F4.png"
   },
   "publication": {
     "state": "private",
     "approval_required": true,
-    "outputs": ["archive-master", "website", "x-landscape", "preview-loop"]
+    "outputs": ["archive-master", "social-vertical", "feed-portrait", "website", "preview-loop"]
   }
 }
