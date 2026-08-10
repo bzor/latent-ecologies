@@ -223,7 +223,7 @@ Verified 2026-08-10:
   `hython` process reopens it and renders a validated 1280 x 720 RGBA diagnostic PNG;
   reruns reuse checksum-verified HIP and PNG artifacts.
 - Probe 001 established a deterministic 64-agent, 128 x 72 field simulation with a
-  seeded seven-lobed relic, resource consumption, inhibitory memory, bounded motion,
+  seeded central relic, resource consumption, inhibitory memory, bounded motion,
   instrumentation attributes, per-frame metrics, reproducibility gates, and an
   automatically encoded local review bundle.
 - Probe 002 recomposes the field as a 9 x 16 domain sampled at 72 x 128, with native

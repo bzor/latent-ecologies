@@ -47,9 +47,8 @@ def validate_metrics(path: Path, config: Mapping[str, Any], frame_end: int | Non
             if abs(x) > half_width + 1e-4 or abs(y) > half_height + 1e-4:
                 raise RuntimeError(f"frame {record['frame']} has an agent outside the domain")
             angle = math.atan2(y, x)
-            radius = relic["relic_radius"] * (
-                1 + relic["relic_facets"] * math.cos(relic["relic_sides"] * angle + relic["relic_rotation"])
-            )
+            prong = max(0.0, math.cos(3.0 * (angle - relic["relic_orientation"])))
+            radius = relic["relic_hub_radius"] + relic["relic_prong_length"] * prong ** relic["relic_prong_power"]
             if math.hypot(x, y) < radius - 1e-3:
                 raise RuntimeError(f"frame {record['frame']} has an agent inside the relic")
     near_samples = 0
@@ -95,11 +94,10 @@ def _relic_polygon(system: Mapping[str, Any], width: int, height: int) -> list[t
     relic = system["relic"]
     domain = system["domain"]
     points = []
-    for index in range(84):
-        angle = math.tau * index / 84
-        radius = relic["relic_radius"] * (
-            1 + relic["relic_facets"] * math.cos(relic["relic_sides"] * angle + relic["relic_rotation"])
-        )
+    for index in range(120):
+        angle = math.tau * index / 120
+        prong = max(0.0, math.cos(3.0 * (angle - relic["relic_orientation"])))
+        radius = relic["relic_hub_radius"] + relic["relic_prong_length"] * prong ** relic["relic_prong_power"]
         points.append(
             _to_pixel(
                 math.cos(angle) * radius,

@@ -50,3 +50,23 @@ perimeter sectors were visited, and clockwise near-relic motion remained balance
 
 **Status:** Probe 002 accepted as the social master composition and basis for
 Milestone 5 look development.
+
+## 2026-08-10 — Probe 003: three-prong artifact
+
+**Artist direction:** Replace the lobed relic with a classy central hub whose three
+thin prongs extend upward, down-right, and down-left.
+
+**Shared proposal:** Define the artifact as a compact rounded hub with three smoothly
+tapered radial arms at 120-degree intervals. Keep the upward arm exactly vertical and
+use narrow angular falloff so the silhouette reads as a designed emblem rather than a
+broad three-pointed star. Preserve physical exclusion, perimeter resource, tangential
+redirection, and inhibitory route memory around the new silhouette.
+
+**Probe 003 observation:** The silhouette reads as three distinct tapered arms around
+a compact hub, with the upper arm vertical and the lower pair balanced diagonally.
+Agents traversed every perimeter sector without penetrating or becoming trapped in
+the concave arm junctions. Contact increased relative to the rounded relic, creating
+more legible tip and hub interactions while circulation remained balanced at 46.0
+percent clockwise near the artifact.
+
+**Status:** Probe 003 accepted as the artifact silhouette for Milestone 5.

@@ -18,10 +18,10 @@ class SimulationTests(unittest.TestCase):
                             "agent_count": 1,
                             "domain": {"domain_width": 16.0, "domain_height": 9.0},
                             "relic": {
-                                "relic_radius": 1.0,
-                                "relic_facets": 0.1,
-                                "relic_sides": 7,
-                                "relic_rotation": 0.0,
+                                "relic_hub_radius": 0.7,
+                                "relic_prong_length": 0.4,
+                                "relic_prong_power": 5.0,
+                                "relic_orientation": 1.5707963268,
                             },
                         }
                     },

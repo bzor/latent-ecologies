@@ -35,9 +35,8 @@ AGENT_INT_ATTRIBUTES = ("id", "lineage_id", "age", "state", "boundary_contact", 
 
 
 def relic_radius(angle: float, relic: dict[str, float]) -> float:
-    return relic["relic_radius"] * (
-        1.0 + relic["relic_facets"] * math.cos(relic["relic_sides"] * angle + relic["relic_rotation"])
-    )
+    prong = max(0.0, math.cos(3.0 * (angle - relic["relic_orientation"])))
+    return relic["relic_hub_radius"] + relic["relic_prong_length"] * prong ** relic["relic_prong_power"]
 
 
 def create_initial_geometry(config: dict[str, Any]) -> hou.Geometry:
@@ -85,7 +84,7 @@ def create_initial_geometry(config: dict[str, Any]) -> hou.Geometry:
                 # Bias the halo into broad opposing sectors so portrait traffic
                 # develops a vertical rhythm without imposing a global flow force.
                 angle = math.atan2(y, x)
-                sector_bias = 0.62 + 0.38 * abs(math.sin(angle + relic["relic_rotation"] * 0.5))
+                sector_bias = 0.62 + 0.38 * abs(math.sin(angle))
                 halo = math.exp(-((distance - 0.55) ** 2) / 0.18) * 0.72 * sector_bias
                 patch_resource = sum(
                     amplitude * math.exp(-((x - px) ** 2 + (y - py) ** 2) / 3.2)

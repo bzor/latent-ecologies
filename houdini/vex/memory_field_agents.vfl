@@ -41,8 +41,9 @@ f@local_resource = resource_weight / max(1, len(nearby));
 f@local_inhibition = inhibition_weight / max(1, len(nearby));
 
 float angle = atan2(@P.y, @P.x);
-float relic_radius = chf("relic_radius") *
-    (1.0 + chf("relic_facets") * cos(chf("relic_sides") * angle + chf("relic_rotation")));
+float relic_prong = max(0.0, cos(3.0 * (angle - chf("relic_orientation"))));
+float relic_radius = chf("relic_hub_radius") +
+    chf("relic_prong_length") * pow(relic_prong, chf("relic_prong_power"));
 float radial_distance = length(set(@P.x, @P.y, 0));
 f@relic_distance = radial_distance - relic_radius;
 vector relic_normal = normalize(set(@P.x, @P.y, 0) + set(1e-6, 0, 0));
@@ -82,8 +83,9 @@ if (speed < chf("min_speed"))
 
 vector candidate = @P + v@v * dt;
 float candidate_angle = atan2(candidate.y, candidate.x);
-float candidate_radius = chf("relic_radius") *
-    (1.0 + chf("relic_facets") * cos(chf("relic_sides") * candidate_angle + chf("relic_rotation")));
+float candidate_prong = max(0.0, cos(3.0 * (candidate_angle - chf("relic_orientation"))));
+float candidate_radius = chf("relic_hub_radius") +
+    chf("relic_prong_length") * pow(candidate_prong, chf("relic_prong_power"));
 if (length(set(candidate.x, candidate.y, 0)) <= candidate_radius)
 {
     candidate = normalize(candidate + set(1e-6, 0, 0)) * (candidate_radius + 0.02);
