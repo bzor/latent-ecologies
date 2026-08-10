@@ -197,10 +197,19 @@ interrupted run resumes correctly.
 
 ## Next-session starting point
 
-Begin with Milestone 1. Run the existing doctor, inspect standard SideFX install
-locations and environment variables, find the exact Houdini/Karma capabilities on
-the workstation, and update the diagnostic command. Do not begin simulation code
-until a headless diagnostic frame has a verified path to completion.
+Finish Milestone 1 by adding render-device details to the doctor output, then begin
+Milestone 2. The headless Karma diagnostic gate has been verified successfully.
+
+Verified 2026-08-10:
+
+- Houdini 22.0.368 is installed in the standard Windows SideFX location.
+- `hython` and `hbatch` are present; `hython` reports Python 3.13.10 and an Indie license.
+- The LOP context loads successfully and exposes Karma node types.
+- A cold Houdini/license startup can exceed 20 seconds, so the probe allows 60 seconds.
+- FFmpeg 9.0 and FFprobe are installed through WinGet and pass executable probes.
+- A headless Karma CPU render succeeds through `hython`; its generated HIP and validated
+  320 x 180 RGBA PNG are written under `work/diagnostics/`.
+- A render-device inventory remains to be added to the diagnostic output.
 
 Useful orientation files:
 
@@ -210,4 +219,3 @@ Useful orientation files:
 - `studies/001-memory-field/study.json`
 - `studies/001-memory-field/lab-log.md`
 - `src/houdini_ai/cli.py`
-

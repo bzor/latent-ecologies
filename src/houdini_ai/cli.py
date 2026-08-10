@@ -2,10 +2,10 @@ from __future__ import annotations
 
 import argparse
 import json
-import os
-import shutil
 import sys
 from pathlib import Path
+
+from .doctor import inspect_workstation
 
 
 ROOT = Path(__file__).resolve().parents[2]
@@ -61,21 +61,12 @@ def command_validate(args: argparse.Namespace) -> int:
 def command_doctor(_: argparse.Namespace) -> int:
     print(f"project: {ROOT}")
     print(f"python: {sys.version.split()[0]}")
-    for name, env_name, candidates in (
-        ("hython", "HOUDINI_BIN", ("hython", "hython.exe")),
-        ("ffmpeg", "FFMPEG_BIN", ("ffmpeg", "ffmpeg.exe")),
-    ):
-        configured = os.environ.get(env_name)
-        found = None
-        if configured:
-            configured_path = Path(configured)
-            if configured_path.is_dir():
-                found = next((str(configured_path / c) for c in candidates if (configured_path / c).exists()), None)
-            elif configured_path.exists():
-                found = str(configured_path)
-        found = found or next((shutil.which(c) for c in candidates if shutil.which(c)), None)
-        print(f"{name}: {found or 'not found (needed for Phase 1)'}")
-    return 0
+    lines, errors = inspect_workstation()
+    for line in lines:
+        print(line)
+    for error in errors:
+        print(f"ERROR {error}")
+    return 1 if errors else 0
 
 
 def build_parser() -> argparse.ArgumentParser:
@@ -92,4 +83,3 @@ def build_parser() -> argparse.ArgumentParser:
 def main(argv: list[str] | None = None) -> int:
     args = build_parser().parse_args(argv)
     return args.func(args)
-

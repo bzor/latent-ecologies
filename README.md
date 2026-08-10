@@ -44,6 +44,26 @@ python -m houdini_ai validate studies/001-memory-field/study.json
 python -m unittest discover -s tests
 ```
 
+`doctor` searches `HOUDINI_BIN` and `FFMPEG_BIN`, then `PATH`, then standard
+SideFX installation directories on Windows. It probes Houdini licensing and LOP/Karma
+availability and exits nonzero when a required tool is missing or unusable. Either
+environment variable may point to an executable or its containing directory; copy
+`env.example` to `.env` as a reference, but load those values through your shell or
+environment manager before invoking the CLI.
+
+To reproduce the headless Karma smoke render on Windows, keep Houdini's temporary
+files inside the writable project workspace and run the versioned scene builder:
+
+```powershell
+$env:HDAI_PROJECT_ROOT = (Get-Location).Path
+$env:HOUDINI_TEMP_DIR = "$env:HDAI_PROJECT_ROOT\work\diagnostics\temp"
+New-Item -ItemType Directory -Force $env:HOUDINI_TEMP_DIR | Out-Null
+& "C:\Program Files\Side Effects Software\Houdini 22.0.368\bin\hython.exe" houdini\diagnostic_scene.py
+```
+
+The command writes `karma-headless.hiplc` and `karma-headless.0001.png` beneath
+`work/diagnostics/` and fails if the PNG is missing or suspiciously small.
+
 For local development without installing the package:
 
 ```powershell
