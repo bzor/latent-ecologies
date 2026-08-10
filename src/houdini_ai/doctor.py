@@ -87,6 +87,12 @@ def run_probe(command: Sequence[str], timeout: int = 60) -> tuple[bool, str]:
     return result.returncode == 0, output
 
 
+def _probe_tool(tool: Tool, arguments: Sequence[str], timeout: int) -> tuple[bool, str]:
+    if tool.path is None:
+        return False, "not found"
+    return run_probe((str(tool.path), *arguments), timeout=timeout)
+
+
 def inspect_workstation(environ: Mapping[str, str] | None = None) -> tuple[list[str], list[str]]:
     tools = discover_tools(environ)
     lines = [f"platform: {platform.platform()}"]
@@ -98,8 +104,8 @@ def inspect_workstation(environ: Mapping[str, str] | None = None) -> tuple[list[
             errors.append(f"{tool.name} is required; install it or set {variable} to its executable or bin directory")
 
     by_name = {tool.name: tool for tool in tools}
-    hython = by_name["hython"].path
-    if hython:
+    hython = by_name["hython"]
+    if hython.path:
         script = (
             "import hou,sys; "
             "print('houdini_build:', hou.applicationVersionString()); "
@@ -111,19 +117,29 @@ def inspect_workstation(environ: Mapping[str, str] | None = None) -> tuple[list[
             "print('lop_nodes:', len(nodes)); "
             "print('karma_node_types:', ','.join(karma) if karma else 'NONE')"
         )
-        ok, output = run_probe((str(hython), "-c", script))
-        lines.append("houdini probe: " + ("OK" if ok else "FAILED"))
+        ok, output = _probe_tool(hython, ("-c", script), timeout=60)
+        lines.append("hython probe: " + ("OK" if ok else "FAILED"))
         lines.extend(f"  {line}" for line in output.splitlines()[-8:])
         if not ok:
             errors.append("hython could not initialize Houdini; check licensing and the diagnostic output above")
         elif "karma_node_types: NONE" in output:
             errors.append("Houdini initialized but no Karma LOP node types are available")
 
-    ffmpeg = by_name["ffmpeg"].path
-    if ffmpeg:
-        ok, output = run_probe((str(ffmpeg), "-version"), timeout=10)
-        first = output.splitlines()[0] if output else "no version output"
-        lines.append(f"ffmpeg probe: {'OK' if ok else 'FAILED'} ({first})")
+    hbatch = by_name["hbatch"]
+    if hbatch.path:
+        ok, output = _probe_tool(hbatch, ("-c", "quit"), timeout=60)
+        lines.append("hbatch probe: " + ("OK" if ok else "FAILED"))
+        lines.extend(f"  {line}" for line in output.splitlines()[-4:])
         if not ok:
-            errors.append("ffmpeg was found but could not be executed")
+            errors.append("hbatch was found but could not initialize Houdini")
+
+    for name in ("ffmpeg", "ffprobe"):
+        tool = by_name[name]
+        if not tool.path:
+            continue
+        ok, output = _probe_tool(tool, ("-version",), timeout=10)
+        first = output.splitlines()[0] if output else "no version output"
+        lines.append(f"{name} probe: {'OK' if ok else 'FAILED'} ({first})")
+        if not ok:
+            errors.append(f"{name} was found but could not be executed")
     return lines, errors
