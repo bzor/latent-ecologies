@@ -1,0 +1,4 @@
+interface:
+  display_name: "Field Notes"
+  short_description: "Process open review feedback serially"
+  default_prompt: "Use $field-notes to implement all open Review Studio field notes."
