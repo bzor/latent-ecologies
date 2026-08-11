@@ -29,6 +29,19 @@ def create_material(parent: hou.Node, name: str, color: tuple[float, float, floa
     return surface
 
 
+def create_backdrop_material(parent: hou.Node) -> hou.Node:
+    shader = parent.createNode("mtlxstandard_surface", "backdrop_shader")
+    surface = parent.createNode("mtlxsurfacematerial", "backdrop")
+    surface.setInput(0, shader)
+    set_parm(shader, "base", 0.75)
+    set_parm(shader, "base_colorr", 0.006)
+    set_parm(shader, "base_colorg", 0.009)
+    set_parm(shader, "base_colorb", 0.014)
+    set_parm(shader, "specular_roughness", 0.28)
+    set_parm(shader, "metalness", 0.18)
+    return surface
+
+
 def build_trails(cache_dir: Path, system: dict, output: Path) -> None:
     frames = [int(path.stem.split(".")[1]) for path in sorted(cache_dir.glob("state.[0-9][0-9][0-9][0-9].bgeo.sc"))]
     geometries = []
@@ -82,6 +95,8 @@ def main() -> None:
     parser.add_argument("cache_dir", type=Path)
     parser.add_argument("hip", type=Path)
     parser.add_argument("image", type=Path)
+    parser.add_argument("--hdri", type=Path)
+    parser.add_argument("--dome-rotation", type=float, default=0.0)
     args = parser.parse_args()
     effective = json.loads(args.config.read_text(encoding="utf-8"))
     study = effective.get("study", effective)
@@ -110,8 +125,29 @@ def main() -> None:
         outputs[phase] = output
     geo.layoutChildren()
 
+    backdrop_geo = obj.createNode("geo", "mass_flow_backdrop")
+    for child in backdrop_geo.children():
+        child.destroy()
+    backdrop = backdrop_geo.createNode("sphere", "elliptical_slab")
+    set_parm(backdrop, "type", "poly")
+    set_parm(backdrop, "rows", 72)
+    set_parm(backdrop, "cols", 96)
+    transform = backdrop_geo.createNode("xform", "shape_backdrop")
+    transform.setInput(0, backdrop)
+    set_parm(transform, "sx", 4.15)
+    set_parm(transform, "sy", 7.35)
+    set_parm(transform, "sz", 0.34)
+    set_parm(transform, "tz", -0.52)
+    backdrop_out = backdrop_geo.createNode("null", "OUT_BACKDROP")
+    backdrop_out.setInput(0, transform)
+    backdrop_geo.layoutChildren()
+
     stage = hou.node("/stage")
-    previous = None
+    backdrop_import = stage.createNode("sopimport", "import_backdrop")
+    set_parm(backdrop_import, "soppath", backdrop_out.path())
+    set_parm(backdrop_import, "primpath", "/world/backdrop")
+    set_parm(backdrop_import, "pathprefix", "/world/backdrop")
+    previous = backdrop_import
     for phase in range(3):
         import_node = stage.createNode("sopimport", f"import_phase_{phase}")
         if previous is not None:
@@ -124,14 +160,17 @@ def main() -> None:
     library.setInput(0, previous)
     palette = ((0.012, 0.18, 0.29), (0.34, 0.055, 0.012), (0.15, 0.035, 0.30))
     materials = [create_material(library, f"phase_{phase}", palette[phase]) for phase in range(3)]
+    backdrop_material = create_backdrop_material(library)
     library.layoutChildren()
     assign = stage.createNode("assignmaterial", "assign_trail_materials")
     assign.setInput(0, library)
-    set_parm(assign, "nummaterials", 3)
+    set_parm(assign, "nummaterials", 4)
     for index, material in enumerate(materials, 1):
         phase = index - 1
         set_parm(assign, f"primpattern{index}", f"/world/trails/phase_{phase} /world/trails/phase_{phase}/**")
         set_parm(assign, f"matspecpath{index}", material.path().replace(library.path(), "/materials"))
+    set_parm(assign, "primpattern4", "/world/backdrop /world/backdrop/**")
+    set_parm(assign, "matspecpath4", backdrop_material.path().replace(library.path(), "/materials"))
 
     camera = stage.createNode("camera", "trail_camera")
     camera.setInput(0, assign)
@@ -139,12 +178,14 @@ def main() -> None:
     set_parm(camera, "tz", 23.2)
     set_parm(camera, "aspectratiox", render_config["width"])
     set_parm(camera, "aspectratioy", render_config["height"])
-    light = stage.createNode("distantlight::2.0", "trail_rim")
+    light = stage.createNode("domelight::2.0", "trail_environment")
     light.setInput(0, camera)
-    set_parm(light, "primpath", "/lights/trail_rim")
-    set_parm(light, "rx", -24.0)
-    set_parm(light, "ry", 38.0)
-    set_parm(light, "xn__inputsintensity_i0a", 1.2)
+    set_parm(light, "primpath", "/lights/trail_environment")
+    set_parm(light, "ry", args.dome_rotation)
+    set_parm(light, "xn__inputsintensity_i0a", 0.75)
+    set_parm(light, "xn__inputsexposure_vya", -0.35)
+    if args.hdri:
+        set_parm(light, "xn__inputstexturefile_r3ah", args.hdri.resolve().as_posix())
     settings = stage.createNode("karmarendersettings", "trail_settings")
     settings.setInput(0, light)
     set_parm(settings, "camera", "/cameras/trail")

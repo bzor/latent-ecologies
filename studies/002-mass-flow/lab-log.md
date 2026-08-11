@@ -55,3 +55,23 @@ and textile-like weight while preserving the broad braided composition.
 
 **Status:** Look Probe 002 ready for artist review. Next test should compare this full
 fiber mass against an importance-selected hero-curve layer with a softer derived body.
+
+## 2026-08-11 — Look probe 003: monolith and HDRI environment
+
+**Artist direction:** Add a large shape behind the simulation and use the available
+HDRI collection for higher-quality environmental lighting. Proceed through routine
+look variants autonomously.
+
+**Proposal:** Place a shallow, oversized dark mineral ellipsoid behind the trail plane
+as a non-interacting sculptural monolith. Compare three 4K EXR dome environments from
+the local library with recorded rotations: `studio_small_03`, `skylit_garage`, and
+`colorful_studio`.
+
+**Observation:** `studio_small_03` produced the clearest fiber separation, a controlled
+cool edge on cyan, useful warmth on the oxidized phase, and the most legible beveled
+backdrop. `skylit_garage` was restrained but too flat and dark; `colorful_studio`
+introduced attractive warmth but reduced semantic phase separation.
+
+**Status:** Look Probe 003 accepted with `studio_small_03_4k.exr` at 25 degrees as the
+current environment. The HDRI remains a local dependency supplied at render time and
+is not copied into the repository.
