@@ -211,3 +211,22 @@ to 1.99999, nearly the complete four-unit domain. The replacement XPU render now
 strong depth layering, occlusion, curved surface response, and HDRI-driven contrast.
 
 **Status:** Look Probe 008 supersedes the invalid Look Probe 007 HIP and render.
+
+## 2026-08-11 — Look probe 009: artist-authored graphite study
+
+**Source:** Artist-edited `mass-flow-volumetric.hiplc`, preserved unchanged under the
+volumetric lookdev directory.
+
+**Extracted direction:** Replace the semantic color palette with near-monochrome
+graphite values: cool gray phase 0, metallic near-black phase 1 at 0.22 roughness, and
+subtly violet-black phase 2. Remove the monolith, darken the camera backing material,
+rotate the accepted HDRI to −106 degrees, and raise dome intensity to 1.6. Move the
+camera to Z 45 with a 100 mm focal length, focus at 44 units, and use f/0.09 DOF.
+
+**Verification:** Rendering the artist `.hiplc` as-is and rendering a clean scene from
+the updated generator produced the same composition and material response. The look
+uses alternating matte and metallic ribbons, bright grazing highlights, deep internal
+occlusion, and shallow-focus separation without trail emission or supplemental lights.
+
+**Status:** Look Probe 009 accepted as the scripted lookdev baseline. The artist HIPLC
+remains the reference scene; generated verification artifacts remain under `work/`.

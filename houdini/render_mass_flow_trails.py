@@ -16,28 +16,18 @@ def set_parm(node: hou.Node, name: str, value: object) -> None:
     parm.set(value)
 
 
-def create_material(parent: hou.Node, name: str, color: tuple[float, float, float]) -> hou.Node:
+def create_material(
+    parent: hou.Node, name: str, color: tuple[float, float, float], *, metalness: float = 0.0, roughness: float = 0.42
+) -> hou.Node:
     shader = parent.createNode("mtlxstandard_surface", f"{name}_shader")
     surface = parent.createNode("mtlxsurfacematerial", name)
     surface.setInput(0, shader)
-    set_parm(shader, "base", 0.52)
-    set_parm(shader, "specular_roughness", 0.42)
+    set_parm(shader, "base", 1.0)
+    set_parm(shader, "metalness", metalness)
+    set_parm(shader, "specular_roughness", roughness)
     set_parm(shader, "emission", 0.0)
     for channel, value in zip("rgb", color):
         set_parm(shader, f"base_color{channel}", value)
-    return surface
-
-
-def create_backdrop_material(parent: hou.Node) -> hou.Node:
-    shader = parent.createNode("mtlxstandard_surface", "backdrop_shader")
-    surface = parent.createNode("mtlxsurfacematerial", "backdrop")
-    surface.setInput(0, shader)
-    set_parm(shader, "base", 0.75)
-    set_parm(shader, "base_colorr", 0.006)
-    set_parm(shader, "base_colorg", 0.009)
-    set_parm(shader, "base_colorb", 0.014)
-    set_parm(shader, "specular_roughness", 0.28)
-    set_parm(shader, "metalness", 0.18)
     return surface
 
 
@@ -47,7 +37,7 @@ def create_white_background_material(parent: hou.Node) -> hou.Node:
     surface.setInput(0, shader)
     set_parm(shader, "base", 1.0)
     for channel in "rgb":
-        set_parm(shader, f"base_color{channel}", 0.92)
+        set_parm(shader, f"base_color{channel}", 0.0761)
     set_parm(shader, "specular_roughness", 0.72)
     return surface
 
@@ -113,7 +103,8 @@ def main() -> None:
     parser.add_argument("hip", type=Path)
     parser.add_argument("image", type=Path)
     parser.add_argument("--hdri", type=Path)
-    parser.add_argument("--dome-rotation", type=float, default=0.0)
+    parser.add_argument("--dome-rotation", type=float, default=-106.0)
+    parser.add_argument("--dome-intensity", type=float, default=1.6)
     parser.add_argument("--renderer", choices=("cpu", "xpu"), default="xpu")
     args = parser.parse_args()
     effective = json.loads(args.config.read_text(encoding="utf-8"))
@@ -143,23 +134,6 @@ def main() -> None:
         outputs[phase] = output
     geo.layoutChildren()
 
-    backdrop_geo = obj.createNode("geo", "mass_flow_backdrop")
-    for child in backdrop_geo.children():
-        child.destroy()
-    backdrop = backdrop_geo.createNode("sphere", "elliptical_slab")
-    set_parm(backdrop, "type", "poly")
-    set_parm(backdrop, "rows", 72)
-    set_parm(backdrop, "cols", 96)
-    transform = backdrop_geo.createNode("xform", "shape_backdrop")
-    transform.setInput(0, backdrop)
-    set_parm(transform, "sx", 4.15)
-    set_parm(transform, "sy", 7.35)
-    set_parm(transform, "sz", 0.34)
-    set_parm(transform, "tz", -0.52)
-    backdrop_out = backdrop_geo.createNode("null", "OUT_BACKDROP")
-    backdrop_out.setInput(0, transform)
-    backdrop_geo.layoutChildren()
-
     # Camera-relative backing card: at the fixed observation camera's origin and
     # orientation this is equivalent to a parented grid offset behind the artwork.
     # Overscan keeps white in every pixel through small future framing adjustments.
@@ -180,12 +154,7 @@ def main() -> None:
     set_parm(background_import, "soppath", background_out.path())
     set_parm(background_import, "primpath", "/world/camera_background")
     set_parm(background_import, "pathprefix", "/world/camera_background")
-    backdrop_import = stage.createNode("sopimport", "import_backdrop")
-    backdrop_import.setInput(0, background_import)
-    set_parm(backdrop_import, "soppath", backdrop_out.path())
-    set_parm(backdrop_import, "primpath", "/world/backdrop")
-    set_parm(backdrop_import, "pathprefix", "/world/backdrop")
-    previous = backdrop_import
+    previous = background_import
     for phase in range(3):
         import_node = stage.createNode("sopimport", f"import_phase_{phase}")
         if previous is not None:
@@ -196,34 +165,41 @@ def main() -> None:
         previous = import_node
     library = stage.createNode("materiallibrary", "trail_materials")
     library.setInput(0, previous)
-    palette = ((0.012, 0.18, 0.29), (0.34, 0.055, 0.012), (0.15, 0.035, 0.30))
-    materials = [create_material(library, f"phase_{phase}", palette[phase]) for phase in range(3)]
-    backdrop_material = create_backdrop_material(library)
+    material_specs = (
+        ((0.1348, 0.1544, 0.1672), 0.0, 0.42),
+        ((0.025, 0.025, 0.025), 1.0, 0.22),
+        ((0.01, 0.0074, 0.0134), 0.0, 0.42),
+    )
+    materials = [
+        create_material(library, f"phase_{phase}", color, metalness=metalness, roughness=roughness)
+        for phase, (color, metalness, roughness) in enumerate(material_specs)
+    ]
     background_material = create_white_background_material(library)
     library.layoutChildren()
     assign = stage.createNode("assignmaterial", "assign_trail_materials")
     assign.setInput(0, library)
-    set_parm(assign, "nummaterials", 5)
+    set_parm(assign, "nummaterials", 4)
     for index, material in enumerate(materials, 1):
         phase = index - 1
         set_parm(assign, f"primpattern{index}", f"/world/trails/phase_{phase} /world/trails/phase_{phase}/**")
         set_parm(assign, f"matspecpath{index}", material.path().replace(library.path(), "/materials"))
-    set_parm(assign, "primpattern4", "/world/backdrop /world/backdrop/**")
-    set_parm(assign, "matspecpath4", backdrop_material.path().replace(library.path(), "/materials"))
-    set_parm(assign, "primpattern5", "/world/camera_background /world/camera_background/**")
-    set_parm(assign, "matspecpath5", background_material.path().replace(library.path(), "/materials"))
+    set_parm(assign, "primpattern4", "/world/camera_background /world/camera_background/**")
+    set_parm(assign, "matspecpath4", background_material.path().replace(library.path(), "/materials"))
 
     camera = stage.createNode("camera", "trail_camera")
     camera.setInput(0, assign)
     set_parm(camera, "primpath", "/cameras/trail")
-    set_parm(camera, "tz", 23.2)
+    set_parm(camera, "tz", 45.0)
+    set_parm(camera, "focalLength", 100.0)
+    set_parm(camera, "focusDistance", 44.0)
+    set_parm(camera, "fStop", 0.09)
     set_parm(camera, "aspectratiox", render_config["width"])
     set_parm(camera, "aspectratioy", render_config["height"])
     light = stage.createNode("domelight::2.0", "trail_environment")
     light.setInput(0, camera)
     set_parm(light, "primpath", "/lights/trail_environment")
     set_parm(light, "ry", args.dome_rotation)
-    set_parm(light, "xn__inputsintensity_i0a", 0.75)
+    set_parm(light, "xn__inputsintensity_i0a", args.dome_intensity)
     set_parm(light, "xn__inputsexposure_vya", -0.35)
     if args.hdri:
         set_parm(light, "xn__inputstexturefile_r3ah", args.hdri.resolve().as_posix())
