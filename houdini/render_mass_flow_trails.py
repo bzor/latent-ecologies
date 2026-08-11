@@ -42,7 +42,7 @@ def create_white_background_material(parent: hou.Node) -> hou.Node:
     return surface
 
 
-def build_trails(cache_dir: Path, system: dict, output: Path) -> None:
+def build_trails(cache_dir: Path, system: dict, output: Path, heads_output: Path) -> None:
     frames = [int(path.stem.split(".")[1]) for path in sorted(cache_dir.glob("state.[0-9][0-9][0-9][0-9].bgeo.sc"))]
     geometries = []
     for frame in frames:
@@ -83,6 +83,16 @@ def build_trails(cache_dir: Path, system: dict, output: Path) -> None:
         raise RuntimeError(f"volumetric trail export collapsed to {depth_size:.6f} units of depth")
     trails.saveToFile(str(output))
 
+    heads = hou.Geometry()
+    heads.addAttrib(hou.attribType.Point, "phase", 0)
+    heads.addAttrib(hou.attribType.Point, "pscale", float(system["head_scale"]))
+    final_positions = positions[-1]
+    for agent_index in range(0, count, stride):
+        point = heads.createPoint()
+        point.setPosition(final_positions[agent_index * 3:agent_index * 3 + 3])
+        point.setAttribValue("phase", phases[agent_index])
+    heads.saveToFile(str(heads_output))
+
 
 def _add_curve(trails: hou.Geometry, samples: list, phase: int, system: dict) -> None:
     curve = trails.createPolygon()
@@ -112,9 +122,10 @@ def main() -> None:
     system = study["simulation"]["rule_genome"]["system"]
     render_config = study["render"]
     trail_cache = args.hip.with_name("derived-trails.bgeo.sc")
+    head_cache = args.hip.with_name("agent-heads.bgeo.sc")
     args.hip.parent.mkdir(parents=True, exist_ok=True)
     args.image.parent.mkdir(parents=True, exist_ok=True)
-    build_trails(args.cache_dir, system, trail_cache)
+    build_trails(args.cache_dir, system, trail_cache, head_cache)
 
     hou.hipFile.clear(suppress_save_prompt=True)
     obj = hou.node("/obj")
@@ -132,6 +143,25 @@ def main() -> None:
         output = geo.createNode("null", f"OUT_PHASE_{phase}")
         output.setInput(0, select)
         outputs[phase] = output
+
+    head_source = geo.createNode("file", "agent_heads")
+    set_parm(head_source, "file", str(head_cache))
+    head_sphere = geo.createNode("sphere", "head_sphere")
+    set_parm(head_sphere, "type", "poly")
+    set_parm(head_sphere, "rows", 8)
+    set_parm(head_sphere, "cols", 12)
+    head_outputs = {}
+    for phase in range(3):
+        select = geo.createNode("attribwrangle", f"select_head_phase_{phase}")
+        select.setInput(0, head_source)
+        set_parm(select, "class", 2)
+        set_parm(select, "snippet", f"if (i@phase != {phase}) removepoint(0, @ptnum); ")
+        copies = geo.createNode("copytopoints::2.0", f"copy_heads_phase_{phase}")
+        copies.setInput(0, head_sphere)
+        copies.setInput(1, select)
+        output = geo.createNode("null", f"OUT_HEADS_PHASE_{phase}")
+        output.setInput(0, copies)
+        head_outputs[phase] = output
     geo.layoutChildren()
 
     # Camera-relative backing card: at the fixed observation camera's origin and
@@ -163,6 +193,13 @@ def main() -> None:
         set_parm(import_node, "primpath", f"/world/trails/phase_{phase}")
         set_parm(import_node, "pathprefix", f"/world/trails/phase_{phase}")
         previous = import_node
+    for phase in range(3):
+        import_node = stage.createNode("sopimport", f"import_heads_phase_{phase}")
+        import_node.setInput(0, previous)
+        set_parm(import_node, "soppath", head_outputs[phase].path())
+        set_parm(import_node, "primpath", f"/world/heads/phase_{phase}")
+        set_parm(import_node, "pathprefix", f"/world/heads/phase_{phase}")
+        previous = import_node
     library = stage.createNode("materiallibrary", "trail_materials")
     library.setInput(0, previous)
     material_specs = (
@@ -181,7 +218,12 @@ def main() -> None:
     set_parm(assign, "nummaterials", 4)
     for index, material in enumerate(materials, 1):
         phase = index - 1
-        set_parm(assign, f"primpattern{index}", f"/world/trails/phase_{phase} /world/trails/phase_{phase}/**")
+        set_parm(
+            assign,
+            f"primpattern{index}",
+            f"/world/trails/phase_{phase} /world/trails/phase_{phase}/** "
+            f"/world/heads/phase_{phase} /world/heads/phase_{phase}/**",
+        )
         set_parm(assign, f"matspecpath{index}", material.path().replace(library.path(), "/materials"))
     set_parm(assign, "primpattern4", "/world/camera_background /world/camera_background/**")
     set_parm(assign, "matspecpath4", background_material.path().replace(library.path(), "/materials"))

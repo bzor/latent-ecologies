@@ -273,3 +273,23 @@ boundary to coincide; population, frame topology, bounds, speed, and changed-see
 distinction remain enforced.
 
 **Status:** Probe 011 accepted as the stronger flocking baseline.
+
+## 2026-08-11 — Motion and look probe 012: honest 4K population and heads
+
+**Artist direction:** Simulate only the population that appears in the final render,
+reduce it to 4,000 agents, make flocking easier to see, and add a small material-matched
+sphere at each trail head.
+
+**Proposal:** Set both simulation and final trail population to 4,000 with no Karma
+subsampling. Compensate for lower volumetric density with a 1.1-unit flock radius and
+90-ID deterministic cohort; raise alignment to 0.24, cohesion to 0.34, separation to
+0.42 within 0.34 units, and wander to 0.12. Build a low-resolution sphere at every
+agent's final cached position with 0.045 scale and assign its phase trail material.
+
+**Observation:** Lower density exposes individual paths while the broader, stronger
+neighborhood preserves coherent sheets and makes localized curling and divergence more
+legible. The final HIP contains exactly 4,000 trail histories and 4,000 head spheres,
+split 1,334/1,333/1,333 across the three phase materials. The deterministic solve itself
+completed in 17.8 seconds; the full job time remains dominated by review rasterization.
+
+**Status:** Probe 012 accepted for artist review as the honest-population baseline.
