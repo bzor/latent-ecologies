@@ -1,5 +1,25 @@
 # Mass Flow lab log
 
+## 2026-08-11 — Motion probe 015: 1.5× transport speed
+
+**Review source:** Review Studio iterate note
+`b1cf8dd232aa42c6bb90992d268e87d7` requested that the agents move approximately
+1.5× faster.
+
+**Proposal:** Multiply the analytic-flow strength from 1.8 to 2.7 and the matching
+speed ceiling from 3.0 to 4.5. Preserve trail-memory avoidance, flocking,
+cross-phase separation, drag, population, trail persistence, and the established
+graphite look so the motion change is isolated to transport speed.
+
+**Observation:** Same-seed smoke probes remained materially deterministic and the
+changed-seed gate remained distinct. Mean checkpoint speed rose from 1.95 to 2.81
+units, a 1.44× increase that is close to the requested approximate 1.5× pace; peak
+speed reached 4.47 without exceeding the new 4.5 cap. The replacement 4,000-agent,
+450-frame motion preview remains exactly 15 seconds at its six-sample review rate.
+
+**Status:** Probe 015 implemented and returned to the originating Review Studio note
+with the replacement motion artifact and source commit lineage.
+
 ## 2026-08-11 — Motion probe 005: trail memory and variable velocity
 
 **Artist direction:** Let agents leave a coarse trace in space and subtly avoid those

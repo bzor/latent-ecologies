@@ -24,7 +24,7 @@
         "checkpoint_interval": 5,
         "review_agent_count": 4000,
         "flow_scale": 0.72,
-        "flow_strength": 1.8,
+        "flow_strength": 2.7,
         "depth_strength": 0.58,
         "phase_strength": 0.65,
         "avoidance_radius": 0.14,
@@ -46,7 +46,7 @@
         "head_scale": 0.045,
         "trail_history_checkpoints": 25,
         "drag": 0.88,
-        "max_speed": 3.0,
+        "max_speed": 4.5,
         "point_size": 0.018
       }
     }
