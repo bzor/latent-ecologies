@@ -293,3 +293,23 @@ split 1,334/1,333/1,333 across the three phase materials. The deterministic solv
 completed in 17.8 seconds; the full job time remains dominated by review rasterization.
 
 **Status:** Probe 012 accepted for artist review as the honest-population baseline.
+
+## 2026-08-11 — Motion and look probe 013: wider separation
+
+**Review source:** Review Studio iterate note
+`ddaf3dcc191748de9b17fa894fb082b5` requested more drastic separation and a larger
+separation radius on the 4,000-agent motion preview.
+
+**Proposal:** Raise same-phase separation strength from 0.42 to 0.62 and its radius
+from 0.34 to 0.46. Preserve cohesion, alignment, wander, cross-phase avoidance, the
+analytic field, 25-checkpoint trail persistence, graphite materials, camera, and heads
+so the behavioral difference remains attributable to separation.
+
+**Observation:** Individual paths peel away more visibly inside the large currents,
+and central negative-space seams remain wider without breaking the three-ribbon
+composition. The 4,000-agent deterministic solve completed in 14.4 seconds and stayed
+within speed, volume, population, and changed-seed gates. Karma XPU preserved all
+4,000 trails and material-matched heads.
+
+**Status:** Probe 013 implemented and returned to the originating Review Studio note
+with replacement motion, graphite still, HIP, job, and source commit lineage.
