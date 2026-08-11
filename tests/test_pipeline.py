@@ -2,13 +2,14 @@ import json
 import tempfile
 import unittest
 from pathlib import Path
+from subprocess import CompletedProcess
 from unittest.mock import patch
 
 from PIL import Image
 
 from houdini_ai.doctor import Tool
 from houdini_ai.jobs import job_status, load_job, prepare_job, set_stage_state
-from houdini_ai.pipeline import run_encode, run_milestone3, run_package, run_render
+from houdini_ai.pipeline import _run_logged, run_encode, run_milestone3, run_package, run_render
 
 
 class PipelineTests(unittest.TestCase):
@@ -42,6 +43,15 @@ class PipelineTests(unittest.TestCase):
         job = load_job(root, manifest)
         prepare_job(job)
         return job
+
+    @patch("houdini_ai.pipeline.subprocess.run")
+    def test_logged_commands_do_not_serialize_environment_secrets(self, run) -> None:
+        with tempfile.TemporaryDirectory() as directory:
+            log = Path(directory) / "command.log"
+            run.return_value = CompletedProcess(["tool"], 0, stdout="safe output\n", stderr="")
+            _run_logged(("tool",), log, {"PIPELINE_TEST_SECRET": "do-not-log"})
+            self.assertEqual(log.read_text(encoding="utf-8"), "safe output\n")
+            self.assertNotIn("do-not-log", log.read_text(encoding="utf-8"))
 
     @patch("houdini_ai.pipeline.discover_tools", return_value=[Tool("hython", Path("hython"), "test")])
     @patch("houdini_ai.pipeline._run_logged")

@@ -49,13 +49,22 @@ python -m ruff check src tests houdini/diagnostic_scene.py
 ```
 
 `plan` creates a deterministic workspace and stage receipts without launching
-Houdini. `run` validates the manifest, generates a job-local Solaris/Karma HIP in a
-fresh `hython` process, reopens it in a second process, and renders and validates the
-single diagnostic frame. A repeated run reuses checksum-verified build and probe
-artifacts. It then runs deterministic simulation gates and writes the full cache,
-metrics, contact sheet, instrument frame, and lightweight preview beneath the job's
-`simulation/` and `review/` directories. The accepted `field-study` look also writes
-Karma stills for the first, midpoint, and final frames beneath `lookdev/`.
+Houdini. `run` executes the complete local vertical slice: validated scene build and
+diagnostic probe, deterministic simulation, look-development checkpoints, resumable
+Karma PNG sequence rendering, FFmpeg variants, and a checksummed draft publication
+package. A repeated run reuses verified artifacts; missing or invalid sequence frames
+are the only frames rendered again. Public posting is never performed.
+
+The final local package is written beneath `work/jobs/<job-id>/package/` and includes
+an archival ProRes master, 9:16 social video, 4:5 feed video, website video, preview
+loop, poster, effective configuration, caption draft, alt text, field-note payload,
+and checksums. Use `status` at any time to inspect resumable stage receipts.
+
+If a run is interrupted, invoke the same `run` command again. Do not manually clear
+the job directory: completed caches and frames are the resume state. Run `doctor` if
+Houdini, Karma, FFmpeg, or licensing fails; detailed subprocess output is preserved
+under the job's `logs/` directory. Machine-specific paths and environment values are
+not copied into receipts or package metadata.
 
 `doctor` searches `HOUDINI_BIN` and `FFMPEG_BIN`, then `PATH`, standard SideFX
 installation directories, and WinGet FFmpeg packages on Windows. It probes Houdini

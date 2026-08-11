@@ -20,8 +20,33 @@ changes before running compute.
 9. `approve`: require a human decision for public actions.
 10. `publish`: post approved artifacts and preserve their URLs.
 
-Each stage will write a receipt under `work/jobs/<job-id>/`. Receipts make the
+Each stage writes a receipt under `work/jobs/<job-id>/`. Receipts make the
 pipeline resumable and show exactly which inputs produced an artifact.
+
+Study 001 runs all local stages with one command:
+
+```powershell
+python -m houdini_ai run studies/001-memory-field/study.json
+```
+
+The render stage validates every expected PNG by frame number, dimensions, decoding,
+visible content, and minimum size. It submits only missing or invalid frames to one
+persistent Houdini process. The encode stage independently validates dimensions,
+duration, frame rate, and decodability with FFprobe before packaging. Repeating the
+command is therefore both the normal resume operation and the normal repair operation.
+
+## Troubleshooting and recovery
+
+- Run `python -m houdini_ai status studies/001-memory-field/study.json` to locate the
+  current job and failed stage.
+- Read the corresponding file under `work/jobs/<job-id>/logs/`; command output is
+  retained without serializing the subprocess environment.
+- Run `python -m houdini_ai doctor` for executable, Houdini license, Karma, FFmpeg,
+  and render-device diagnostics.
+- After interruption or a corrupt frame, rerun the same command. Valid simulation
+  caches and frames are retained, and only invalid work is regenerated.
+- Paths containing spaces are supported. Keep generated artifacts beneath `work/`
+  so they remain disposable and outside version control.
 
 ## Files versus generated state
 
@@ -38,4 +63,3 @@ object storage without changing study semantics.
 - Render-cost estimates are checked before jobs enter the queue.
 - Publishing credentials are local secrets, never manifest fields.
 - Failed publication never invalidates a completed render package.
-
