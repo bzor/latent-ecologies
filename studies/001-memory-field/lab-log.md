@@ -123,3 +123,23 @@ clockwise. The exact shared SDF kept the analytical preview, VEX collisions, and
 Karma geometry aligned without trapping or penetration.
 
 **Status:** Probe 005 accepted as the final geometric artifact silhouette.
+
+## 2026-08-10 — Probe 006: latent artifact
+
+**Artist direction:** Hide the artifact so only its influence remains visible, and
+increase the agent population substantially.
+
+**Shared proposal:** Preserve the accepted three-arm signed-distance field for
+attraction, avoidance, tangential motion, collision, and measurement, but remove
+its geometry from both analytical and Karma presentation. Increase the population
+fourfold from 64 to 256 agents so collective displacement and negative space reveal
+the latent structure through behavior rather than depiction.
+
+**Probe 006 observation:** The 256-agent population makes the absent artifact legible
+as a persistent three-pronged void and branching circulation pattern, especially as
+memory accumulates. The denser ecology recorded 119 close approaches, visited all 12
+perimeter sectors, and remained directionally balanced at 49.7 percent clockwise.
+Resource consumption increased as expected but did not exhaust the field, and no
+agent entered the latent collision volume.
+
+**Status:** Probe 006 accepted as the latent-artifact population study.

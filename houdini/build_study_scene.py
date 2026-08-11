@@ -123,71 +123,6 @@ def build(config_path: Path, hip_path: Path, image_path: Path) -> None:
         "if (i@kind != 1 || f@inhibition < 0.025 || i@grid_x % 3 || i@grid_y % 3) removepoint(0, @ptnum); "
         "else { @P.z = 0.055; f@pscale = fit(f@inhibition, 0.025, 1.0, 0.015, 0.05); }",
     )
-    artifact = look_geo.createNode("python", "artifact_geometry")
-    artifact_code = f'''node = hou.pwd()
-geo = node.geometry()
-import math
-hub = {system["relic"]["relic_hub_radius"]!r}
-arm_length = {system["relic"]["relic_arm_length"]!r}
-half_width = {system["relic"]["relic_arm_half_width"]!r}
-orientation = {system["relic"]["relic_orientation"]!r}
-arm_start = hub * 0.45
-arm_end = arm_start + arm_length
-for arm_index in range(3):
-    angle = orientation + arm_index * math.tau / 3.0
-    direction = (math.cos(angle), math.sin(angle))
-    perpendicular = (-math.sin(angle), math.cos(angle))
-    corners = []
-    for along, lateral in ((arm_start, -half_width), (arm_end, -half_width), (arm_end, half_width), (arm_start, half_width)):
-        corners.append((direction[0] * along + perpendicular[0] * lateral, direction[1] * along + perpendicular[1] * lateral))
-    top = []
-    bottom = []
-    for x, y in corners:
-        top_point = geo.createPoint()
-        top_point.setPosition((x, y, 0.22))
-        top.append(top_point)
-        bottom_point = geo.createPoint()
-        bottom_point.setPosition((x, y, -0.18))
-        bottom.append(bottom_point)
-    for points in (top, list(reversed(bottom))):
-        face = geo.createPolygon()
-        face.setIsClosed(True)
-        for point in points:
-            face.addVertex(point)
-    for index in range(4):
-        next_index = (index + 1) % 4
-        side = geo.createPolygon()
-        side.setIsClosed(True)
-        for point in (bottom[index], bottom[next_index], top[next_index], top[index]):
-            side.addVertex(point)
-segments = 64
-top = []
-bottom = []
-for index in range(segments):
-    angle = math.tau * index / segments
-    for collection, z in ((top, 0.24), (bottom, -0.19)):
-        point = geo.createPoint()
-        point.setPosition((math.cos(angle) * hub, math.sin(angle) * hub, z))
-        collection.append(point)
-top_center = geo.createPoint()
-top_center.setPosition((0, 0, 0.24))
-bottom_center = geo.createPoint()
-bottom_center.setPosition((0, 0, -0.19))
-for index in range(segments):
-    next_index = (index + 1) % segments
-    for points in ((top_center, top[index], top[next_index]), (bottom_center, bottom[next_index], bottom[index])):
-        face = geo.createPolygon()
-        face.setIsClosed(True)
-        for point in points:
-            face.addVertex(point)
-    side = geo.createPolygon()
-    side.setIsClosed(True)
-    for point in (bottom[index], bottom[next_index], top[next_index], top[index]):
-        side.addVertex(point)
-'''
-    set_parm(artifact, "python", artifact_code)
-    artifact_out = look_geo.createNode("null", "OUT_ARTIFACT")
-    artifact_out.setInput(0, artifact)
     ground = look_geo.createNode("grid", "ground_geometry")
     set_parm(ground, "orient", "xy")
     set_parm(ground, "sizex", system["domain"]["domain_width"] * 1.08)
@@ -242,7 +177,7 @@ for index in range(segments):
 
     previous = None
     imports = {}
-    for name in ("ground", "resource", "memory", "artifact", "agents"):
+    for name in ("ground", "resource", "memory", "agents"):
         sop_import = stage.createNode("sopimport", f"import_{name}")
         if previous is not None:
             sop_import.setInput(0, previous)
@@ -254,7 +189,6 @@ for index in range(segments):
     material_library = stage.createNode("materiallibrary", "field_study_materials")
     material_library.setInput(0, previous)
     materials = {
-        "artifact": create_material(material_library, "artifact", (0.012, 0.018, 0.022), 0.3),
         "agents": create_material(material_library, "agents", (0.72, 0.92, 0.86), 0.42, 1.4),
         "resource": create_material(material_library, "resource", (0.035, 0.28, 0.52), 0.5, 1.8),
         "memory": create_material(material_library, "memory", (0.48, 0.12, 0.045), 0.55, 1.25),

@@ -102,36 +102,6 @@ def _to_pixel(x: float, y: float, width: int, height: int, domain_width: float, 
     return round((x / domain_width + 0.5) * width), round((0.5 - y / domain_height) * height)
 
 
-def _artifact_shapes(
-    system: Mapping[str, Any], width: int, height: int
-) -> tuple[list[list[tuple[int, int]]], tuple[int, int, int, int]]:
-    relic = system["relic"]
-    domain = system["domain"]
-    arm_start = relic["relic_hub_radius"] * 0.45
-    arm_end = arm_start + relic["relic_arm_length"]
-    half_width = relic["relic_arm_half_width"]
-    arms = []
-    for index in range(3):
-        angle = relic["relic_orientation"] + index * math.tau / 3.0
-        direction = (math.cos(angle), math.sin(angle))
-        perpendicular = (-math.sin(angle), math.cos(angle))
-        corners = []
-        for along, lateral in (
-            (arm_start, -half_width),
-            (arm_end, -half_width),
-            (arm_end, half_width),
-            (arm_start, half_width),
-        ):
-            x = direction[0] * along + perpendicular[0] * lateral
-            y = direction[1] * along + perpendicular[1] * lateral
-            corners.append(_to_pixel(x, y, width, height, domain["domain_width"], domain["domain_height"]))
-        arms.append(corners)
-    center_x, center_y = _to_pixel(0, 0, width, height, domain["domain_width"], domain["domain_height"])
-    radius_x = round(relic["relic_hub_radius"] / domain["domain_width"] * width)
-    radius_y = round(relic["relic_hub_radius"] / domain["domain_height"] * height)
-    return arms, (center_x - radius_x, center_y - radius_y, center_x + radius_x, center_y + radius_y)
-
-
 def _render_frame(record: Mapping[str, Any], system: Mapping[str, Any], size: tuple[int, int], instrument: bool) -> Image.Image:
     width, height = size
     field = record.get("field")
@@ -146,10 +116,6 @@ def _render_frame(record: Mapping[str, Any], system: Mapping[str, Any], size: tu
     else:
         image = Image.new("RGBA", size, (7, 11, 15, 255))
     draw = ImageDraw.Draw(image, "RGBA")
-    arms, hub = _artifact_shapes(system, width, height)
-    for arm in arms:
-        draw.polygon(arm, fill=(13, 15, 18, 255), outline=(116, 128, 132, 235), width=2)
-    draw.ellipse(hub, fill=(13, 15, 18, 255), outline=(116, 128, 132, 235), width=2)
     domain = system["domain"]
     scale = width / domain["domain_width"]
     for agent in record["agents"]:

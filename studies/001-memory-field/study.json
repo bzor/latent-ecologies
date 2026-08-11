@@ -16,7 +16,7 @@
       "update_rules": ["sense", "steer", "consume", "deposit", "decay"],
       "mutations": [],
       "system": {
-        "agent_count": 64,
+        "agent_count": 256,
         "grid_width": 72,
         "grid_height": 128,
         "domain": {
