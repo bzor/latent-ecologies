@@ -1,0 +1,52 @@
+{
+  "$schema": "../../schemas/study.schema.json",
+  "schema_version": 1,
+  "id": "002-mass-flow",
+  "title": "Mass Flow",
+  "status": "prototype",
+  "reproducibility": "open",
+  "seed": 27183,
+  "simulation": {
+    "frame_start": 1,
+    "frame_end": 60,
+    "fps": 30,
+    "rule_genome": {
+      "fields": ["analytic-flow", "phase-attractor", "boundary-fold"],
+      "neighborhoods": ["global-field"],
+      "update_rules": ["advect", "steer", "integrate", "fold"],
+      "mutations": [],
+      "system": {
+        "agent_count": 100000,
+        "domain_width": 9.0,
+        "domain_height": 16.0,
+        "checkpoint_interval": 10,
+        "review_agent_count": 12000,
+        "flow_scale": 0.72,
+        "flow_strength": 2.1,
+        "phase_strength": 0.65,
+        "drag": 0.93,
+        "max_speed": 2.4,
+        "point_size": 0.018
+      }
+    }
+  },
+  "presentation": {
+    "quality": "probe",
+    "mode": "analysis",
+    "look": "mass-flow-density",
+    "camera": "static-observation",
+    "depth_of_field": false,
+    "overlays": ["phase", "speed", "density"]
+  },
+  "render": {
+    "format": "png",
+    "width": 720,
+    "height": 1280,
+    "output_pattern": "work/renders/002-mass-flow/probe.$F4.png"
+  },
+  "publication": {
+    "state": "private",
+    "approval_required": true,
+    "outputs": ["preview-loop", "contact-sheet"]
+  }
+}

@@ -1,0 +1,29 @@
+// Study 002: analytic O(N) flow kernel for very large populations.
+float dt = 1.0 / chf("fps");
+float time = chf("current_frame") * dt;
+float scale = chf("flow_scale");
+float phase_angle = i@phase * 2.09439510239;
+
+vector position = @P;
+vector flow = set(
+    sin(position.y * scale + time * 0.72 + phase_angle)
+        + 0.42 * cos((position.x + position.y) * scale * 0.61 - time * 0.44),
+    0.58 + cos(position.x * scale - time * 0.53 + phase_angle) * 0.72
+        - 0.34 * sin((position.x - position.y) * scale * 0.48 + time * 0.37),
+    0
+);
+flow = normalize(flow + set(1e-6, 0, 0)) * chf("flow_strength");
+
+float phase_center = sin(position.y * 0.43 + phase_angle + time * 0.31) * 2.65;
+vector phase_pull = set(phase_center - position.x, 0, 0) * chf("phase_strength");
+vector desired = limit_length(flow + phase_pull, chf("max_speed"));
+v@v = limit_length(v@v * chf("drag") + desired * (1.0 - chf("drag")), chf("max_speed"));
+@P += v@v * dt;
+@P.x = fold_axis(@P.x, chf("domain_width") * 0.5);
+@P.y = fold_axis(@P.y, chf("domain_height") * 0.5);
+
+f@speed = length(v@v);
+f@curvature = length(v@v - v@previous_v) / max(dt, 1e-6);
+v@previous_v = v@v;
+f@density_hint = smooth(0.0, 1.0, 1.0 - abs(@P.x - phase_center) / 2.2);
+

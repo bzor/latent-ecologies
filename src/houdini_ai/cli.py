@@ -10,6 +10,7 @@ from jsonschema.exceptions import SchemaError
 
 from .doctor import inspect_workstation
 from .jobs import job_status, load_job, prepare_job, set_stage_state
+from .mass_flow import run_mass_flow_probe
 from .pipeline import run_composite, run_encode, run_lookdev, run_milestone3, run_package, run_render, run_simulation
 
 
@@ -134,6 +135,23 @@ def command_run(args: argparse.Namespace) -> int:
     return 0
 
 
+def command_scale_probe(args: argparse.Namespace) -> int:
+    errors = validate_manifest(Path(args.manifest).resolve())
+    if errors:
+        for error in errors:
+            print(f"ERROR {error}")
+        return 1
+    job = _job_from_args(args)
+    prepare_job(job)
+    print(f"job: {job.job_id}")
+    try:
+        print(run_mass_flow_probe(job))
+    except RuntimeError as exc:
+        print(f"ERROR {exc}")
+        return 1
+    return 0
+
+
 def build_parser() -> argparse.ArgumentParser:
     parser = argparse.ArgumentParser(prog="houdini-ai")
     subparsers = parser.add_subparsers(required=True)
@@ -146,6 +164,7 @@ def build_parser() -> argparse.ArgumentParser:
         ("plan", command_plan, "create or refresh a job plan without launching Houdini"),
         ("run", command_run, "run implemented stages for a study job"),
         ("status", command_status, "show stage states for a study job"),
+        ("scale-probe", command_scale_probe, "run the Phase 2 high-density agent capability probe"),
     ):
         command = subparsers.add_parser(name, help=help_text)
         command.add_argument("manifest")

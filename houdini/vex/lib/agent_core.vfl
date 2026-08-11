@@ -1,0 +1,18 @@
+// Shared dense-agent integration helpers. Keep these O(1) per point.
+float fold_axis(float value; float half_extent)
+{
+    float extent = half_extent * 2.0;
+    return value - floor((value + half_extent) / extent) * extent;
+}
+
+vector limit_length(vector value; float maximum)
+{
+    float magnitude = length(value);
+    return magnitude > maximum ? value * (maximum / magnitude) : value;
+}
+
+float unit_hash(int value; int seed)
+{
+    return rand(set(value * 0.754877666, seed * 0.569840296, value + seed));
+}
+
