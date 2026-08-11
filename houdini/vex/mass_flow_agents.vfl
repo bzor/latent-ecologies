@@ -13,7 +13,9 @@ vector flow = set(
     (0.46 * sin((position.x + position.y) * scale * 0.55 + time * 0.41 - phase_angle)
         + 0.22 * cos(position.z * scale * 0.83 - time * 0.29 + phase_angle)) * chf("depth_strength")
 );
-flow = normalize(flow + set(1e-6, 0, 0)) * chf("flow_strength");
+// Preserve the field's raw magnitude so low-energy regions naturally slow down.
+// max_speed remains a safety cap, rather than a target velocity.
+flow *= chf("flow_strength");
 
 float phase_center = sin(position.y * 0.43 + phase_angle + time * 0.31) * 2.65;
 float depth_center = sin(position.y * 0.31 - phase_angle + time * 0.23) * chf("domain_depth") * 0.32;
@@ -83,7 +85,8 @@ vector wander = normalize(set(
     sin(wander_phase * 0.61 + 3.1)
 )) * chf("wander_strength");
 
-vector desired = limit_length(flow + phase_pull + flocking + wander, chf("max_speed"));
+vector tail_avoidance = v@tail_force * chf("tail_avoidance_strength");
+vector desired = limit_length(flow + phase_pull + flocking + tail_avoidance + wander, chf("max_speed"));
 v@v = limit_length(v@v * chf("drag") + desired * (1.0 - chf("drag")), chf("max_speed"));
 @P += v@v * dt;
 @P.x = fold_axis(@P.x, chf("domain_width") * 0.5);

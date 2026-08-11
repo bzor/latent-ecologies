@@ -29,6 +29,78 @@ def fraction(value: float) -> float:
     return value - math.floor(value)
 
 
+class TailMemory:
+    """A coarse, fading density field used to steer agents away from old paths."""
+
+    def __init__(self, system: dict[str, Any]) -> None:
+        self.width = float(system["domain_width"])
+        self.height = float(system["domain_height"])
+        self.depth = float(system["domain_depth"])
+        self.x_count = int(system["tail_grid_x"])
+        self.y_count = int(system["tail_grid_y"])
+        self.z_count = int(system["tail_grid_z"])
+        self.deposit_interval = int(system["tail_deposit_interval"])
+        self.decay = float(system["tail_decay"])
+        self.deposit_amount = float(system["tail_deposit_amount"])
+        self.values = array("f", [0.0]) * (self.x_count * self.y_count * self.z_count)
+
+    def _coordinate(self, value: float, size: float, count: int) -> int:
+        normalized = (value / size + 0.5) % 1.0
+        return min(count - 1, int(normalized * count))
+
+    def _index(self, x: int, y: int, z: int) -> int:
+        return ((z % self.z_count) * self.y_count + (y % self.y_count)) * self.x_count + (x % self.x_count)
+
+    def _cell_for_position(self, x: float, y: float, z: float) -> tuple[int, int, int]:
+        return (
+            self._coordinate(x, self.width, self.x_count),
+            self._coordinate(y, self.height, self.y_count),
+            self._coordinate(z, self.depth, self.z_count),
+        )
+
+    def seed(self, geometry: hou.Geometry) -> None:
+        self.deposit(geometry)
+        self.apply_forces(geometry)
+
+    def advance(self, geometry: hou.Geometry, frame: int, initial_frame: int) -> None:
+        for index, value in enumerate(self.values):
+            self.values[index] = value * self.decay
+        if (frame - initial_frame) % self.deposit_interval == 0:
+            self.deposit(geometry)
+        self.apply_forces(geometry)
+
+    def deposit(self, geometry: hou.Geometry) -> None:
+        positions = geometry.pointFloatAttribValues("P")
+        for offset in range(0, len(positions), 3):
+            x, y, z = self._cell_for_position(positions[offset], positions[offset + 1], positions[offset + 2])
+            index = self._index(x, y, z)
+            self.values[index] += self.deposit_amount
+
+    def apply_forces(self, geometry: hou.Geometry) -> None:
+        positions = geometry.pointFloatAttribValues("P")
+        forces = array("f")
+        x_scale = self.x_count / self.width
+        y_scale = self.y_count / self.height
+        z_scale = self.z_count / self.depth
+        for offset in range(0, len(positions), 3):
+            x, y, z = self._cell_for_position(positions[offset], positions[offset + 1], positions[offset + 2])
+            center = self.values[self._index(x, y, z)]
+            gradient_x = (self.values[self._index(x + 1, y, z)] - self.values[self._index(x - 1, y, z)]) * 0.5 * x_scale
+            gradient_y = (self.values[self._index(x, y + 1, z)] - self.values[self._index(x, y - 1, z)]) * 0.5 * y_scale
+            gradient_z = (self.values[self._index(x, y, z + 1)] - self.values[self._index(x, y, z - 1)]) * 0.5 * z_scale
+            magnitude = math.sqrt(gradient_x * gradient_x + gradient_y * gradient_y + gradient_z * gradient_z)
+            if magnitude <= 1e-8:
+                forces.extend((0.0, 0.0, 0.0))
+                continue
+            density_weight = min(1.0, center * 0.35)
+            forces.extend((
+                -gradient_x / magnitude * density_weight,
+                -gradient_y / magnitude * density_weight,
+                -gradient_z / magnitude * density_weight,
+            ))
+        geometry.setPointFloatAttribValues("tail_force", forces)
+
+
 def initial_geometry(system: dict[str, Any], seed: int) -> hou.Geometry:
     count = int(system["agent_count"])
     width = float(system["domain_width"])
@@ -42,6 +114,7 @@ def initial_geometry(system: dict[str, Any], seed: int) -> hou.Geometry:
     geometry.addAttrib(hou.attribType.Point, "speed", 0.0)
     geometry.addAttrib(hou.attribType.Point, "curvature", 0.0)
     geometry.addAttrib(hou.attribType.Point, "density_hint", 0.0)
+    geometry.addAttrib(hou.attribType.Point, "tail_force", (0.0, 0.0, 0.0))
     geometry.addAttrib(hou.attribType.Point, "pscale", float(system["point_size"]))
     golden = 0.6180339887498949
     for agent_id in range(count):
@@ -75,7 +148,7 @@ def sha256(path: Path) -> str:
 
 def geometry_digest(geometry: hou.Geometry) -> str:
     digest = hashlib.sha256()
-    for attribute in ("P", "v", "previous_v", "speed", "curvature", "density_hint"):
+    for attribute in ("P", "v", "previous_v", "speed", "curvature", "density_hint", "tail_force"):
         digest.update(attribute.encode("ascii"))
         # Parallel VEX may vary by a few float ULPs across processes. Quantize to
         # 1e-5 so the digest records materially identical state, not task order.
@@ -96,6 +169,7 @@ def checkpoint_record(geometry: hou.Geometry, frame: int, elapsed: float) -> dic
         "frame": frame,
         "agent_count": len(speeds),
         "mean_speed": sum(speeds) / len(speeds),
+        "min_speed": min(speeds),
         "max_speed": max(speeds),
         "bounds": [min(xs), min(ys), min(zs), max(xs), max(ys), max(zs)],
         "elapsed_seconds": elapsed,
@@ -136,6 +210,8 @@ def run(config_path: Path, cache_dir: Path, metrics_path: Path, review_path: Pat
     snippet = (root / "houdini" / "vex" / "lib" / "agent_core.vfl").read_text(encoding="utf-8")
     snippet += "\n" + (root / "houdini" / "vex" / "mass_flow_agents.vfl").read_text(encoding="utf-8")
     geometry = initial_geometry(system, int(study["seed"]))
+    tail_memory = TailMemory(system)
+    tail_memory.seed(geometry)
     initial_frame = start - prewarm_frames
     previous_path = cache_dir / ("state.prewarm.0.bgeo.sc" if prewarm_frames else f"state.{start:04d}.bgeo.sc")
     geometry.saveToFile(str(previous_path))
@@ -156,7 +232,7 @@ def run(config_path: Path, cache_dir: Path, metrics_path: Path, review_path: Pat
             "domain_width", "domain_height", "domain_depth", "flow_scale", "flow_strength", "depth_strength",
             "phase_strength", "avoidance_radius", "avoidance_strength", "flock_radius", "flock_id_window",
             "alignment_strength", "cohesion_strength", "separation_radius", "separation_strength",
-            "wander_strength", "drag", "max_speed",
+            "tail_avoidance_strength", "wander_strength", "drag", "max_speed",
         )},
     }
     add_spare_parms(update, values)
@@ -166,6 +242,7 @@ def run(config_path: Path, cache_dir: Path, metrics_path: Path, review_path: Pat
         update.parm("current_frame").set(frame)
         update.cook(force=True)
         geometry = update.geometry().freeze()
+        tail_memory.advance(geometry, frame, initial_frame)
         previous_path = cache_dir / (
             f"state.{start:04d}.bgeo.sc" if frame == start else f"state.prewarm.{(frame - initial_frame) % 2}.bgeo.sc"
         )
@@ -184,6 +261,7 @@ def run(config_path: Path, cache_dir: Path, metrics_path: Path, review_path: Pat
         update.parm("current_frame").set(frame)
         update.cook(force=True)
         geometry = update.geometry().freeze()
+        tail_memory.advance(geometry, frame, initial_frame)
         if frame in checkpoint_frames:
             checkpoint = cache_dir / f"state.{frame:04d}.bgeo.sc"
             geometry.saveToFile(str(checkpoint))

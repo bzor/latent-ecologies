@@ -1,5 +1,27 @@
 # Mass Flow lab log
 
+## 2026-08-11 — Motion probe 005: trail memory and variable velocity
+
+**Artist direction:** Let agents leave a coarse trace in space and subtly avoid those
+accumulated paths. Replace the effectively uniform normalized field speed with natural
+acceleration and deceleration constrained only by a maximum speed.
+
+**Proposal:** Maintain a compact 24 × 48 × 12 periodic 3D density grid alongside the
+deterministic VEX solve. Deposit agent positions every third frame, fade the grid by
+6% per frame, and write the negative local density gradient back as a per-point force
+for the following update. Preserve raw analytic-flow magnitude, combine it with
+flocking, phase, and tail-memory forces, then cap the resulting velocity at 3.0.
+
+**Observation:** The repeatability smoke probe and full 4,000-agent, 450-frame run
+both passed. The last checkpoint spans 0.10–2.99 speed units (mean 2.24), giving the
+flow visible pauses and accelerations without exceeding its cap. The Karma XPU still
+shows broad braided currents while the new memory field lightly opens and deflects
+reused paths rather than making local avoidance visually noisy.
+
+**Status:** Motion Probe 005 accepted as the new Mass Flow behavior baseline. The
+memory grid is deliberately low-resolution and should remain a tunable reusable field
+rather than a substitute for high-resolution collision geometry.
+
 ## 2026-08-11 — Probe 001: stratified currents
 
 **Hypothesis:** A very large population can read as a small number of authored currents
