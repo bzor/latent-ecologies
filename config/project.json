@@ -11,7 +11,11 @@
     "color_intent": "final-look-from-karma",
     "resume_missing_frames": true
   },
+  "storage": {
+    "warning_gb": 20,
+    "critical_gb": 50,
+    "minimum_free_gb": 100
+  },
   "quality_tiers": ["probe", "study", "specimen"],
   "presentation_modes": ["organism", "instrument", "analysis"]
 }
-

@@ -12,6 +12,7 @@ from .doctor import inspect_workstation
 from .jobs import job_status, load_job, prepare_job, set_stage_state
 from .mass_flow import run_mass_flow_probe
 from .pipeline import run_composite, run_encode, run_lookdev, run_milestone3, run_package, run_render, run_simulation
+from .storage import ALL_CATEGORIES, DEFAULT_CATEGORIES, apply_cleanup, format_bytes, plan_cleanup, storage_report
 
 
 ROOT = Path(__file__).resolve().parents[2]
@@ -114,6 +115,9 @@ def command_run(args: argparse.Namespace) -> int:
             print(f"ERROR {error}")
         return 1
     job = _job_from_args(args)
+    report = storage_report(ROOT)
+    if report["level"] != "ok":
+        print(f"WARNING storage is {report['level']}: {format_bytes(report['work_size'])} in work, {format_bytes(report['disk_free'])} free")
     prepare_job(job)
     set_stage_state(job, "validate", "running")
     set_stage_state(job, "validate", "complete", summary="study manifest passed schema and semantic validation")
@@ -142,6 +146,9 @@ def command_scale_probe(args: argparse.Namespace) -> int:
             print(f"ERROR {error}")
         return 1
     job = _job_from_args(args)
+    report = storage_report(ROOT)
+    if report["level"] != "ok":
+        print(f"WARNING storage is {report['level']}: {format_bytes(report['work_size'])} in work, {format_bytes(report['disk_free'])} free")
     prepare_job(job)
     print(f"job: {job.job_id}")
     try:
@@ -149,6 +156,40 @@ def command_scale_probe(args: argparse.Namespace) -> int:
     except RuntimeError as exc:
         print(f"ERROR {exc}")
         return 1
+    return 0
+
+
+def command_storage(_: argparse.Namespace) -> int:
+    report = storage_report(ROOT)
+    print(f"work: {format_bytes(report['work_size'])} across {report['work_files']:,} files [{report['level']}]")
+    print(f"disk free: {format_bytes(report['disk_free'])} (minimum {format_bytes(report['minimum_free_bytes'])})")
+    print(f"budgets: warning {format_bytes(report['warning_bytes'])}; critical {format_bytes(report['critical_bytes'])}")
+    for job in report["jobs"]:
+        flags = []
+        if job.latest:
+            flags.append("latest")
+        if job.retention_protected:
+            flags.append("protected")
+        if job.package_complete:
+            flags.append("packaged")
+        print(f"{format_bytes(job.size):>10}  {job.job_id}  [{', '.join(flags) or 'reproducible'}]")
+    return 1 if report["level"] == "critical" else 0
+
+
+def command_clean(args: argparse.Namespace) -> int:
+    categories = args.category or list(DEFAULT_CATEGORIES)
+    items = plan_cleanup(ROOT, categories)
+    total = sum(item.size for item in items)
+    print(f"cleanup mode: {'APPLY' if args.apply else 'DRY RUN'}")
+    print(f"categories: {', '.join(categories)}")
+    for item in items:
+        print(f"{format_bytes(item.size):>10}  {item.category:<20} {item.path.relative_to(ROOT)}")
+    print(f"total reclaimable: {format_bytes(total)} across {len(items)} targets")
+    if args.apply:
+        reclaimed = apply_cleanup(ROOT, items)
+        print(f"reclaimed: {format_bytes(reclaimed)}")
+    else:
+        print("no files were removed; pass --apply to execute this exact category plan")
     return 0
 
 
@@ -160,6 +201,12 @@ def build_parser() -> argparse.ArgumentParser:
     validate = subparsers.add_parser("validate", help="validate a study manifest")
     validate.add_argument("manifest")
     validate.set_defaults(func=command_validate)
+    storage = subparsers.add_parser("storage", help="report generated-work usage and retention state")
+    storage.set_defaults(func=command_storage)
+    clean = subparsers.add_parser("clean", help="plan or apply bounded generated-work cleanup")
+    clean.add_argument("--category", action="append", choices=ALL_CATEGORIES)
+    clean.add_argument("--apply", action="store_true", help="execute the cleanup plan; default is dry-run")
+    clean.set_defaults(func=command_clean)
     for name, handler, help_text in (
         ("plan", command_plan, "create or refresh a job plan without launching Houdini"),
         ("run", command_run, "run implemented stages for a study job"),

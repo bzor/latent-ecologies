@@ -44,6 +44,8 @@ python -m houdini_ai validate studies/001-memory-field/study.json
 python -m houdini_ai plan studies/001-memory-field/study.json
 python -m houdini_ai run studies/001-memory-field/study.json
 python -m houdini_ai status studies/001-memory-field/study.json
+python -m houdini_ai storage
+python -m houdini_ai clean
 python -m unittest discover -s tests
 python -m ruff check src tests houdini/diagnostic_scene.py
 ```
@@ -65,6 +67,18 @@ the job directory: completed caches and frames are the resume state. Run `doctor
 Houdini, Karma, FFmpeg, or licensing fails; detailed subprocess output is preserved
 under the job's `logs/` directory. Machine-specific paths and environment values are
 not copied into receipts or package metadata.
+
+`storage` reports generated-work usage, free space, budgets, and per-job retention.
+`clean` is a dry run unless `--apply` is supplied. Its defaults cover superseded
+reproducible jobs, determinism-gate caches, and scratch files. Newest jobs are retained;
+selected, approved, and published studies are protected; packages are never targets.
+Full PNG sequences require the explicit `--category packaged-sequences` option.
+
+```powershell
+python -m houdini_ai clean
+python -m houdini_ai clean --category smoke-caches --apply
+python -m houdini_ai clean --category packaged-sequences
+```
 
 `doctor` searches `HOUDINI_BIN` and `FFMPEG_BIN`, then `PATH`, standard SideFX
 installation directories, and WinGet FFmpeg packages on Windows. It probes Houdini

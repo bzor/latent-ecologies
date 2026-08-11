@@ -48,6 +48,18 @@ command is therefore both the normal resume operation and the normal repair oper
 - Paths containing spaces are supported. Keep generated artifacts beneath `work/`
   so they remain disposable and outside version control.
 
+## Storage and retention
+
+Run `python -m houdini_ai storage` before large work to inspect job sizes, free space,
+and the configured 20 GB warning / 50 GB critical thresholds. Pipeline entrypoints
+also warn when thresholds are crossed or free space falls below 100 GB.
+
+`python -m houdini_ai clean` only prints a plan. Add `--apply` to execute it. Default
+cleanup covers stale reproducible jobs, smoke caches, and temporary state. Selected,
+approved, and published studies are protected; each study's newest job is retained;
+packages are never targeted. Packaged PNG sequences require the explicit
+`--category packaged-sequences` option because they remain expensive to reproduce.
+
 ## Files versus generated state
 
 Version control contains intent: manifests, scene builders, VEX, render presets,
