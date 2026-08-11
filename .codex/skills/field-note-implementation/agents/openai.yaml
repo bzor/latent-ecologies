@@ -1,0 +1,4 @@
+interface:
+  display_name: "Field Note Implementation"
+  short_description: "Turn open field notes into verified changes"
+  default_prompt: "Use $field-note-implementation to process open Review Studio field notes."
