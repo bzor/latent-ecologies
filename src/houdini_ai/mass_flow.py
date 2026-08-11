@@ -184,7 +184,7 @@ def render_mass_flow_animation(review_path: Path, config: Mapping[str, Any], out
     frames_dir.mkdir(parents=True, exist_ok=True)
     for stale_frame in frames_dir.glob("motion.*.jpg"):
         stale_frame.unlink()
-    records = data["frames"][1:]  # Drop the irregular frame-1 seed checkpoint: 90 frames at 6 fps = 15 seconds.
+    records = data["frames"][1:]  # Drop the irregular frame-1 seed checkpoint; regular samples play at 6 fps.
 
     def pixel(point: Sequence[float]) -> tuple[int, int]:
         return round((point[0] / domain_width + 0.5) * width), round((0.5 - point[1] / domain_height) * height)
@@ -216,7 +216,9 @@ def render_mass_flow_animation(review_path: Path, config: Mapping[str, Any], out
     ffmpeg = next(tool.path for tool in discover_tools() if tool.name == "ffmpeg")
     if ffmpeg is None:
         raise RuntimeError("ffmpeg is required to encode the Mass Flow preview")
-    output = output_dir / "mass-flow-15s-preview.mp4"
+    duration_seconds = len(records) / 6
+    duration_label = f"{duration_seconds:g}".replace(".", "p")
+    output = output_dir / f"mass-flow-{duration_label}s-preview.mp4"
     command = [str(ffmpeg), "-y", "-framerate", "6", "-i", str(frames_dir / "motion.%04d.jpg"), "-c:v", "libx264", "-crf", "20", "-pix_fmt", "yuv420p", "-movflags", "+faststart", str(output)]
     result = subprocess.run(command, capture_output=True, text=True, timeout=300, check=False)
     if result.returncode:

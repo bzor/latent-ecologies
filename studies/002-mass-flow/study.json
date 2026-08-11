@@ -8,7 +8,7 @@
   "seed": 27183,
   "simulation": {
     "frame_start": 1,
-    "frame_end": 450,
+    "frame_end": 600,
     "fps": 30,
     "rule_genome": {
       "fields": ["analytic-flow", "phase-attractor", "trail-memory-grid", "boundary-fold"],

@@ -42,8 +42,10 @@ def create_white_background_material(parent: hou.Node) -> hou.Node:
     return surface
 
 
-def build_trails(cache_dir: Path, system: dict, output: Path, heads_output: Path) -> None:
+def build_trails(cache_dir: Path, system: dict, output: Path, heads_output: Path, end_frame: int | None = None) -> None:
     frames = [int(path.stem.split(".")[1]) for path in sorted(cache_dir.glob("state.[0-9][0-9][0-9][0-9].bgeo.sc"))]
+    if end_frame is not None:
+        frames = [frame for frame in frames if frame <= end_frame]
     geometries = []
     for frame in frames:
         geometry = hou.Geometry()
@@ -116,6 +118,7 @@ def main() -> None:
     parser.add_argument("--dome-rotation", type=float, default=-106.0)
     parser.add_argument("--dome-intensity", type=float, default=1.6)
     parser.add_argument("--renderer", choices=("cpu", "xpu"), default="xpu")
+    parser.add_argument("--end-frame", type=int, help="build trails and heads through this cached checkpoint")
     args = parser.parse_args()
     effective = json.loads(args.config.read_text(encoding="utf-8"))
     study = effective.get("study", effective)
@@ -125,7 +128,7 @@ def main() -> None:
     head_cache = args.hip.with_name("agent-heads.bgeo.sc")
     args.hip.parent.mkdir(parents=True, exist_ok=True)
     args.image.parent.mkdir(parents=True, exist_ok=True)
-    build_trails(args.cache_dir, system, trail_cache, head_cache)
+    build_trails(args.cache_dir, system, trail_cache, head_cache, args.end_frame)
 
     hou.hipFile.clear(suppress_save_prompt=True)
     obj = hou.node("/obj")

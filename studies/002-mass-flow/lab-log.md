@@ -1,5 +1,24 @@
 # Mass Flow lab log
 
+## 2026-08-11 — Motion and look probe 016: extended preview and midpoint lookdev
+
+**Artist direction:** Extend the motion review to 20 seconds and provide a lookdev
+frame from the midpoint of that extended sequence.
+
+**Proposal:** Extend the simulation from 450 to 600 frames while retaining its
+30 fps solve and six-fps review cadence, which produces 120 regular review samples
+and a 20-second preview without slowing the recent faster motion. Build a graphite
+Karma XPU trail still through cached frame 300, with heads at that midpoint state.
+
+**Observation:** The 4,000-agent solve passed both same-seed determinism and
+changed-seed distinction gates across its full 600 frames. Its 120 regular review
+samples encode to exactly 20.000 seconds at six fps. The midpoint graphite Karma XPU
+still was built through cached frame 300 at 720 × 1280, retaining the accepted dome,
+camera, materials, and trail history while placing all heads at that midpoint state.
+
+**Status:** Probe 016 ready for artist review with the 20-second motion preview and
+frame-300 lookdev still.
+
 ## 2026-08-11 — Motion probe 015: 1.5× transport speed
 
 **Review source:** Review Studio iterate note
