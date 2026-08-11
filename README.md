@@ -83,6 +83,8 @@ and selected simulation parameters. The browser can compare same-kind artifacts 
 record comments or constrained decisions with optional video timecodes. Feedback is
 written atomically beneath `work/reviews/`; it cannot execute commands or directly
 modify VEX, manifests, HIP files, or render state.
+Assistant replies can advance notes through acknowledged, implemented, and resolved
+states and link completed work to a commit, replacement job, and verified artifacts.
 
 ```powershell
 python -m houdini_ai clean

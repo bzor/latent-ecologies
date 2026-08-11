@@ -25,7 +25,10 @@ Current capabilities:
 - Run parameters and source provenance.
 - Comments attached to an artifact and optional video timecode.
 - `keep`, `reject`, `iterate`, and `approved-look` decisions.
-- Open/resolved review state.
+- `open`, `acknowledged`, `implemented`, and `resolved` review state.
+- Assistant replies displayed in the note thread.
+- Optional implementation lineage to a Git commit, replacement job, and verified
+  result artifacts.
 
 The public field notebook will reuse these artifact and review contracts after local
 studio practice has stabilized.

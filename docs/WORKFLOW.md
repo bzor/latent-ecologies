@@ -45,8 +45,8 @@ The review lifecycle is:
 2. Record a comment or `keep`, `reject`, `iterate`, or `approved-look` decision.
 3. Translate accepted feedback into bounded manifest, VEX, material, or camera changes.
 4. Test and commit the versioned intent, then generate a replacement job.
-5. Resolve the original note; future lineage work will link it directly to the commit
-   and replacement artifact.
+5. Record an assistant implementation reply with the resulting commit, replacement
+   job, and verified artifact paths, then resolve the original note.
 
 The studio currently does not start renders. A future controlled queue will accept only
 predefined, bounded actions with cost disclosure and explicit confirmation.

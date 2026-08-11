@@ -17,7 +17,13 @@ MEDIA_EXTENSIONS = {".mp4": "video", ".mov": "video", ".png": "image", ".jpg": "
 SCENE_EXTENSIONS = {".hip", ".hiplc", ".hipnc"}
 ARTIFACT_ROOTS = {"review", "lookdev", "package", "publish"}
 DECISIONS = {"keep", "reject", "iterate", "approved-look"}
-STATUSES = {"open", "resolved"}
+STATUSES = {"open", "acknowledged", "implemented", "resolved"}
+STATUS_TRANSITIONS = {
+    "open": {"acknowledged", "resolved"},
+    "acknowledged": {"open", "implemented", "resolved"},
+    "implemented": {"acknowledged", "resolved"},
+    "resolved": {"open"},
+}
 _WRITE_LOCK = threading.Lock()
 
 
@@ -175,10 +181,70 @@ class ReviewStore:
             item = next((entry for entry in payload["items"] if entry.get("id") == item_id), None)
             if item is None:
                 raise ValueError("review item not found")
+            prior = item.get("status", "open")
+            if status != prior and status not in STATUS_TRANSITIONS.get(prior, set()):
+                raise ValueError(f"cannot transition review item from {prior} to {status}")
             item["status"] = status
             item["updated_at"] = datetime.now(timezone.utc).isoformat()
             self._write(self._path(study_id), payload)
         return item
+
+    def respond(self, study_id: str, item_id: str, value: dict[str, Any]) -> dict[str, Any]:
+        text = str(value.get("text", "")).strip()
+        status = str(value.get("status", "acknowledged"))
+        result = value.get("result")
+        if not text or len(text) > 2000:
+            raise ValueError("response text must contain 1 to 2000 characters")
+        if status not in STATUSES:
+            raise ValueError("invalid status")
+        validated_result = self._validate_result(result) if result is not None else None
+        with _WRITE_LOCK:
+            payload = self.read(study_id)
+            item = next((entry for entry in payload["items"] if entry.get("id") == item_id), None)
+            if item is None:
+                raise ValueError("review item not found")
+            prior = item.get("status", "open")
+            if status != prior and status not in STATUS_TRANSITIONS.get(prior, set()):
+                raise ValueError(f"cannot transition review item from {prior} to {status}")
+            response = {
+                "id": uuid.uuid4().hex,
+                "author": "assistant",
+                "created_at": datetime.now(timezone.utc).isoformat(),
+                "text": text,
+            }
+            item.setdefault("responses", []).append(response)
+            item["status"] = status
+            item["updated_at"] = response["created_at"]
+            if validated_result is not None:
+                item["result"] = validated_result
+            self._write(self._path(study_id), payload)
+        return item
+
+    def _validate_result(self, value: Any) -> dict[str, Any]:
+        if not isinstance(value, dict):
+            raise ValueError("result must be an object")
+        commit = value.get("commit")
+        job_id = value.get("job_id")
+        artifact_paths = value.get("artifact_paths", [])
+        if commit is not None and not re.fullmatch(r"[a-f0-9]{7,64}", str(commit)):
+            raise ValueError("result commit must be a Git hash")
+        if job_id is not None:
+            job_dir = self.root / "work" / "jobs" / str(job_id)
+            if not job_dir.is_dir() or not _inside(job_dir, self.root / "work" / "jobs"):
+                raise ValueError("result job does not exist")
+            if not isinstance(artifact_paths, list) or len(artifact_paths) > 20:
+                raise ValueError("result artifact_paths must be a list of at most 20 paths")
+            for relative in artifact_paths:
+                artifact = job_dir / str(relative)
+                if not artifact.is_file() or not _inside(artifact, job_dir):
+                    raise ValueError(f"result artifact does not exist: {relative}")
+        elif artifact_paths:
+            raise ValueError("result artifacts require a job_id")
+        return {
+            "commit": str(commit) if commit is not None else None,
+            "job_id": str(job_id) if job_id is not None else None,
+            "artifact_paths": [str(path) for path in artifact_paths],
+        }
 
     @staticmethod
     def _write(path: Path, value: dict[str, Any]) -> None:
@@ -219,7 +285,18 @@ def make_handler(root: Path):
             self._file(target)
 
         def do_POST(self) -> None:  # noqa: N802
-            if urlparse(self.path).path != "/api/reviews":
+            path = urlparse(self.path).path
+            response_match = re.fullmatch(r"/api/reviews/([^/]+)/([a-f0-9]{32})/responses", path)
+            if response_match:
+                try:
+                    self._json(
+                        store.respond(unquote(response_match.group(1)), response_match.group(2), self._body()),
+                        HTTPStatus.CREATED,
+                    )
+                except ValueError as exc:
+                    self._error(HTTPStatus.BAD_REQUEST, str(exc))
+                return
+            if path != "/api/reviews":
                 self._error(HTTPStatus.NOT_FOUND, "not found")
                 return
             try:

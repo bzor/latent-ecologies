@@ -23,6 +23,7 @@ API surface:
 - `GET /api/reviews/<study-id>`
 - `POST /api/reviews`
 - `PATCH /api/reviews/<study-id>/<item-id>`
+- `POST /api/reviews/<study-id>/<item-id>/responses`
 - `GET /media/<job-id>/<artifact-path>` with byte-range support
 
 There is intentionally no execution endpoint.
@@ -75,22 +76,32 @@ There is intentionally no execution endpoint.
 - Keep `work/reviews/` outside version control through the existing `work/*` rule.
 - Document startup, trust boundaries, and the promotion path for accepted feedback.
 
+## Milestone R6 — Response and implementation lineage
+
+**Status: complete (2026-08-11).**
+
+- Extend review state through `open`, `acknowledged`, `implemented`, and `resolved`.
+- Preserve assistant responses as timestamped entries beneath the artist note.
+- Enforce valid lifecycle transitions.
+- Attach an optional Git commit, existing replacement job, and verified result
+  artifact paths to implemented notes.
+- Display responses and implementation links in the browser.
+
 ## Next milestones
 
-### R6 — Review queue and branch proposals
+### R7 — Review queue and branch proposals
 
 - Convert selected open notes into a read-only proposed change summary.
-- Link resolved notes to resulting source commits and replacement jobs.
 - Add named comparisons and approved artifact sets.
 
-### R7 — Controlled execution
+### R8 — Controlled execution
 
 - Add a bounded queue for existing manifest-defined actions only.
 - Show storage estimates, stage progress, logs, and cancellation state.
 - Require explicit confirmation before starting expensive renders.
 - Keep natural-language feedback separate from executable parameters.
 
-### R8 — Public notebook extraction
+### R9 — Public notebook extraction
 
 - Generate curated study pages from approved artifacts and field notes.
 - Separate private studio notes from public excerpts.

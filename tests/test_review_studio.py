@@ -64,6 +64,25 @@ class ReviewStudioTests(unittest.TestCase):
                 }
             )
             self.assertEqual(item["status"], "open")
+            acknowledged = store.respond(
+                "002-mass-flow", item["id"], {"text": "I will widen the separation field.", "status": "acknowledged"}
+            )
+            self.assertEqual(acknowledged["status"], "acknowledged")
+            self.assertEqual(acknowledged["responses"][0]["author"], "assistant")
+            implemented = store.respond(
+                "002-mass-flow",
+                item["id"],
+                {
+                    "text": "The replacement preview is ready.",
+                    "status": "implemented",
+                    "result": {
+                        "commit": "abcdef1",
+                        "job_id": "002-mass-flow-test",
+                        "artifact_paths": ["review/preview.mp4"],
+                    },
+                },
+            )
+            self.assertEqual(implemented["result"]["commit"], "abcdef1")
             updated = store.update_status("002-mass-flow", item["id"], "resolved")
             self.assertEqual(updated["status"], "resolved")
             with self.assertRaisesRegex(ValueError, "artifact does not exist"):
@@ -112,6 +131,18 @@ class ReviewStudioTests(unittest.TestCase):
                     self.assertEqual(response.status, 201)
                 reviews = json.load(urllib.request.urlopen(f"{base}/api/reviews/002-mass-flow"))
                 self.assertEqual(reviews["items"][0]["text"], "Good movement.")
+                item_id = reviews["items"][0]["id"]
+                payload = json.dumps({"text": "Acknowledged for the next branch.", "status": "acknowledged"}).encode()
+                request = urllib.request.Request(
+                    f"{base}/api/reviews/002-mass-flow/{item_id}/responses",
+                    data=payload,
+                    headers={"Content-Type": "application/json"},
+                    method="POST",
+                )
+                with urllib.request.urlopen(request) as response:
+                    self.assertEqual(response.status, 201)
+                    acknowledged = json.load(response)
+                self.assertEqual(acknowledged["responses"][0]["author"], "assistant")
                 with self.assertRaises(urllib.error.HTTPError) as error:
                     urllib.request.urlopen(f"{base}/media/002-mass-flow-test/../../effective-config.json")
                 self.assertEqual(error.exception.code, 404)
