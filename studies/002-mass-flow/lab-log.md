@@ -193,3 +193,21 @@ the existing white card and accepted dome.
 
 **Status:** Look Probe 007 accepted as the new volumetric baseline. The 2D review
 encode remains an orthographic XY motion diagnostic; Karma carries the authored depth.
+
+## 2026-08-11 — Look probe 008: volumetric handoff correction
+
+**QA finding:** Artist inspection revealed that Look Probe 007's generated HIP was
+still planar despite the simulation's valid Z metrics. The derived-trail builder was
+explicitly reconstructing cached positions as `(x, y, 0)` and discarding Z before the
+SOP and Solaris stages; the initial render therefore did not validate the intended
+volumetric handoff.
+
+**Correction:** Preserve the cached Z component when constructing every trail point
+and fail the build if a study with configured depth produces less than ten percent of
+that depth in its trail bounds.
+
+**Verification:** The corrected HIP contains 1,137,239 trail points spanning Z −1.99998
+to 1.99999, nearly the complete four-unit domain. The replacement XPU render now shows
+strong depth layering, occlusion, curved surface response, and HDRI-driven contrast.
+
+**Status:** Look Probe 008 supersedes the invalid Look Probe 007 HIP and render.

@@ -74,7 +74,11 @@ def build_trails(cache_dir: Path, system: dict, output: Path) -> None:
     for agent_index in range(0, count, stride):
         run = []
         for history_index, values in enumerate(positions):
-            position = (values[agent_index * 3], values[agent_index * 3 + 1], 0.0)
+            position = (
+                values[agent_index * 3],
+                values[agent_index * 3 + 1],
+                values[agent_index * 3 + 2],
+            )
             if run:
                 prior = run[-1][0]
                 if abs(position[0] - prior[0]) > domain_width * 0.5 or abs(position[1] - prior[1]) > domain_height * 0.5:
@@ -84,6 +88,9 @@ def build_trails(cache_dir: Path, system: dict, output: Path) -> None:
             run.append((position, history_index / max(1, len(positions) - 1)))
         if len(run) >= 2:
             _add_curve(trails, run, phases[agent_index], system)
+    depth_size = trails.boundingBox().sizevec()[2]
+    if float(system.get("domain_depth", 0.0)) > 0 and depth_size < float(system["domain_depth"]) * 0.1:
+        raise RuntimeError(f"volumetric trail export collapsed to {depth_size:.6f} units of depth")
     trails.saveToFile(str(output))
 
 
