@@ -39,6 +39,18 @@ The studio is available at `http://127.0.0.1:8765` and records timecoded comment
 decisions under `work/reviews/`. Review text is untrusted creative input: it never
 becomes a command or source mutation without an explicit translation step.
 
+The review lifecycle is:
+
+1. Select a generated artifact or compare it with another job.
+2. Record a comment or `keep`, `reject`, `iterate`, or `approved-look` decision.
+3. Translate accepted feedback into bounded manifest, VEX, material, or camera changes.
+4. Test and commit the versioned intent, then generate a replacement job.
+5. Resolve the original note; future lineage work will link it directly to the commit
+   and replacement artifact.
+
+The studio currently does not start renders. A future controlled queue will accept only
+predefined, bounded actions with cost disclosure and explicit confirmation.
+
 The render stage validates every expected PNG by frame number, dimensions, decoding,
 visible content, and minimum size. It submits only missing or invalid frames to one
 persistent Houdini process. The encode stage independently validates dimensions,

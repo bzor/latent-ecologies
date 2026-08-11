@@ -23,15 +23,23 @@ also establish hierarchy, rhythm, material intent, and an authored point of view
 - Establish probe, study, and specimen population/render budgets.
 - Extract shared deterministic initialization, integration, bounds, and metric conventions.
 
-Acceptance requires two same-seed smoke runs with identical semantic metrics and
-canonical state hashes quantized to `1e-5`, a changed-seed run with distinct output,
-a valid 100,000-agent full probe, and
+Original capability acceptance required two same-seed smoke runs with identical
+semantic metrics and canonical state hashes quantized to `1e-5`, a changed-seed run
+with distinct output, a valid 100,000-agent full probe, and
 a review image with legible large-scale flow structure.
 
 Probe 001 processed 100,000 agents across 60 frames at approximately 2.08 million
 agent-frames per second after startup. Seven compressed checkpoints plus one transient
 state consumed 27.9 MB. Canonical ordered-point checksums matched across same-seed
 smoke runs; the changed seed produced a distinct state.
+
+The capability proof remains preserved, but art direction subsequently moved the
+active Mass Flow branch to an honest 4,000-agent population rendered one-to-one. The
+current branch is volumetric, prewarmed, uses 25-checkpoint trails, deterministic
+cohort-based flocking, and material-matched head spheres. Stronger feedback introduced
+approximately `1e-5` parallel float drift, so current same-seed validation compares
+physical metrics at `1e-4` tolerance while retaining changed-seed distinction and full
+state digests for diagnosis.
 
 Initial working budgets:
 
@@ -52,22 +60,44 @@ Initial working budgets:
 - Compare CPU and XPU support, visual behavior, and cost.
 - Select one authored material language rather than treating every variant as equal.
 
+Current result: Karma XPU is the accepted renderer; `studio_small_03_4k.exr` is the
+accepted local dome source; trail emission is disabled; and the scripted look reproduces
+the artist-authored graphite, metallic-black, dark-violet, 100 mm, shallow-DOF HIPLC
+reference. Reusable non-environment key/fill rigs remain outstanding.
+
 ## Milestone 2.3 — Cameras and composition
 
-**Status: pending.**
+**Status: in progress.**
 
 - Implement static observation, macro tracking, slow orbit, frontier follow, and
   event-driven focus as reusable rigs.
 - Add automatic bounds, safe-frame, focus-target, and portrait-composition checks.
 - Select camera motion because it reveals behavior, not simply because it moves.
 
+Current result: static portrait observation has a reproducible 100 mm camera, focus
+distance 44, f/0.09 depth of field, and camera-relative backing card. Tracking, orbit,
+frontier-follow, and event-focus rigs remain pending.
+
 ## Milestone 2.4 — Fields and environments
 
-**Status: pending.**
+**Status: in progress.**
 
 - Convert agent history into trails, surfaces, volumes, or environmental deformation.
 - Test field-to-geometry, VDB, accumulation, and environmental shading workflows.
 - Establish when full agents, derived representation, or a hybrid gives the strongest image.
+
+Current result: cached agent history produces real 3D Karma curves with explicit depth
+validation, and the active 4,000-agent branch renders every simulated trail plus every
+head. Surface, VDB, accumulation, and environmental-deformation studies remain pending.
+
+## Review integration
+
+**Status: complete for the local-first milestone (2026-08-11).**
+
+`houdini-ai review` indexes Phase 2 motion tests, lookdev stills, HIP/HIPLC scenes,
+receipts, source state, and selected parameters. The browser supports comparisons and
+timecoded structured feedback without exposing render or command execution. This is
+the working approval surface while the remaining Phase 2 capabilities are developed.
 
 ## Milestone 2.5 — Integrated specimen
 

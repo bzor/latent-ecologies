@@ -16,3 +16,8 @@ retain 25 checkpoints of history rather than the original five.
 
 The Karma look renders all 4,000 simulated agents without population subsampling and
 places a small phase-material sphere at each agent's latest cached position.
+
+Run `python -m houdini_ai review` to inspect Mass Flow motion and lookdev jobs, compare
+iterations, and leave artifact- or timecode-specific notes. Review records live under
+`work/reviews/002-mass-flow.json`; accepted feedback is translated explicitly into the
+manifest, VEX, scene builder, and this study's lab log.

@@ -123,7 +123,14 @@ Automation requirements:
 - Default all public actions to `approval_required`.
 - Make jobs idempotent so rerunning a completed stage is safe.
 
-## 8. Website and public studio
+## 8. Review studio, website, and public studio
+
+The first implemented web surface is a local Review Studio over `work/jobs/`. It
+indexes motion tests, lookdev stills, HIP files, receipts, source provenance, and
+selected simulation parameters without duplicating metadata. It supports artifact
+comparison and records constrained, optionally timecoded feedback under
+`work/reviews/`. Review text remains untrusted input and cannot directly invoke
+Houdini, commands, or source mutations.
 
 The website is the durable field notebook. A study page may include observation,
 rules, renders, parameter comparisons, selected VEX, AI and artist decisions,
@@ -142,7 +149,9 @@ Participation levels:
 
 ## 9. Delivery phases
 
-### Phase 0 — Foundation (current)
+### Phase 0 — Foundation
+
+**Status: complete.**
 
 - Repository conventions and manifests.
 - Detailed creative and technical plan.
@@ -150,6 +159,8 @@ Participation levels:
 - Study 001 placeholder and lab log.
 
 ### Phase 1 — Local vertical slice
+
+**Status: complete.**
 
 - Detect local Houdini/Hython and FFmpeg installations.
 - Build a deterministic scene from Python.
@@ -163,13 +174,32 @@ without After Effects or manual frame handling.
 
 ### Phase 2 — Creative framework
 
+**Status: in progress.** Scale/motion is complete; the Mass Flow study has established
+volumetric VEX motion, derived trails, MaterialX/Karma XPU look development, an
+artist-authored camera/DOF baseline, and deterministic flock-like interaction.
+
 - Shared VEX library for fields, neighborhoods, integration, growth, and memory.
 - Reusable instrumentation attributes and overlay toolkit.
 - Karma look and camera presets.
 - Parameter sweeps, contact sheets, metrics, and branch lineage.
 - First complete memory-field study.
 
+### Phase 2.5 — Local review studio
+
+**Status: complete for the first bounded milestone.**
+
+- Local-only dependency-free review service and responsive browser interface.
+- Job/artifact discovery from generated state.
+- Motion playback, still inspection, HIP access, and cross-job comparison.
+- Timecoded comments, constrained decisions, and open/resolved state.
+- Atomic review storage outside version control and no execution endpoint.
+
+Next work adds note-to-commit lineage and a separately approved bounded render queue.
+
 ### Phase 3 — Public notebook
+
+**Status: pending.** The public notebook will reuse the local studio's artifact and
+review contracts; deployment and public/private curation remain undecided.
 
 - Study-index and detail pages.
 - Media, genome, lab-log, download, and reproducibility components.
@@ -199,9 +229,10 @@ Before Phase 1 is considered stable, record:
 - Installed Houdini version, license constraints, and renderer availability.
 - Preferred output resolution/aspect ratios and normal clip duration.
 - GPU/CPU render capacity and acceptable overnight budget.
-- Whether the first website is integrated with an existing site or standalone.
-- Publication account arrangement and desired approval interface.
+- Whether the public notebook is integrated with an existing site or standalone. The
+  production review interface is now explicitly local-first.
+- Publication account arrangement and the next approval interface beyond the local
+  Review Studio's `keep`, `reject`, `iterate`, and `approved-look` decisions.
 - Music/sound approach and licensing policy.
 
 These choices should configure the system, not be hard-coded into each study.
-

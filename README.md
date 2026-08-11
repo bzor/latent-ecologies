@@ -26,13 +26,15 @@ houdini/            Houdini packages, HDAs, materials, and scene tools
 src/houdini_ai/     Automation CLI and pipeline code
 studies/            One reproducible directory per experiment
 tests/              Automation tests
-website/            Future public field notebook
+website/            Local review studio; future public field notebook
 work/               Local caches and renders (ignored by Git)
 ```
 
 Start with [docs/PROJECT_PLAN.md](docs/PROJECT_PLAN.md), then read
 [docs/WORKFLOW.md](docs/WORKFLOW.md). The immediate implementation sequence is in
 [docs/VERTICAL_SLICE_PLAN.md](docs/VERTICAL_SLICE_PLAN.md).
+The implemented review milestones and next interaction work are tracked in
+[docs/REVIEW_STUDIO_PLAN.md](docs/REVIEW_STUDIO_PLAN.md).
 
 ## Quick start
 
@@ -46,8 +48,9 @@ python -m houdini_ai run studies/001-memory-field/study.json
 python -m houdini_ai status studies/001-memory-field/study.json
 python -m houdini_ai storage
 python -m houdini_ai clean
+python -m houdini_ai review
 python -m unittest discover -s tests
-python -m ruff check src tests houdini/diagnostic_scene.py
+python -m ruff check .
 ```
 
 `plan` creates a deterministic workspace and stage receipts without launching
@@ -73,6 +76,13 @@ not copied into receipts or package metadata.
 reproducible jobs, determinism-gate caches, and scratch files. Newest jobs are retained;
 selected, approved, and published studies are protected; packages are never targets.
 Full PNG sequences require the explicit `--category packaged-sequences` option.
+
+`review` starts the local Review Studio at `http://127.0.0.1:8765`. It indexes
+generated motion tests, lookdev stills, scenes, package media, receipts, provenance,
+and selected simulation parameters. The browser can compare same-kind artifacts and
+record comments or constrained decisions with optional video timecodes. Feedback is
+written atomically beneath `work/reviews/`; it cannot execute commands or directly
+modify VEX, manifests, HIP files, or render state.
 
 ```powershell
 python -m houdini_ai clean
@@ -124,3 +134,7 @@ Study 001 is a memory-field experiment. Its first milestone is deliberately
 small: construct a deterministic Houdini scene, cache a short simulation, render
 a PNG sequence in Karma, validate the frames, encode platform variants, and
 prepare a local field-note and post draft for approval.
+
+The complete local vertical slice and the first Phase 2 Mass Flow study now feed the
+local Review Studio. The current regression suite contains 36 tests, including HTTP
+range delivery, path-containment, artifact discovery, and feedback round trips.

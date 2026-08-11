@@ -21,3 +21,7 @@ and avoidance. The first implementation should be minimal enough to understand.
 
 See `study.json` for executable intent and `lab-log.md` for decisions.
 
+Generated Memory Field review media and package artifacts are available through
+`python -m houdini_ai review`. Browser comments and decisions are stored locally under
+`work/reviews/001-memory-field.json`; accepted direction must still be promoted into
+this study's manifest, source, or lab log through an explicit versioned change.

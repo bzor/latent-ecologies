@@ -7,6 +7,26 @@ tests, look development, comparisons, and actionable artist feedback. Preserve t
 existing boundary: generated artifacts and comments are local state; accepted intent
 is translated into versioned manifests, VEX, scene builders, and lab logs.
 
+## Implementation map
+
+- `src/houdini_ai/review_studio.py`: discovery, safe media serving, JSON API, atomic
+  review store, and local HTTP lifecycle.
+- `website/index.html`, `website/styles.css`, `website/app.js`: dependency-free review
+  client.
+- `tests/test_review_studio.py`: discovery, path traversal, HTTP byte ranges, feedback
+  validation, persistence, and state transitions.
+- `website/README.md`: operator quick start and trust boundary.
+
+API surface:
+
+- `GET /api/jobs`
+- `GET /api/reviews/<study-id>`
+- `POST /api/reviews`
+- `PATCH /api/reviews/<study-id>/<item-id>`
+- `GET /media/<job-id>/<artifact-path>` with byte-range support
+
+There is intentionally no execution endpoint.
+
 ## Milestone R1 — Artifact index
 
 **Status: complete (2026-08-11).**

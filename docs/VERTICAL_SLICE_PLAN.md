@@ -204,7 +204,8 @@ interrupted run resumes correctly.
 
 ## Deferred until after the vertical slice
 
-- Website framework selection and deployment.
+- Public website framework selection and deployment. A dependency-free local Review
+  Studio is now implemented; it does not publish externally.
 - X authentication, API integration, and automatic posting.
 - Reply ingestion or audience-driven mutations.
 - General-purpose parameter sweep UI.
@@ -212,11 +213,22 @@ interrupted run resumes correctly.
 - Render-farm or cloud scheduling.
 - Audio generation and synchronization.
 
-## Next-session starting point
+## Post-slice review milestone
 
-The vertical slice is complete. Review the local Study 001 draft package and decide
-whether to refine the artifact-free ecology, promote it from probe to study quality,
-or begin a second study. Public posting remains deliberately approval-gated.
+**Status: complete (2026-08-11).**
+
+The local Review Studio now consumes the same generated job state proven by the
+vertical slice. `python -m houdini_ai review` serves a local-only browser interface at
+`http://127.0.0.1:8765` with motion playback, still inspection, HIP access, artifact
+comparison, provenance, selected parameters, timecoded comments, constrained review
+decisions, and open/resolved state. Feedback is stored beneath `work/reviews/` and is
+never interpreted as executable input. See `docs/REVIEW_STUDIO_PLAN.md`.
+
+## Post-slice continuation
+
+The vertical slice is complete, Study 002 Mass Flow is active, and generated jobs now
+feed the local Review Studio. Remaining work is tracked in `docs/PHASE2_PLAN.md` and
+`docs/REVIEW_STUDIO_PLAN.md`. Public posting remains deliberately approval-gated.
 
 Verified 2026-08-10:
 
@@ -253,7 +265,8 @@ Verified 2026-08-10:
   duration, frame rate, and decoding before the checksummed draft package was written.
 - Reliability coverage includes interruption recovery, missing and partial frames,
   paths containing spaces, malformed manifests, missing executables, and secret-safe
-  subprocess logging. The final regression suite contains 26 passing tests.
+  subprocess logging. The current regression suite contains 36 passing tests, including
+  local review discovery, byte-range media, path-containment, and feedback API coverage.
 
 Useful orientation files:
 

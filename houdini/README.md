@@ -1,9 +1,9 @@
 # Houdini integration
 
-This directory will contain versioned scene builders, VEX libraries, HDAs, Karma
-looks, camera behaviors, and instrumentation tools. Binary HIP/HDA deliverables
-are generated or released artifacts; their source intent should remain reviewable
-wherever Houdini permits it.
+This directory contains versioned scene builders, VEX libraries, and Karma look tools;
+it remains the source location for future HDAs, camera rigs, and instrumentation
+systems. Binary HIP/HDA deliverables are generated or released artifacts; their source
+intent should remain reviewable wherever Houdini permits it.
 
 Planned conventions:
 
@@ -15,3 +15,8 @@ houdini/materials/    Karma material and look presets
 houdini/overlays/     Instrumentation geometry and annotation systems
 ```
 
+Implemented study-level tools currently include deterministic Memory Field and Mass
+Flow simulators, shared VEX integration helpers, volumetric flocking, derived 3D trail
+and head construction, MaterialX assignment, HDRI dome lighting, Karma CPU/XPU output,
+and reopenable generated HIP scenes. Generated scenes and media are indexed by the
+local Review Studio rather than committed to Git.
