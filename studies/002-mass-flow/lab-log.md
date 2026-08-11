@@ -1,5 +1,21 @@
 # Mass Flow lab log
 
+## 2026-08-11 — Look probe 017: two-ended trail heads
+
+**Artist direction:** Add spheres to both the start and end of each trail.
+
+**Proposal:** Retain the existing material-matched sphere construction and scale,
+but emit one head at each agent's first cached point and one at its last cached point.
+The midpoint lookdev will therefore show both endpoints of the trails it builds
+through frame 300.
+
+**Observation:** The midpoint Karma XPU still contains 8,000 head points: two for
+each of the 4,000 trail histories, split 2,668 / 2,666 / 2,666 across the three
+phase materials. The added start heads visibly mark the opposing ends while the
+existing frame-300 heads preserve the current trail termini.
+
+**Status:** Look Probe 017 ready for artist review with both endpoint populations.
+
 ## 2026-08-11 — Motion and look probe 016: extended preview and midpoint lookdev
 
 **Artist direction:** Extend the motion review to 20 seconds and provide a lookdev

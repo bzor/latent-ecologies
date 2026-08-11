@@ -88,11 +88,12 @@ def build_trails(cache_dir: Path, system: dict, output: Path, heads_output: Path
     heads = hou.Geometry()
     heads.addAttrib(hou.attribType.Point, "phase", 0)
     heads.addAttrib(hou.attribType.Point, "pscale", float(system["head_scale"]))
-    final_positions = positions[-1]
+    endpoint_positions = (positions[0], positions[-1])
     for agent_index in range(0, count, stride):
-        point = heads.createPoint()
-        point.setPosition(final_positions[agent_index * 3:agent_index * 3 + 3])
-        point.setAttribValue("phase", phases[agent_index])
+        for endpoint in endpoint_positions:
+            point = heads.createPoint()
+            point.setPosition(endpoint[agent_index * 3:agent_index * 3 + 3])
+            point.setAttribValue("phase", phases[agent_index])
     heads.saveToFile(str(heads_output))
 
 
