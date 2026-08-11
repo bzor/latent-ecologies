@@ -264,3 +264,66 @@ def run_lookdev(job: Job) -> str:
     }
     receipt_path.write_text(json.dumps(receipt, indent=2, sort_keys=True) + "\n", encoding="utf-8")
     return "lookdev: complete"
+
+
+def run_render(job: Job) -> str:
+    simulation = job.effective_config["study"]["simulation"]
+    frames = list(range(int(simulation["frame_start"]), int(simulation["frame_end"]) + 1))
+    frame_dir = job.directory / "render" / "frames"
+    frame_dir.mkdir(parents=True, exist_ok=True)
+    expected_size = _expected_size(job)
+
+    def valid_frame(frame: int) -> bool:
+        path = frame_dir / f"field-study.{frame:04d}.png"
+        try:
+            validate_diagnostic_png(path, expected_size=expected_size)
+            return path.stat().st_size >= max(64, expected_size[0] * expected_size[1] // 100)
+        except (OSError, RuntimeError):
+            return False
+
+    missing = [frame for frame in frames if not valid_frame(frame)]
+    if not missing:
+        receipt = next(item for item in job_status(job) if item["stage"] == "render")
+        if receipt.get("state") == "complete" and receipt.get("input_digest") == job.input_digest:
+            return "render: complete (reused verified sequence)"
+
+    hython = next(tool for tool in discover_tools() if tool.name == "hython").path
+    if hython is None:
+        raise RuntimeError("hython is required; run houdini-ai doctor for setup guidance")
+    hip_path = job.directory / "artifacts" / "scene" / "memory-field.hiplc"
+    cache_dir = job.directory / "simulation" / "cache"
+    selection_path = job.directory / "render" / "missing-frames.json"
+    selection_path.write_text(json.dumps(missing) + "\n", encoding="utf-8")
+    script = job.root / "houdini" / "render_field_sequence.py"
+    env = dict(os.environ)
+    env["HDAI_PROJECT_ROOT"] = str(job.root)
+    env["HOUDINI_TEMP_DIR"] = str(job.directory / "temp")
+    command = (str(hython), str(script), str(hip_path), str(cache_dir), str(frame_dir), str(selection_path))
+    set_stage_state(job, "render", "running", requested_frames=missing)
+    try:
+        if missing:
+            _run_logged(command, job.directory / "logs" / "render.log", env, timeout=21600)
+        invalid = [frame for frame in frames if not valid_frame(frame)]
+        if invalid:
+            raise RuntimeError(f"render sequence has missing or invalid frames: {invalid[:12]}")
+        checksums = {
+            f"field-study.{frame:04d}.png": sha256_path(frame_dir / f"field-study.{frame:04d}.png")
+            for frame in frames
+        }
+        set_stage_state(
+            job,
+            "render",
+            "complete",
+            command=list(command),
+            log="logs/render.log",
+            frame_count=len(frames),
+            rendered_frames=missing,
+            frame_pattern="render/frames/field-study.$F4.png",
+            checksums=checksums,
+            width=expected_size[0],
+            height=expected_size[1],
+        )
+        return f"render: complete ({len(missing)} frame{'s' if len(missing) != 1 else ''} rendered)"
+    except Exception as exc:
+        set_stage_state(job, "render", "failed", error=str(exc), log="logs/render.log")
+        raise

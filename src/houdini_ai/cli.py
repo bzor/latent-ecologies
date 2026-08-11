@@ -10,7 +10,7 @@ from jsonschema.exceptions import SchemaError
 
 from .doctor import inspect_workstation
 from .jobs import job_status, load_job, prepare_job, set_stage_state
-from .pipeline import run_lookdev, run_milestone3, run_simulation
+from .pipeline import run_lookdev, run_milestone3, run_render, run_simulation
 
 
 ROOT = Path(__file__).resolve().parents[2]
@@ -123,10 +123,11 @@ def command_run(args: argparse.Namespace) -> int:
             print(message)
         print(run_simulation(job))
         print(run_lookdev(job))
+        print(run_render(job))
     except RuntimeError as exc:
         print(f"ERROR {exc}")
         return 1
-    print("remaining stages: pending (resumable sequence rendering begins in Milestone 6)")
+    print("remaining stages: pending (encoding and packaging begin in Milestone 7)")
     return 0
 
 
