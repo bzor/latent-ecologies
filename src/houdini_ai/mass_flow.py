@@ -147,6 +147,56 @@ def render_mass_flow_review(review_path: Path, config: Mapping[str, Any], output
     return {"contact_sheet": str(contact_path), "final_frame": str(final_path), "derived_trails": str(trails_path)}
 
 
+def render_mass_flow_animation(review_path: Path, config: Mapping[str, Any], output_dir: Path) -> Path:
+    data = json.loads(review_path.read_text(encoding="utf-8"))
+    study = config.get("study", config)
+    system = study["simulation"]["rule_genome"]["system"]
+    width, height = int(study["render"]["width"]), int(study["render"]["height"])
+    domain_width, domain_height = system["domain_width"], system["domain_height"]
+    palette = ((67, 196, 229), (224, 105, 54), (150, 102, 224))
+    frames_dir = output_dir / "motion-frames"
+    frames_dir.mkdir(parents=True, exist_ok=True)
+    for stale_frame in frames_dir.glob("motion.*.jpg"):
+        stale_frame.unlink()
+    records = data["frames"][1:]  # Drop the irregular frame-1 seed checkpoint: 90 frames at 6 fps = 15 seconds.
+
+    def pixel(point: Sequence[float]) -> tuple[int, int]:
+        return round((point[0] / domain_width + 0.5) * width), round((0.5 - point[1] / domain_height) * height)
+
+    representative_stride = max(1, len(records[0]["points"]) // 3000)
+    for frame_index, record in enumerate(records, 1):
+        image = Image.new("RGB", (width, height), (3, 6, 11))
+        glow = Image.new("RGBA", (width, height), (0, 0, 0, 0))
+        sharp = Image.new("RGBA", (width, height), (0, 0, 0, 0))
+        glow_draw, sharp_draw = ImageDraw.Draw(glow, "RGBA"), ImageDraw.Draw(sharp, "RGBA")
+        history_start = max(1, frame_index - 5)
+        for point_index in range(0, len(record["points"]), representative_stride):
+            phase = int(record["points"][point_index][3])
+            color = palette[phase]
+            for history_index in range(history_start, frame_index):
+                previous = records[history_index - 1]["points"][point_index]
+                current = records[history_index]["points"][point_index]
+                if abs(current[0] - previous[0]) > domain_width * 0.5 or abs(current[1] - previous[1]) > domain_height * 0.5:
+                    continue
+                segment = (*pixel(previous), *pixel(current))
+                alpha = round(35 + (history_index - history_start + 1) / 5 * 120)
+                glow_draw.line(segment, fill=(*color, alpha), width=4)
+                sharp_draw.line(segment, fill=(*color, min(220, alpha + 45)), width=1)
+        image = Image.alpha_composite(image.convert("RGBA"), glow.filter(ImageFilter.GaussianBlur(3.0)))
+        image = Image.alpha_composite(image, sharp)
+        ImageDraw.Draw(image).text((18, 16), f"MASS FLOW  /  {record['frame']:04d}", fill=(225, 235, 240, 220))
+        image.convert("RGB").save(frames_dir / f"motion.{frame_index:04d}.jpg", quality=92)
+    ffmpeg = next(tool.path for tool in discover_tools() if tool.name == "ffmpeg")
+    if ffmpeg is None:
+        raise RuntimeError("ffmpeg is required to encode the Mass Flow preview")
+    output = output_dir / "mass-flow-15s-preview.mp4"
+    command = [str(ffmpeg), "-y", "-framerate", "6", "-i", str(frames_dir / "motion.%04d.jpg"), "-c:v", "libx264", "-crf", "20", "-pix_fmt", "yuv420p", "-movflags", "+faststart", str(output)]
+    result = subprocess.run(command, capture_output=True, text=True, timeout=300, check=False)
+    if result.returncode:
+        raise RuntimeError(f"Mass Flow preview encode failed: {result.stderr[-1000:]}")
+    return output
+
+
 def _run(command: Sequence[str], log_path: Path, env: dict[str, str], timeout: int = 900) -> None:
     try:
         result = subprocess.run(command, capture_output=True, text=True, timeout=timeout, check=False, env=env)
@@ -174,6 +224,7 @@ def run_mass_flow_probe(job: Job) -> str:
     ):
         validate_mass_flow_metrics(metrics_path, job.effective_config)
         render_mass_flow_review(review_path, job.effective_config, job.directory / "review")
+        render_mass_flow_animation(review_path, job.effective_config, job.directory / "review")
         return "scale-probe: complete (reused verified cache)"
 
     hython = next(tool.path for tool in discover_tools() if tool.name == "hython")
@@ -222,9 +273,11 @@ def run_mass_flow_probe(job: Job) -> str:
             review_path.write_bytes(full_review.read_bytes())
         metrics = validate_mass_flow_metrics(metrics_path, job.effective_config)
         review = render_mass_flow_review(review_path, job.effective_config, job.directory / "review")
+        preview = render_mass_flow_animation(review_path, job.effective_config, job.directory / "review")
         set_stage_state(
             job, "simulate", "complete", metrics="simulation/mass-flow-metrics.json",
             metrics_sha256=sha256_path(metrics_path), review=review,
+            preview=str(preview),
             deterministic=True, changed_seed_distinct=True,
             agent_count=metrics["agent_count"], elapsed_seconds=metrics["elapsed_seconds"],
             agent_frames_per_second=metrics["agent_frames_per_second"],

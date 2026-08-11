@@ -90,3 +90,17 @@ slow, confirming that production should build once and render many frames per pr
 
 **Status:** Karma XPU accepted as the default Mass Flow renderer. Karma CPU remains an
 explicit compatibility fallback through `--renderer cpu`.
+
+## 2026-08-11 — Motion preview 001: 15-second flow study
+
+**Proposal:** Extend the accepted deterministic simulation to 450 frames at 30 fps,
+capture state every five frames, and encode a lightweight portrait motion review at
+six samples per second. Display 3,000 deterministic representatives with short rolling
+derived trails so the large-scale rhythm can be judged before a full Karma sequence.
+
+**Observation:** The complete 100,000-agent run produced 90 regular checkpoints after
+the seed state. They encode to exactly 15 seconds at 720 × 1280 and preserve the three
+phase populations, folded boundaries, dense crossings, and shifting negative space.
+
+**Status:** Motion Preview 001 ready for artist review. This is a simulation-faithful
+review encode, not the final Karma XPU render.

@@ -8,7 +8,7 @@
   "seed": 27183,
   "simulation": {
     "frame_start": 1,
-    "frame_end": 60,
+    "frame_end": 450,
     "fps": 30,
     "rule_genome": {
       "fields": ["analytic-flow", "phase-attractor", "boundary-fold"],
@@ -19,7 +19,7 @@
         "agent_count": 100000,
         "domain_width": 9.0,
         "domain_height": 16.0,
-        "checkpoint_interval": 10,
+        "checkpoint_interval": 5,
         "review_agent_count": 12000,
         "flow_scale": 0.72,
         "flow_strength": 2.1,
