@@ -162,3 +162,14 @@ distinct against the brighter ground.
 
 **Status:** Look Probe 005 ready for artist review. The generated HIP and PNG remain
 under the job's `work/` lookdev directory and are not tracked by Git.
+
+## 2026-08-11 — Look probe 006: dome-only trail lighting
+
+**Artist direction:** Remove emission from the trail materials.
+
+**Observation:** Setting MaterialX emission to zero leaves the established palette
+and composition nearly unchanged at the prior low emission level, while making the
+accepted `studio_small_03` dome the sole illumination source. Trail shading now comes
+entirely from base response, rough specular reflection, occlusion, and shadow.
+
+**Status:** Look Probe 006 accepted as the physically lit material baseline.

@@ -22,10 +22,9 @@ def create_material(parent: hou.Node, name: str, color: tuple[float, float, floa
     surface.setInput(0, shader)
     set_parm(shader, "base", 0.52)
     set_parm(shader, "specular_roughness", 0.42)
-    set_parm(shader, "emission", 0.12)
-    for prefix in ("base_color", "emission_color"):
-        for channel, value in zip("rgb", color):
-            set_parm(shader, f"{prefix}{channel}", value)
+    set_parm(shader, "emission", 0.0)
+    for channel, value in zip("rgb", color):
+        set_parm(shader, f"base_color{channel}", value)
     return surface
 
 
