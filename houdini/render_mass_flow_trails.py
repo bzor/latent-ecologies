@@ -97,6 +97,7 @@ def main() -> None:
     parser.add_argument("image", type=Path)
     parser.add_argument("--hdri", type=Path)
     parser.add_argument("--dome-rotation", type=float, default=0.0)
+    parser.add_argument("--renderer", choices=("cpu", "xpu"), default="xpu")
     args = parser.parse_args()
     effective = json.loads(args.config.read_text(encoding="utf-8"))
     study = effective.get("study", effective)
@@ -195,7 +196,7 @@ def main() -> None:
     set_parm(settings, "samplesperpixel", 4)
     render = stage.createNode("usdrender_rop", "trail_render")
     render.setInput(0, settings)
-    set_parm(render, "renderer", "Karma CPU")
+    set_parm(render, "renderer", "Karma XPU" if args.renderer == "xpu" else "Karma CPU")
     set_parm(render, "soho_foreground", True)
     set_parm(render, "mkpath", True)
     stage.layoutChildren()
@@ -203,6 +204,7 @@ def main() -> None:
     render.render(frame_range=(1, 1, 1))
     print(f"trail_curves: {len(hou.Geometry().points()) if False else trail_cache}")
     print(f"trail_image: {args.image.resolve()}")
+    print(f"trail_renderer: Karma {args.renderer.upper()}")
 
 
 if __name__ == "__main__":

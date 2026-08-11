@@ -75,3 +75,18 @@ introduced attractive warmth but reduced semantic phase separation.
 **Status:** Look Probe 003 accepted with `studio_small_03_4k.exr` at 25 degrees as the
 current environment. The HDRI remains a local dependency supplied at render time and
 is not copied into the repository.
+
+## 2026-08-11 — Look probe 004: Karma XPU parity
+
+**Proposal:** Render the accepted monolith, fibers, HDRI, camera, resolution, and
+four-sample settings unchanged through Karma CPU and Karma XPU. Compare visual parity,
+cold construction cost, and repeated render time before changing the default.
+
+**Observation:** XPU preserved the look and produced visibly cleaner dense fibers and
+backdrop shading at the same sample count. Loading the generated HIP and rendering
+twice measured 14.3 and 14.1 seconds with XPU versus 32.3 and 29.8 seconds with CPU,
+approximately a 2.2x steady-state speedup. The initial XPU scene-build invocation was
+slow, confirming that production should build once and render many frames per process.
+
+**Status:** Karma XPU accepted as the default Mass Flow renderer. Karma CPU remains an
+explicit compatibility fallback through `--renderer cpu`.
