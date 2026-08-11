@@ -40,3 +40,18 @@ deliberately dense and fibrous; a Karma translation can either preserve that tex
 weight or importance-select fewer trajectories for a more sculptural reading.
 
 **Status:** Look Probe 001 ready for artist review before Karma curve translation.
+
+## 2026-08-11 — Look probe 002: Karma mineral fibers
+
+**Proposal:** Translate all 12,000 representative histories into real Houdini polygon
+curves with age-weighted width, preserve boundary splits, separate phases into three
+Solaris imports, and shade them with restrained cyan mineral, oxidized orange, and
+deep violet MaterialX fibers. Use a low-emission response and a single soft rim so
+overlapping curves retain texture instead of clipping into flat light.
+
+**Observation:** The first high-emission pass overexposed the dense crossings. Reducing
+emission and deepening the base colors restored individual strands, layered occlusion,
+and textile-like weight while preserving the broad braided composition.
+
+**Status:** Look Probe 002 ready for artist review. Next test should compare this full
+fiber mass against an importance-selected hero-curve layer with a softer derived body.

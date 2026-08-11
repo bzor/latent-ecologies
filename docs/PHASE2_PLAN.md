@@ -45,7 +45,7 @@ Initial working budgets:
 
 ## Milestone 2.2 — Materials and lighting
 
-**Status: pending.**
+**Status: in progress.**
 
 - Test a small set of materially distinct MaterialX languages on one accepted cache.
 - Build reusable key/fill/environment rigs and Karma quality presets.
