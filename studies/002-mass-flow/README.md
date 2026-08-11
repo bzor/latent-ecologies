@@ -2,5 +2,6 @@
 
 Phase 2 scale-and-motion capability study. The first probe tests a deterministic
 100,000-agent analytic flow in Houdini while keeping checkpoint and review data
-bounded. It is an engineering and composition probe, not yet a publication specimen.
-
+bounded. Each agent also samples a deterministic window of nearby stable IDs and
+subtly separates from spatially close agents in the other two phase groups. It is an
+engineering and composition probe, not yet a publication specimen.

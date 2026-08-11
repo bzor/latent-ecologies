@@ -142,12 +142,14 @@ def run(config_path: Path, cache_dir: Path, metrics_path: Path, review_path: Pat
     source.parm("file").set(str(previous_path))
     update = network.createNode("attribwrangle", "mass_flow_update")
     update.setInput(0, source)
+    update.setInput(1, source)
     update.parm("snippet").set(snippet)
     values = {
         "fps": simulation["fps"], "current_frame": start,
         **{key: system[key] for key in (
             "domain_width", "domain_height", "flow_scale", "flow_strength",
-            "phase_strength", "drag", "max_speed",
+            "phase_strength", "avoidance_radius", "avoidance_strength",
+            "avoidance_neighbors", "drag", "max_speed",
         )},
     }
     add_spare_parms(update, values)

@@ -104,3 +104,23 @@ phase populations, folded boundaries, dense crossings, and shifting negative spa
 
 **Status:** Motion Preview 001 ready for artist review. This is a simulation-faithful
 review encode, not the final Karma XPU render.
+
+## 2026-08-11 — Motion preview 002: cross-phase avoidance
+
+**Artist direction:** Let agents subtly avoid nearby agents belonging to the other
+two color groups while preserving the established mass-flow composition.
+
+**Proposal:** For each agent, inspect six stable IDs on either side, discard same-phase
+and spatially distant candidates, and average a distance-weighted separation force
+within 0.14 units. Add the resulting 0.16-strength force beneath the dominant 2.1
+analytic flow. Read neighbors from a separate frozen input to keep parallel VEX
+evaluation deterministic.
+
+**Observation:** The 100,000-agent, 450-frame run remains visually faithful to the
+accepted braid while opening fine seams where differently colored sheets meet. Exact
+same-seed smoke runs match, peak speed remains below the 2.4 cap, and the full solve
+completed in 48.6 seconds at approximately 0.92 million agent-frames per second.
+
+**Status:** Motion Preview 002 accepted as a subtle interaction variant and ready for
+artist review. The capped deterministic neighborhood preserves useful scale, although
+it is approximately twice as expensive as the field-only update.

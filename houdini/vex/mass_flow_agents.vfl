@@ -16,7 +16,34 @@ flow = normalize(flow + set(1e-6, 0, 0)) * chf("flow_strength");
 
 float phase_center = sin(position.y * 0.43 + phase_angle + time * 0.31) * 2.65;
 vector phase_pull = set(phase_center - position.x, 0, 0) * chf("phase_strength");
-vector desired = limit_length(flow + phase_pull, chf("max_speed"));
+
+// Stable IDs are interleaved across phases and ordered along the initial ribbons.
+// Sampling a small ID window therefore catches nearby cross-phase ribbon contacts
+// without the nondeterministic tie-breaking of a capped spatial point-cloud query.
+vector separation = 0;
+float separation_weight = 0;
+float radius = chf("avoidance_radius");
+int point_count = npoints(0);
+int window = chi("avoidance_neighbors");
+for (int offset_index = -window; offset_index <= window; offset_index++)
+{
+    if (offset_index == 0)
+        continue;
+    int neighbor = (@ptnum + offset_index + point_count) % point_count;
+    if (neighbor == @ptnum || point(1, "phase", neighbor) == i@phase)
+        continue;
+    vector offset = position - point(1, "P", neighbor);
+    float distance = length(offset);
+    if (distance <= 1e-6)
+        continue;
+    float weight = 1.0 - smooth(0.0, radius, distance);
+    separation += normalize(offset) * weight;
+    separation_weight += weight;
+}
+if (separation_weight > 0)
+    separation = separation / separation_weight * chf("avoidance_strength");
+
+vector desired = limit_length(flow + phase_pull + separation, chf("max_speed"));
 v@v = limit_length(v@v * chf("drag") + desired * (1.0 - chf("drag")), chf("max_speed"));
 @P += v@v * dt;
 @P.x = fold_axis(@P.x, chf("domain_width") * 0.5);
@@ -26,4 +53,3 @@ f@speed = length(v@v);
 f@curvature = length(v@v - v@previous_v) / max(dt, 1e-6);
 v@previous_v = v@v;
 f@density_hint = smooth(0.0, 1.0, 1.0 - abs(@P.x - phase_center) / 2.2);
-

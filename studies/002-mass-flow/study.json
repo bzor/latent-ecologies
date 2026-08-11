@@ -12,8 +12,8 @@
     "fps": 30,
     "rule_genome": {
       "fields": ["analytic-flow", "phase-attractor", "boundary-fold"],
-      "neighborhoods": ["global-field"],
-      "update_rules": ["advect", "steer", "integrate", "fold"],
+      "neighborhoods": ["global-field", "deterministic-cross-phase-window"],
+      "update_rules": ["advect", "cross-phase-avoid", "steer", "integrate", "fold"],
       "mutations": [],
       "system": {
         "agent_count": 100000,
@@ -24,6 +24,9 @@
         "flow_scale": 0.72,
         "flow_strength": 2.1,
         "phase_strength": 0.65,
+        "avoidance_radius": 0.14,
+        "avoidance_strength": 0.16,
+        "avoidance_neighbors": 6,
         "drag": 0.93,
         "max_speed": 2.4,
         "point_size": 0.018
