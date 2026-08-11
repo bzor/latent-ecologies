@@ -150,6 +150,8 @@ obscuring the simulated behavior.
 
 ## Milestone 6 — Resumable frame rendering
 
+**Status: complete (2026-08-10).**
+
 ### Work
 
 - Render the configured PNG sequence through a subprocess wrapper.
@@ -164,6 +166,8 @@ Deleting one middle frame and rerunning the job regenerates that frame without
 rebuilding valid simulation caches or rerendering the complete sequence.
 
 ## Milestone 7 — Automated encoding and packaging
+
+**Status: complete (2026-08-10).**
 
 ### Work
 
@@ -181,6 +185,8 @@ The package can be reviewed without opening Houdini or running a manual media to
 Encoding can be rerun independently of simulation and rendering.
 
 ## Milestone 8 — Reliability pass
+
+**Status: complete (2026-08-10).**
 
 ### Work
 
@@ -208,8 +214,9 @@ interrupted run resumes correctly.
 
 ## Next-session starting point
 
-Milestones 1 through 5 are complete. Begin Milestone 6 with subprocess-driven PNG
-sequence rendering, frame validation, and missing-frame-only resume behavior.
+The vertical slice is complete. Review the local Study 001 draft package and decide
+whether to refine the artifact-free ecology, promote it from probe to study quality,
+or begin a second study. Public posting remains deliberately approval-gated.
 
 Verified 2026-08-10:
 
@@ -235,6 +242,18 @@ Verified 2026-08-10:
   MaterialX charcoal, pale-organism, cyan-resource, and amber-memory materials, and
   renders through the portrait `static-observation` camera with depth of field off.
   Frames 1, 120, and 240 plus the instrument still form the accepted look-development set.
+- Probe 007 disables artifact geometry and every artifact-derived influence while
+  retaining 256 agents; resource, inhibition, occupancy, and boundaries now define
+  the artifact-free baseline.
+- A clean 240-frame 1080 x 1920 Karma sequence completed at the explicit two-sample
+  probe tier. Moving frame 120 aside and resuming rendered exactly one frame, and its
+  SHA-256 checksum matched the original byte for byte.
+- FFmpeg produced an 8-second 30 fps ProRes archive, 9:16 social master, 4:5 feed
+  derivative, website video, and preview loop. FFprobe verified codec, dimensions,
+  duration, frame rate, and decoding before the checksummed draft package was written.
+- Reliability coverage includes interruption recovery, missing and partial frames,
+  paths containing spaces, malformed manifests, missing executables, and secret-safe
+  subprocess logging. The final regression suite contains 26 passing tests.
 
 Useful orientation files:
 
