@@ -19,8 +19,8 @@ class SimulationTests(unittest.TestCase):
                             "domain": {"domain_width": 16.0, "domain_height": 9.0},
                             "relic": {
                                 "relic_hub_radius": 0.7,
-                                "relic_prong_length": 0.4,
-                                "relic_prong_power": 5.0,
+                                "relic_arm_length": 0.8,
+                                "relic_arm_half_width": 0.12,
                                 "relic_orientation": 1.5707963268,
                             },
                         }

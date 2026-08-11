@@ -13,6 +13,21 @@ from .doctor import discover_tools
 from .jobs import Job
 
 
+def artifact_sdf(x: float, y: float, relic: Mapping[str, float]) -> float:
+    distance = math.hypot(x, y) - relic["relic_hub_radius"]
+    arm_start = relic["relic_hub_radius"] * 0.45
+    half_length = relic["relic_arm_length"] * 0.5
+    center = arm_start + half_length
+    for index in range(3):
+        angle = relic["relic_orientation"] + index * math.tau / 3.0
+        along = x * math.cos(angle) + y * math.sin(angle) - center
+        lateral = -x * math.sin(angle) + y * math.cos(angle)
+        qx = abs(along) - half_length
+        qy = abs(lateral) - relic["relic_arm_half_width"]
+        distance = min(distance, math.hypot(max(qx, 0.0), max(qy, 0.0)) + min(max(qx, qy), 0.0))
+    return distance
+
+
 def sha256_path(path: Path) -> str:
     digest = hashlib.sha256()
     with path.open("rb") as stream:
@@ -46,10 +61,7 @@ def validate_metrics(path: Path, config: Mapping[str, Any], frame_end: int | Non
                 raise RuntimeError(f"frame {record['frame']} contains non-finite agent data")
             if abs(x) > half_width + 1e-4 or abs(y) > half_height + 1e-4:
                 raise RuntimeError(f"frame {record['frame']} has an agent outside the domain")
-            angle = math.atan2(y, x)
-            prong = max(0.0, math.cos(3.0 * (angle - relic["relic_orientation"])))
-            radius = relic["relic_hub_radius"] + relic["relic_prong_length"] * prong ** relic["relic_prong_power"]
-            if math.hypot(x, y) < radius - 1e-3:
+            if artifact_sdf(x, y, relic) < -1e-3:
                 raise RuntimeError(f"frame {record['frame']} has an agent inside the relic")
     near_samples = 0
     clockwise_samples = 0
@@ -90,25 +102,34 @@ def _to_pixel(x: float, y: float, width: int, height: int, domain_width: float, 
     return round((x / domain_width + 0.5) * width), round((0.5 - y / domain_height) * height)
 
 
-def _relic_polygon(system: Mapping[str, Any], width: int, height: int) -> list[tuple[int, int]]:
+def _artifact_shapes(
+    system: Mapping[str, Any], width: int, height: int
+) -> tuple[list[list[tuple[int, int]]], tuple[int, int, int, int]]:
     relic = system["relic"]
     domain = system["domain"]
-    points = []
-    for index in range(120):
-        angle = math.tau * index / 120
-        prong = max(0.0, math.cos(3.0 * (angle - relic["relic_orientation"])))
-        radius = relic["relic_hub_radius"] + relic["relic_prong_length"] * prong ** relic["relic_prong_power"]
-        points.append(
-            _to_pixel(
-                math.cos(angle) * radius,
-                math.sin(angle) * radius,
-                width,
-                height,
-                domain["domain_width"],
-                domain["domain_height"],
-            )
-        )
-    return points
+    arm_start = relic["relic_hub_radius"] * 0.45
+    arm_end = arm_start + relic["relic_arm_length"]
+    half_width = relic["relic_arm_half_width"]
+    arms = []
+    for index in range(3):
+        angle = relic["relic_orientation"] + index * math.tau / 3.0
+        direction = (math.cos(angle), math.sin(angle))
+        perpendicular = (-math.sin(angle), math.cos(angle))
+        corners = []
+        for along, lateral in (
+            (arm_start, -half_width),
+            (arm_end, -half_width),
+            (arm_end, half_width),
+            (arm_start, half_width),
+        ):
+            x = direction[0] * along + perpendicular[0] * lateral
+            y = direction[1] * along + perpendicular[1] * lateral
+            corners.append(_to_pixel(x, y, width, height, domain["domain_width"], domain["domain_height"]))
+        arms.append(corners)
+    center_x, center_y = _to_pixel(0, 0, width, height, domain["domain_width"], domain["domain_height"])
+    radius_x = round(relic["relic_hub_radius"] / domain["domain_width"] * width)
+    radius_y = round(relic["relic_hub_radius"] / domain["domain_height"] * height)
+    return arms, (center_x - radius_x, center_y - radius_y, center_x + radius_x, center_y + radius_y)
 
 
 def _render_frame(record: Mapping[str, Any], system: Mapping[str, Any], size: tuple[int, int], instrument: bool) -> Image.Image:
@@ -125,8 +146,10 @@ def _render_frame(record: Mapping[str, Any], system: Mapping[str, Any], size: tu
     else:
         image = Image.new("RGBA", size, (7, 11, 15, 255))
     draw = ImageDraw.Draw(image, "RGBA")
-    polygon = _relic_polygon(system, width, height)
-    draw.polygon(polygon, fill=(13, 15, 18, 255), outline=(116, 128, 132, 235), width=2)
+    arms, hub = _artifact_shapes(system, width, height)
+    for arm in arms:
+        draw.polygon(arm, fill=(13, 15, 18, 255), outline=(116, 128, 132, 235), width=2)
+    draw.ellipse(hub, fill=(13, 15, 18, 255), outline=(116, 128, 132, 235), width=2)
     domain = system["domain"]
     scale = width / domain["domain_width"]
     for agent in record["agents"]:

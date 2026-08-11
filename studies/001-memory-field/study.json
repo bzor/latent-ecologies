@@ -46,8 +46,8 @@
         },
         "relic": {
           "relic_hub_radius": 0.52,
-          "relic_prong_length": 1.75,
-          "relic_prong_power": 7.0,
+          "relic_arm_length": 1.82,
+          "relic_arm_half_width": 0.13,
           "relic_orientation": 1.5707963268,
           "relic_avoid_distance": 0.7,
           "relic_attract_distance": 1.8

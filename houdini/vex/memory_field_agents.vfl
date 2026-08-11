@@ -1,4 +1,29 @@
 // Memory Field agent update. Field points and agents share one geometry stream.
+float box_sdf(float x; float y; float half_length; float half_width)
+{
+    float qx = abs(x) - half_length;
+    float qy = abs(y) - half_width;
+    return length(set(max(qx, 0.0), max(qy, 0.0), 0)) + min(max(qx, qy), 0.0);
+}
+
+float artifact_sdf(vector position; float hub_radius; float arm_length; float arm_half_width; float orientation)
+{
+    float distance = length(set(position.x, position.y, 0)) - hub_radius;
+    float arm_start = hub_radius * 0.45;
+    float half_length = arm_length * 0.5;
+    float center = arm_start + half_length;
+    for (int index = 0; index < 3; index++)
+    {
+        float angle = orientation + index * 6.28318530718 / 3.0;
+        vector direction = set(cos(angle), sin(angle), 0);
+        vector perpendicular = set(-sin(angle), cos(angle), 0);
+        float along = dot(position, direction) - center;
+        float lateral = dot(position, perpendicular);
+        distance = min(distance, box_sdf(along, lateral, half_length, arm_half_width));
+    }
+    return distance;
+}
+
 if (i@kind != 0)
     return;
 
@@ -40,13 +65,17 @@ v@occupancy_steer = occupancy_count > 0 ? normalize(occupancy_sum) : 0;
 f@local_resource = resource_weight / max(1, len(nearby));
 f@local_inhibition = inhibition_weight / max(1, len(nearby));
 
-float angle = atan2(@P.y, @P.x);
-float relic_prong = max(0.0, cos(3.0 * (angle - chf("relic_orientation"))));
-float relic_radius = chf("relic_hub_radius") +
-    chf("relic_prong_length") * pow(relic_prong, chf("relic_prong_power"));
-float radial_distance = length(set(@P.x, @P.y, 0));
-f@relic_distance = radial_distance - relic_radius;
-vector relic_normal = normalize(set(@P.x, @P.y, 0) + set(1e-6, 0, 0));
+float hub_radius = chf("relic_hub_radius");
+float arm_length = chf("relic_arm_length");
+float arm_half_width = chf("relic_arm_half_width");
+float orientation = chf("relic_orientation");
+f@relic_distance = artifact_sdf(@P, hub_radius, arm_length, arm_half_width, orientation);
+float normal_step = 0.002;
+float normal_x = artifact_sdf(@P + set(normal_step, 0, 0), hub_radius, arm_length, arm_half_width, orientation) -
+    artifact_sdf(@P - set(normal_step, 0, 0), hub_radius, arm_length, arm_half_width, orientation);
+float normal_y = artifact_sdf(@P + set(0, normal_step, 0), hub_radius, arm_length, arm_half_width, orientation) -
+    artifact_sdf(@P - set(0, normal_step, 0), hub_radius, arm_length, arm_half_width, orientation);
+vector relic_normal = normalize(set(normal_x, normal_y, 0) + set(1e-6, 0, 0));
 v@relic_normal = relic_normal;
 v@relic_tangent = i@orbit_direction >= 0 ? set(-relic_normal.y, relic_normal.x, 0) :
     set(relic_normal.y, -relic_normal.x, 0);
@@ -82,14 +111,16 @@ if (speed < chf("min_speed"))
     v@v = normalize(v@v + set(1e-6, 0, 0)) * chf("min_speed");
 
 vector candidate = @P + v@v * dt;
-float candidate_angle = atan2(candidate.y, candidate.x);
-float candidate_prong = max(0.0, cos(3.0 * (candidate_angle - chf("relic_orientation"))));
-float candidate_radius = chf("relic_hub_radius") +
-    chf("relic_prong_length") * pow(candidate_prong, chf("relic_prong_power"));
-if (length(set(candidate.x, candidate.y, 0)) <= candidate_radius)
+float candidate_distance = artifact_sdf(candidate, hub_radius, arm_length, arm_half_width, orientation);
+if (candidate_distance <= 0)
 {
-    candidate = normalize(candidate + set(1e-6, 0, 0)) * (candidate_radius + 0.02);
-    v@v = reflect(v@v, -normalize(candidate));
+    float candidate_x = artifact_sdf(candidate + set(normal_step, 0, 0), hub_radius, arm_length, arm_half_width, orientation) -
+        artifact_sdf(candidate - set(normal_step, 0, 0), hub_radius, arm_length, arm_half_width, orientation);
+    float candidate_y = artifact_sdf(candidate + set(0, normal_step, 0), hub_radius, arm_length, arm_half_width, orientation) -
+        artifact_sdf(candidate - set(0, normal_step, 0), hub_radius, arm_length, arm_half_width, orientation);
+    vector candidate_normal = normalize(set(candidate_x, candidate_y, 0) + set(1e-6, 0, 0));
+    candidate += candidate_normal * (-candidate_distance + 0.02);
+    v@v = reflect(v@v, -candidate_normal);
     i@boundary_contact = 1;
 }
 else

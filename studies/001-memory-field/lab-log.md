@@ -103,3 +103,23 @@ semantic palette and clean silhouette. Frames 1, 120, and 240 remain readable at
 scale and show a coherent transition from initial field to accumulated memory.
 
 **Status:** Milestone 5 field-study look accepted for sequence rendering.
+
+## 2026-08-10 — Probe 005: geometric arms
+
+**Artist direction:** Make the artifact more geometric and less propeller-like, with
+thin straight arms.
+
+**Shared proposal:** Replace the smooth radial-lobe silhouette with an exact union of
+a small circular hub and three constant-width rectangular arms. Keep the established
+vertical and lower-diagonal orientation, use crisp parallel edges and flat ends, and
+derive VEX collision normals from the shared signed-distance definition so agent
+interaction matches the analytical preview and Karma mesh.
+
+**Probe 005 observation:** The constant-width arms read as a precise three-axis
+symbol rather than a rotating propeller, while the small raised hub keeps the joint
+intentional. Across 240 frames, agents made 44 artifact approaches, visited all 12
+perimeter sectors, and retained balanced near-artifact circulation at 44.7 percent
+clockwise. The exact shared SDF kept the analytical preview, VEX collisions, and
+Karma geometry aligned without trapping or penetration.
+
+**Status:** Probe 005 accepted as the final geometric artifact silhouette.

@@ -128,34 +128,58 @@ def build(config_path: Path, hip_path: Path, image_path: Path) -> None:
 geo = node.geometry()
 import math
 hub = {system["relic"]["relic_hub_radius"]!r}
-length = {system["relic"]["relic_prong_length"]!r}
-power = {system["relic"]["relic_prong_power"]!r}
+arm_length = {system["relic"]["relic_arm_length"]!r}
+half_width = {system["relic"]["relic_arm_half_width"]!r}
 orientation = {system["relic"]["relic_orientation"]!r}
-segments = 120
+arm_start = hub * 0.45
+arm_end = arm_start + arm_length
+for arm_index in range(3):
+    angle = orientation + arm_index * math.tau / 3.0
+    direction = (math.cos(angle), math.sin(angle))
+    perpendicular = (-math.sin(angle), math.cos(angle))
+    corners = []
+    for along, lateral in ((arm_start, -half_width), (arm_end, -half_width), (arm_end, half_width), (arm_start, half_width)):
+        corners.append((direction[0] * along + perpendicular[0] * lateral, direction[1] * along + perpendicular[1] * lateral))
+    top = []
+    bottom = []
+    for x, y in corners:
+        top_point = geo.createPoint()
+        top_point.setPosition((x, y, 0.22))
+        top.append(top_point)
+        bottom_point = geo.createPoint()
+        bottom_point.setPosition((x, y, -0.18))
+        bottom.append(bottom_point)
+    for points in (top, list(reversed(bottom))):
+        face = geo.createPolygon()
+        face.setIsClosed(True)
+        for point in points:
+            face.addVertex(point)
+    for index in range(4):
+        next_index = (index + 1) % 4
+        side = geo.createPolygon()
+        side.setIsClosed(True)
+        for point in (bottom[index], bottom[next_index], top[next_index], top[index]):
+            side.addVertex(point)
+segments = 64
 top = []
 bottom = []
 for index in range(segments):
     angle = math.tau * index / segments
-    prong = max(0.0, math.cos(3.0 * (angle - orientation)))
-    radius = hub + length * prong ** power
-    for collection, z in ((top, 0.22), (bottom, -0.18)):
+    for collection, z in ((top, 0.24), (bottom, -0.19)):
         point = geo.createPoint()
-        point.setPosition((math.cos(angle) * radius, math.sin(angle) * radius, z))
+        point.setPosition((math.cos(angle) * hub, math.sin(angle) * hub, z))
         collection.append(point)
 top_center = geo.createPoint()
-top_center.setPosition((0, 0, 0.22))
+top_center.setPosition((0, 0, 0.24))
 bottom_center = geo.createPoint()
-bottom_center.setPosition((0, 0, -0.18))
+bottom_center.setPosition((0, 0, -0.19))
 for index in range(segments):
     next_index = (index + 1) % segments
-    top_face = geo.createPolygon()
-    top_face.setIsClosed(True)
-    for point in (top_center, top[index], top[next_index]):
-        top_face.addVertex(point)
-    bottom_face = geo.createPolygon()
-    bottom_face.setIsClosed(True)
-    for point in (bottom_center, bottom[next_index], bottom[index]):
-        bottom_face.addVertex(point)
+    for points in ((top_center, top[index], top[next_index]), (bottom_center, bottom[next_index], bottom[index])):
+        face = geo.createPolygon()
+        face.setIsClosed(True)
+        for point in points:
+            face.addVertex(point)
     side = geo.createPolygon()
     side.setIsClosed(True)
     for point in (bottom[index], bottom[next_index], top[next_index], top[index]):

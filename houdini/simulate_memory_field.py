@@ -34,9 +34,20 @@ AGENT_FLOAT_ATTRIBUTES = (
 AGENT_INT_ATTRIBUTES = ("id", "lineage_id", "age", "state", "boundary_contact", "orbit_direction")
 
 
-def relic_radius(angle: float, relic: dict[str, float]) -> float:
-    prong = max(0.0, math.cos(3.0 * (angle - relic["relic_orientation"])))
-    return relic["relic_hub_radius"] + relic["relic_prong_length"] * prong ** relic["relic_prong_power"]
+def artifact_sdf(x: float, y: float, relic: dict[str, float]) -> float:
+    distance = math.hypot(x, y) - relic["relic_hub_radius"]
+    arm_start = relic["relic_hub_radius"] * 0.45
+    half_length = relic["relic_arm_length"] * 0.5
+    center = arm_start + half_length
+    for index in range(3):
+        angle = relic["relic_orientation"] + index * math.tau / 3.0
+        along = x * math.cos(angle) + y * math.sin(angle) - center
+        lateral = -x * math.sin(angle) + y * math.cos(angle)
+        qx = abs(along) - half_length
+        qy = abs(lateral) - relic["relic_arm_half_width"]
+        box_distance = math.hypot(max(qx, 0.0), max(qy, 0.0)) + min(max(qx, qy), 0.0)
+        distance = min(distance, box_distance)
+    return distance
 
 
 def create_initial_geometry(config: dict[str, Any]) -> hou.Geometry:
@@ -76,8 +87,7 @@ def create_initial_geometry(config: dict[str, Any]) -> hou.Geometry:
             point.setAttribValue("kind", 1)
             point.setAttribValue("grid_x", grid_x)
             point.setAttribValue("grid_y", grid_y)
-            radius = relic_radius(math.atan2(y, x), relic)
-            distance = math.hypot(x, y) - radius
+            distance = artifact_sdf(x, y, relic)
             if distance <= 0:
                 resource = 0.0
             else:
@@ -97,7 +107,7 @@ def create_initial_geometry(config: dict[str, Any]) -> hou.Geometry:
         while True:
             x = rng.uniform(-width * 0.46, width * 0.46)
             y = rng.uniform(-height * 0.46, height * 0.46)
-            if math.hypot(x, y) > relic_radius(math.atan2(y, x), relic) + 0.25:
+            if artifact_sdf(x, y, relic) > 0.25:
                 break
         heading = rng.uniform(-math.pi, math.pi)
         speed = rng.uniform(system["agent"]["min_speed"], system["agent"]["max_speed"] * 0.65)
@@ -109,7 +119,7 @@ def create_initial_geometry(config: dict[str, Any]) -> hou.Geometry:
         point.setAttribValue("orbit_direction", 1 if rng.random() >= 0.5 else -1)
         point.setAttribValue("v", (math.cos(heading) * speed, math.sin(heading) * speed, 0))
         point.setAttribValue("speed", speed)
-        point.setAttribValue("relic_distance", math.hypot(x, y) - relic_radius(math.atan2(y, x), relic))
+        point.setAttribValue("relic_distance", artifact_sdf(x, y, relic))
     return geometry
 
 
