@@ -51,6 +51,7 @@ def validate_metrics(path: Path, config: Mapping[str, Any], frame_end: int | Non
     half_width = system["domain"]["domain_width"] * 0.5
     half_height = system["domain"]["domain_height"] * 0.5
     relic = system["relic"]
+    relic_enabled = bool(relic.get("relic_enabled", 1))
     for record in frames:
         if len(record.get("agents", [])) != system["agent_count"]:
             raise RuntimeError(f"frame {record['frame']} has the wrong agent count")
@@ -61,7 +62,7 @@ def validate_metrics(path: Path, config: Mapping[str, Any], frame_end: int | Non
                 raise RuntimeError(f"frame {record['frame']} contains non-finite agent data")
             if abs(x) > half_width + 1e-4 or abs(y) > half_height + 1e-4:
                 raise RuntimeError(f"frame {record['frame']} has an agent outside the domain")
-            if artifact_sdf(x, y, relic) < -1e-3:
+            if relic_enabled and artifact_sdf(x, y, relic) < -1e-3:
                 raise RuntimeError(f"frame {record['frame']} has an agent inside the relic")
     near_samples = 0
     clockwise_samples = 0
@@ -71,7 +72,7 @@ def validate_metrics(path: Path, config: Mapping[str, Any], frame_end: int | Non
     for record in frames:
         for fallback_id, agent in enumerate(record["agents"]):
             agent_id = agent.get("id", fallback_id)
-            near = agent["relic_distance"] < 1.0
+            near = relic_enabled and agent["relic_distance"] < 1.0
             if near and previous_near.get(agent_id) is False:
                 approaches += 1
             previous_near[agent_id] = near

@@ -69,19 +69,20 @@ float hub_radius = chf("relic_hub_radius");
 float arm_length = chf("relic_arm_length");
 float arm_half_width = chf("relic_arm_half_width");
 float orientation = chf("relic_orientation");
-f@relic_distance = artifact_sdf(@P, hub_radius, arm_length, arm_half_width, orientation);
+int relic_enabled = chi("relic_enabled");
+f@relic_distance = relic_enabled ? artifact_sdf(@P, hub_radius, arm_length, arm_half_width, orientation) : 1e6;
 float normal_step = 0.002;
-float normal_x = artifact_sdf(@P + set(normal_step, 0, 0), hub_radius, arm_length, arm_half_width, orientation) -
-    artifact_sdf(@P - set(normal_step, 0, 0), hub_radius, arm_length, arm_half_width, orientation);
-float normal_y = artifact_sdf(@P + set(0, normal_step, 0), hub_radius, arm_length, arm_half_width, orientation) -
-    artifact_sdf(@P - set(0, normal_step, 0), hub_radius, arm_length, arm_half_width, orientation);
+float normal_x = relic_enabled ? artifact_sdf(@P + set(normal_step, 0, 0), hub_radius, arm_length, arm_half_width, orientation) -
+    artifact_sdf(@P - set(normal_step, 0, 0), hub_radius, arm_length, arm_half_width, orientation) : 0;
+float normal_y = relic_enabled ? artifact_sdf(@P + set(0, normal_step, 0), hub_radius, arm_length, arm_half_width, orientation) -
+    artifact_sdf(@P - set(0, normal_step, 0), hub_radius, arm_length, arm_half_width, orientation) : 0;
 vector relic_normal = normalize(set(normal_x, normal_y, 0) + set(1e-6, 0, 0));
-v@relic_normal = relic_normal;
-v@relic_tangent = i@orbit_direction >= 0 ? set(-relic_normal.y, relic_normal.x, 0) :
-    set(relic_normal.y, -relic_normal.x, 0);
-v@relic_avoidance = f@relic_distance < chf("relic_avoid_distance") ?
+v@relic_normal = relic_enabled ? relic_normal : 0;
+v@relic_tangent = relic_enabled && i@orbit_direction >= 0 ? set(-relic_normal.y, relic_normal.x, 0) :
+    relic_enabled ? set(relic_normal.y, -relic_normal.x, 0) : 0;
+v@relic_avoidance = relic_enabled && f@relic_distance < chf("relic_avoid_distance") ?
     relic_normal * (1.0 - max(0, f@relic_distance) / chf("relic_avoid_distance")) : 0;
-v@relic_resource_attraction = f@relic_distance < chf("relic_attract_distance") && f@relic_distance > 0 ?
+v@relic_resource_attraction = relic_enabled && f@relic_distance < chf("relic_attract_distance") && f@relic_distance > 0 ?
     -relic_normal * (1.0 - f@relic_distance / chf("relic_attract_distance")) : 0;
 
 vector boundary = 0;
@@ -111,8 +112,8 @@ if (speed < chf("min_speed"))
     v@v = normalize(v@v + set(1e-6, 0, 0)) * chf("min_speed");
 
 vector candidate = @P + v@v * dt;
-float candidate_distance = artifact_sdf(candidate, hub_radius, arm_length, arm_half_width, orientation);
-if (candidate_distance <= 0)
+float candidate_distance = relic_enabled ? artifact_sdf(candidate, hub_radius, arm_length, arm_half_width, orientation) : 1e6;
+if (relic_enabled && candidate_distance <= 0)
 {
     float candidate_x = artifact_sdf(candidate + set(normal_step, 0, 0), hub_radius, arm_length, arm_half_width, orientation) -
         artifact_sdf(candidate - set(normal_step, 0, 0), hub_radius, arm_length, arm_half_width, orientation);

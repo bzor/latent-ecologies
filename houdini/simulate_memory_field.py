@@ -55,6 +55,7 @@ def create_initial_geometry(config: dict[str, Any]) -> hou.Geometry:
     system = study["simulation"]["rule_genome"]["system"]
     domain = system["domain"]
     relic = system["relic"]
+    relic_enabled = bool(relic.get("relic_enabled", 1))
     rng = random.Random(study["seed"])
     geometry = hou.Geometry()
     geometry.addAttrib(hou.attribType.Point, "kind", 0)
@@ -87,27 +88,27 @@ def create_initial_geometry(config: dict[str, Any]) -> hou.Geometry:
             point.setAttribValue("kind", 1)
             point.setAttribValue("grid_x", grid_x)
             point.setAttribValue("grid_y", grid_y)
-            distance = artifact_sdf(x, y, relic)
-            if distance <= 0:
-                resource = 0.0
-            else:
+            if relic_enabled:
+                distance = artifact_sdf(x, y, relic)
                 # Bias the halo into broad opposing sectors so portrait traffic
                 # develops a vertical rhythm without imposing a global flow force.
                 angle = math.atan2(y, x)
                 sector_bias = 0.62 + 0.38 * abs(math.sin(angle))
                 halo = math.exp(-((distance - 0.55) ** 2) / 0.18) * 0.72 * sector_bias
-                patch_resource = sum(
-                    amplitude * math.exp(-((x - px) ** 2 + (y - py) ** 2) / 3.2)
-                    for px, py, amplitude in patches
-                )
-                resource = min(1.0, 0.08 + halo + patch_resource * 0.28)
+            else:
+                halo = 0.0
+            patch_resource = sum(
+                amplitude * math.exp(-((x - px) ** 2 + (y - py) ** 2) / 3.2)
+                for px, py, amplitude in patches
+            )
+            resource = min(1.0, 0.08 + halo + patch_resource * 0.28)
             point.setAttribValue("resource", resource)
 
     for agent_id in range(system["agent_count"]):
         while True:
             x = rng.uniform(-width * 0.46, width * 0.46)
             y = rng.uniform(-height * 0.46, height * 0.46)
-            if artifact_sdf(x, y, relic) > 0.25:
+            if not relic_enabled or artifact_sdf(x, y, relic) > 0.25:
                 break
         heading = rng.uniform(-math.pi, math.pi)
         speed = rng.uniform(system["agent"]["min_speed"], system["agent"]["max_speed"] * 0.65)
@@ -119,7 +120,7 @@ def create_initial_geometry(config: dict[str, Any]) -> hou.Geometry:
         point.setAttribValue("orbit_direction", 1 if rng.random() >= 0.5 else -1)
         point.setAttribValue("v", (math.cos(heading) * speed, math.sin(heading) * speed, 0))
         point.setAttribValue("speed", speed)
-        point.setAttribValue("relic_distance", artifact_sdf(x, y, relic))
+        point.setAttribValue("relic_distance", artifact_sdf(x, y, relic) if relic_enabled else 1e6)
     return geometry
 
 

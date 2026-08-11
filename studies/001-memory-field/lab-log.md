@@ -143,3 +143,22 @@ Resource consumption increased as expected but did not exhaust the field, and no
 agent entered the latent collision volume.
 
 **Status:** Probe 006 accepted as the latent-artifact population study.
+
+## 2026-08-10 — Probe 007: artifact removed
+
+**Artist direction:** The artifact and its influence detract from the ecology; remove
+it completely for now.
+
+**Shared proposal:** Disable every artifact contribution while retaining the dormant
+implementation for possible later studies. Remove collision, attraction, avoidance,
+tangential motion, shaped resource seeding, initial exclusion, and measurement from
+the active rule set. Keep the accepted 256-agent population and let resource,
+inhibition, occupancy, and boundary behavior define the composition on their own.
+
+**Probe 007 observation:** The three-prong void and circulation signature are absent
+from both the analytical review and Karma checkpoints. The 256 agents now organize
+around the seeded resource patches and their own inhibitory memory, with zero artifact
+approaches or sectors recorded. The field remains active through frame 240 without
+invalid positions or resource exhaustion.
+
+**Status:** Probe 007 accepted as the artifact-free baseline for sequence rendering.

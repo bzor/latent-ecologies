@@ -45,6 +45,7 @@
           "memory_decay": 0.08
         },
         "relic": {
+          "relic_enabled": 0,
           "relic_hub_radius": 0.52,
           "relic_arm_length": 1.82,
           "relic_arm_half_width": 0.13,
