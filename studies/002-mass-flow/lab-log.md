@@ -313,3 +313,26 @@ within speed, volume, population, and changed-seed gates. Karma XPU preserved al
 
 **Status:** Probe 013 implemented and returned to the originating Review Studio note
 with replacement motion, graphite still, HIP, job, and source commit lineage.
+
+## 2026-08-11 — Motion and look probe 014: faster turning and travel
+
+**Review source:** Review Studio iterate note
+`cfbd74facab54aba8c941c557d9ac4b1` asked whether agents have a maximum turning radius
+and requested quicker turns and somewhat higher speed.
+
+**Interpretation:** The system has no explicit minimum turn radius or angular-speed
+cap. Effective turning stiffness comes from velocity smoothing: at drag 0.93, only
+seven percent of the desired velocity enters each update. Maximum travel is bounded
+separately by `max_speed`.
+
+**Proposal:** Reduce drag from 0.93 to 0.88, raise analytic flow strength from 2.1 to
+2.55, and raise maximum speed from 2.4 to 3.0. Preserve flock forces, separation,
+trail persistence, population, materials, camera, lighting, and heads.
+
+**Observation:** Final mean speed increased from 2.03 to 2.63 and peak speed from 2.35
+to 2.98. The motion develops tighter hooks, faster reversals, and more directional
+breakup while retaining the large portrait mass. The deterministic solve completed in
+13.8 seconds and stayed within its expanded speed cap and spatial bounds.
+
+**Status:** Probe 014 implemented and returned to the originating Review Studio note
+with replacement motion, graphite still, HIP, job, and source commit lineage.
