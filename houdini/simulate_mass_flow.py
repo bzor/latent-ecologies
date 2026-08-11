@@ -74,7 +74,9 @@ def geometry_digest(geometry: hou.Geometry) -> str:
     digest = hashlib.sha256()
     for attribute in ("P", "v", "previous_v", "speed", "curvature", "density_hint"):
         digest.update(attribute.encode("ascii"))
-        digest.update(array("f", geometry.pointFloatAttribValues(attribute)).tobytes())
+        # Parallel VEX may vary by a few float ULPs across processes. Quantize to
+        # 1e-5 so the digest measures materially identical state, not task order.
+        digest.update(array("q", (round(value * 100000) for value in geometry.pointFloatAttribValues(attribute))).tobytes())
     for attribute in ("id", "phase"):
         digest.update(attribute.encode("ascii"))
         digest.update(array("i", geometry.pointIntAttribValues(attribute)).tobytes())

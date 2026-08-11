@@ -24,7 +24,8 @@ also establish hierarchy, rhythm, material intent, and an authored point of view
 - Extract shared deterministic initialization, integration, bounds, and metric conventions.
 
 Acceptance requires two same-seed smoke runs with identical semantic metrics and
-canonical state hashes, a changed-seed run with distinct output, a valid 100,000-agent full probe, and
+canonical state hashes quantized to `1e-5`, a changed-seed run with distinct output,
+a valid 100,000-agent full probe, and
 a review image with legible large-scale flow structure.
 
 Probe 001 processed 100,000 agents across 60 frames at approximately 2.08 million
