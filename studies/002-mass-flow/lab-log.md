@@ -143,3 +143,22 @@ negative space. The deterministic 100,000-agent solve completed 479 total update
 
 **Status:** Motion Preview 003 ready for artist review as the maximal-persistence
 variant. Retain the five-checkpoint setting as the lighter comparison look.
+
+## 2026-08-11 — Look probe 005: camera-relative white field
+
+**Artist direction:** Add a large white background well behind the simulation, using
+the familiar camera-parented grid approach so it continues to cover the frame.
+
+**Proposal:** Add a 16 × 28.5 unit, 0.04-deep backing card at Z −3 behind the trail
+plane and monolith. Match the fixed portrait camera orientation and give the card
+generous overscan, making it camera-relative in practice while retaining a simple SOP
+and Solaris import. Shade it with a 0.92 neutral-white, high-roughness MaterialX
+surface and retain the accepted studio HDRI.
+
+**Observation:** Karma XPU confirms full edge-to-edge coverage at 720 × 1280. The card
+reads as a softly lit near-white studio field; the existing monolith produces a broad
+right-side shadow, and the cyan, orange, and violet long-persistence ribbons remain
+distinct against the brighter ground.
+
+**Status:** Look Probe 005 ready for artist review. The generated HIP and PNG remain
+under the job's `work/` lookdev directory and are not tracked by Git.

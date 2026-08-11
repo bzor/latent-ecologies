@@ -42,6 +42,17 @@ def create_backdrop_material(parent: hou.Node) -> hou.Node:
     return surface
 
 
+def create_white_background_material(parent: hou.Node) -> hou.Node:
+    shader = parent.createNode("mtlxstandard_surface", "white_background_shader")
+    surface = parent.createNode("mtlxsurfacematerial", "white_background")
+    surface.setInput(0, shader)
+    set_parm(shader, "base", 1.0)
+    for channel in "rgb":
+        set_parm(shader, f"base_color{channel}", 0.92)
+    set_parm(shader, "specular_roughness", 0.72)
+    return surface
+
+
 def build_trails(cache_dir: Path, system: dict, output: Path) -> None:
     frames = [int(path.stem.split(".")[1]) for path in sorted(cache_dir.glob("state.[0-9][0-9][0-9][0-9].bgeo.sc"))]
     geometries = []
@@ -143,8 +154,28 @@ def main() -> None:
     backdrop_out.setInput(0, transform)
     backdrop_geo.layoutChildren()
 
+    # Camera-relative backing card: at the fixed observation camera's origin and
+    # orientation this is equivalent to a parented grid offset behind the artwork.
+    # Overscan keeps white in every pixel through small future framing adjustments.
+    background_geo = obj.createNode("geo", "camera_white_background")
+    for child in background_geo.children():
+        child.destroy()
+    background = background_geo.createNode("box", "camera_backing_card")
+    set_parm(background, "sizex", 16.0)
+    set_parm(background, "sizey", 28.5)
+    set_parm(background, "sizez", 0.04)
+    set_parm(background, "tz", -3.0)
+    background_out = background_geo.createNode("null", "OUT_BACKGROUND")
+    background_out.setInput(0, background)
+    background_geo.layoutChildren()
+
     stage = hou.node("/stage")
+    background_import = stage.createNode("sopimport", "import_camera_background")
+    set_parm(background_import, "soppath", background_out.path())
+    set_parm(background_import, "primpath", "/world/camera_background")
+    set_parm(background_import, "pathprefix", "/world/camera_background")
     backdrop_import = stage.createNode("sopimport", "import_backdrop")
+    backdrop_import.setInput(0, background_import)
     set_parm(backdrop_import, "soppath", backdrop_out.path())
     set_parm(backdrop_import, "primpath", "/world/backdrop")
     set_parm(backdrop_import, "pathprefix", "/world/backdrop")
@@ -162,16 +193,19 @@ def main() -> None:
     palette = ((0.012, 0.18, 0.29), (0.34, 0.055, 0.012), (0.15, 0.035, 0.30))
     materials = [create_material(library, f"phase_{phase}", palette[phase]) for phase in range(3)]
     backdrop_material = create_backdrop_material(library)
+    background_material = create_white_background_material(library)
     library.layoutChildren()
     assign = stage.createNode("assignmaterial", "assign_trail_materials")
     assign.setInput(0, library)
-    set_parm(assign, "nummaterials", 4)
+    set_parm(assign, "nummaterials", 5)
     for index, material in enumerate(materials, 1):
         phase = index - 1
         set_parm(assign, f"primpattern{index}", f"/world/trails/phase_{phase} /world/trails/phase_{phase}/**")
         set_parm(assign, f"matspecpath{index}", material.path().replace(library.path(), "/materials"))
     set_parm(assign, "primpattern4", "/world/backdrop /world/backdrop/**")
     set_parm(assign, "matspecpath4", backdrop_material.path().replace(library.path(), "/materials"))
+    set_parm(assign, "primpattern5", "/world/camera_background /world/camera_background/**")
+    set_parm(assign, "matspecpath5", background_material.path().replace(library.path(), "/materials"))
 
     camera = stage.createNode("camera", "trail_camera")
     camera.setInput(0, assign)
