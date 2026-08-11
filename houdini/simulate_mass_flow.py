@@ -78,7 +78,7 @@ def geometry_digest(geometry: hou.Geometry) -> str:
     for attribute in ("P", "v", "previous_v", "speed", "curvature", "density_hint"):
         digest.update(attribute.encode("ascii"))
         # Parallel VEX may vary by a few float ULPs across processes. Quantize to
-        # 1e-5 so the digest measures materially identical state, not task order.
+        # 1e-5 so the digest records materially identical state, not task order.
         digest.update(array("q", (round(value * 100000) for value in geometry.pointFloatAttribValues(attribute))).tobytes())
     for attribute in ("id", "phase"):
         digest.update(attribute.encode("ascii"))
@@ -155,7 +155,8 @@ def run(config_path: Path, cache_dir: Path, metrics_path: Path, review_path: Pat
         **{key: system[key] for key in (
             "domain_width", "domain_height", "domain_depth", "flow_scale", "flow_strength", "depth_strength",
             "phase_strength", "avoidance_radius", "avoidance_strength", "flock_radius", "flock_id_window",
-            "alignment_strength", "cohesion_strength", "separation_strength", "wander_strength", "drag", "max_speed",
+            "alignment_strength", "cohesion_strength", "separation_radius", "separation_strength",
+            "wander_strength", "drag", "max_speed",
         )},
     }
     add_spare_parms(update, values)

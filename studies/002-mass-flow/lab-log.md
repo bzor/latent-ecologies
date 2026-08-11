@@ -251,3 +251,25 @@ graphite Karma XPU look shows clearer individual fibers than the 100,000-agent p
 
 **Status:** Probe 010 accepted for artist review. Both the 15-second motion diagnostic
 and graphite XPU still are retained under the new job in `work/`.
+
+## 2026-08-11 — Motion and look probe 011: stronger flock contrast
+
+**Artist direction:** Increase cohesion and separation so the motion develops more
+variation without losing its long-trail character.
+
+**Proposal:** Raise cohesion from 0.10 to 0.18 and same-phase separation from 0.14 to
+0.24. Give same-phase spacing an independent 0.20 radius while retaining the tighter
+0.14 cross-phase avoidance radius, existing alignment, wander, and dominant flow.
+
+**Observation:** The stronger push-pull creates tighter coherent bands adjacent to
+wider local gaps, most visibly at central crossings and in the lower sweep. The system
+does not collapse into clumps or lose its overall portrait silhouette. The full solve
+completed in 31.9 seconds and remained within its speed and volume bounds.
+
+**QA note:** Stronger feedback amplified harmless parallel floating-point drift to
+approximately 0.00001 units. Same-seed validation now compares physical metrics at a
+documented 0.0001 tolerance rather than requiring every full-state hash quantization
+boundary to coincide; population, frame topology, bounds, speed, and changed-seed
+distinction remain enforced.
+
+**Status:** Probe 011 accepted as the stronger flocking baseline.

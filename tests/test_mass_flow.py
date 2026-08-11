@@ -5,7 +5,12 @@ from pathlib import Path
 
 from PIL import Image
 
-from houdini_ai.mass_flow import determinism_signature, render_mass_flow_review, validate_mass_flow_metrics
+from houdini_ai.mass_flow import (
+    determinism_signature,
+    materially_equivalent_metrics,
+    render_mass_flow_review,
+    validate_mass_flow_metrics,
+)
 
 
 class MassFlowTests(unittest.TestCase):
@@ -84,6 +89,15 @@ class MassFlowTests(unittest.TestCase):
             trails = Image.open(outputs["derived_trails"])
             self.assertEqual(trails.size, (360, 640))
             self.assertGreater(len(trails.getcolors(maxcolors=100000)), 2)
+
+    def test_material_equivalence_tolerates_float_drift_but_not_behavior_change(self) -> None:
+        a = self.metrics()
+        b = json.loads(json.dumps(a))
+        b["checkpoints"][-1]["mean_speed"] += 0.00001
+        b["checkpoints"][-1]["bounds"][0] += 0.00001
+        self.assertTrue(materially_equivalent_metrics(a, b))
+        b["checkpoints"][-1]["mean_speed"] += 0.01
+        self.assertFalse(materially_equivalent_metrics(a, b))
 
 
 if __name__ == "__main__":

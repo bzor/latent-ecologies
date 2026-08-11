@@ -31,6 +31,7 @@ float same_separation_weight = 0;
 float cross_separation_weight = 0;
 float flock_radius = chf("flock_radius");
 float avoidance_radius = chf("avoidance_radius");
+float separation_radius = chf("separation_radius");
 int point_count = npoints(1);
 int id_window = chi("flock_id_window");
 for (int id_offset = -id_window; id_offset <= id_window; id_offset++)
@@ -49,7 +50,7 @@ for (int id_offset = -id_window; id_offset <= id_window; id_offset++)
         alignment_sum += point(1, "v", neighbor);
         cohesion_center += point(1, "P", neighbor);
         same_count += 1;
-        float weight = 1.0 - smooth(0.0, avoidance_radius, distance);
+        float weight = 1.0 - smooth(0.0, separation_radius, distance);
         same_separation += normalize(offset) * weight;
         same_separation_weight += weight;
     }

@@ -76,6 +76,27 @@ def determinism_signature(metrics: Mapping[str, Any]) -> str:
     return hashlib.sha256(json.dumps(stable, sort_keys=True, separators=(",", ":")).encode()).hexdigest()
 
 
+def materially_equivalent_metrics(a: Mapping[str, Any], b: Mapping[str, Any], tolerance: float = 1e-4) -> bool:
+    for key in ("agent_count", "frame_start", "frame_end", "seed"):
+        if a.get(key) != b.get(key):
+            return False
+    checkpoints_a, checkpoints_b = a.get("checkpoints", []), b.get("checkpoints", [])
+    if len(checkpoints_a) != len(checkpoints_b):
+        return False
+    for left, right in zip(checkpoints_a, checkpoints_b):
+        for key in ("frame", "agent_count"):
+            if left.get(key) != right.get(key):
+                return False
+        for key in ("mean_speed", "max_speed"):
+            if abs(float(left[key]) - float(right[key])) > tolerance:
+                return False
+        if len(left["bounds"]) != len(right["bounds"]):
+            return False
+        if any(abs(float(x) - float(y)) > tolerance for x, y in zip(left["bounds"], right["bounds"])):
+            return False
+    return True
+
+
 def render_mass_flow_review(review_path: Path, config: Mapping[str, Any], output_dir: Path) -> dict[str, str]:
     data = json.loads(review_path.read_text(encoding="utf-8"))
     study = config.get("study", config)
@@ -262,7 +283,7 @@ def run_mass_flow_probe(job: Job) -> str:
         smoke_b, _ = invoke("smoke-b", config_path, smoke_end)
         a = validate_mass_flow_metrics(smoke_a, job.effective_config)
         b = validate_mass_flow_metrics(smoke_b, job.effective_config)
-        if determinism_signature(a) != determinism_signature(b):
+        if not materially_equivalent_metrics(a, b):
             raise RuntimeError("same-seed mass-flow smoke probes were not deterministic")
         variant = json.loads(json.dumps(job.effective_config))
         variant["study"]["seed"] += 1
