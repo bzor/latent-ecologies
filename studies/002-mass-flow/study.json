@@ -19,6 +19,7 @@
         "agent_count": 100000,
         "domain_width": 9.0,
         "domain_height": 16.0,
+        "prewarm_frames": 30,
         "checkpoint_interval": 5,
         "review_agent_count": 12000,
         "flow_scale": 0.72,
@@ -27,6 +28,7 @@
         "avoidance_radius": 0.14,
         "avoidance_strength": 0.16,
         "avoidance_neighbors": 6,
+        "trail_history_checkpoints": 50,
         "drag": 0.93,
         "max_speed": 2.4,
         "point_size": 0.018

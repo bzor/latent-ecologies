@@ -122,6 +122,7 @@ def run(config_path: Path, cache_dir: Path, metrics_path: Path, review_path: Pat
     system = simulation["rule_genome"]["system"]
     start = int(simulation["frame_start"])
     end = int(frame_end or simulation["frame_end"])
+    prewarm_frames = int(system.get("prewarm_frames", 0))
     interval = int(system["checkpoint_interval"])
     checkpoint_frames = {start, end, *range(interval, end + 1, interval)}
     cache_dir.mkdir(parents=True, exist_ok=True)
@@ -131,7 +132,8 @@ def run(config_path: Path, cache_dir: Path, metrics_path: Path, review_path: Pat
     snippet = (root / "houdini" / "vex" / "lib" / "agent_core.vfl").read_text(encoding="utf-8")
     snippet += "\n" + (root / "houdini" / "vex" / "mass_flow_agents.vfl").read_text(encoding="utf-8")
     geometry = initial_geometry(system, int(study["seed"]))
-    previous_path = cache_dir / f"state.{start:04d}.bgeo.sc"
+    initial_frame = start - prewarm_frames
+    previous_path = cache_dir / ("state.prewarm.0.bgeo.sc" if prewarm_frames else f"state.{start:04d}.bgeo.sc")
     geometry.saveToFile(str(previous_path))
 
     hou.hipFile.clear(suppress_save_prompt=True)
@@ -145,7 +147,7 @@ def run(config_path: Path, cache_dir: Path, metrics_path: Path, review_path: Pat
     update.setInput(1, source)
     update.parm("snippet").set(snippet)
     values = {
-        "fps": simulation["fps"], "current_frame": start,
+        "fps": simulation["fps"], "current_frame": initial_frame,
         **{key: system[key] for key in (
             "domain_width", "domain_height", "flow_scale", "flow_strength",
             "phase_strength", "avoidance_radius", "avoidance_strength",
@@ -153,6 +155,16 @@ def run(config_path: Path, cache_dir: Path, metrics_path: Path, review_path: Pat
         )},
     }
     add_spare_parms(update, values)
+    for frame in range(initial_frame + 1, start + 1):
+        source.parm("file").set(str(previous_path))
+        source.parm("reload").pressButton()
+        update.parm("current_frame").set(frame)
+        update.cook(force=True)
+        geometry = update.geometry().freeze()
+        previous_path = cache_dir / (
+            f"state.{start:04d}.bgeo.sc" if frame == start else f"state.prewarm.{(frame - initial_frame) % 2}.bgeo.sc"
+        )
+        geometry.saveToFile(str(previous_path))
     records = []
     reviews = []
     started = time.perf_counter()
@@ -184,8 +196,8 @@ def run(config_path: Path, cache_dir: Path, metrics_path: Path, review_path: Pat
     total = time.perf_counter() - started
     payload = {
         "study_id": study["id"], "seed": study["seed"], "agent_count": system["agent_count"],
-        "frame_start": start, "frame_end": end, "elapsed_seconds": total,
-        "agent_frames_per_second": system["agent_count"] * max(0, end - start) / max(total, 1e-9),
+        "frame_start": start, "frame_end": end, "prewarm_frames": prewarm_frames, "elapsed_seconds": total,
+        "agent_frames_per_second": system["agent_count"] * max(0, end - start + prewarm_frames) / max(total, 1e-9),
         "checkpoints": records, "cache_sha256": cache_hashes, "state_sha256": state_hashes,
     }
     metrics_path.write_text(json.dumps(payload, indent=2, sort_keys=True) + "\n", encoding="utf-8")

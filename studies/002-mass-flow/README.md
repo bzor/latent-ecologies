@@ -5,3 +5,6 @@ Phase 2 scale-and-motion capability study. The first probe tests a deterministic
 bounded. Each agent also samples a deterministic window of nearby stable IDs and
 subtly separates from spatially close agents in the other two phase groups. It is an
 engineering and composition probe, not yet a publication specimen.
+
+The visible sequence begins after a hidden 30-frame preroll, and motion-review trails
+retain 50 checkpoints of history rather than the original five.

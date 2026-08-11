@@ -164,12 +164,13 @@ def render_mass_flow_animation(review_path: Path, config: Mapping[str, Any], out
         return round((point[0] / domain_width + 0.5) * width), round((0.5 - point[1] / domain_height) * height)
 
     representative_stride = max(1, len(records[0]["points"]) // 3000)
+    history_length = int(system.get("trail_history_checkpoints", 5))
     for frame_index, record in enumerate(records, 1):
         image = Image.new("RGB", (width, height), (3, 6, 11))
         glow = Image.new("RGBA", (width, height), (0, 0, 0, 0))
         sharp = Image.new("RGBA", (width, height), (0, 0, 0, 0))
         glow_draw, sharp_draw = ImageDraw.Draw(glow, "RGBA"), ImageDraw.Draw(sharp, "RGBA")
-        history_start = max(1, frame_index - 5)
+        history_start = max(1, frame_index - history_length)
         for point_index in range(0, len(record["points"]), representative_stride):
             phase = int(record["points"][point_index][3])
             color = palette[phase]
@@ -179,7 +180,7 @@ def render_mass_flow_animation(review_path: Path, config: Mapping[str, Any], out
                 if abs(current[0] - previous[0]) > domain_width * 0.5 or abs(current[1] - previous[1]) > domain_height * 0.5:
                     continue
                 segment = (*pixel(previous), *pixel(current))
-                alpha = round(35 + (history_index - history_start + 1) / 5 * 120)
+                alpha = round(35 + (history_index - history_start + 1) / history_length * 120)
                 glow_draw.line(segment, fill=(*color, alpha), width=4)
                 sharp_draw.line(segment, fill=(*color, min(220, alpha + 45)), width=1)
         image = Image.alpha_composite(image.convert("RGBA"), glow.filter(ImageFilter.GaussianBlur(3.0)))

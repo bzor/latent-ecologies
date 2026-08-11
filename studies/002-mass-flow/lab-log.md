@@ -124,3 +124,22 @@ completed in 48.6 seconds at approximately 0.92 million agent-frames per second.
 **Status:** Motion Preview 002 accepted as a subtle interaction variant and ready for
 artist review. The capped deterministic neighborhood preserves useful scale, although
 it is approximately twice as expensive as the field-only update.
+
+## 2026-08-11 — Motion preview 003: preroll and long persistence
+
+**Artist direction:** Prewarm the system by 30 frames and make the visible trails ten
+times longer.
+
+**Proposal:** Advance the complete interaction model through 30 hidden frames before
+recording visible frame 1. Alternate two bounded preroll caches so every VEX update
+reads immutable prior state. Increase rolling review history from five checkpoints to
+50, equivalent to approximately 8.3 seconds at the six-sample review rate.
+
+**Observation:** The preroll removes the visibly initialized opening state. Long
+persistence transforms isolated ribbons into broad woven surfaces and exposes much
+more of the orbital structure, with intentionally heavier color overlap and less
+negative space. The deterministic 100,000-agent solve completed 479 total updates in
+64.1 seconds; the exact 15-second preview contains 90 frames.
+
+**Status:** Motion Preview 003 ready for artist review as the maximal-persistence
+variant. Retain the five-checkpoint setting as the lighter comparison look.
