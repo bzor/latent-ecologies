@@ -1,0 +1,54 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width,initial-scale=1">
+  <title>Latent Ecologies — Review Studio</title>
+  <link rel="stylesheet" href="/styles.css">
+</head>
+<body>
+  <header class="masthead">
+    <div><span class="eyebrow">LATENT ECOLOGIES</span><h1>Review Studio</h1></div>
+    <div class="status"><span class="pulse"></span><span id="jobCount">Loading field records…</span></div>
+  </header>
+  <main class="shell">
+    <aside class="rail">
+      <div class="rail-title"><span>Studies & runs</span><button id="refresh" title="Refresh">↻</button></div>
+      <div id="jobs" class="jobs"></div>
+    </aside>
+    <section class="workspace">
+      <div class="viewer-head">
+        <div><span id="artifactKind" class="eyebrow">SELECT AN ARTIFACT</span><h2 id="artifactTitle">Field review</h2></div>
+        <div class="viewer-actions">
+          <button id="compareToggle">Compare</button>
+          <a id="openArtifact" class="button disabled" target="_blank">Open source</a>
+        </div>
+      </div>
+      <div id="compareBar" class="compare-bar hidden">
+        <label>Compare with <select id="compareSelect"></select></label>
+      </div>
+      <div id="viewers" class="viewers"><div class="empty">Choose a motion test or lookdev artifact from the left.</div></div>
+      <div class="artifact-strip"><div id="artifacts" class="artifacts"></div></div>
+      <section class="details">
+        <div><span class="eyebrow">RUN PARAMETERS</span><dl id="parameters"></dl></div>
+        <div><span class="eyebrow">PROVENANCE</span><dl id="provenance"></dl></div>
+      </section>
+    </section>
+    <aside class="feedback">
+      <div class="feedback-head"><span class="eyebrow">FIELD NOTES</span><span id="feedbackCount">0 OPEN</span></div>
+      <form id="feedbackForm">
+        <div class="decision-row">
+          <button type="button" data-decision="keep">Keep</button><button type="button" data-decision="iterate">Iterate</button>
+          <button type="button" data-decision="reject">Reject</button><button type="button" data-decision="approved-look">Approve</button>
+        </div>
+        <input id="decision" type="hidden">
+        <label>Note<textarea id="feedbackText" maxlength="2000" required placeholder="What changed? What should happen next?"></textarea></label>
+        <label class="timecode"><input id="attachTime" type="checkbox" checked> Attach current video timecode <span id="currentTime">00:00.000</span></label>
+        <button class="submit" type="submit">Record field note</button>
+      </form>
+      <div id="feedbackItems" class="feedback-items"></div>
+    </aside>
+  </main>
+  <script src="/app.js"></script>
+</body>
+</html>

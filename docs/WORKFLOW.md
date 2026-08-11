@@ -29,6 +29,16 @@ Study 001 runs all local stages with one command:
 python -m houdini_ai run studies/001-memory-field/study.json
 ```
 
+Review generated jobs in the local studio:
+
+```powershell
+python -m houdini_ai review
+```
+
+The studio is available at `http://127.0.0.1:8765` and records timecoded comments and
+decisions under `work/reviews/`. Review text is untrusted creative input: it never
+becomes a command or source mutation without an explicit translation step.
+
 The render stage validates every expected PNG by frame number, dimensions, decoding,
 visible content, and minimum size. It submits only missing or invalid frames to one
 persistent Houdini process. The encode stage independently validates dimensions,

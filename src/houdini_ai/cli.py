@@ -12,6 +12,7 @@ from .doctor import inspect_workstation
 from .jobs import job_status, load_job, prepare_job, set_stage_state
 from .mass_flow import run_mass_flow_probe
 from .pipeline import run_composite, run_encode, run_lookdev, run_milestone3, run_package, run_render, run_simulation
+from .review_studio import serve as serve_review_studio
 from .storage import ALL_CATEGORIES, DEFAULT_CATEGORIES, apply_cleanup, format_bytes, plan_cleanup, storage_report
 
 
@@ -193,6 +194,11 @@ def command_clean(args: argparse.Namespace) -> int:
     return 0
 
 
+def command_review(args: argparse.Namespace) -> int:
+    serve_review_studio(ROOT, host=args.host, port=args.port)
+    return 0
+
+
 def build_parser() -> argparse.ArgumentParser:
     parser = argparse.ArgumentParser(prog="houdini-ai")
     subparsers = parser.add_subparsers(required=True)
@@ -207,6 +213,10 @@ def build_parser() -> argparse.ArgumentParser:
     clean.add_argument("--category", action="append", choices=ALL_CATEGORIES)
     clean.add_argument("--apply", action="store_true", help="execute the cleanup plan; default is dry-run")
     clean.set_defaults(func=command_clean)
+    review = subparsers.add_parser("review", help="serve the local artifact review studio")
+    review.add_argument("--host", default="127.0.0.1", help="bind address; defaults to local-only 127.0.0.1")
+    review.add_argument("--port", type=int, default=8765)
+    review.set_defaults(func=command_review)
     for name, handler, help_text in (
         ("plan", command_plan, "create or refresh a job plan without launching Houdini"),
         ("run", command_run, "run implemented stages for a study job"),
