@@ -407,9 +407,15 @@ def run_encode(job: Job) -> str:
             metadata = _probe_video(ffprobe, path)
         except RuntimeError:
             return None
+        rate = str(metadata.get("r_frame_rate", "0/1")).split("/", 1)
+        try:
+            measured_fps = float(rate[0]) / float(rate[1])
+        except (ValueError, ZeroDivisionError):
+            return None
         if (
             metadata.get("width") != expected_width
             or metadata.get("height") != expected_height
+            or abs(measured_fps - fps) > 0.01
             or abs(float(metadata["duration"]) - expected_duration) > max(0.15, 1 / fps)
         ):
             return None

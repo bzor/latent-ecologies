@@ -96,6 +96,40 @@ class PipelineTests(unittest.TestCase):
             self.assertEqual(run_logged.call_count, 2)
             self.assertEqual(json.loads((job.directory / "render" / "missing-frames.json").read_text()), [2])
 
+    @patch("houdini_ai.pipeline.discover_tools", return_value=[Tool("hython", Path("hython"), "test")])
+    @patch("houdini_ai.pipeline._run_logged")
+    @patch("houdini_ai.jobs.source_state", return_value="abc123")
+    def test_render_resumes_after_interruption_and_invalid_frame(self, _state, run_logged, _discover) -> None:
+        with tempfile.TemporaryDirectory() as directory:
+            spaced_root = Path(directory) / "workspace with spaces"
+            spaced_root.mkdir()
+            job = self.make_job(str(spaced_root))
+            frame_dir = job.directory / "render" / "frames"
+
+            def interrupt(_command, _log, _env, timeout=180):
+                frame_dir.mkdir(parents=True, exist_ok=True)
+                image = Image.new("RGBA", (32, 18), (8, 12, 16, 255))
+                image.putpixel((1, 1), (220, 240, 235, 255))
+                image.save(frame_dir / "field-study.0001.png")
+                raise RuntimeError("interrupted")
+
+            run_logged.side_effect = interrupt
+            with self.assertRaisesRegex(RuntimeError, "interrupted"):
+                run_render(job)
+            self.assertEqual({item["stage"]: item for item in job_status(job)}["render"]["state"], "failed")
+
+            def finish(_command, _log, _env, timeout=180):
+                requested = json.loads((job.directory / "render" / "missing-frames.json").read_text())
+                for frame in requested:
+                    image = Image.new("RGBA", (32, 18), (8, 12, 16, 255))
+                    image.putpixel((frame, 1), (220, 240, 235, 255))
+                    image.save(frame_dir / f"field-study.{frame:04d}.png")
+
+            run_logged.side_effect = finish
+            self.assertEqual(run_render(job), "render: complete (2 frames rendered)")
+            (frame_dir / "field-study.0002.png").write_bytes(b"partial")
+            self.assertEqual(run_render(job), "render: complete (1 frame rendered)")
+
     @patch("houdini_ai.pipeline._probe_video")
     @patch("houdini_ai.pipeline._run_logged")
     @patch(
