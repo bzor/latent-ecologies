@@ -154,8 +154,8 @@ def run(config_path: Path, cache_dir: Path, metrics_path: Path, review_path: Pat
         "fps": simulation["fps"], "current_frame": initial_frame,
         **{key: system[key] for key in (
             "domain_width", "domain_height", "domain_depth", "flow_scale", "flow_strength", "depth_strength",
-            "phase_strength", "avoidance_radius", "avoidance_strength",
-            "avoidance_neighbors", "drag", "max_speed",
+            "phase_strength", "avoidance_radius", "avoidance_strength", "flock_radius", "flock_id_window",
+            "alignment_strength", "cohesion_strength", "separation_strength", "wander_strength", "drag", "max_speed",
         )},
     }
     add_spare_parms(update, values)

@@ -19,33 +19,70 @@ float phase_center = sin(position.y * 0.43 + phase_angle + time * 0.31) * 2.65;
 float depth_center = sin(position.y * 0.31 - phase_angle + time * 0.23) * chf("domain_depth") * 0.32;
 vector phase_pull = set(phase_center - position.x, 0, depth_center - position.z) * chf("phase_strength");
 
-// Stable IDs are interleaved across phases and ordered along the initial ribbons.
-// Sampling a small ID window therefore catches nearby cross-phase ribbon contacts
-// without the nondeterministic tie-breaking of a capped spatial point-cloud query.
-vector separation = 0;
-float separation_weight = 0;
-float radius = chf("avoidance_radius");
-int point_count = npoints(0);
-int window = chi("avoidance_neighbors");
-for (int offset_index = -window; offset_index <= window; offset_index++)
+// Stable IDs begin as interleaved samples along the phase ribbons. Inspect a fixed
+// cohort around each ID, then filter it by true 3D distance. This avoids unstable
+// spatial-index tie ordering while retaining local flock-like interaction.
+vector alignment_sum = 0;
+vector cohesion_center = 0;
+vector same_separation = 0;
+vector cross_separation = 0;
+float same_count = 0;
+float same_separation_weight = 0;
+float cross_separation_weight = 0;
+float flock_radius = chf("flock_radius");
+float avoidance_radius = chf("avoidance_radius");
+int point_count = npoints(1);
+int id_window = chi("flock_id_window");
+for (int id_offset = -id_window; id_offset <= id_window; id_offset++)
 {
-    if (offset_index == 0)
+    if (id_offset == 0)
         continue;
-    int neighbor = (@ptnum + offset_index + point_count) % point_count;
-    if (neighbor == @ptnum || point(1, "phase", neighbor) == i@phase)
+    int neighbor = (@ptnum + id_offset + point_count) % point_count;
+    if (neighbor == @ptnum)
         continue;
     vector offset = position - point(1, "P", neighbor);
     float distance = length(offset);
-    if (distance <= 1e-6)
+    if (distance <= 1e-6 || distance > flock_radius)
         continue;
-    float weight = 1.0 - smooth(0.0, radius, distance);
-    separation += normalize(offset) * weight;
-    separation_weight += weight;
+    if (point(1, "phase", neighbor) == i@phase)
+    {
+        alignment_sum += point(1, "v", neighbor);
+        cohesion_center += point(1, "P", neighbor);
+        same_count += 1;
+        float weight = 1.0 - smooth(0.0, avoidance_radius, distance);
+        same_separation += normalize(offset) * weight;
+        same_separation_weight += weight;
+    }
+    else if (distance < avoidance_radius)
+    {
+        float weight = 1.0 - smooth(0.0, avoidance_radius, distance);
+        cross_separation += normalize(offset) * weight;
+        cross_separation_weight += weight;
+    }
 }
-if (separation_weight > 0)
-    separation = separation / separation_weight * chf("avoidance_strength");
+vector flocking = 0;
+if (same_count > 0)
+{
+    vector average_velocity = alignment_sum / same_count;
+    if (length(average_velocity) > 1e-6)
+        flocking += normalize(average_velocity) * chf("alignment_strength");
+    vector center_offset = cohesion_center / same_count - position;
+    if (length(center_offset) > 1e-6)
+        flocking += normalize(center_offset) * chf("cohesion_strength");
+}
+if (same_separation_weight > 0)
+    flocking += same_separation / same_separation_weight * chf("separation_strength");
+if (cross_separation_weight > 0)
+    flocking += cross_separation / cross_separation_weight * chf("avoidance_strength");
 
-vector desired = limit_length(flow + phase_pull + separation, chf("max_speed"));
+float wander_phase = @id * 0.754877666 + time * 0.47;
+vector wander = normalize(set(
+    sin(wander_phase * 1.13),
+    cos(wander_phase * 0.79 + 1.7),
+    sin(wander_phase * 0.61 + 3.1)
+)) * chf("wander_strength");
+
+vector desired = limit_length(flow + phase_pull + flocking + wander, chf("max_speed"));
 v@v = limit_length(v@v * chf("drag") + desired * (1.0 - chf("drag")), chf("max_speed"));
 @P += v@v * dt;
 @P.x = fold_axis(@P.x, chf("domain_width") * 0.5);

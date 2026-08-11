@@ -230,3 +230,24 @@ occlusion, and shallow-focus separation without trail emission or supplemental l
 
 **Status:** Look Probe 009 accepted as the scripted lookdev baseline. The artist HIPLC
 remains the reference scene; generated verification artifacts remain under `work/`.
+
+## 2026-08-11 — Motion and look probe 010: reduced flocking population
+
+**Artist direction:** Reduce the number of agents by half, retain long but less extreme
+trails, and introduce subtle boid-like variation.
+
+**Proposal:** Use 50,000 simulated agents and 6,000 rendered representatives with 25
+checkpoints of trail history, approximately 4.2 seconds at the review rate. Within a
+fixed stable-ID cohort filtered by true 3D distance, apply same-phase alignment,
+cohesion, and close separation; preserve cross-phase avoidance and add a low-amplitude
+deterministic per-agent wander. Keep the analytic field and phase lanes dominant.
+
+**Observation:** The result opens materially more negative space and develops looser
+branches, fan-like local alignment, and small individual deviations at crossings while
+retaining the three major currents. Capped spatial lookup was rejected after failing
+the identical-run gate; deterministic cohorts passed. The full prewarmed 450-frame
+solve completed in 29.9 seconds, remained within speed and volume bounds, and the
+graphite Karma XPU look shows clearer individual fibers than the 100,000-agent pass.
+
+**Status:** Probe 010 accepted for artist review. Both the 15-second motion diagnostic
+and graphite XPU still are retained under the new job in `work/`.
