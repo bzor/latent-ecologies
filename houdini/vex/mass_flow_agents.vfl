@@ -3,6 +3,14 @@ float dt = 1.0 / chf("fps");
 float time = chf("current_frame") * dt;
 float scale = chf("flow_scale");
 float phase_angle = i@phase * 2.09439510239;
+float frame = chf("current_frame");
+float knot_distance = abs(frame - chf("composition_knot_center_frame"))
+    / max(1.0, chf("composition_knot_half_width_frames"));
+float knot = 1.0 - smooth(0.0, 1.0, clamp(knot_distance, 0.0, 1.0));
+float opening = smooth(
+    chf("composition_opening_start_frame"), chf("composition_opening_end_frame"), frame
+);
+float hero_void_offset = chf("composition_hero_void_x_offset");
 
 vector position = @P;
 vector flow = set(
@@ -17,9 +25,15 @@ vector flow = set(
 // max_speed remains a safety cap, rather than a target velocity.
 flow *= chf("flow_strength");
 
-float phase_center = sin(position.y * 0.43 + phase_angle + time * 0.31) * 2.65;
+float phase_spread = 1.0
+    - knot * chf("composition_knot_phase_compression")
+    + opening * chf("composition_opening_strength");
+float phase_center = hero_void_offset
+    + sin(position.y * 0.43 + phase_angle + time * 0.31) * 2.65 * phase_spread;
 float depth_center = sin(position.y * 0.31 - phase_angle + time * 0.23) * chf("domain_depth") * 0.32;
 vector phase_pull = set(phase_center - position.x, 0, depth_center - position.z) * chf("phase_strength");
+phase_pull += set(hero_void_offset - position.x, 0, -position.z * 0.35)
+    * knot * chf("composition_knot_pull_strength");
 
 // Stable IDs begin as interleaved samples along the phase ribbons. Inspect a fixed
 // cohort around each ID, then filter it by true 3D distance. This avoids unstable

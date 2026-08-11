@@ -47,6 +47,7 @@ def build_trails(cache_dir: Path, system: dict, output: Path, heads_output: Path
     frames = [int(path.stem.split(".")[1]) for path in sorted(cache_dir.glob("state.[0-9][0-9][0-9][0-9].bgeo.sc"))]
     if end_frame is not None:
         frames = [frame for frame in frames if frame <= end_frame]
+    frames = frames[-int(system.get("trail_history_checkpoints", len(frames))):]
     geometries = []
     for frame in frames:
         geometry = hou.Geometry()
@@ -88,13 +89,18 @@ def build_trails(cache_dir: Path, system: dict, output: Path, heads_output: Path
 
     heads = hou.Geometry()
     heads.addAttrib(hou.attribType.Point, "phase", 0)
+    heads.addAttrib(hou.attribType.Point, "endpoint", 0)
     heads.addAttrib(hou.attribType.Point, "pscale", float(system["head_scale"]))
-    endpoint_positions = (positions[0], positions[-1])
+    endpoint_positions = ((0, positions[0]), (1, positions[-1]))
     for agent_index in range(0, count, stride):
-        for endpoint in endpoint_positions:
+        for endpoint_role, endpoint in endpoint_positions:
             point = heads.createPoint()
             point.setPosition(endpoint[agent_index * 3:agent_index * 3 + 3])
             point.setAttribValue("phase", phases[agent_index])
+            point.setAttribValue("endpoint", endpoint_role)
+            point.setAttribValue(
+                "pscale", float(system["head_scale"]) * (float(system.get("start_head_scale", 1.0)) if endpoint_role == 0 else 1.0)
+            )
     heads.saveToFile(str(heads_output))
 
 
@@ -107,7 +113,8 @@ def _add_curve(trails: hou.Geometry, samples: list, phase: int, system: dict) ->
         point = trails.createPoint()
         point.setPosition(position)
         point.setAttribValue("age", age)
-        point.setAttribValue("width", float(system["point_size"]) * (0.55 + age * 1.15))
+        width_scale = float(system.get("lead_phase_width_scale", 1.0)) if phase == int(system.get("lead_phase", -1)) else 1.0
+        point.setAttribValue("width", float(system["point_size"]) * width_scale * (0.55 + age * 1.15))
         curve.addVertex(point)
 
 
@@ -206,16 +213,21 @@ def main() -> None:
     set_parm(head_sphere, "cols", 12)
     head_outputs = {}
     for phase in range(3):
-        select = geo.createNode("attribwrangle", f"select_head_phase_{phase}")
-        select.setInput(0, head_source)
-        set_parm(select, "class", 2)
-        set_parm(select, "snippet", f"if (i@phase != {phase}) removepoint(0, @ptnum); ")
-        copies = geo.createNode("copytopoints::2.0", f"copy_heads_phase_{phase}")
-        copies.setInput(0, head_sphere)
-        copies.setInput(1, select)
-        output = geo.createNode("null", f"OUT_HEADS_PHASE_{phase}")
-        output.setInput(0, copies)
-        head_outputs[phase] = output
+        for endpoint_role, endpoint_name in ((0, "start"), (1, "end")):
+            select = geo.createNode("attribwrangle", f"select_{endpoint_name}_heads_phase_{phase}")
+            select.setInput(0, head_source)
+            set_parm(select, "class", 2)
+            set_parm(
+                select,
+                "snippet",
+                f"if (i@phase != {phase} || i@endpoint != {endpoint_role}) removepoint(0, @ptnum);",
+            )
+            copies = geo.createNode("copytopoints::2.0", f"copy_{endpoint_name}_heads_phase_{phase}")
+            copies.setInput(0, head_sphere)
+            copies.setInput(1, select)
+            output = geo.createNode("null", f"OUT_{endpoint_name.upper()}_HEADS_PHASE_{phase}")
+            output.setInput(0, copies)
+            head_outputs[(phase, endpoint_role)] = output
     geo.layoutChildren()
 
     # Camera-relative backing card: at the fixed observation camera's origin and
@@ -248,16 +260,17 @@ def main() -> None:
         set_parm(import_node, "pathprefix", f"/world/trails/phase_{phase}")
         previous = import_node
     for phase in range(3):
-        import_node = stage.createNode("sopimport", f"import_heads_phase_{phase}")
-        import_node.setInput(0, previous)
-        set_parm(import_node, "soppath", head_outputs[phase].path())
-        set_parm(import_node, "primpath", f"/world/heads/phase_{phase}")
-        set_parm(import_node, "pathprefix", f"/world/heads/phase_{phase}")
-        previous = import_node
+        for endpoint_role, endpoint_name in ((0, "start"), (1, "end")):
+            import_node = stage.createNode("sopimport", f"import_{endpoint_name}_heads_phase_{phase}")
+            import_node.setInput(0, previous)
+            set_parm(import_node, "soppath", head_outputs[(phase, endpoint_role)].path())
+            set_parm(import_node, "primpath", f"/world/heads/{endpoint_name}/phase_{phase}")
+            set_parm(import_node, "pathprefix", f"/world/heads/{endpoint_name}/phase_{phase}")
+            previous = import_node
     library = stage.createNode("materiallibrary", "trail_materials")
     library.setInput(0, previous)
     material_specs = (
-        ((0.1348, 0.1544, 0.1672), 0.0, 0.42),
+        ((0.155, 0.18, 0.195), 0.0, 0.30),
         ((0.025, 0.025, 0.025), 1.0, 0.22),
         ((0.01, 0.0074, 0.0134), 0.0, 0.42),
     )
@@ -265,22 +278,30 @@ def main() -> None:
         create_material(library, f"phase_{phase}", color, metalness=metalness, roughness=roughness)
         for phase, (color, metalness, roughness) in enumerate(material_specs)
     ]
+    start_materials = [
+        create_material(library, f"start_phase_{phase}", tuple(channel * 0.42 for channel in color), roughness=0.76)
+        for phase, (color, _, _) in enumerate(material_specs)
+    ]
     background_material = create_white_background_material(library)
     library.layoutChildren()
     assign = stage.createNode("assignmaterial", "assign_trail_materials")
     assign.setInput(0, library)
-    set_parm(assign, "nummaterials", 4)
+    set_parm(assign, "nummaterials", 7)
     for index, material in enumerate(materials, 1):
         phase = index - 1
         set_parm(
             assign,
             f"primpattern{index}",
             f"/world/trails/phase_{phase} /world/trails/phase_{phase}/** "
-            f"/world/heads/phase_{phase} /world/heads/phase_{phase}/**",
+            f"/world/heads/end/phase_{phase} /world/heads/end/phase_{phase}/**",
         )
         set_parm(assign, f"matspecpath{index}", material.path().replace(library.path(), "/materials"))
-    set_parm(assign, "primpattern4", "/world/camera_background /world/camera_background/**")
-    set_parm(assign, "matspecpath4", background_material.path().replace(library.path(), "/materials"))
+    for index, material in enumerate(start_materials, 4):
+        phase = index - 4
+        set_parm(assign, f"primpattern{index}", f"/world/heads/start/phase_{phase} /world/heads/start/phase_{phase}/**")
+        set_parm(assign, f"matspecpath{index}", material.path().replace(library.path(), "/materials"))
+    set_parm(assign, "primpattern7", "/world/camera_background /world/camera_background/**")
+    set_parm(assign, "matspecpath7", background_material.path().replace(library.path(), "/materials"))
 
     camera = stage.createNode("camera", "trail_camera")
     camera.setInput(0, assign)

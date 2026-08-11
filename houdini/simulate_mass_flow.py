@@ -233,6 +233,10 @@ def run(config_path: Path, cache_dir: Path, metrics_path: Path, review_path: Pat
             "phase_strength", "avoidance_radius", "avoidance_strength", "flock_radius", "flock_id_window",
             "alignment_strength", "cohesion_strength", "separation_radius", "separation_strength",
             "tail_avoidance_strength", "wander_strength", "drag", "max_speed",
+            "composition_knot_center_frame", "composition_knot_half_width_frames",
+            "composition_knot_phase_compression", "composition_knot_pull_strength",
+            "composition_opening_start_frame", "composition_opening_end_frame", "composition_opening_strength",
+            "composition_hero_void_x_offset",
         )},
     }
     add_spare_parms(update, values)

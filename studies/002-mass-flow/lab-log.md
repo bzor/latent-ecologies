@@ -1,5 +1,29 @@
 # Mass Flow lab log
 
+## 2026-08-11 — Motion and look probe 019: authored temporal hierarchy
+
+**Artist direction:** Explore a more interesting composition and motion by combining
+a controlled temporal event, protected negative space, clearer directional cues, and
+less uniformly accumulated trail density.
+
+**Proposal:** Limit derived trails to the configured rolling 25-checkpoint window.
+Bias the population left to reserve a right-side void; compress phase lanes and add a
+central pull around frame 300, then expand them after frame 330. Treat phase 0 as a
+subtle lead current with an 18% width increase and brighter, lower-roughness graphite.
+Retain spheres at both ends, but make starting heads 62% scale and matte while leaving
+terminal heads full-size and phase-matched.
+
+**Observation:** The 600-frame candidate passed same-seed determinism and
+changed-seed distinction gates, and its review encode remains exactly 20.000 seconds.
+The early (150), knot (300), and post-event (450) Karma XPU frames are all 720 × 1280
+with 8,000 two-ended head points. The rolling history restores visible voids; the
+frame-300 compression creates a clear central event, and the later expansion opens
+the right-hand field. The wider, brighter phase-0 ribbon and reduced matte start
+heads give the braid a readable directional hierarchy.
+
+**Status:** Motion and Look Probe 019 ready for artist review as a complete
+composition candidate.
+
 ## 2026-08-11 — Look probe 018: adaptive trail smoothing
 
 **Artist direction:** Smooth visible polygon edges where fast-turning trails do not
