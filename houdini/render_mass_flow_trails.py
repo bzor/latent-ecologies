@@ -65,6 +65,14 @@ def build_trails(cache_dir: Path, system: dict, output: Path, heads_output: Path
     trails.addAttrib(hou.attribType.Prim, "phase", 0)
     trails.addAttrib(hou.attribType.Point, "width", 0.012)
     trails.addAttrib(hou.attribType.Point, "age", 0.0)
+    endpoint_records = []
+
+    def add_run(samples: list, phase: int) -> None:
+        if len(samples) < 2:
+            return
+        _add_curve(trails, samples, phase, system)
+        endpoint_records.extend(((phase, 0, samples[0][0]), (phase, 1, samples[-1][0])))
+
     for agent_index in range(0, count, stride):
         run = []
         for history_index, values in enumerate(positions):
@@ -76,12 +84,10 @@ def build_trails(cache_dir: Path, system: dict, output: Path, heads_output: Path
             if run:
                 prior = run[-1][0]
                 if abs(position[0] - prior[0]) > domain_width * 0.5 or abs(position[1] - prior[1]) > domain_height * 0.5:
-                    if len(run) >= 2:
-                        _add_curve(trails, run, phases[agent_index], system)
+                    add_run(run, phases[agent_index])
                     run = []
             run.append((position, history_index / max(1, len(positions) - 1)))
-        if len(run) >= 2:
-            _add_curve(trails, run, phases[agent_index], system)
+        add_run(run, phases[agent_index])
     depth_size = trails.boundingBox().sizevec()[2]
     if float(system.get("domain_depth", 0.0)) > 0 and depth_size < float(system["domain_depth"]) * 0.1:
         raise RuntimeError(f"volumetric trail export collapsed to {depth_size:.6f} units of depth")
@@ -91,16 +97,14 @@ def build_trails(cache_dir: Path, system: dict, output: Path, heads_output: Path
     heads.addAttrib(hou.attribType.Point, "phase", 0)
     heads.addAttrib(hou.attribType.Point, "endpoint", 0)
     heads.addAttrib(hou.attribType.Point, "pscale", float(system["head_scale"]))
-    endpoint_positions = ((0, positions[0]), (1, positions[-1]))
-    for agent_index in range(0, count, stride):
-        for endpoint_role, endpoint in endpoint_positions:
-            point = heads.createPoint()
-            point.setPosition(endpoint[agent_index * 3:agent_index * 3 + 3])
-            point.setAttribValue("phase", phases[agent_index])
-            point.setAttribValue("endpoint", endpoint_role)
-            point.setAttribValue(
-                "pscale", float(system["head_scale"]) * (float(system.get("start_head_scale", 1.0)) if endpoint_role == 0 else 1.0)
-            )
+    for phase, endpoint_role, position in endpoint_records:
+        point = heads.createPoint()
+        point.setPosition(position)
+        point.setAttribValue("phase", phase)
+        point.setAttribValue("endpoint", endpoint_role)
+        point.setAttribValue(
+            "pscale", float(system["head_scale"]) * (float(system.get("start_head_scale", 1.0)) if endpoint_role == 0 else 1.0)
+        )
     heads.saveToFile(str(heads_output))
 
 

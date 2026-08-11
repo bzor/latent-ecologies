@@ -1,5 +1,23 @@
 # Mass Flow lab log
 
+## 2026-08-11 — Look probe 020: segment-attached endpoint heads
+
+**Artist direction:** Ensure every visible trail end has a sphere and remove spheres
+that appear detached from nearby curves.
+
+**Proposal:** Derive head positions from each retained curve segment's actual start
+and end points, rather than from the global rolling-history endpoints per agent.
+Preserve the established hierarchy: segment starts are smaller, matte heads and
+segment ends are full-size, phase-matched heads.
+
+**Observation:** Frame 450 contains 7,164 derived curve segments and 14,328 curve
+endpoints. The replacement geometry now contains 14,328 head points and every one of
+those endpoints has a matching sphere; the prior version had 6,620 unheaded ends.
+The attached heads remove the detached global-history points while retaining the
+matte-start and phase-matched-end hierarchy.
+
+**Status:** Look Probe 020 ready for artist review with segment-attached heads.
+
 ## 2026-08-11 — Motion and look probe 019: authored temporal hierarchy
 
 **Artist direction:** Explore a more interesting composition and motion by combining
