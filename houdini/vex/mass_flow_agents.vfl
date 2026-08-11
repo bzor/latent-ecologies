@@ -10,12 +10,14 @@ vector flow = set(
         + 0.42 * cos((position.x + position.y) * scale * 0.61 - time * 0.44),
     0.58 + cos(position.x * scale - time * 0.53 + phase_angle) * 0.72
         - 0.34 * sin((position.x - position.y) * scale * 0.48 + time * 0.37),
-    0
+    (0.46 * sin((position.x + position.y) * scale * 0.55 + time * 0.41 - phase_angle)
+        + 0.22 * cos(position.z * scale * 0.83 - time * 0.29 + phase_angle)) * chf("depth_strength")
 );
 flow = normalize(flow + set(1e-6, 0, 0)) * chf("flow_strength");
 
 float phase_center = sin(position.y * 0.43 + phase_angle + time * 0.31) * 2.65;
-vector phase_pull = set(phase_center - position.x, 0, 0) * chf("phase_strength");
+float depth_center = sin(position.y * 0.31 - phase_angle + time * 0.23) * chf("domain_depth") * 0.32;
+vector phase_pull = set(phase_center - position.x, 0, depth_center - position.z) * chf("phase_strength");
 
 // Stable IDs are interleaved across phases and ordered along the initial ribbons.
 // Sampling a small ID window therefore catches nearby cross-phase ribbon contacts
@@ -48,8 +50,9 @@ v@v = limit_length(v@v * chf("drag") + desired * (1.0 - chf("drag")), chf("max_s
 @P += v@v * dt;
 @P.x = fold_axis(@P.x, chf("domain_width") * 0.5);
 @P.y = fold_axis(@P.y, chf("domain_height") * 0.5);
+@P.z = fold_axis(@P.z, chf("domain_depth") * 0.5);
 
 f@speed = length(v@v);
 f@curvature = length(v@v - v@previous_v) / max(dt, 1e-6);
 v@previous_v = v@v;
-f@density_hint = smooth(0.0, 1.0, 1.0 - abs(@P.x - phase_center) / 2.2);
+f@density_hint = smooth(0.0, 1.0, 1.0 - length(set(@P.x - phase_center, 0, @P.z - depth_center)) / 2.2);

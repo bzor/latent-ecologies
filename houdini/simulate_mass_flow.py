@@ -33,6 +33,7 @@ def initial_geometry(system: dict[str, Any], seed: int) -> hou.Geometry:
     count = int(system["agent_count"])
     width = float(system["domain_width"])
     height = float(system["domain_height"])
+    depth = float(system["domain_depth"])
     geometry = hou.Geometry()
     geometry.addAttrib(hou.attribType.Point, "id", 0)
     geometry.addAttrib(hou.attribType.Point, "phase", 0)
@@ -50,12 +51,14 @@ def initial_geometry(system: dict[str, Any], seed: int) -> hou.Geometry:
         jitter_b = fraction((agent_id + seed * 31) * 0.414213562373095) - 0.5
         center = math.sin(y * 0.45 + phase * math.tau / 3.0) * width * 0.285
         x = center + (jitter_a + jitter_b) * width * 0.13
+        depth_center = math.cos(y * 0.37 - phase * math.tau / 3.0) * depth * 0.28
+        z = depth_center + (jitter_a - jitter_b) * depth * 0.12
         point = geometry.createPoint()
-        point.setPosition((x, y, 0))
+        point.setPosition((x, y, z))
         point.setAttribValue("id", agent_id)
         point.setAttribValue("phase", phase)
         heading = y * 0.31 + phase * math.tau / 3.0
-        velocity = (math.sin(heading) * 0.16, 0.32 + math.cos(heading) * 0.08, 0.0)
+        velocity = (math.sin(heading) * 0.16, 0.32 + math.cos(heading) * 0.08, math.cos(heading * 0.71) * 0.08)
         point.setAttribValue("v", velocity)
         point.setAttribValue("previous_v", velocity)
         point.setAttribValue("speed", math.hypot(velocity[0], velocity[1]))
@@ -88,12 +91,13 @@ def checkpoint_record(geometry: hou.Geometry, frame: int, elapsed: float) -> dic
     speeds = geometry.pointFloatAttribValues("speed")
     xs = positions[0::3]
     ys = positions[1::3]
+    zs = positions[2::3]
     return {
         "frame": frame,
         "agent_count": len(speeds),
         "mean_speed": sum(speeds) / len(speeds),
         "max_speed": max(speeds),
-        "bounds": [min(xs), min(ys), max(xs), max(ys)],
+        "bounds": [min(xs), min(ys), min(zs), max(xs), max(ys), max(zs)],
         "elapsed_seconds": elapsed,
     }
 
@@ -149,7 +153,7 @@ def run(config_path: Path, cache_dir: Path, metrics_path: Path, review_path: Pat
     values = {
         "fps": simulation["fps"], "current_frame": initial_frame,
         **{key: system[key] for key in (
-            "domain_width", "domain_height", "flow_scale", "flow_strength",
+            "domain_width", "domain_height", "domain_depth", "flow_scale", "flow_strength", "depth_strength",
             "phase_strength", "avoidance_radius", "avoidance_strength",
             "avoidance_neighbors", "drag", "max_speed",
         )},

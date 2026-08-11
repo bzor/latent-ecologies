@@ -173,3 +173,23 @@ accepted `studio_small_03` dome the sole illumination source. Trail shading now 
 entirely from base response, rough specular reflection, occlusion, and shadow.
 
 **Status:** Look Probe 006 accepted as the physically lit material baseline.
+
+## 2026-08-11 — Look probe 007: volumetric Mass Flow
+
+**Artist direction:** Convert the planar simulation to 3D so the dome environment can
+produce meaningful lighting, depth, and occlusion.
+
+**Proposal:** Preserve the nine-by-sixteen portrait domain while adding four units of
+bounded depth. Seed agents along phase-offset depth waves, add an animated Z component
+to the analytic field, pull each phase toward its own moving depth lane, evaluate
+cross-phase separation in full 3D, and fold escaped agents across the Z boundary.
+
+**Observation:** The front composition remains recognizable, but ribbons now separate
+through real parallax and occlusion and present varied orientation to the HDRI instead
+of remaining coplanar. The final state spans Z −2.000 to 1.996, remains within the 2.4
+speed cap, and completed the deterministic 100,000-agent solve at approximately 1.01
+million agent-frames per second. The no-emission Karma XPU render completed against
+the existing white card and accepted dome.
+
+**Status:** Look Probe 007 accepted as the new volumetric baseline. The 2D review
+encode remains an orthographic XY motion diagnostic; Karma carries the authored depth.

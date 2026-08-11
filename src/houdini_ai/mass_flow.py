@@ -40,14 +40,19 @@ def validate_mass_flow_metrics(path: Path, config: Mapping[str, Any]) -> dict[st
         raise RuntimeError("mass-flow metrics have no valid initial checkpoint")
     half_width = system["domain_width"] * 0.5
     half_height = system["domain_height"] * 0.5
+    half_depth = system.get("domain_depth", 0.0) * 0.5
     for checkpoint in checkpoints:
         if checkpoint.get("agent_count") != system["agent_count"]:
             raise RuntimeError(f"checkpoint {checkpoint.get('frame')} lost agents")
         bounds = checkpoint.get("bounds", [])
-        if len(bounds) != 4 or bounds[0] < -half_width - 1e-3 or bounds[2] > half_width + 1e-3:
+        max_x = bounds[3] if len(bounds) == 6 else bounds[2] if len(bounds) == 4 else float("inf")
+        max_y = bounds[4] if len(bounds) == 6 else bounds[3] if len(bounds) == 4 else float("inf")
+        if len(bounds) not in (4, 6) or bounds[0] < -half_width - 1e-3 or max_x > half_width + 1e-3:
             raise RuntimeError(f"checkpoint {checkpoint.get('frame')} escaped horizontal bounds")
-        if bounds[1] < -half_height - 1e-3 or bounds[3] > half_height + 1e-3:
+        if bounds[1] < -half_height - 1e-3 or max_y > half_height + 1e-3:
             raise RuntimeError(f"checkpoint {checkpoint.get('frame')} escaped vertical bounds")
+        if len(bounds) == 6 and (bounds[2] < -half_depth - 1e-3 or bounds[5] > half_depth + 1e-3):
+            raise RuntimeError(f"checkpoint {checkpoint.get('frame')} escaped depth bounds")
         if checkpoint.get("max_speed", 0) > system["max_speed"] + 1e-3:
             raise RuntimeError(f"checkpoint {checkpoint.get('frame')} exceeded maximum speed")
     return metrics
