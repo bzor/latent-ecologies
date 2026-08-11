@@ -81,6 +81,9 @@ class MassFlowTests(unittest.TestCase):
             image = Image.open(outputs["contact_sheet"])
             self.assertEqual(image.size, (360, 640))
             self.assertGreater(len(image.getcolors(maxcolors=100000)), 2)
+            trails = Image.open(outputs["derived_trails"])
+            self.assertEqual(trails.size, (360, 640))
+            self.assertGreater(len(trails.getcolors(maxcolors=100000)), 2)
 
 
 if __name__ == "__main__":

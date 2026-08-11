@@ -112,7 +112,39 @@ def render_mass_flow_review(review_path: Path, config: Mapping[str, Any], output
     contact.convert("RGB").save(contact_path)
     final_path = output_dir / "final-frame.png"
     render_frame(frames[-1], (width, height)).convert("RGB").save(final_path)
-    return {"contact_sheet": str(contact_path), "final_frame": str(final_path)}
+
+    trail_base = Image.new("RGB", (width, height), (3, 6, 11))
+    trail_glow = Image.new("RGBA", (width, height), (0, 0, 0, 0))
+    trail_sharp = Image.new("RGBA", (width, height), (0, 0, 0, 0))
+    glow_draw = ImageDraw.Draw(trail_glow, "RGBA")
+    sharp_draw = ImageDraw.Draw(trail_sharp, "RGBA")
+
+    def pixel(point: Sequence[float]) -> tuple[int, int]:
+        return round((point[0] / domain_width + 0.5) * width), round((0.5 - point[1] / domain_height) * height)
+
+    history_count = min(len(record["points"]) for record in frames)
+    for point_index in range(history_count):
+        phase = int(frames[-1]["points"][point_index][3])
+        color = palette[phase]
+        for history_index in range(1, len(frames)):
+            previous = frames[history_index - 1]["points"][point_index]
+            current = frames[history_index]["points"][point_index]
+            if abs(current[0] - previous[0]) > domain_width * 0.5 or abs(current[1] - previous[1]) > domain_height * 0.5:
+                continue
+            alpha = round(28 + history_index / max(1, len(frames) - 1) * 112)
+            segment = (*pixel(previous), *pixel(current))
+            glow_draw.line(segment, fill=(*color, alpha), width=4)
+            sharp_draw.line(segment, fill=(*color, min(210, alpha + 38)), width=1)
+        endpoint = pixel(frames[-1]["points"][point_index])
+        sharp_draw.ellipse((endpoint[0] - 1, endpoint[1] - 1, endpoint[0] + 1, endpoint[1] + 1), fill=(*color, 205))
+    trail_image = Image.alpha_composite(trail_base.convert("RGBA"), trail_glow.filter(ImageFilter.GaussianBlur(3.5)))
+    trail_image = Image.alpha_composite(trail_image, trail_sharp)
+    trail_draw = ImageDraw.Draw(trail_image, "RGBA")
+    trail_draw.text((18, 16), "MASS FLOW  /  DERIVED TRAILS", fill=(229, 237, 241, 220))
+    trail_draw.text((18, 34), f"{history_count:,} REPRESENTATIVES  /  {len(frames)} CHECKPOINTS", fill=(139, 155, 166, 210))
+    trails_path = output_dir / "derived-trails.png"
+    trail_image.convert("RGB").save(trails_path)
+    return {"contact_sheet": str(contact_path), "final_frame": str(final_path), "derived_trails": str(trails_path)}
 
 
 def _run(command: Sequence[str], log_path: Path, env: dict[str, str], timeout: int = 900) -> None:
