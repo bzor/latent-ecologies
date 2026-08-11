@@ -7,8 +7,8 @@ from unittest.mock import patch
 from PIL import Image
 
 from houdini_ai.doctor import Tool
-from houdini_ai.jobs import job_status, load_job, prepare_job
-from houdini_ai.pipeline import run_milestone3, run_render
+from houdini_ai.jobs import job_status, load_job, prepare_job, set_stage_state
+from houdini_ai.pipeline import run_encode, run_milestone3, run_package, run_render
 
 
 class PipelineTests(unittest.TestCase):
@@ -24,10 +24,17 @@ class PipelineTests(unittest.TestCase):
             json.dumps(
                 {
                     "id": "test",
+                    "title": "Test Field",
                     "seed": 7,
                     "presentation": {"quality": "probe"},
-                    "simulation": {"frame_start": 1, "frame_end": 3},
+                    "simulation": {
+                        "frame_start": 1,
+                        "frame_end": 3,
+                        "fps": 30,
+                        "rule_genome": {"system": {"agent_count": 4}},
+                    },
                     "render": {"width": 32, "height": 18},
+                    "publication": {"approval_required": True},
                 }
             ),
             encoding="utf-8",
@@ -88,6 +95,48 @@ class PipelineTests(unittest.TestCase):
             self.assertEqual(run_render(job), "render: complete (1 frame rendered)")
             self.assertEqual(run_logged.call_count, 2)
             self.assertEqual(json.loads((job.directory / "render" / "missing-frames.json").read_text()), [2])
+
+    @patch("houdini_ai.pipeline._probe_video")
+    @patch("houdini_ai.pipeline._run_logged")
+    @patch(
+        "houdini_ai.pipeline.discover_tools",
+        return_value=[Tool("ffmpeg", Path("ffmpeg"), "test"), Tool("ffprobe", Path("ffprobe"), "test")],
+    )
+    @patch("houdini_ai.jobs.source_state", return_value="abc123")
+    def test_encode_and_package_are_reusable(self, _state, _discover, run_logged, probe_video) -> None:
+        with tempfile.TemporaryDirectory() as directory:
+            job = self.make_job(directory)
+            set_stage_state(job, "render", "complete")
+            frame_dir = job.directory / "render" / "frames"
+            frame_dir.mkdir(parents=True)
+            for frame in range(1, 4):
+                image = Image.new("RGBA", (32, 18), (8, 12, 16, 255))
+                image.putpixel((frame, 1), (220, 240, 235, 255))
+                image.save(frame_dir / f"field-study.{frame:04d}.png")
+
+            dimensions = {
+                "archive-master.mov": (32, 18),
+                "social-vertical.mp4": (1080, 1920),
+                "feed-portrait.mp4": (1080, 1350),
+                "website.mp4": (720, 1280),
+                "preview-loop.mp4": (540, 960),
+            }
+
+            def create_video(command, _log, _env, timeout=180):
+                Path(command[-1]).write_bytes(b"video" * 410)
+
+            def video_metadata(_ffprobe, path):
+                width, height = dimensions[path.name]
+                return {"codec_name": "test", "width": width, "height": height, "r_frame_rate": "30/1", "duration": 0.1}
+
+            run_logged.side_effect = create_video
+            probe_video.side_effect = video_metadata
+            self.assertEqual(run_encode(job), "encode: complete (5 variants encoded)")
+            self.assertEqual(run_encode(job), "encode: complete (0 variants encoded)")
+            self.assertEqual(run_logged.call_count, 5)
+            self.assertIn("verified artifacts", run_package(job))
+            self.assertTrue((job.directory / "package" / "poster.png").is_file())
+            self.assertTrue((job.directory / "package" / "field-note.json").is_file())
 
 
 if __name__ == "__main__":

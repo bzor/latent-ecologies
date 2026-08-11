@@ -15,6 +15,7 @@ def main() -> None:
     parser.add_argument("cache_dir", type=Path)
     parser.add_argument("output_dir", type=Path)
     parser.add_argument("frames_json", type=Path)
+    parser.add_argument("--samples", type=int, default=8)
     args = parser.parse_args()
     frames = json.loads(args.frames_json.read_text(encoding="utf-8"))
     if not isinstance(frames, list) or not all(isinstance(frame, int) for frame in frames):
@@ -26,6 +27,10 @@ def main() -> None:
     render = hou.node("/stage/field_study_render")
     if cache is None or settings is None or render is None:
         raise RuntimeError("generated HIP is missing the field-study look network")
+    samples = settings.parm("samplesperpixel")
+    if samples is None:
+        raise RuntimeError("field-study render settings have no samples-per-pixel parameter")
+    samples.set(args.samples)
 
     args.output_dir.mkdir(parents=True, exist_ok=True)
     for frame in frames:

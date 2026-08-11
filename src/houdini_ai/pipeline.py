@@ -3,6 +3,7 @@ from __future__ import annotations
 import hashlib
 import json
 import os
+import shutil
 import subprocess
 from pathlib import Path
 from typing import Sequence
@@ -298,8 +299,13 @@ def run_render(job: Job) -> str:
     env = dict(os.environ)
     env["HDAI_PROJECT_ROOT"] = str(job.root)
     env["HOUDINI_TEMP_DIR"] = str(job.directory / "temp")
-    command = (str(hython), str(script), str(hip_path), str(cache_dir), str(frame_dir), str(selection_path))
-    set_stage_state(job, "render", "running", requested_frames=missing)
+    quality = job.effective_config["study"]["presentation"]["quality"]
+    samples = 2 if quality == "probe" else 8 if quality == "study" else 16
+    command = (
+        str(hython), str(script), str(hip_path), str(cache_dir), str(frame_dir), str(selection_path),
+        "--samples", str(samples),
+    )
+    set_stage_state(job, "render", "running", requested_frames=missing, samples_per_pixel=samples)
     try:
         if missing:
             _run_logged(command, job.directory / "logs" / "render.log", env, timeout=21600)
@@ -322,8 +328,160 @@ def run_render(job: Job) -> str:
             checksums=checksums,
             width=expected_size[0],
             height=expected_size[1],
+            samples_per_pixel=samples,
         )
         return f"render: complete ({len(missing)} frame{'s' if len(missing) != 1 else ''} rendered)"
     except Exception as exc:
         set_stage_state(job, "render", "failed", error=str(exc), log="logs/render.log")
         raise
+
+
+def run_composite(job: Job) -> str:
+    """Record the final-look Karma sequence as the composite source.
+
+    Study 001 has no baked overlay pass; instrument graphics remain separate review
+    media, so this stage is intentionally a verified passthrough.
+    """
+    render_receipt = next(item for item in job_status(job) if item["stage"] == "render")
+    if render_receipt.get("state") != "complete":
+        raise RuntimeError("render must be complete before composite")
+    set_stage_state(
+        job,
+        "composite",
+        "complete",
+        mode="passthrough",
+        source="render/frames/field-study.$F4.png",
+        overlays_baked=False,
+    )
+    return "composite: complete (verified Karma passthrough)"
+
+
+def _probe_video(ffprobe: Path, path: Path) -> dict[str, object]:
+    command = (
+        str(ffprobe), "-v", "error", "-select_streams", "v:0", "-show_entries",
+        "stream=codec_name,width,height,r_frame_rate,pix_fmt:format=duration", "-of", "json", str(path),
+    )
+    try:
+        result = subprocess.run(command, capture_output=True, text=True, timeout=60, check=False)
+        payload = json.loads(result.stdout)
+        stream = payload["streams"][0]
+        duration = float(payload["format"]["duration"])
+    except (OSError, subprocess.SubprocessError, json.JSONDecodeError, KeyError, IndexError, TypeError, ValueError) as exc:
+        raise RuntimeError(f"could not probe video {path}: {exc}") from exc
+    if result.returncode != 0:
+        raise RuntimeError(f"ffprobe exited {result.returncode} for {path}: {result.stderr.strip()}")
+    return {**stream, "duration": duration}
+
+
+def run_encode(job: Job) -> str:
+    tools = {tool.name: tool.path for tool in discover_tools()}
+    ffmpeg, ffprobe = tools.get("ffmpeg"), tools.get("ffprobe")
+    if ffmpeg is None or ffprobe is None:
+        raise RuntimeError("ffmpeg and ffprobe are required; run houdini-ai doctor")
+    render_receipt = next(item for item in job_status(job) if item["stage"] == "render")
+    if render_receipt.get("state") != "complete":
+        raise RuntimeError("render must be complete before encoding")
+
+    study = job.effective_config["study"]
+    simulation = study["simulation"]
+    fps = int(simulation["fps"])
+    start = int(simulation["frame_start"])
+    frame_count = int(simulation["frame_end"]) - start + 1
+    expected_duration = frame_count / fps
+    width, height = _expected_size(job)
+    source = job.directory / "render" / "frames" / "field-study.%04d.png"
+    output_dir = job.directory / "encode"
+    output_dir.mkdir(parents=True, exist_ok=True)
+    specs = {
+        "archive-master": (output_dir / "archive-master.mov", width, height, ["-c:v", "prores_ks", "-profile:v", "3", "-pix_fmt", "yuv422p10le"]),
+        "social-vertical": (output_dir / "social-vertical.mp4", 1080, 1920, ["-vf", "scale=1080:1920:flags=lanczos", "-c:v", "libx264", "-crf", "18", "-preset", "medium", "-pix_fmt", "yuv420p", "-movflags", "+faststart"]),
+        "feed-portrait": (output_dir / "feed-portrait.mp4", 1080, 1350, ["-vf", "crop=1080:1350:0:285", "-c:v", "libx264", "-crf", "18", "-preset", "medium", "-pix_fmt", "yuv420p", "-movflags", "+faststart"]),
+        "website": (output_dir / "website.mp4", 720, 1280, ["-vf", "scale=720:1280:flags=lanczos", "-c:v", "libx264", "-crf", "21", "-preset", "medium", "-pix_fmt", "yuv420p", "-movflags", "+faststart"]),
+        "preview-loop": (output_dir / "preview-loop.mp4", 540, 960, ["-vf", "scale=540:960:flags=lanczos", "-c:v", "libx264", "-crf", "25", "-preset", "fast", "-pix_fmt", "yuv420p", "-movflags", "+faststart", "-an"]),
+    }
+
+    def valid(path: Path, expected_width: int, expected_height: int) -> dict[str, object] | None:
+        if not path.is_file() or path.stat().st_size < 1024:
+            return None
+        try:
+            metadata = _probe_video(ffprobe, path)
+        except RuntimeError:
+            return None
+        if (
+            metadata.get("width") != expected_width
+            or metadata.get("height") != expected_height
+            or abs(float(metadata["duration"]) - expected_duration) > max(0.15, 1 / fps)
+        ):
+            return None
+        return metadata
+
+    set_stage_state(job, "encode", "running")
+    encoded: list[str] = []
+    metadata: dict[str, dict[str, object]] = {}
+    try:
+        for name, (path, expected_width, expected_height, options) in specs.items():
+            details = valid(path, expected_width, expected_height)
+            if details is None:
+                command = [
+                    str(ffmpeg), "-y", "-framerate", str(fps), "-start_number", str(start),
+                    "-i", str(source), "-frames:v", str(frame_count), *options, "-r", str(fps), str(path),
+                ]
+                _run_logged(command, job.directory / "logs" / f"encode-{name}.log", dict(os.environ), timeout=1800)
+                details = valid(path, expected_width, expected_height)
+                if details is None:
+                    raise RuntimeError(f"encoded variant failed validation: {path}")
+                encoded.append(name)
+            metadata[name] = {**details, "path": path.relative_to(job.directory).as_posix(), "sha256": sha256_path(path)}
+        set_stage_state(job, "encode", "complete", variants=metadata, encoded=encoded, fps=fps, duration=expected_duration)
+        return f"encode: complete ({len(encoded)} variant{'s' if len(encoded) != 1 else ''} encoded)"
+    except Exception as exc:
+        set_stage_state(job, "encode", "failed", error=str(exc))
+        raise
+
+
+def run_package(job: Job) -> str:
+    encode_receipt = next(item for item in job_status(job) if item["stage"] == "encode")
+    if encode_receipt.get("state") != "complete":
+        raise RuntimeError("encode must be complete before packaging")
+    study = job.effective_config["study"]
+    package_dir = job.directory / "package"
+    package_dir.mkdir(parents=True, exist_ok=True)
+    midpoint = round((study["simulation"]["frame_start"] + study["simulation"]["frame_end"]) / 2)
+    poster_source = job.directory / "render" / "frames" / f"field-study.{midpoint:04d}.png"
+    poster = package_dir / "poster.png"
+    shutil.copy2(poster_source, poster)
+    validate_diagnostic_png(poster, expected_size=_expected_size(job))
+
+    caption = (
+        f"{study['title']} — Study 001. {study['simulation']['rule_genome']['system']['agent_count']} agents "
+        "follow local resource gradients, avoid inhibitory traces left by earlier movement, and gradually redraw the field."
+    )
+    alt_text = (
+        "Portrait-format computational ecology on a charcoal field. Hundreds of pale agents form loose currents among "
+        "small cyan resource points and amber memory traces; no central object or imposed silhouette is visible."
+    )
+    (package_dir / "caption.txt").write_text(caption + "\n", encoding="utf-8")
+    (package_dir / "alt-text.txt").write_text(alt_text + "\n", encoding="utf-8")
+    field_note = {
+        "study_id": study["id"],
+        "title": study["title"],
+        "seed": study["seed"],
+        "source_state": job.source_state,
+        "rule_genome": study["simulation"]["rule_genome"],
+        "frames": [study["simulation"]["frame_start"], study["simulation"]["frame_end"]],
+        "fps": study["simulation"]["fps"],
+        "render": study["render"],
+        "publication_state": "draft",
+        "approval_required": study["publication"]["approval_required"],
+    }
+    (package_dir / "field-note.json").write_text(json.dumps(field_note, indent=2, sort_keys=True) + "\n", encoding="utf-8")
+    snapshot = job.directory / "effective-config.json"
+    shutil.copy2(snapshot, package_dir / "effective-config.json")
+    for name, variant in encode_receipt["variants"].items():
+        shutil.copy2(job.directory / variant["path"], package_dir / Path(variant["path"]).name)
+    artifacts = sorted(path for path in package_dir.iterdir() if path.is_file())
+    checksums = {path.name: sha256_path(path) for path in artifacts}
+    (package_dir / "checksums.json").write_text(json.dumps(checksums, indent=2, sort_keys=True) + "\n", encoding="utf-8")
+    checksums["checksums.json"] = sha256_path(package_dir / "checksums.json")
+    set_stage_state(job, "package", "complete", directory="package", artifacts=checksums, publication_state="draft")
+    return f"package: complete ({len(checksums)} verified artifacts)"
