@@ -4,6 +4,7 @@ from __future__ import annotations
 
 import argparse
 import json
+import math
 from pathlib import Path
 
 import hou
@@ -98,6 +99,7 @@ def build_trails(cache_dir: Path, system: dict, output: Path, heads_output: Path
 
 
 def _add_curve(trails: hou.Geometry, samples: list, phase: int, system: dict) -> None:
+    samples = _smooth_samples(samples, int(system.get("trail_smoothing_max_subdivisions", 6)))
     curve = trails.createPolygon()
     curve.setIsClosed(False)
     curve.setAttribValue("phase", int(phase))
@@ -107,6 +109,54 @@ def _add_curve(trails: hou.Geometry, samples: list, phase: int, system: dict) ->
         point.setAttribValue("age", age)
         point.setAttribValue("width", float(system["point_size"]) * (0.55 + age * 1.15))
         curve.addVertex(point)
+
+
+def _smooth_samples(samples: list, max_subdivisions: int) -> list:
+    """Return a Catmull-Rom interpolation that preserves every sampled endpoint."""
+    if len(samples) < 3 or max_subdivisions < 2:
+        return samples
+
+    def subtract(left: tuple[float, float, float], right: tuple[float, float, float]) -> tuple[float, float, float]:
+        return tuple(a - b for a, b in zip(left, right))
+
+    def length(vector: tuple[float, float, float]) -> float:
+        return math.sqrt(sum(component * component for component in vector))
+
+    def turn_angle(before: tuple[float, float, float], after: tuple[float, float, float]) -> float:
+        before_length, after_length = length(before), length(after)
+        if before_length <= 1e-8 or after_length <= 1e-8:
+            return 0.0
+        cosine = sum(a * b for a, b in zip(before, after)) / (before_length * after_length)
+        return math.acos(max(-1.0, min(1.0, cosine)))
+
+    smoothed = []
+    for index in range(len(samples) - 1):
+        previous = samples[max(0, index - 1)][0]
+        start, start_age = samples[index]
+        end, end_age = samples[index + 1]
+        following = samples[min(len(samples) - 1, index + 2)][0]
+        entering = subtract(start, previous)
+        leaving = subtract(following, end)
+        angle = max(turn_angle(entering, subtract(end, start)), turn_angle(subtract(end, start), leaving))
+        subdivisions = min(max_subdivisions, max(1, 1 + math.ceil(angle / 0.45)))
+        for subdivision in range(subdivisions):
+            time = subdivision / subdivisions
+            time_squared, time_cubed = time * time, time * time * time
+            basis_start = 2 * time_cubed - 3 * time_squared + 1
+            basis_in = time_cubed - 2 * time_squared + time
+            basis_end = -2 * time_cubed + 3 * time_squared
+            basis_out = time_cubed - time_squared
+            position = tuple(
+                basis_start * start[channel]
+                + basis_in * (end[channel] - previous[channel]) * 0.5
+                + basis_end * end[channel]
+                + basis_out * (following[channel] - start[channel]) * 0.5
+                for channel in range(3)
+            )
+            age = start_age + (end_age - start_age) * time
+            smoothed.append((position, age))
+    smoothed.append(samples[-1])
+    return smoothed
 
 
 def main() -> None:

@@ -1,5 +1,22 @@
 # Mass Flow lab log
 
+## 2026-08-11 — Look probe 018: adaptive trail smoothing
+
+**Artist direction:** Smooth visible polygon edges where fast-turning trails do not
+have enough cached segments to read as continuous curves.
+
+**Proposal:** Preserve the sampled trail endpoints and their ages, then add adaptive
+Catmull-Rom visual interpolation between them. Straight spans retain one segment;
+larger turns receive up to six subsegments. This only changes lookdev geometry, not
+the deterministic simulation, trail endpoints, or endpoint spheres.
+
+**Observation:** Early frame 150 and midpoint frame 300 Karma XPU stills both remove
+the visible angular joins while preserving the established mass and two-ended heads.
+The midpoint scene contains 516,527 spline-sampled trail points over 8,322
+boundary-aware curve primitives, plus all 8,000 endpoint spheres.
+
+**Status:** Look Probe 018 ready for artist review with smoothed trails.
+
 ## 2026-08-11 — Look probe 017: two-ended trail heads
 
 **Artist direction:** Add spheres to both the start and end of each trail.

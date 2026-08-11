@@ -45,6 +45,7 @@
         "wander_strength": 0.12,
         "head_scale": 0.045,
         "trail_history_checkpoints": 25,
+        "trail_smoothing_max_subdivisions": 6,
         "drag": 0.88,
         "max_speed": 4.5,
         "point_size": 0.018
