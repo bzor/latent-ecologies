@@ -331,6 +331,8 @@ def main() -> None:
     set_parm(settings, "res_mode", "autoheight")
     set_parm(settings, "resolutionx", render_config["width"])
     set_parm(settings, "samplesperpixel", int(render_config.get("samples_per_pixel", 4)))
+    set_parm(settings, "denoiser", render_config.get("denoiser", "off"))
+    set_parm(settings, "light_sampling_quality", float(render_config.get("light_sampling_quality", 1.0)))
     render = stage.createNode("usdrender_rop", "trail_render")
     render.setInput(0, settings)
     set_parm(render, "renderer", "Karma XPU" if args.renderer == "xpu" else "Karma CPU")

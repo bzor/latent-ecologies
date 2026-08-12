@@ -76,6 +76,8 @@
     "width": 720,
     "height": 1280,
     "samples_per_pixel": 12,
+    "denoiser": "optix",
+    "light_sampling_quality": 2.0,
     "output_pattern": "work/renders/002-mass-flow/probe.$F4.png"
   },
   "publication": {

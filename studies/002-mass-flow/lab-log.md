@@ -1,5 +1,21 @@
 # Mass Flow lab log
 
+## 2026-08-11 — Look probe 022: denoised HDRI shadow
+
+**Artist direction:** Clean up grain in the back-wall shadow without broadly
+overextending render time.
+
+**Proposal:** Preserve the 12-spp Karma XPU baseline, enable the NVIDIA OptiX
+denoiser with its default albedo and normal guides, and raise light sampling quality
+from 1.0 to 2.0. This targets noise from the HDRI-lit indirect shadow while leaving
+camera, geometry, materials, and global resolution unchanged.
+
+**Observation:** The replacement frame-450 scene records 12 spp, OptiX denoising,
+and 2.0 light-sampling quality. The back-wall shadow is materially smoother than the
+prior XPU pass, while the foreground and out-of-focus fiber detail remains intact.
+
+**Status:** Look Probe 022 ready for artist review with a cleaner HDRI shadow.
+
 ## 2026-08-11 — Look probe 021: cleaner depth of field
 
 **Artist direction:** Reduce visible grain in the depth-of-field response.
