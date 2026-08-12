@@ -202,6 +202,7 @@ def run(config_path: Path, cache_dir: Path, metrics_path: Path, review_path: Pat
     end = int(frame_end or simulation["frame_end"])
     prewarm_frames = int(system.get("prewarm_frames", 0))
     interval = int(system["checkpoint_interval"])
+    dense_cache = bool(system.get("dense_render_cache", False))
     checkpoint_frames = {start, end, *range(interval, end + 1, interval)}
     cache_dir.mkdir(parents=True, exist_ok=True)
     metrics_path.parent.mkdir(parents=True, exist_ok=True)
@@ -276,9 +277,14 @@ def run(config_path: Path, cache_dir: Path, metrics_path: Path, review_path: Pat
             records.append(checkpoint_record(geometry, frame, elapsed))
             reviews.append(review_record(geometry, frame, int(system["review_agent_count"])))
         else:
-            transient = cache_dir / "state.transient.bgeo.sc"
-            geometry.saveToFile(str(transient))
-            previous_path = transient
+            if dense_cache:
+                checkpoint = cache_dir / f"state.{frame:04d}.bgeo.sc"
+                geometry.saveToFile(str(checkpoint))
+                previous_path = checkpoint
+            else:
+                transient = cache_dir / "state.transient.bgeo.sc"
+                geometry.saveToFile(str(transient))
+                previous_path = transient
 
     total = time.perf_counter() - started
     payload = {

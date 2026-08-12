@@ -1,5 +1,19 @@
 # Mass Flow lab log
 
+## 2026-08-12 — Motion render correction: full-rate Karma sequence
+
+**QA finding:** The initial full lookdev MP4 contained only the 120 five-frame review
+checkpoints and encoded them at six fps. It was 20 seconds long but stepped through
+five simulation frames per displayed image.
+
+**Correction:** Cache all 600 simulation frames for the final lookdev sequence and
+render them at 30 fps. Retain the accepted 25-sample derived trail history at a
+five-frame stride, so each frame has the same roughly four-second fiber persistence
+without sacrificing continuous head and body motion.
+
+**Status:** In progress; a dense-cache motion check will precede the corrected
+600-frame Karma XPU render.
+
 ## 2026-08-11 — Look probe 022: denoised HDRI shadow
 
 **Artist direction:** Clean up grain in the back-wall shadow without broadly

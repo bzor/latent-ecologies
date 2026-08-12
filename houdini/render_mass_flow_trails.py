@@ -5,6 +5,7 @@ from __future__ import annotations
 import argparse
 import json
 import math
+import os
 from pathlib import Path
 
 import hou
@@ -47,14 +48,26 @@ def build_trails(cache_dir: Path, system: dict, output: Path, heads_output: Path
     frames = [int(path.stem.split(".")[1]) for path in sorted(cache_dir.glob("state.[0-9][0-9][0-9][0-9].bgeo.sc"))]
     if end_frame is not None:
         frames = [frame for frame in frames if frame <= end_frame]
-    frames = frames[-int(system.get("trail_history_checkpoints", len(frames))):]
+    history_count = int(system.get("trail_history_checkpoints", len(frames)))
+    history_step = int(system.get("trail_history_step_frames", system.get("checkpoint_interval", 1)))
+    if history_step < 1:
+        raise RuntimeError("trail_history_step_frames must be at least one")
+    current_frame = frames[-1]
+    history_start = max(frames[0], current_frame - (history_count - 1) * history_step)
+    frames = [
+        frame for frame in frames
+        if history_start <= frame < current_frame and (current_frame - frame) % history_step == 0
+    ]
+    if not frames or frames[0] != max(1, history_start):
+        frames.insert(0, max(1, history_start))
+    frames.append(current_frame)
     geometries = []
     for frame in frames:
         geometry = hou.Geometry()
         geometry.loadFromFile(str(cache_dir / f"state.{frame:04d}.bgeo.sc"))
         geometries.append(geometry)
-    if len(geometries) < 2:
-        raise RuntimeError("derived trails require at least two cached checkpoints")
+    if len(geometries) == 1:
+        geometries.append(geometries[0])
     count = len(geometries[0].points())
     stride = max(1, count // int(system["review_agent_count"]))
     positions = [geometry.pointFloatAttribValues("P") for geometry in geometries]
@@ -181,6 +194,7 @@ def main() -> None:
     parser.add_argument("--dome-intensity", type=float, default=1.6)
     parser.add_argument("--renderer", choices=("cpu", "xpu"), default="xpu")
     parser.add_argument("--end-frame", type=int, help="build trails and heads through this cached checkpoint")
+    parser.add_argument("--skip-existing", action="store_true", help="reuse an existing valid output image")
     args = parser.parse_args()
     effective = json.loads(args.config.read_text(encoding="utf-8"))
     study = effective.get("study", effective)
@@ -190,6 +204,9 @@ def main() -> None:
     head_cache = args.hip.with_name("agent-heads.bgeo.sc")
     args.hip.parent.mkdir(parents=True, exist_ok=True)
     args.image.parent.mkdir(parents=True, exist_ok=True)
+    if args.skip_existing and args.image.is_file() and args.image.stat().st_size > 0:
+        print(f"trail_image: {args.image.resolve()} (reused)")
+        return
     build_trails(args.cache_dir, system, trail_cache, head_cache, args.end_frame)
 
     hou.hipFile.clear(suppress_save_prompt=True)
