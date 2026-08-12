@@ -1,5 +1,20 @@
 # Mass Flow lab log
 
+## 2026-08-11 — Look probe 021: cleaner depth of field
+
+**Artist direction:** Reduce visible grain in the depth-of-field response.
+
+**Proposal:** Raise the Mass Flow Karma XPU setting from four to twelve samples per
+pixel. Preserve the camera, lens, f-stop, materials, dome, geometry, and resolution
+so the result isolates sampling quality rather than changing the look.
+
+**Observation:** The replacement frame-450 Karma XPU scene records 12 samples per
+pixel and retains the accepted geometry, camera, and materials. The denser sampling
+substantially reduces grain in the out-of-focus fibers and backdrop; render time rose
+from roughly 27 seconds at four spp to roughly 100 seconds at twelve spp.
+
+**Status:** Look Probe 021 ready for artist review with cleaner depth of field.
+
 ## 2026-08-11 — Look probe 020: segment-attached endpoint heads
 
 **Artist direction:** Ensure every visible trail end has a sphere and remove spheres

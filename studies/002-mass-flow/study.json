@@ -75,6 +75,7 @@
     "format": "png",
     "width": 720,
     "height": 1280,
+    "samples_per_pixel": 12,
     "output_pattern": "work/renders/002-mass-flow/probe.$F4.png"
   },
   "publication": {

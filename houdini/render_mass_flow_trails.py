@@ -330,7 +330,7 @@ def main() -> None:
     set_parm(settings, "picture", args.image.resolve().as_posix())
     set_parm(settings, "res_mode", "autoheight")
     set_parm(settings, "resolutionx", render_config["width"])
-    set_parm(settings, "samplesperpixel", 4)
+    set_parm(settings, "samplesperpixel", int(render_config.get("samples_per_pixel", 4)))
     render = stage.createNode("usdrender_rop", "trail_render")
     render.setInput(0, settings)
     set_parm(render, "renderer", "Karma XPU" if args.renderer == "xpu" else "Karma CPU")
