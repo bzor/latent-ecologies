@@ -1,0 +1,240 @@
+{
+  "created_at": "2026-08-22T18:08:28Z",
+  "entries": [
+    {
+      "destination": "studies/study_002_scar-tissue/01_behavior/03_selected/selection_001/component.json",
+      "role": "preserved-active-behavior",
+      "sha256": "sha256:7dba61746573882d9f71c420ffd80d73c9b93e4de052c425165c7c7ddf0b61d6",
+      "size_bytes": 624,
+      "source": "work/studio/components/component-behavior-b3bcc837c3e2.json"
+    },
+    {
+      "destination": "studies/study_002_scar-tissue/01_behavior/03_selected/selection_001/artifact.json",
+      "role": "preserved-active-behavior",
+      "sha256": "sha256:7a02d81a71285a7388b1c2133b9399170ef640931984f9592a0bdcb5041fe389",
+      "size_bytes": 426,
+      "source": "work/studio/artifacts/artifact-scar-tissue-directional-refractory-v3.json"
+    },
+    {
+      "destination": "studies/study_002_scar-tissue/01_behavior/03_selected/selection_001/experiment.json",
+      "role": "preserved-active-behavior",
+      "sha256": "sha256:5ed53c4afeb7816c2d0d8d4e45152484f442617e7b64cd2a5e23a3906e24b1c4",
+      "size_bytes": 719,
+      "source": "work/studio/experiments/experiment-scar-tissue-directional-refractory.json"
+    },
+    {
+      "destination": "studies/study_002_scar-tissue/01_behavior/03_selected/selection_001/proposal.json",
+      "role": "preserved-active-behavior",
+      "sha256": "sha256:0caf7aeb20fa8de481dbba79edb581d30a7971a67269b5e73994d7aca78969a2",
+      "size_bytes": 678,
+      "source": "work/studio/proposals/proposal-scar-tissue-base.json"
+    },
+    {
+      "destination": "studies/study_002_scar-tissue/01_behavior/03_selected/selection_001/behavior-review-directional-refractory-v3.mp4",
+      "role": "preserved-active-behavior",
+      "sha256": "sha256:a66f3fa9885478b7766f94a0b0dd391bb04c9585428d5e8ed62a69c9095877e4",
+      "size_bytes": 3709449,
+      "source": "work/jobs/scar-tissue-directional-refractory-v3/review/diagnostic.mp4"
+    },
+    {
+      "destination": "studies/study_002_scar-tissue/00_study/study.json",
+      "role": "canonical-study-mirror",
+      "sha256": "sha256:8cc47c8fe7d4e0096ebc05e09305e7546525e8859dea92ef5a38f7b5ba60cf60",
+      "size_bytes": 1681,
+      "source": "work/studio/studies/study-002-scar-tissue.json"
+    },
+    {
+      "destination": "studies/study_002_scar-tissue/99_archive/pre-reset-golden-run-2026-08-22/records/artifacts/artifact-scar-tissue-chromatic-v7.json",
+      "role": "pre-reset-record-snapshot",
+      "sha256": "sha256:27a52bb0330be92ccc9c75c3b2dd2dd56533d48866801b9451adc3ca8c814ab3",
+      "size_bytes": 568,
+      "source": "work/studio/artifacts/artifact-scar-tissue-chromatic-v7.json"
+    },
+    {
+      "destination": "studies/study_002_scar-tissue/99_archive/pre-reset-golden-run-2026-08-22/records/artifacts/artifact-scar-tissue-cinematography-abc-a-v1.json",
+      "role": "pre-reset-record-snapshot",
+      "sha256": "sha256:3e357f6394968e52868b633a27aedf7b4ce998d4d6c006ee8bd46f7e522eae22",
+      "size_bytes": 570,
+      "source": "work/studio/artifacts/artifact-scar-tissue-cinematography-abc-a-v1.json"
+    },
+    {
+      "destination": "studies/study_002_scar-tissue/99_archive/pre-reset-golden-run-2026-08-22/records/artifacts/artifact-scar-tissue-look-etched-substrate-v1.json",
+      "role": "pre-reset-record-snapshot",
+      "sha256": "sha256:5c56f4c73607175ff9693cd602f210f359e3884d98ffff8a3bdd3092bc8af560",
+      "size_bytes": 426,
+      "source": "work/studio/artifacts/artifact-scar-tissue-look-etched-substrate-v1.json"
+    },
+    {
+      "destination": "studies/study_002_scar-tissue/99_archive/pre-reset-golden-run-2026-08-22/records/artifacts/artifact-scar-tissue-look-fibrous-memory-v1.json",
+      "role": "pre-reset-record-snapshot",
+      "sha256": "sha256:3135b09440f13958dd0e3af25e9d66003ee616135dcdc96f414fedc1e99b5c15",
+      "size_bytes": 418,
+      "source": "work/studio/artifacts/artifact-scar-tissue-look-fibrous-memory-v1.json"
+    },
+    {
+      "destination": "studies/study_002_scar-tissue/99_archive/pre-reset-golden-run-2026-08-22/records/artifacts/artifact-scar-tissue-look-membrane-stress-v1.json",
+      "role": "pre-reset-record-snapshot",
+      "sha256": "sha256:6dc8db0da085266350d760c113fda098519fcefffba5dd08723c0e3ac89cbde1",
+      "size_bytes": 422,
+      "source": "work/studio/artifacts/artifact-scar-tissue-look-membrane-stress-v1.json"
+    },
+    {
+      "destination": "studies/study_002_scar-tissue/99_archive/pre-reset-golden-run-2026-08-22/records/artifacts/artifact-scar-tissue-look-memory-grid-v6.json",
+      "role": "pre-reset-record-snapshot",
+      "sha256": "sha256:9ea41d52fb61e055e1cb0dcd24b4146edd9fdb392894cd6321354b8bfacccc04",
+      "size_bytes": 638,
+      "source": "work/studio/artifacts/artifact-scar-tissue-look-memory-grid-v6.json"
+    },
+    {
+      "destination": "studies/study_002_scar-tissue/99_archive/pre-reset-golden-run-2026-08-22/records/components/component-look-6013004ba32c.json",
+      "role": "pre-reset-record-snapshot",
+      "sha256": "sha256:df1563dd7d25de02f24260e9cd610fb1a60edaf57b959520e0b4774ed3f21fa4",
+      "size_bytes": 728,
+      "source": "work/studio/components/component-look-6013004ba32c.json"
+    },
+    {
+      "destination": "studies/study_002_scar-tissue/99_archive/pre-reset-golden-run-2026-08-22/records/components/component-palette-a52433fdb147.json",
+      "role": "pre-reset-record-snapshot",
+      "sha256": "sha256:2ee245bc3bdec2da0c80b6a64449d0a048ee5f4cf104074ad82930d26a87b978",
+      "size_bytes": 715,
+      "source": "work/studio/components/component-palette-a52433fdb147.json"
+    },
+    {
+      "destination": "studies/study_002_scar-tissue/99_archive/pre-reset-golden-run-2026-08-22/records/components/component-shot-scar-tissue-abc-a-v1.json",
+      "role": "pre-reset-record-snapshot",
+      "sha256": "sha256:198b594692fde9e1d5534e0263553759e713850609ab8dbfb60e69edca94864b",
+      "size_bytes": 572,
+      "source": "work/studio/components/component-shot-scar-tissue-abc-a-v1.json"
+    },
+    {
+      "destination": "studies/study_002_scar-tissue/99_archive/pre-reset-golden-run-2026-08-22/records/conversation-bindings/binding-discord-1540774363081613363.json",
+      "role": "pre-reset-record-snapshot",
+      "sha256": "sha256:8b61f72e12dd1cde281f9b58835491e8db45d13103db3ae9aa76b54329980fd0",
+      "size_bytes": 397,
+      "source": "work/studio/conversation-bindings/binding-discord-1540774363081613363.json"
+    },
+    {
+      "destination": "studies/study_002_scar-tissue/99_archive/pre-reset-golden-run-2026-08-22/records/experiments/experiment-scar-tissue-chromatic-v7.json",
+      "role": "pre-reset-record-snapshot",
+      "sha256": "sha256:f4187f13b0846cc0d577c9cfe896959a03e612b35af5c220a66b7aa5c37c9a9d",
+      "size_bytes": 749,
+      "source": "work/studio/experiments/experiment-scar-tissue-chromatic-v7.json"
+    },
+    {
+      "destination": "studies/study_002_scar-tissue/99_archive/pre-reset-golden-run-2026-08-22/records/experiments/experiment-scar-tissue-cinematography-abc-a-v1.json",
+      "role": "pre-reset-record-snapshot",
+      "sha256": "sha256:ed9c1ad65da887fa117023ebe0ceedd72470d0eb43a9d39f53af8e9be7c17121",
+      "size_bytes": 453,
+      "source": "work/studio/experiments/experiment-scar-tissue-cinematography-abc-a-v1.json"
+    },
+    {
+      "destination": "studies/study_002_scar-tissue/99_archive/pre-reset-golden-run-2026-08-22/records/experiments/experiment-scar-tissue-look-etched-substrate.json",
+      "role": "pre-reset-record-snapshot",
+      "sha256": "sha256:b87be28c9de7db4322e99b4753342a93f4040a025a77e4d19c71ec774b28b9c8",
+      "size_bytes": 554,
+      "source": "work/studio/experiments/experiment-scar-tissue-look-etched-substrate.json"
+    },
+    {
+      "destination": "studies/study_002_scar-tissue/99_archive/pre-reset-golden-run-2026-08-22/records/experiments/experiment-scar-tissue-look-fibrous-memory.json",
+      "role": "pre-reset-record-snapshot",
+      "sha256": "sha256:67974923a6af7a033ff4849b69cb9b6b8472cc560ae48009974fe8ddceba62a6",
+      "size_bytes": 550,
+      "source": "work/studio/experiments/experiment-scar-tissue-look-fibrous-memory.json"
+    },
+    {
+      "destination": "studies/study_002_scar-tissue/99_archive/pre-reset-golden-run-2026-08-22/records/experiments/experiment-scar-tissue-look-membrane-stress.json",
+      "role": "pre-reset-record-snapshot",
+      "sha256": "sha256:9e2f9dbd794586702d5f2141c87c6984f0666d2c920d941cefc8d3d3fb9a7af1",
+      "size_bytes": 552,
+      "source": "work/studio/experiments/experiment-scar-tissue-look-membrane-stress.json"
+    },
+    {
+      "destination": "studies/study_002_scar-tissue/99_archive/pre-reset-golden-run-2026-08-22/records/experiments/experiment-scar-tissue-look-memory-grid-v6.json",
+      "role": "pre-reset-record-snapshot",
+      "sha256": "sha256:85c697a9ff46f8dd3893158a55940181eeae75c2d648e246bc8ec1988104257f",
+      "size_bytes": 905,
+      "source": "work/studio/experiments/experiment-scar-tissue-look-memory-grid-v6.json"
+    },
+    {
+      "destination": "studies/study_002_scar-tissue/99_archive/pre-reset-golden-run-2026-08-22/records/ideas/idea-8368a08c4dc5.json",
+      "role": "pre-reset-record-snapshot",
+      "sha256": "sha256:8a1a3f4b2252e215595af96c84590974c015a4acbd43022bff2e04bce043a75b",
+      "size_bytes": 451,
+      "source": "work/studio/ideas/idea-8368a08c4dc5.json"
+    },
+    {
+      "destination": "studies/study_002_scar-tissue/99_archive/pre-reset-golden-run-2026-08-22/records/ideas/idea-scar-tissue-chromatic-v1.json",
+      "role": "pre-reset-record-snapshot",
+      "sha256": "sha256:6b35875b1d43d4f1e3f2a5af3e724e2acc57a059e93aa9eeeed341d493495c65",
+      "size_bytes": 468,
+      "source": "work/studio/ideas/idea-scar-tissue-chromatic-v1.json"
+    },
+    {
+      "destination": "studies/study_002_scar-tissue/99_archive/pre-reset-golden-run-2026-08-22/records/ideas/idea-scar-tissue-cinematography-abc-a-v1.json",
+      "role": "pre-reset-record-snapshot",
+      "sha256": "sha256:151ac852d8f0db943994febea5ccde48914e88eeb96e69a2249316be36900e40",
+      "size_bytes": 340,
+      "source": "work/studio/ideas/idea-scar-tissue-cinematography-abc-a-v1.json"
+    },
+    {
+      "destination": "studies/study_002_scar-tissue/99_archive/pre-reset-golden-run-2026-08-22/records/ideas/idea-scar-tissue.json",
+      "role": "pre-reset-record-snapshot",
+      "sha256": "sha256:38572367a413f84aa61cacee21c4ab2a4bb1bafd581aa858d208f76e1a055104",
+      "size_bytes": 2985,
+      "source": "work/studio/ideas/idea-scar-tissue.json"
+    },
+    {
+      "destination": "studies/study_002_scar-tissue/99_archive/pre-reset-golden-run-2026-08-22/records/proposals/proposal-2e3c487dff24.json",
+      "role": "pre-reset-record-snapshot",
+      "sha256": "sha256:2b3cfe24d8c68247ef4505464e014127e0fa085e3ee841c5d51d5a0a24c4573d",
+      "size_bytes": 814,
+      "source": "work/studio/proposals/proposal-2e3c487dff24.json"
+    },
+    {
+      "destination": "studies/study_002_scar-tissue/99_archive/pre-reset-golden-run-2026-08-22/records/proposals/proposal-scar-tissue-chromatic-v1.json",
+      "role": "pre-reset-record-snapshot",
+      "sha256": "sha256:b97d158e8c6b051cd9b4603e5e22ece267c5213be91eb11d6a7000c05c2198f0",
+      "size_bytes": 1075,
+      "source": "work/studio/proposals/proposal-scar-tissue-chromatic-v1.json"
+    },
+    {
+      "destination": "studies/study_002_scar-tissue/99_archive/pre-reset-golden-run-2026-08-22/records/proposals/proposal-scar-tissue-cinematography-abc-a-v1.json",
+      "role": "pre-reset-record-snapshot",
+      "sha256": "sha256:01dbe1b79aedc61e2c9aa873ee130466bab1f9e86888c93c26adcaca03464476",
+      "size_bytes": 774,
+      "source": "work/studio/proposals/proposal-scar-tissue-cinematography-abc-a-v1.json"
+    },
+    {
+      "destination": "studies/study_002_scar-tissue/99_archive/pre-reset-golden-run-2026-08-22/records/sessions/session-scar-tissue-golden-run.json",
+      "role": "pre-reset-record-snapshot",
+      "sha256": "sha256:16700927263da560fc01e51c415065ef4ba70ccfbf9e6d25e0c346f0f244cbe8",
+      "size_bytes": 1086,
+      "source": "work/studio/sessions/session-scar-tissue-golden-run.json"
+    },
+    {
+      "destination": "studies/study_002_scar-tissue/99_archive/pre-reset-golden-run-2026-08-22/records/specimens/specimen-scar-tissue-v1.json",
+      "role": "pre-reset-record-snapshot",
+      "sha256": "sha256:c766e937e6865017a6f0fe2985dd7f695eea305c3aee860b4a86cb84371a3071",
+      "size_bytes": 1254,
+      "source": "work/studio/specimens/specimen-scar-tissue-v1.json"
+    },
+    {
+      "destination": "studies/study_002_scar-tissue/99_archive/pre-reset-golden-run-2026-08-22/records/studies/scar-tissue.json",
+      "role": "pre-reset-record-snapshot",
+      "sha256": "sha256:6f4554dec93bbde6ab4233137ea6917a8b53773b72287f8829bb571fceb10f38",
+      "size_bytes": 1106,
+      "source": "work/studio/studies/scar-tissue.json"
+    },
+    {
+      "destination": "studies/study_002_scar-tissue/99_archive/pre-reset-golden-run-2026-08-22/records/studies/study-002-mass-flow.json",
+      "role": "pre-reset-record-snapshot",
+      "sha256": "sha256:eb71901665d956b80cb84d3ca25a6795c58bd3004cd8cc99cd47d2d1635e9e69",
+      "size_bytes": 987,
+      "source": "work/studio/studies/study-002-mass-flow.json"
+    }
+  ],
+  "hash_algorithm": "sha256",
+  "migration": "Scar Tissue renumbered to Study 002 and reset to promoted Behavior",
+  "schema_version": 1,
+  "study_id": "study-002-scar-tissue"
+}

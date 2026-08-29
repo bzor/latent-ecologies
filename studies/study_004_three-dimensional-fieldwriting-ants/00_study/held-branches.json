@@ -1,0 +1,386 @@
+{
+  "schema_version": 1,
+  "study_id": "study-004-three-dimensional-fieldwriting-ants",
+  "held_branches": [
+    {
+      "id": "held-rul-causal-relay-node",
+      "status": "held-for-later",
+      "promotion_status": "non-promoted alternate",
+      "held_at": "2026-08-23T20:25:11Z",
+      "authorized_by": {
+        "platform": "discord",
+        "channel_id": "1540772740603318322",
+        "message_id": "1541180140439208067",
+        "selection_reference": "#2 in the preceding ranked causal recommendation"
+      },
+      "mechanism": "paired causal field-state pulse beneath primary agent 0",
+      "classification": "bounded Studio intervention over a published Hamann cubic 3D RUL pair",
+      "configuration": {
+        "variant": "relay-node",
+        "rule_pair": [
+          "RUL",
+          "LUR"
+        ],
+        "initial_gap": 4,
+        "steps": 15000,
+        "event_schedule": [
+          3803,
+          6403,
+          9003
+        ],
+        "event_duration": 22,
+        "schedule": "pre-read intervention, synchronous read, intent, commit"
+      },
+      "measured": {
+        "tail_periods": [
+          22,
+          22
+        ],
+        "tail_displacements": [
+          [
+            0,
+            -1,
+            1
+          ],
+          [
+            1,
+            0,
+            1
+          ]
+        ],
+        "recovery_latencies_eight_cycles": [
+          [
+            16,
+            0
+          ],
+          [
+            16,
+            0
+          ],
+          [
+            88,
+            0
+          ]
+        ],
+        "collisions": 1,
+        "shared_rewrites": 36,
+        "state_sha256": "18605c1d8bbb70f90b99e4e8e956b2bbd8b76257aa571757b6823065cc773f85"
+      },
+      "artifacts": {
+        "report": "studies/study_004_three-dimensional-fieldwriting-ants/01_behavior/01_work/09_RUL-causal-recovery-round/causal-recovery-study.json",
+        "branch_receipt": "studies/study_004_three-dimensional-fieldwriting-ants/01_behavior/01_work/09_RUL-causal-recovery-round/02_relay-node/receipt.json",
+        "branch_movie": "studies/study_004_three-dimensional-fieldwriting-ants/01_behavior/01_work/09_RUL-causal-recovery-round/02_relay-node/motion-timelapse.mp4",
+        "event_comparison": "studies/study_004_three-dimensional-fieldwriting-ants/01_behavior/01_work/09_RUL-causal-recovery-round/event-window-comparison.png"
+      },
+      "resume_note": "Reopen only as a held RUL causal branch. It does not replace frozen A3 gap-4 or either C2 baseline."
+    },
+    {
+      "id": "held-c2-torsion-cage",
+      "status": "held-until-after-look-dev",
+      "promotion_status": "non-promoted alternate",
+      "authorized_by": {
+        "platform": "discord",
+        "channel_id": "1540772740603318322",
+        "message_id": "1541188371026546759",
+        "selection_reference": "#2 in C2 prewarmed comparison"
+      },
+      "mechanism": "opposed body-frame roll on each radius-2 axis pair",
+      "resume_program": {
+        "when": "after Look Development of promoted C2 radius-2",
+        "action": "run this branch through the same prewarm/capture system for bounded parameter variations",
+        "prewarm_steps": 600,
+        "capture_steps": 1800,
+        "movie_duration_seconds": 12,
+        "true_snapshot_count": 121,
+        "step_rate_relative_to_control": 1.5
+      },
+      "configuration": {
+        "variant": "torsion-cage",
+        "rule": "RLRU",
+        "collision_policy": "frame-exchange",
+        "schedule": "synchronous-read-intent-commit",
+        "initial_agents": [
+          [
+            [
+              2,
+              0,
+              0
+            ],
+            [
+              -1,
+              0,
+              0
+            ],
+            [
+              0,
+              1,
+              0
+            ]
+          ],
+          [
+            [
+              -2,
+              0,
+              0
+            ],
+            [
+              1,
+              0,
+              0
+            ],
+            [
+              0,
+              -1,
+              0
+            ]
+          ],
+          [
+            [
+              0,
+              2,
+              0
+            ],
+            [
+              0,
+              -1,
+              0
+            ],
+            [
+              1,
+              0,
+              0
+            ]
+          ],
+          [
+            [
+              0,
+              -2,
+              0
+            ],
+            [
+              0,
+              1,
+              0
+            ],
+            [
+              -1,
+              0,
+              0
+            ]
+          ],
+          [
+            [
+              0,
+              0,
+              2
+            ],
+            [
+              0,
+              0,
+              -1
+            ],
+            [
+              0,
+              1,
+              0
+            ]
+          ],
+          [
+            [
+              0,
+              0,
+              -2
+            ],
+            [
+              0,
+              0,
+              1
+            ],
+            [
+              0,
+              -1,
+              0
+            ]
+          ]
+        ],
+        "total_steps": 2400,
+        "snapshot_interval": 15
+      },
+      "measured": {
+        "collisions": 9,
+        "contested_cells": 8,
+        "frame_exchanges": 18,
+        "axis_spans": [
+          102,
+          76,
+          112
+        ],
+        "nonplanarity_ratio": 0.678571,
+        "field_cells": 3331,
+        "path_balance": 0.9975,
+        "state_sha256": "317a17539366c718b8a5c71975cd6534d207f60790d467342af4cce85c11054f"
+      },
+      "artifacts": {
+        "report": "studies/study_004_three-dimensional-fieldwriting-ants/01_behavior/01_work/11_C2-prewarmed-options/c2-prewarmed-options.json",
+        "branch_receipt": "studies/study_004_three-dimensional-fieldwriting-ants/01_behavior/01_work/11_C2-prewarmed-options/02_torsion-cage-prewarmed/receipt.json",
+        "branch_movie": "studies/study_004_three-dimensional-fieldwriting-ants/01_behavior/01_work/11_C2-prewarmed-options/02_torsion-cage-prewarmed/motion-timelapse.mp4",
+        "projection_sheet": "studies/study_004_three-dimensional-fieldwriting-ants/01_behavior/01_work/11_C2-prewarmed-options/02_torsion-cage-prewarmed/projection-sheet.png"
+      },
+      "resume_note": "Do not modify the promoted C2 radius-2 or radius-3 caches. Develop variations as bounded sibling treatments and return to KC for selection."
+    },
+    {
+      "id": "held-c2-orbital-shear",
+      "status": "held-until-after-look-dev",
+      "promotion_status": "non-promoted alternate",
+      "authorized_by": {
+        "platform": "discord",
+        "channel_id": "1540772740603318322",
+        "message_id": "1541188371026546759",
+        "selection_reference": "#4 in C2 prewarmed comparison"
+      },
+      "mechanism": "tangent heading circulation plus one-cell helical pair staggering",
+      "resume_program": {
+        "when": "after Look Development of promoted C2 radius-2",
+        "action": "run this branch through the same prewarm/capture system for bounded parameter variations",
+        "prewarm_steps": 600,
+        "capture_steps": 1800,
+        "movie_duration_seconds": 12,
+        "true_snapshot_count": 121,
+        "step_rate_relative_to_control": 1.5
+      },
+      "configuration": {
+        "variant": "orbital-shear",
+        "rule": "RLRU",
+        "collision_policy": "frame-exchange",
+        "schedule": "synchronous-read-intent-commit",
+        "initial_agents": [
+          [
+            [
+              2,
+              0,
+              0
+            ],
+            [
+              0,
+              1,
+              0
+            ],
+            [
+              0,
+              0,
+              1
+            ]
+          ],
+          [
+            [
+              -2,
+              0,
+              1
+            ],
+            [
+              0,
+              -1,
+              0
+            ],
+            [
+              0,
+              0,
+              1
+            ]
+          ],
+          [
+            [
+              0,
+              2,
+              0
+            ],
+            [
+              0,
+              0,
+              1
+            ],
+            [
+              1,
+              0,
+              0
+            ]
+          ],
+          [
+            [
+              1,
+              -2,
+              0
+            ],
+            [
+              0,
+              0,
+              -1
+            ],
+            [
+              1,
+              0,
+              0
+            ]
+          ],
+          [
+            [
+              0,
+              0,
+              2
+            ],
+            [
+              1,
+              0,
+              0
+            ],
+            [
+              0,
+              1,
+              0
+            ]
+          ],
+          [
+            [
+              0,
+              1,
+              -2
+            ],
+            [
+              -1,
+              0,
+              0
+            ],
+            [
+              0,
+              1,
+              0
+            ]
+          ]
+        ],
+        "total_steps": 2400,
+        "snapshot_interval": 15
+      },
+      "measured": {
+        "collisions": 7,
+        "contested_cells": 3,
+        "frame_exchanges": 21,
+        "axis_spans": [
+          66,
+          66,
+          66
+        ],
+        "nonplanarity_ratio": 1.0,
+        "field_cells": 3327,
+        "path_balance": 0.9970833333333333,
+        "state_sha256": "9bec20f55c63c4f3ed84f57e37461b26b768393be59346d451c46069a0945f96"
+      },
+      "artifacts": {
+        "report": "studies/study_004_three-dimensional-fieldwriting-ants/01_behavior/01_work/11_C2-prewarmed-options/c2-prewarmed-options.json",
+        "branch_receipt": "studies/study_004_three-dimensional-fieldwriting-ants/01_behavior/01_work/11_C2-prewarmed-options/04_orbital-shear-prewarmed/receipt.json",
+        "branch_movie": "studies/study_004_three-dimensional-fieldwriting-ants/01_behavior/01_work/11_C2-prewarmed-options/04_orbital-shear-prewarmed/motion-timelapse.mp4",
+        "projection_sheet": "studies/study_004_three-dimensional-fieldwriting-ants/01_behavior/01_work/11_C2-prewarmed-options/04_orbital-shear-prewarmed/projection-sheet.png"
+      },
+      "resume_note": "Do not modify the promoted C2 radius-2 or radius-3 caches. Develop variations as bounded sibling treatments and return to KC for selection."
+    }
+  ]
+}

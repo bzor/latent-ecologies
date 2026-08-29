@@ -1,0 +1,66 @@
+{
+  "artist": "KC",
+  "artist_authority": true,
+  "file_stem": "var_004_rapid-surgical-zipper",
+  "geometry_foundation": "curve-first",
+  "look_hip": "var_004_rapid-surgical-zipper.look_r001.hiplc",
+  "look_hip_sha256": "029e469a3af6299f640764e7216aa66e5eac77cb7ccf8f5b26f039f19f751952",
+  "look_locked": false,
+  "look_manifest": "var_004_rapid-surgical-zipper.look_r001.manifest.json",
+  "look_started": true,
+  "next_action": "KC develops the Look in var_004_rapid-surgical-zipper.look_r001.hiplc; identify and lock the authoritative revision before bounded sequence rendering.",
+  "render_layers": {
+    "edges": {
+      "controls": [
+        "/obj/PLAYGROUND_SIM/bank_width",
+        "/obj/PLAYGROUND_SIM/zipper_width"
+      ],
+      "geometry": "384 authoritative polylines",
+      "usd_type": "BasisCurves"
+    },
+    "points": {
+      "control": "/obj/PLAYGROUND_SIM/point_radius",
+      "geometry": "256 packed sphere instances",
+      "usd_type": "PointInstancer"
+    }
+  },
+  "render_proof": "var_004_rapid-surgical-zipper.look_r001.render-proof.json",
+  "required_playground": [
+    "promoted-cache import",
+    "immediately usable Karma camera",
+    "neutral environment",
+    "editable materials",
+    "switchable dome or key-fill-rim lighting"
+  ],
+  "schema_version": 1,
+  "setup_id": "basic",
+  "source_behavior_component_id": "component-behavior-4d1068fdc350",
+  "source_cache_pattern": "../01_behavior/03_selected/selection_002/run/cache/vex-state.$F4.bgeo.sc",
+  "source_frame_range": [
+    1,
+    300
+  ],
+  "source_selection": "../01_behavior/03_selected/selection_002/selection.json",
+  "starter_receipt": "var_004_rapid-surgical-zipper.look_r001.starter-receipt.json",
+  "starter_receipt_sha256": "cce16a526b51215eb5a415a2499b5c5c483a5fbb118fd32f9b939c14c10f8f83",
+  "state": "artist-ready-starter",
+  "study_id": "study-002-scar-tissue",
+  "timeline": {
+    "duration_seconds": 10.0,
+    "fps": 30.0,
+    "frame_range": [
+      1,
+      300
+    ]
+  },
+  "variation_id": "variation-004-rapid-surgical-zipper",
+  "visual_gate": {
+    "frames": [
+      1,
+      150,
+      300
+    ],
+    "notes": "Sharp topology-readable neutral proofs; DOF disabled; no floor-edge artifact.",
+    "passed": true
+  }
+}

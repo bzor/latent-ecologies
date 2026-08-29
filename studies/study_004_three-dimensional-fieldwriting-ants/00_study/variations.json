@@ -1,0 +1,17 @@
+{
+  "current_variation_id": "variation-001-primary-treatment",
+  "schema_version": 1,
+  "study_id": "study-004-three-dimensional-fieldwriting-ants",
+  "variations": [
+    {
+      "behavior_selection_id": null,
+      "derived_from": null,
+      "file_stem": "var_001_primary-treatment",
+      "id": "variation-001-primary-treatment",
+      "number": 1,
+      "slug": "primary-treatment",
+      "state": "active",
+      "title": "Primary Treatment"
+    }
+  ]
+}

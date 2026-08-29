@@ -1,0 +1,20 @@
+{
+  "schema_version": 1,
+  "study_id": "study-003-nonlocal-affinity-dance",
+  "state": "artist-in-lookdev",
+  "authoritative_hip": "look.hiplc",
+  "hip_bytes": 865079,
+  "hip_sha256": "423406b4a6627ea0fbc851447cc232d646eb2935bd0c680b3ca1d10723491bc7",
+  "houdini_version": "22.0.368",
+  "license_category": "Indie",
+  "setup_id": "basic",
+  "setup_path": "houdini/look_setups/basic/basic.hiplc",
+  "source_behavior_component_id": "component-behavior-b5b98c543bc1",
+  "source_selection": "selection_002",
+  "source_cache_expression": "studies/study_003_nonlocal-affinity-dance/01_behavior/03_selected/selection_002/cache_sequence/cache/state.$F4.bgeo.sc",
+  "frame_range": [205, 650],
+  "fps": 24,
+  "artist_note": "KC's initial hand-edited Look experiment: OBJ camera, trails, dome lighting, and material exploration added to the base playground.",
+  "lock_state": "unlocked",
+  "render_authorized": false
+}

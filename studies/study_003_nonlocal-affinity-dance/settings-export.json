@@ -1,0 +1,184 @@
+{
+  "studyId": "STUDY-003",
+  "aspect": "4:5 | 1080x1350",
+  "palette": "bone / signal red",
+  "type": {
+    "numeral": "Isonorm Monospaced",
+    "numeralSize": 110,
+    "numeralTracking": -0.085,
+    "display": "Blender Pro Bold",
+    "titleSize": 21,
+    "titleTracking": 0.14,
+    "mini": "Iosevka Mono Light",
+    "miniSize": 8.5,
+    "miniTracking": 0.08,
+    "miniLineHeight": 12,
+    "miniMarginSide": 0,
+    "miniMarginTop": 0,
+    "micro": "Iosevka Mono Light",
+    "microSize": 8.5,
+    "microTracking": 0.08
+  },
+  "components": {
+    "frame": {
+      "enabled": true,
+      "bracketLen": 16,
+      "gap": 0,
+      "flip": false,
+      "regTopBottom": true,
+      "regTopBottomSize": 6,
+      "regLeftRight": true,
+      "regLeftRightSize": 6,
+      "colorBar": false
+    },
+    "ruler": {
+      "enabled": true,
+      "divisions": 4,
+      "tickLen": 10,
+      "labels": true,
+      "avoidStudy": true,
+      "mirror": false,
+      "opacity": 1
+    },
+    "bbox": {
+      "enabled": true,
+      "brackets": true,
+      "bracketLen": 12,
+      "gap": 0,
+      "flip": false,
+      "coords": true,
+      "scanline": true
+    },
+    "trackCallout": {
+      "enabled": true,
+      "instances": [
+        {
+          "track": "",
+          "dx": 52,
+          "dy": -44,
+          "marker": "crosshair",
+          "markerSize": 7,
+          "label": true,
+          "value": "",
+          "spark": true,
+          "sparkFrames": 64,
+          "trail": 0,
+          "accent": true
+        }
+      ]
+    },
+    "identity": {
+      "enabled": true,
+      "showSolver": true,
+      "showSeed": true
+    },
+    "dotMatrix": {
+      "enabled": true,
+      "instances": [
+        {
+          "side": "right",
+          "gx": 0,
+          "gy": 0,
+          "cols": 8,
+          "rows": 5,
+          "epochFrames": 32,
+          "density": 0.45
+        }
+      ]
+    },
+    "dial": {
+      "enabled": true,
+      "series": "cohesion",
+      "radius": 28,
+      "showValue": true
+    },
+    "studyBlock": {
+      "enabled": true,
+      "anchor": "auto",
+      "kicker": true,
+      "accent": true,
+      "subtitle": true,
+      "gapTop": 0,
+      "kickerMarginSide": 2,
+      "gapKickerNumeral": 0,
+      "numeralMarginSide": -4,
+      "gapNumeralAccent": 0,
+      "accentMarginSide": 0,
+      "accentWidth": 46,
+      "gapAccentTitle": 0,
+      "titleMarginSide": 0,
+      "gapTitleSubtitle": 0,
+      "subtitleMarginSide": 0
+    },
+    "specTable": {
+      "enabled": true,
+      "width": 215,
+      "cycleSec": 3,
+      "highlight": true
+    },
+    "bars": {
+      "enabled": true,
+      "series": "energy",
+      "bins": 48,
+      "width": 150,
+      "height": 34,
+      "label": ""
+    },
+    "summaryBlock": {
+      "enabled": true,
+      "side": "left",
+      "gx": 0,
+      "gy": 10,
+      "widthCols": 3,
+      "heading": "FIELD NOTE",
+      "rule": true
+    },
+    "bulletBlock": {
+      "enabled": true,
+      "side": "left",
+      "gx": 0,
+      "gy": 6,
+      "widthCols": 3,
+      "tick": "·",
+      "accentTicks": true
+    },
+    "footer": {
+      "enabled": true,
+      "blink": true
+    },
+    "tag": {
+      "enabled": true,
+      "text": ""
+    },
+    "scatterRects": {
+      "enabled": true,
+      "opacity": 1,
+      "instances": [
+        {
+          "gx": 1,
+          "gy": 1,
+          "width": 1,
+          "height": 1,
+          "mirror": false
+        }
+      ]
+    },
+    "grid": {
+      "enabled": false,
+      "cols": 12,
+      "rows": 16,
+      "marginPct": 5.5,
+      "square": false,
+      "showCols": true,
+      "showRows": true,
+      "showMargin": true,
+      "dashed": true,
+      "opacity": 1
+    }
+  },
+  "ui": {
+    "matte": false,
+    "safe": false,
+    "fullsize": true
+  }
+}

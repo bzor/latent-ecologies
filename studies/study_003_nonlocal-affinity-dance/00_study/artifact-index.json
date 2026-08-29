@@ -1,0 +1,181 @@
+{
+  "artifacts": [
+    {
+      "experiment_id": "experiment-pilot-study-003-faithful-v1",
+      "extensions": {
+        "studio/legacy-path": "work/jobs/pilot-study-003-faithful-v1/review/motion/motion-check.mp4",
+        "studio/motion-receipt": "work/jobs/pilot-study-003-faithful-v1/review/motion/receipt.json",
+        "studio/pilot-study-003-role": "faithful-baseline-motion-check",
+        "studio/reference-metrics": "work/jobs/pilot-study-003-faithful-v1/review/reference-metrics.json",
+        "studio/reference-policy": "immutable-ancestor-not-aesthetic-constraint",
+        "studio/state-authority": "vex-geometry",
+        "studio/vex-parity": "work/jobs/pilot-study-003-faithful-v1/review/vex-parity.json"
+      },
+      "id": "artifact-pilot-study-003-faithful-v1",
+      "legacy_path": "work/jobs/pilot-study-003-faithful-v1/review/motion/motion-check.mp4",
+      "path": "studies/study_003_nonlocal-affinity-dance/01_behavior/02_review/migrated_verified/artifact-pilot-study-003-faithful-v1/motion-check.mp4",
+      "schema_version": 1,
+      "sha256": "sha256:c27d7499ad3f2071f86964f1ed4b27cfa0ccf49ec93b392b88cffa0e96f1f22b",
+      "state": "verified",
+      "track": "behavior",
+      "verified": true,
+      "visibility": "private"
+    },
+    {
+      "experiment_id": "experiment-study-003-affinity-3d-100k-v1",
+      "extensions": {
+        "studio/frame-policy": "steps 0-240 at 30fps; no interpolation or repeated frames",
+        "studio/legacy-path": "work/studio/handoffs/study-003-affinity-3d-100k-v1/affinity-3d-100k-neutral-comparison-30fps.mp4",
+        "studio/look-status": "deferred",
+        "studio/review-receipt": "work/studies/study-003-nonlocal-affinity-dance/20-behavior/comparisons/affinity-3d-100k-v1/review-30fps/review-receipt.json",
+        "studio/review-sample": "5000 deterministic points from every simulation step per 100000-point cache",
+        "studio/source-experiment": "experiment-study-003-affinity-3d-100k-v1",
+        "studio/state-authority": "vex-geometry"
+      },
+      "id": "artifact-study-003-affinity-3d-100k-30fps-v1",
+      "legacy_path": "work/studio/handoffs/study-003-affinity-3d-100k-v1/affinity-3d-100k-neutral-comparison-30fps.mp4",
+      "path": "studies/study_003_nonlocal-affinity-dance/01_behavior/02_review/migrated_verified/artifact-study-003-affinity-3d-100k-30fps-v1/affinity-3d-100k-neutral-comparison-30fps.mp4",
+      "schema_version": 1,
+      "sha256": "sha256:ba6e3cb049ff6b36b02955258069151e86a36e3e92b096def52180066089e575",
+      "state": "verified",
+      "track": "behavior",
+      "verified": true,
+      "visibility": "private"
+    },
+    {
+      "experiment_id": "experiment-study-003-affinity-3d-100k-v1",
+      "extensions": {
+        "studio/comparison-manifest": "work/studies/study-003-nonlocal-affinity-dance/20-behavior/comparisons/affinity-3d-100k-v1/comparison-manifest.json",
+        "studio/legacy-path": "work/studio/handoffs/study-003-affinity-3d-100k-v1/affinity-3d-100k-neutral-comparison.mp4",
+        "studio/look-status": "deferred",
+        "studio/review-receipt": "work/studies/study-003-nonlocal-affinity-dance/20-behavior/comparisons/affinity-3d-100k-v1/review/review-receipt.json",
+        "studio/review-sample": "5000 deterministic points per 100000-point cache",
+        "studio/state-authority": "vex-geometry"
+      },
+      "id": "artifact-study-003-affinity-3d-100k-v1",
+      "legacy_path": "work/studio/handoffs/study-003-affinity-3d-100k-v1/affinity-3d-100k-neutral-comparison.mp4",
+      "path": "studies/study_003_nonlocal-affinity-dance/01_behavior/02_review/migrated_verified/artifact-study-003-affinity-3d-100k-v1/affinity-3d-100k-neutral-comparison.mp4",
+      "schema_version": 1,
+      "sha256": "sha256:51bd82413580ae7d25798095bf37c95b8e1a5b07ed05f51fc32f7bf13d1125ae",
+      "state": "verified",
+      "track": "behavior",
+      "verified": true,
+      "visibility": "private"
+    },
+    {
+      "experiment_id": "experiment-study-003-affinity-3d-wider-contraction-v1",
+      "extensions": {
+        "studio/comparison-manifest": "work/studies/study-003-nonlocal-affinity-dance/20-behavior/comparisons/affinity-3d-wider-contraction-v1/comparison-manifest.json",
+        "studio/frame-policy": "steps 0-240 at 30fps; no interpolation",
+        "studio/legacy-path": "work/studio/handoffs/study-003-affinity-3d-wider-contraction-v1/affinity-3d-100k-wider-contraction-30fps.mp4",
+        "studio/look-status": "deferred",
+        "studio/review-receipt": "work/studies/study-003-nonlocal-affinity-dance/20-behavior/comparisons/affinity-3d-wider-contraction-v1/review/review-receipt.json",
+        "studio/state-authority": "vex-geometry"
+      },
+      "id": "artifact-study-003-affinity-3d-wider-contraction-30fps-v1",
+      "legacy_path": "work/studio/handoffs/study-003-affinity-3d-wider-contraction-v1/affinity-3d-100k-wider-contraction-30fps.mp4",
+      "path": "studies/study_003_nonlocal-affinity-dance/01_behavior/02_review/migrated_verified/artifact-study-003-affinity-3d-wider-contraction-30fps-v1/affinity-3d-100k-wider-contraction-30fps.mp4",
+      "schema_version": 1,
+      "sha256": "sha256:6c584495dbb4726c23e2c037dd156d287fa1e08a334c6d1e189a3d699638f223",
+      "state": "verified",
+      "track": "behavior",
+      "verified": true,
+      "visibility": "private"
+    },
+    {
+      "experiment_id": "experiment-study-003-affinity-cohort-100k-v1",
+      "extensions": {
+        "studio/cohort-manifest": "work/studies/study-003-nonlocal-affinity-dance/20-behavior/comparisons/affinity-cohort-100k-v1/cohort-comparison-manifest.json",
+        "studio/cohort-strategies": "parallel, neighbor, mixed",
+        "studio/frame-policy": "241 genuine VEX states at 30fps; 20k stratified sample per 100k branch; no interpolation; Canvas persistence alpha 0.21",
+        "studio/legacy-path": "work/studio/handoffs/study-003-affinity-cohort-100k-v1/tight-swirls-cohort-100k-comparison.mp4",
+        "studio/review-receipt": "work/studies/study-003-nonlocal-affinity-dance/20-behavior/comparisons/affinity-cohort-100k-v1/review/review-receipt.json",
+        "studio/scaling-role": "exact 5k Canvas anchor graph expanded to 20 descendants per anchor",
+        "studio/state-authority": "vex-geometry"
+      },
+      "id": "artifact-study-003-affinity-cohort-100k-30fps-v1",
+      "legacy_path": "work/studio/handoffs/study-003-affinity-cohort-100k-v1/tight-swirls-cohort-100k-comparison.mp4",
+      "path": "studies/study_003_nonlocal-affinity-dance/01_behavior/02_review/migrated_verified/artifact-study-003-affinity-cohort-100k-30fps-v1/tight-swirls-cohort-100k-comparison.mp4",
+      "schema_version": 1,
+      "sha256": "sha256:a032cf2fe38bca2c4a64d13c2ef4c3cacf8f51c5416825ba7facb42a0d17556c",
+      "state": "verified",
+      "track": "behavior",
+      "verified": true,
+      "visibility": "private"
+    },
+    {
+      "experiment_id": "experiment-study-003-affinity-identity-ladder-v1",
+      "extensions": {
+        "studio/frame-policy": "all 5000 points; steps 0-240 at 30fps; no interpolation; Canvas display persistence",
+        "studio/identity-manifest": "work/studies/study-003-nonlocal-affinity-dance/20-behavior/comparisons/affinity-identity-ladder-v1/identity-ladder-manifest.json",
+        "studio/identity-role": "planar VEX replay of exact Canvas Mulberry32 graph and events",
+        "studio/legacy-path": "work/studio/handoffs/study-003-affinity-identity-ladder-v1/affinity-identity-planar-5k-30fps.mp4",
+        "studio/review-receipt": "work/studies/study-003-nonlocal-affinity-dance/20-behavior/comparisons/affinity-identity-ladder-v1/review-planar/review-receipt.json",
+        "studio/state-authority": "vex-geometry"
+      },
+      "id": "artifact-study-003-affinity-identity-planar-5k-30fps-v1",
+      "legacy_path": "work/studio/handoffs/study-003-affinity-identity-ladder-v1/affinity-identity-planar-5k-30fps.mp4",
+      "path": "studies/study_003_nonlocal-affinity-dance/01_behavior/02_review/migrated_verified/artifact-study-003-affinity-identity-planar-5k-30fps-v1/affinity-identity-planar-5k-30fps.mp4",
+      "schema_version": 1,
+      "sha256": "sha256:8e895e1ac1c4e692f24e642c6eaf3feb428c6f7025619aec9465a29aa321d571",
+      "state": "verified",
+      "track": "behavior",
+      "verified": true,
+      "visibility": "private"
+    },
+    {
+      "experiment_id": "experiment-study-003-affinity-identity-ladder-v1",
+      "extensions": {
+        "studio/frame-policy": "all 5000 points; steps 0-240 at 30fps; no interpolation; Canvas display persistence",
+        "studio/identity-manifest": "work/studies/study-003-nonlocal-affinity-dance/20-behavior/comparisons/affinity-identity-ladder-v1/identity-ladder-manifest.json",
+        "studio/identity-role": "same Canvas graph/events and XY with deterministic Z depth 0.15",
+        "studio/legacy-path": "work/studio/handoffs/study-003-affinity-identity-ladder-v1/affinity-identity-shallow-3d-5k-30fps.mp4",
+        "studio/review-receipt": "work/studies/study-003-nonlocal-affinity-dance/20-behavior/comparisons/affinity-identity-ladder-v1/review-shallow-3d/review-receipt.json",
+        "studio/state-authority": "vex-geometry"
+      },
+      "id": "artifact-study-003-affinity-identity-shallow-3d-5k-30fps-v1",
+      "legacy_path": "work/studio/handoffs/study-003-affinity-identity-ladder-v1/affinity-identity-shallow-3d-5k-30fps.mp4",
+      "path": "studies/study_003_nonlocal-affinity-dance/01_behavior/02_review/migrated_verified/artifact-study-003-affinity-identity-shallow-3d-5k-30fps-v1/affinity-identity-shallow-3d-5k-30fps.mp4",
+      "schema_version": 1,
+      "sha256": "sha256:f6eec51b3a3651481bcd84d837233dffdd04bc01e63e616a78ca6fd8536d1966",
+      "state": "verified",
+      "track": "behavior",
+      "verified": true,
+      "visibility": "private"
+    },
+    {
+      "decision": "promote",
+      "decision_note": "KC approved promotion of shallow-3D Parallel after straight-on review.",
+      "experiment_id": "experiment-study-003-affinity-parallel-endurance-v1",
+      "extensions": {
+        "studio/approval-message-id": "1538666235619704842",
+        "studio/legacy-path": "work/studio/handoffs/study-003-affinity-shallow3d-parallel-v1/behavior-review-straight-on.mp4",
+        "studio/manifest": "work/studio/handoffs/study-003-affinity-shallow3d-parallel-v1/manifest.json",
+        "studio/state-authority": "vex-geometry",
+        "studio/topology-retained": true
+      },
+      "id": "artifact-study-003-affinity-parallel-endurance-v1",
+      "legacy_path": "work/studio/handoffs/study-003-affinity-shallow3d-parallel-v1/behavior-review-straight-on.mp4",
+      "path": "studies/study_003_nonlocal-affinity-dance/01_behavior/03_selected/selection_001/behavior-review-straight-on.mp4",
+      "schema_version": 1,
+      "sha256": "sha256:88f3e3e94dc01ca57108e7090e5e67aec52287cbabefd7463f704ea19fba2ed1",
+      "state": "verified",
+      "track": "behavior",
+      "verified": true,
+      "visibility": "private"
+    }
+  ],
+  "selected": [
+    {
+      "artifact": "studies/study_003_nonlocal-affinity-dance/01_behavior/03_selected/selection_001/behavior-review-straight-on.mp4",
+      "component_id": "component-behavior-2e6832d7d826",
+      "legacy_source": "work/studio/handoffs/study-003-affinity-shallow3d-parallel-v1/behavior-review-straight-on.mp4",
+      "phase": "behavior",
+      "selection_id": "selection_001",
+      "sha256": "sha256:88f3e3e94dc01ca57108e7090e5e67aec52287cbabefd7463f704ea19fba2ed1",
+      "state": "current",
+      "study_id": "study-003-nonlocal-affinity-dance"
+    }
+  ],
+  "study_id": "study-003-nonlocal-affinity-dance"
+}

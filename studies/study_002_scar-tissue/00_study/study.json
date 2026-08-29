@@ -1,0 +1,36 @@
+{
+  "approved_selection_ids": [
+    "component-behavior-b3bcc837c3e2",
+    "component-behavior-4d1068fdc350"
+  ],
+  "blockers": [],
+  "created_at": "2026-08-15T16:15:59Z",
+  "current_phase": "look",
+  "extensions": {
+    "studio/active-look-hip": "studies/study_002_scar-tissue/02_look/var_004_rapid-surgical-zipper.look_r001.hiplc",
+    "studio/behavior-promotion-message-id": "1541210300743950350",
+    "studio/canonical-behavior-branch": "Rapid Surgical Zipper \u2014 Two-turn Settling Helix",
+    "studio/canonical-behavior-component": "component-behavior-4d1068fdc350",
+    "studio/canonical-behavior-selection": "studies/study_002_scar-tissue/01_behavior/03_selected/selection_002/selection.json",
+    "studio/canonical-vault": "studies/study_002_scar-tissue",
+    "studio/current-variation-id": "variation-004-rapid-surgical-zipper",
+    "studio/held-behavior-siblings": "legacy pixel-memory; untwisted cylindrical lift; Puckered Irregular; Long Travelling Waves; Persistent Open Wound; Tug-and-Zip Fasciculation",
+    "studio/look-geometry-foundation": "curve-first",
+    "studio/look-setup": "basic",
+    "studio/look-setup-source": "houdini/look_setups/basic/basic.hiplc",
+    "studio/look-starter-receipt": "studies/study_002_scar-tissue/02_look/var_004_rapid-surgical-zipper.look_r001.starter-receipt.json",
+    "studio/look-workflow": "artist-led",
+    "studio/pre-reset-golden-run-archive": "studies/study_002_scar-tissue/99_archive/pre-reset-golden-run-2026-08-22",
+    "studio/reset-from-study-id": "scar-tissue"
+  },
+  "id": "study-002-scar-tissue",
+  "idea_id": "idea-scar-tissue",
+  "intent": "Develop directional path memory in which traversal reinforces oriented scars, saturation becomes refractory, and abandoned territory heals enough to be occupied and rewritten.",
+  "recommended_next_action": "KC develops the Look in var_004_rapid-surgical-zipper.look_r001.hiplc, then identifies and locks the authoritative revision for bounded rendering and direct Specimen/detail handoff.",
+  "schema_version": 1,
+  "state": "active",
+  "title": "Study 002 \u2014 Scar Tissue",
+  "unresolved_questions": [],
+  "updated_at": "2026-08-24T00:13:17Z",
+  "visibility": "private"
+}

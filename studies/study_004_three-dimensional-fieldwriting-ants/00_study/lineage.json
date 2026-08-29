@@ -1,0 +1,17 @@
+{
+  "edges": [
+    ["idea-a3-gap-4", "proposal-a3-gap-4"],
+    ["proposal-a3-gap-4", "experiment-a3-gap-4"],
+    ["experiment-a3-gap-4", "artifact-a3-gap-4"],
+    ["artifact-a3-gap-4", "component-behavior-28a9d187eece"],
+    ["idea-c2-radius-3", "proposal-c2-radius-3"],
+    ["proposal-c2-radius-3", "experiment-c2-radius-3"],
+    ["experiment-c2-radius-3", "artifact-c2-radius-3"],
+    ["artifact-c2-radius-3", "component-behavior-e31f9a6c8add"],
+    ["idea-c2-radius-2", "proposal-c2-radius-2"],
+    ["proposal-c2-radius-2", "experiment-c2-radius-2"],
+    ["experiment-c2-radius-2", "artifact-c2-radius-2"],
+    ["artifact-c2-radius-2", "component-behavior-4cacde29695d"]
+  ],
+  "study_id": "study-004-three-dimensional-fieldwriting-ants"
+}

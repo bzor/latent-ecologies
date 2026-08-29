@@ -1,0 +1,400 @@
+{
+  "created_at": "2026-08-17T16:40:09Z",
+  "entries": [
+    {
+      "bytes": 6227771,
+      "destination": "studies/study_003_nonlocal-affinity-dance/01_behavior/01_work/legacy_handoffs/study-003-affinity-3d-100k-v1/affinity-3d-100k-neutral-comparison-30fps.mp4",
+      "role": "legacy-behavior-work",
+      "sha256": "sha256:ba6e3cb049ff6b36b02955258069151e86a36e3e92b096def52180066089e575",
+      "source": "work/studio/handoffs/study-003-affinity-3d-100k-v1/affinity-3d-100k-neutral-comparison-30fps.mp4"
+    },
+    {
+      "bytes": 820039,
+      "destination": "studies/study_003_nonlocal-affinity-dance/01_behavior/01_work/legacy_handoffs/study-003-affinity-3d-100k-v1/affinity-3d-100k-neutral-comparison.mp4",
+      "role": "legacy-behavior-work",
+      "sha256": "sha256:51bd82413580ae7d25798095bf37c95b8e1a5b07ed05f51fc32f7bf13d1125ae",
+      "source": "work/studio/handoffs/study-003-affinity-3d-100k-v1/affinity-3d-100k-neutral-comparison.mp4"
+    },
+    {
+      "bytes": 7901653,
+      "destination": "studies/study_003_nonlocal-affinity-dance/01_behavior/01_work/legacy_handoffs/study-003-affinity-3d-wider-contraction-v1/affinity-3d-100k-wider-contraction-30fps.mp4",
+      "role": "legacy-behavior-work",
+      "sha256": "sha256:6c584495dbb4726c23e2c037dd156d287fa1e08a334c6d1e189a3d699638f223",
+      "source": "work/studio/handoffs/study-003-affinity-3d-wider-contraction-v1/affinity-3d-100k-wider-contraction-30fps.mp4"
+    },
+    {
+      "bytes": 4894905,
+      "destination": "studies/study_003_nonlocal-affinity-dance/01_behavior/01_work/legacy_handoffs/study-003-affinity-cohort-100k-v1/tight-swirls-cohort-100k-comparison.mp4",
+      "role": "legacy-behavior-work",
+      "sha256": "sha256:a032cf2fe38bca2c4a64d13c2ef4c3cacf8f51c5416825ba7facb42a0d17556c",
+      "source": "work/studio/handoffs/study-003-affinity-cohort-100k-v1/tight-swirls-cohort-100k-comparison.mp4"
+    },
+    {
+      "bytes": 8566449,
+      "destination": "studies/study_003_nonlocal-affinity-dance/01_behavior/01_work/legacy_handoffs/study-003-affinity-identity-ladder-v1/affinity-identity-planar-5k-30fps.mp4",
+      "role": "legacy-behavior-work",
+      "sha256": "sha256:8e895e1ac1c4e692f24e642c6eaf3feb428c6f7025619aec9465a29aa321d571",
+      "source": "work/studio/handoffs/study-003-affinity-identity-ladder-v1/affinity-identity-planar-5k-30fps.mp4"
+    },
+    {
+      "bytes": 3852640,
+      "destination": "studies/study_003_nonlocal-affinity-dance/01_behavior/01_work/legacy_handoffs/study-003-affinity-identity-ladder-v1/affinity-identity-shallow-3d-5k-30fps.mp4",
+      "role": "legacy-behavior-work",
+      "sha256": "sha256:f6eec51b3a3651481bcd84d837233dffdd04bc01e63e616a78ca6fd8536d1966",
+      "source": "work/studio/handoffs/study-003-affinity-identity-ladder-v1/affinity-identity-shallow-3d-5k-30fps.mp4"
+    },
+    {
+      "bytes": 3247007,
+      "destination": "studies/study_003_nonlocal-affinity-dance/01_behavior/01_work/legacy_handoffs/study-003-affinity-shallow3d-parallel-v1/behavior-review-isometric.mp4",
+      "role": "legacy-behavior-work",
+      "sha256": "sha256:dce509f6aa5d1ed2a80a902376caa4295b1f5476386ab8c5df87db4f2f1340a0",
+      "source": "work/studio/handoffs/study-003-affinity-shallow3d-parallel-v1/behavior-review-isometric.mp4"
+    },
+    {
+      "bytes": 5312105,
+      "destination": "studies/study_003_nonlocal-affinity-dance/01_behavior/01_work/legacy_handoffs/study-003-affinity-shallow3d-parallel-v1/behavior-review-straight-on.mp4",
+      "role": "legacy-behavior-work",
+      "sha256": "sha256:88f3e3e94dc01ca57108e7090e5e67aec52287cbabefd7463f704ea19fba2ed1",
+      "source": "work/studio/handoffs/study-003-affinity-shallow3d-parallel-v1/behavior-review-straight-on.mp4"
+    },
+    {
+      "bytes": 5701,
+      "destination": "studies/study_003_nonlocal-affinity-dance/01_behavior/01_work/legacy_handoffs/study-003-affinity-shallow3d-parallel-v1/endurance-receipt.json",
+      "role": "legacy-behavior-work",
+      "sha256": "sha256:5d50261baf229c7bac8f3ff79a3fe562572b19e47c744cb8d51768aede675fe8",
+      "source": "work/studio/handoffs/study-003-affinity-shallow3d-parallel-v1/endurance-receipt.json"
+    },
+    {
+      "bytes": 1173709,
+      "destination": "studies/study_003_nonlocal-affinity-dance/01_behavior/01_work/legacy_handoffs/study-003-affinity-shallow3d-parallel-v1/final-state.0960.bgeo.sc",
+      "role": "legacy-behavior-work",
+      "sha256": "sha256:9b36fa16aafee782e1e6eb6a8ff3562764c4a28ec8c6b25509e9c9af8816bba5",
+      "source": "work/studio/handoffs/study-003-affinity-shallow3d-parallel-v1/final-state.0960.bgeo.sc"
+    },
+    {
+      "bytes": 1790,
+      "destination": "studies/study_003_nonlocal-affinity-dance/01_behavior/01_work/legacy_handoffs/study-003-affinity-shallow3d-parallel-v1/manifest.json",
+      "role": "legacy-behavior-work",
+      "sha256": "sha256:dc576ffb173daa55ea514f118e51755559550f5c74df2dd3fadd0570f70f6030",
+      "source": "work/studio/handoffs/study-003-affinity-shallow3d-parallel-v1/manifest.json"
+    },
+    {
+      "bytes": 29488,
+      "destination": "studies/study_003_nonlocal-affinity-dance/01_behavior/01_work/legacy_handoffs/study-003-affinity-shallow3d-parallel-v1/metrics.json",
+      "role": "legacy-behavior-work",
+      "sha256": "sha256:c90284f2ead6f7a7228d0f1cbf957ebd026b8e0a07916cd5d58fb5824db8d395",
+      "source": "work/studio/handoffs/study-003-affinity-shallow3d-parallel-v1/metrics.json"
+    },
+    {
+      "bytes": 54651,
+      "destination": "studies/study_003_nonlocal-affinity-dance/01_behavior/01_work/legacy_handoffs/study-003-affinity-shallow3d-parallel-v1/nonlocal-affinity-3d.hiplc",
+      "role": "legacy-behavior-work",
+      "sha256": "sha256:82536248dea8a8cd5f930f2de49912ed83d6d94dbf05185b1bfbe69652963efd",
+      "source": "work/studio/handoffs/study-003-affinity-shallow3d-parallel-v1/nonlocal-affinity-3d.hiplc"
+    },
+    {
+      "bytes": 12648572,
+      "destination": "studies/study_003_nonlocal-affinity-dance/01_behavior/01_work/legacy_handoffs/study-003-affinity-shallow3d-parallel-v1/prepared-parallel-cohort.json",
+      "role": "legacy-behavior-work",
+      "sha256": "sha256:fe5fe8930dad9666d0f67a68fec6913a19fc39ee63fc9565cb75efd1bffccf23",
+      "source": "work/studio/handoffs/study-003-affinity-shallow3d-parallel-v1/prepared-parallel-cohort.json"
+    },
+    {
+      "bytes": 145262170,
+      "destination": "studies/study_003_nonlocal-affinity-dance/01_behavior/01_work/legacy_handoffs/study-003-affinity-shallow3d-parallel-v1/review-sample.json",
+      "role": "legacy-behavior-work",
+      "sha256": "sha256:31f6743f6b8b5d9806551254153a610342db7dc08177f507e3cd2b9d1a164938",
+      "source": "work/studio/handoffs/study-003-affinity-shallow3d-parallel-v1/review-sample.json"
+    },
+    {
+      "bytes": 1429,
+      "destination": "studies/study_003_nonlocal-affinity-dance/01_behavior/01_work/legacy_handoffs/study-003-affinity-shallow3d-parallel-hda-v1/audit.json",
+      "role": "legacy-behavior-work",
+      "sha256": "sha256:181a396b55be826a1f1e954ca5f3c80dc0f3ddbe21c84db6602fa817f11acde5",
+      "source": "work/studio/handoffs/study-003-affinity-shallow3d-parallel-hda-v1/audit.json"
+    },
+    {
+      "bytes": 533,
+      "destination": "studies/study_003_nonlocal-affinity-dance/01_behavior/01_work/legacy_handoffs/study-003-affinity-shallow3d-parallel-hda-v1/control-audit.json",
+      "role": "legacy-behavior-work",
+      "sha256": "sha256:4cd3afdffdfb55f5a963f69e0ce1be4a63c3b3e4f1a0dda3c35d09a13f5bd583",
+      "source": "work/studio/handoffs/study-003-affinity-shallow3d-parallel-hda-v1/control-audit.json"
+    },
+    {
+      "bytes": 2171,
+      "destination": "studies/study_003_nonlocal-affinity-dance/01_behavior/01_work/legacy_handoffs/study-003-affinity-shallow3d-parallel-hda-v1/handoff-receipt.json",
+      "role": "legacy-behavior-work",
+      "sha256": "sha256:9dfd0d2904855ba9e09213ed40d6f64dfaa8cf0faa45d0cc1c0cdef36ce461ea",
+      "source": "work/studio/handoffs/study-003-affinity-shallow3d-parallel-hda-v1/handoff-receipt.json"
+    },
+    {
+      "bytes": 2335105,
+      "destination": "studies/study_003_nonlocal-affinity-dance/01_behavior/01_work/legacy_handoffs/study-003-affinity-shallow3d-parallel-hda-v1/initial-state.bgeo.sc",
+      "role": "legacy-behavior-work",
+      "sha256": "sha256:2b67b1bd2fb1f5f8659b6c1466b4fabdba8ade18866c63b240e9bdddc5a7d85e",
+      "source": "work/studio/handoffs/study-003-affinity-shallow3d-parallel-hda-v1/initial-state.bgeo.sc"
+    },
+    {
+      "bytes": 54762,
+      "destination": "studies/study_003_nonlocal-affinity-dance/01_behavior/01_work/legacy_handoffs/study-003-affinity-shallow3d-parallel-hda-v1/nonlocal-affinity-parallel-demo.hiplc",
+      "role": "legacy-behavior-work",
+      "sha256": "sha256:5ff20f018d63cb5437931815962465e4e2839df99da50b80440acec7332222e7",
+      "source": "work/studio/handoffs/study-003-affinity-shallow3d-parallel-hda-v1/nonlocal-affinity-parallel-demo.hiplc"
+    },
+    {
+      "bytes": 2349244,
+      "destination": "studies/study_003_nonlocal-affinity-dance/01_behavior/01_work/legacy_handoffs/study-003-affinity-shallow3d-parallel-hda-v1/nonlocal-affinity-parallel.hda",
+      "role": "legacy-behavior-work",
+      "sha256": "sha256:67e09a1570674ce45fee2e9cb2b8496eb9d31a6b8362d237f6e3ff91672bcc2d",
+      "source": "work/studio/handoffs/study-003-affinity-shallow3d-parallel-hda-v1/nonlocal-affinity-parallel.hda"
+    },
+    {
+      "bytes": 2466,
+      "destination": "studies/study_003_nonlocal-affinity-dance/01_behavior/01_work/legacy_handoffs/study-003-affinity-shallow3d-parallel-hda-v1/README.md",
+      "role": "legacy-behavior-work",
+      "sha256": "sha256:952201b126eab455d12b9a065659909a6ad384a22ab129e4e15c6495d3918ccd",
+      "source": "work/studio/handoffs/study-003-affinity-shallow3d-parallel-hda-v1/README.md"
+    },
+    {
+      "bytes": 2535,
+      "destination": "studies/study_003_nonlocal-affinity-dance/01_behavior/01_work/legacy_handoffs/study-003-affinity-shallow3d-parallel-hda-v2/audit.json",
+      "role": "legacy-behavior-work",
+      "sha256": "sha256:bbfbc968f880b63c364c634e477ba1652b2c325c562f9df02d984dfe70dd5c4a",
+      "source": "work/studio/handoffs/study-003-affinity-shallow3d-parallel-hda-v2/audit.json"
+    },
+    {
+      "bytes": 533,
+      "destination": "studies/study_003_nonlocal-affinity-dance/01_behavior/01_work/legacy_handoffs/study-003-affinity-shallow3d-parallel-hda-v2/control-audit.json",
+      "role": "legacy-behavior-work",
+      "sha256": "sha256:6ff6039eb1435b100f181b99cc6476dfc7654a75a9a2df9bc61c0d817639abba",
+      "source": "work/studio/handoffs/study-003-affinity-shallow3d-parallel-hda-v2/control-audit.json"
+    },
+    {
+      "bytes": 2690,
+      "destination": "studies/study_003_nonlocal-affinity-dance/01_behavior/01_work/legacy_handoffs/study-003-affinity-shallow3d-parallel-hda-v2/handoff-receipt.json",
+      "role": "legacy-behavior-work",
+      "sha256": "sha256:025f0495ff08e0e4f6fb91ddf54b88c6944b9c3729d5259b874394e219e02815",
+      "source": "work/studio/handoffs/study-003-affinity-shallow3d-parallel-hda-v2/handoff-receipt.json"
+    },
+    {
+      "bytes": 2335105,
+      "destination": "studies/study_003_nonlocal-affinity-dance/01_behavior/01_work/legacy_handoffs/study-003-affinity-shallow3d-parallel-hda-v2/initial-state.bgeo.sc",
+      "role": "legacy-behavior-work",
+      "sha256": "sha256:06510fe5459c199ca71a0adb1ab43aca4a050741672670eb7a1d486839aa1ce4",
+      "source": "work/studio/handoffs/study-003-affinity-shallow3d-parallel-hda-v2/initial-state.bgeo.sc"
+    },
+    {
+      "bytes": 60223,
+      "destination": "studies/study_003_nonlocal-affinity-dance/01_behavior/01_work/legacy_handoffs/study-003-affinity-shallow3d-parallel-hda-v2/nonlocal-affinity-parallel-demo.hiplc",
+      "role": "legacy-behavior-work",
+      "sha256": "sha256:9251ce56f325d52210dc9dbe2b87dc1fab4e3d3b68f7745258d43076ba9b610b",
+      "source": "work/studio/handoffs/study-003-affinity-shallow3d-parallel-hda-v2/nonlocal-affinity-parallel-demo.hiplc"
+    },
+    {
+      "bytes": 2755529,
+      "destination": "studies/study_003_nonlocal-affinity-dance/01_behavior/01_work/legacy_handoffs/study-003-affinity-shallow3d-parallel-hda-v2/nonlocal-affinity-parallel.hda",
+      "role": "legacy-behavior-work",
+      "sha256": "sha256:c384ad6cbaa1806ecaa8b2656d8030f2533da791cafa2cf42e37d2cf622b7143",
+      "source": "work/studio/handoffs/study-003-affinity-shallow3d-parallel-hda-v2/nonlocal-affinity-parallel.hda"
+    },
+    {
+      "bytes": 3122,
+      "destination": "studies/study_003_nonlocal-affinity-dance/01_behavior/01_work/legacy_handoffs/study-003-affinity-shallow3d-parallel-hda-v2/README.md",
+      "role": "legacy-behavior-work",
+      "sha256": "sha256:d0eeaf09c2a8fc1c5c0962a7964690b3a4def87ac94d943559abeb41e0cf52d9",
+      "source": "work/studio/handoffs/study-003-affinity-shallow3d-parallel-hda-v2/README.md"
+    },
+    {
+      "bytes": 2572,
+      "destination": "studies/study_003_nonlocal-affinity-dance/01_behavior/01_work/legacy_handoffs/study-003-affinity-direct-canvas-hda-v3/audit.json",
+      "role": "legacy-behavior-work",
+      "sha256": "sha256:cf6f9e24c18e1f3036062d138464f2f247bedf38983de1a5a84f79608c80fb3d",
+      "source": "work/studio/handoffs/study-003-affinity-direct-canvas-hda-v3/audit.json"
+    },
+    {
+      "bytes": 88437,
+      "destination": "studies/study_003_nonlocal-affinity-dance/01_behavior/01_work/legacy_handoffs/study-003-affinity-direct-canvas-hda-v3/backup/nonlocal-affinity-parallel-demo_bak1.hiplc",
+      "role": "legacy-behavior-work",
+      "sha256": "sha256:5bfac1f0bc2bdfc368ad9038804e87f98b71e8cb3293be4c65f5deced110073e",
+      "source": "work/studio/handoffs/study-003-affinity-direct-canvas-hda-v3/backup/nonlocal-affinity-parallel-demo_bak1.hiplc"
+    },
+    {
+      "bytes": 88436,
+      "destination": "studies/study_003_nonlocal-affinity-dance/01_behavior/01_work/legacy_handoffs/study-003-affinity-direct-canvas-hda-v3/backup/nonlocal-affinity-parallel-demo_bak2.hiplc",
+      "role": "legacy-behavior-work",
+      "sha256": "sha256:39efa8f991b26bcb8160c41959be2bcd66ecf31a46f9704a06d6e8517f461905",
+      "source": "work/studio/handoffs/study-003-affinity-direct-canvas-hda-v3/backup/nonlocal-affinity-parallel-demo_bak2.hiplc"
+    },
+    {
+      "bytes": 88485,
+      "destination": "studies/study_003_nonlocal-affinity-dance/01_behavior/01_work/legacy_handoffs/study-003-affinity-direct-canvas-hda-v3/backup/nonlocal-affinity-parallel-demo_bak3.hiplc",
+      "role": "legacy-behavior-work",
+      "sha256": "sha256:eaba7d08aa292867c4e1ce997ea35ae79e6a74523638c844a4cef132679b920b",
+      "source": "work/studio/handoffs/study-003-affinity-direct-canvas-hda-v3/backup/nonlocal-affinity-parallel-demo_bak3.hiplc"
+    },
+    {
+      "bytes": 1615831,
+      "destination": "studies/study_003_nonlocal-affinity-dance/01_behavior/01_work/legacy_handoffs/study-003-affinity-direct-canvas-hda-v3/batch-verify-6/cache/state.0000.bgeo.sc",
+      "role": "legacy-behavior-work",
+      "sha256": "sha256:dc5a76258c22e4b2e1d0d6a2659e707f67f9e7163b191b09a380337f8f1efdf9",
+      "source": "work/studio/handoffs/study-003-affinity-direct-canvas-hda-v3/batch-verify-6/cache/state.0000.bgeo.sc"
+    },
+    {
+      "bytes": 1616175,
+      "destination": "studies/study_003_nonlocal-affinity-dance/01_behavior/01_work/legacy_handoffs/study-003-affinity-direct-canvas-hda-v3/batch-verify-6/cache/state.0006.bgeo.sc",
+      "role": "legacy-behavior-work",
+      "sha256": "sha256:84409aa48001a6af727d53f10d766a0e2e661ec048f55e3d4b18cd4c525437f3",
+      "source": "work/studio/handoffs/study-003-affinity-direct-canvas-hda-v3/batch-verify-6/cache/state.0006.bgeo.sc"
+    },
+    {
+      "bytes": 1615759,
+      "destination": "studies/study_003_nonlocal-affinity-dance/01_behavior/01_work/legacy_handoffs/study-003-affinity-direct-canvas-hda-v3/batch-verify-6/cache/state.transient.bgeo.sc",
+      "role": "legacy-behavior-work",
+      "sha256": "sha256:24cc0eefdb0946b96cf1a5d4af7729da04ff9cfe93fa4515d5703247db3ceb9d",
+      "source": "work/studio/handoffs/study-003-affinity-direct-canvas-hda-v3/batch-verify-6/cache/state.transient.bgeo.sc"
+    },
+    {
+      "bytes": 1117,
+      "destination": "studies/study_003_nonlocal-affinity-dance/01_behavior/01_work/legacy_handoffs/study-003-affinity-direct-canvas-hda-v3/batch-verify-6/effective-preset.json",
+      "role": "legacy-behavior-work",
+      "sha256": "sha256:c94935003a42ae813017bb332e7e5f9772d531f7ec37b59027f62081da170ee7",
+      "source": "work/studio/handoffs/study-003-affinity-direct-canvas-hda-v3/batch-verify-6/effective-preset.json"
+    },
+    {
+      "bytes": 3216,
+      "destination": "studies/study_003_nonlocal-affinity-dance/01_behavior/01_work/legacy_handoffs/study-003-affinity-direct-canvas-hda-v3/batch-verify-6/metrics.json",
+      "role": "legacy-behavior-work",
+      "sha256": "sha256:efc737fa69ed666f399ee10753495b3a09ae791cbdb3d63bcdefc3ee2b411da1",
+      "source": "work/studio/handoffs/study-003-affinity-direct-canvas-hda-v3/batch-verify-6/metrics.json"
+    },
+    {
+      "bytes": 54555,
+      "destination": "studies/study_003_nonlocal-affinity-dance/01_behavior/01_work/legacy_handoffs/study-003-affinity-direct-canvas-hda-v3/batch-verify-6/nonlocal-affinity-3d.hiplc",
+      "role": "legacy-behavior-work",
+      "sha256": "sha256:76345587fa0baaa7207100fc4fb8f23ba3a48e78185d5909cd3dd79b9e558826",
+      "source": "work/studio/handoffs/study-003-affinity-direct-canvas-hda-v3/batch-verify-6/nonlocal-affinity-3d.hiplc"
+    },
+    {
+      "bytes": 1206716,
+      "destination": "studies/study_003_nonlocal-affinity-dance/01_behavior/01_work/legacy_handoffs/study-003-affinity-direct-canvas-hda-v3/batch-verify-6/review.json",
+      "role": "legacy-behavior-work",
+      "sha256": "sha256:be9ec7bec1d8bccce05b9cfdc27abfc10e7bec93fd2610a1de985b890f13ce43",
+      "source": "work/studio/handoffs/study-003-affinity-direct-canvas-hda-v3/batch-verify-6/review.json"
+    },
+    {
+      "bytes": 308,
+      "destination": "studies/study_003_nonlocal-affinity-dance/01_behavior/01_work/legacy_handoffs/study-003-affinity-direct-canvas-hda-v3/control-audit.json",
+      "role": "legacy-behavior-work",
+      "sha256": "sha256:015aa449f55bc438d1f5ae8057260f29c5de9bea5203feaec5efb3f259c0a1e4",
+      "source": "work/studio/handoffs/study-003-affinity-direct-canvas-hda-v3/control-audit.json"
+    },
+    {
+      "bytes": 1936,
+      "destination": "studies/study_003_nonlocal-affinity-dance/01_behavior/01_work/legacy_handoffs/study-003-affinity-direct-canvas-hda-v3/handoff-receipt.json",
+      "role": "legacy-behavior-work",
+      "sha256": "sha256:46b9515c69def68d4f4ff853d46988caaaa9e68c0c6d411747715799259e1348",
+      "source": "work/studio/handoffs/study-003-affinity-direct-canvas-hda-v3/handoff-receipt.json"
+    },
+    {
+      "bytes": 2737887,
+      "destination": "studies/study_003_nonlocal-affinity-dance/01_behavior/01_work/legacy_handoffs/study-003-affinity-direct-canvas-hda-v3/initial-state.bgeo.sc",
+      "role": "legacy-behavior-work",
+      "sha256": "sha256:a704a569100154dc1a0761c703ebf15756e13a4bae6077536314800a4aeb29bf",
+      "source": "work/studio/handoffs/study-003-affinity-direct-canvas-hda-v3/initial-state.bgeo.sc"
+    },
+    {
+      "bytes": 88485,
+      "destination": "studies/study_003_nonlocal-affinity-dance/01_behavior/01_work/legacy_handoffs/study-003-affinity-direct-canvas-hda-v3/nonlocal-affinity-parallel-demo.hiplc",
+      "role": "legacy-behavior-work",
+      "sha256": "sha256:255970cb8c48e406231fca201226053269a59c4e2a01e2fbb214749335c825e9",
+      "source": "work/studio/handoffs/study-003-affinity-direct-canvas-hda-v3/nonlocal-affinity-parallel-demo.hiplc"
+    },
+    {
+      "bytes": 2755529,
+      "destination": "studies/study_003_nonlocal-affinity-dance/01_behavior/01_work/legacy_handoffs/study-003-affinity-direct-canvas-hda-v3/nonlocal-affinity-parallel.hda",
+      "role": "legacy-behavior-work",
+      "sha256": "sha256:c384ad6cbaa1806ecaa8b2656d8030f2533da791cafa2cf42e37d2cf622b7143",
+      "source": "work/studio/handoffs/study-003-affinity-direct-canvas-hda-v3/nonlocal-affinity-parallel.hda"
+    },
+    {
+      "bytes": 7404398,
+      "destination": "studies/study_003_nonlocal-affinity-dance/01_behavior/01_work/legacy_handoffs/study-003-affinity-direct-canvas-hda-v3/prepared-direct-100k.json",
+      "role": "legacy-behavior-work",
+      "sha256": "sha256:8a6e3ea59f99f1abbc352f300da4b4b54ea8dad78c3375b5417282f9ede83db4",
+      "source": "work/studio/handoffs/study-003-affinity-direct-canvas-hda-v3/prepared-direct-100k.json"
+    },
+    {
+      "bytes": 2160,
+      "destination": "studies/study_003_nonlocal-affinity-dance/01_behavior/01_work/legacy_handoffs/study-003-affinity-direct-canvas-hda-v3/README.md",
+      "role": "legacy-behavior-work",
+      "sha256": "sha256:3e02f0e67833e38b3f3e9cfb2448fc869b9de71f86786b6df5cd787761e0213a",
+      "source": "work/studio/handoffs/study-003-affinity-direct-canvas-hda-v3/README.md"
+    },
+    {
+      "bytes": 1275983,
+      "destination": "studies/study_003_nonlocal-affinity-dance/01_behavior/02_review/migrated_verified/artifact-pilot-study-003-faithful-v1/motion-check.mp4",
+      "role": "verified-review",
+      "sha256": "sha256:c27d7499ad3f2071f86964f1ed4b27cfa0ccf49ec93b392b88cffa0e96f1f22b",
+      "source": "work/jobs/pilot-study-003-faithful-v1/review/motion/motion-check.mp4"
+    },
+    {
+      "bytes": 6227771,
+      "destination": "studies/study_003_nonlocal-affinity-dance/01_behavior/02_review/migrated_verified/artifact-study-003-affinity-3d-100k-30fps-v1/affinity-3d-100k-neutral-comparison-30fps.mp4",
+      "role": "verified-review",
+      "sha256": "sha256:ba6e3cb049ff6b36b02955258069151e86a36e3e92b096def52180066089e575",
+      "source": "work/studio/handoffs/study-003-affinity-3d-100k-v1/affinity-3d-100k-neutral-comparison-30fps.mp4"
+    },
+    {
+      "bytes": 820039,
+      "destination": "studies/study_003_nonlocal-affinity-dance/01_behavior/02_review/migrated_verified/artifact-study-003-affinity-3d-100k-v1/affinity-3d-100k-neutral-comparison.mp4",
+      "role": "verified-review",
+      "sha256": "sha256:51bd82413580ae7d25798095bf37c95b8e1a5b07ed05f51fc32f7bf13d1125ae",
+      "source": "work/studio/handoffs/study-003-affinity-3d-100k-v1/affinity-3d-100k-neutral-comparison.mp4"
+    },
+    {
+      "bytes": 7901653,
+      "destination": "studies/study_003_nonlocal-affinity-dance/01_behavior/02_review/migrated_verified/artifact-study-003-affinity-3d-wider-contraction-30fps-v1/affinity-3d-100k-wider-contraction-30fps.mp4",
+      "role": "verified-review",
+      "sha256": "sha256:6c584495dbb4726c23e2c037dd156d287fa1e08a334c6d1e189a3d699638f223",
+      "source": "work/studio/handoffs/study-003-affinity-3d-wider-contraction-v1/affinity-3d-100k-wider-contraction-30fps.mp4"
+    },
+    {
+      "bytes": 4894905,
+      "destination": "studies/study_003_nonlocal-affinity-dance/01_behavior/02_review/migrated_verified/artifact-study-003-affinity-cohort-100k-30fps-v1/tight-swirls-cohort-100k-comparison.mp4",
+      "role": "verified-review",
+      "sha256": "sha256:a032cf2fe38bca2c4a64d13c2ef4c3cacf8f51c5416825ba7facb42a0d17556c",
+      "source": "work/studio/handoffs/study-003-affinity-cohort-100k-v1/tight-swirls-cohort-100k-comparison.mp4"
+    },
+    {
+      "bytes": 8566449,
+      "destination": "studies/study_003_nonlocal-affinity-dance/01_behavior/02_review/migrated_verified/artifact-study-003-affinity-identity-planar-5k-30fps-v1/affinity-identity-planar-5k-30fps.mp4",
+      "role": "verified-review",
+      "sha256": "sha256:8e895e1ac1c4e692f24e642c6eaf3feb428c6f7025619aec9465a29aa321d571",
+      "source": "work/studio/handoffs/study-003-affinity-identity-ladder-v1/affinity-identity-planar-5k-30fps.mp4"
+    },
+    {
+      "bytes": 3852640,
+      "destination": "studies/study_003_nonlocal-affinity-dance/01_behavior/02_review/migrated_verified/artifact-study-003-affinity-identity-shallow-3d-5k-30fps-v1/affinity-identity-shallow-3d-5k-30fps.mp4",
+      "role": "verified-review",
+      "sha256": "sha256:f6eec51b3a3651481bcd84d837233dffdd04bc01e63e616a78ca6fd8536d1966",
+      "source": "work/studio/handoffs/study-003-affinity-identity-ladder-v1/affinity-identity-shallow-3d-5k-30fps.mp4"
+    },
+    {
+      "bytes": 5312105,
+      "destination": "studies/study_003_nonlocal-affinity-dance/01_behavior/02_review/migrated_verified/artifact-study-003-affinity-parallel-endurance-v1/behavior-review-straight-on.mp4",
+      "role": "verified-review",
+      "sha256": "sha256:88f3e3e94dc01ca57108e7090e5e67aec52287cbabefd7463f704ea19fba2ed1",
+      "source": "work/studio/handoffs/study-003-affinity-shallow3d-parallel-v1/behavior-review-straight-on.mp4"
+    },
+    {
+      "bytes": 5312105,
+      "destination": "studies/study_003_nonlocal-affinity-dance/01_behavior/03_selected/selection_001/behavior-review-straight-on.mp4",
+      "role": "selected-behavior",
+      "sha256": "sha256:88f3e3e94dc01ca57108e7090e5e67aec52287cbabefd7463f704ea19fba2ed1",
+      "source": "work/studio/handoffs/study-003-affinity-shallow3d-parallel-v1/behavior-review-straight-on.mp4"
+    }
+  ],
+  "mode": "copy-verified-no-delete",
+  "schema_version": 1,
+  "study_id": "study-003-nonlocal-affinity-dance"
+}

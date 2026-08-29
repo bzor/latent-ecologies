@@ -1,0 +1,39 @@
+{
+  "engine": "Karma XPU through saved /stage/OUT_KARMA",
+  "frames": [
+    {
+      "bytes": 1683054,
+      "cache": "E:/Projects/houdini-ai/studies/study_002_scar-tissue/01_behavior/03_selected/selection_002/run/cache/vex-state.0001.bgeo.sc",
+      "cache_sha256": "f54419d2d6958eaa73b319c2c859a58ef35d6691952446b07eb5bdfa327cbf2b",
+      "frame": 1,
+      "image": "E:/Projects/houdini-ai/studies/study_002_scar-tissue/02_look/var_004_rapid-surgical-zipper.look_r001.renders/beauty.0001.exr",
+      "sha256": "495aa5c4f8208f5f3ea4714ae95bea2a4eb410f4388438b156d839b7a7934f06"
+    },
+    {
+      "bytes": 1387715,
+      "cache": "E:/Projects/houdini-ai/studies/study_002_scar-tissue/01_behavior/03_selected/selection_002/run/cache/vex-state.0150.bgeo.sc",
+      "cache_sha256": "6aa6c6641fc622f24d5674a26393af762fdc5282beff94efbd155022f660ba70",
+      "frame": 150,
+      "image": "E:/Projects/houdini-ai/studies/study_002_scar-tissue/02_look/var_004_rapid-surgical-zipper.look_r001.renders/beauty.0150.exr",
+      "sha256": "0495d9d325502c224004bc43ab3d8151edffe82db29f7607e4a7cf8d2f9591e9"
+    },
+    {
+      "bytes": 1374309,
+      "cache": "E:/Projects/houdini-ai/studies/study_002_scar-tissue/01_behavior/03_selected/selection_002/run/cache/vex-state.0300.bgeo.sc",
+      "cache_sha256": "b1ac299222f0176d4f6a69a4aac3feecca0b5dda350a5ca7e901696b58492e4d",
+      "frame": 300,
+      "image": "E:/Projects/houdini-ai/studies/study_002_scar-tissue/02_look/var_004_rapid-surgical-zipper.look_r001.renders/beauty.0300.exr",
+      "sha256": "e536e313a883314bc8c6e514226180db9f022e5c2bd2d1868ebf4d5a714a1654"
+    }
+  ],
+  "hip": "E:/Projects/houdini-ai/studies/study_002_scar-tissue/02_look/var_004_rapid-surgical-zipper.look_r001.hiplc",
+  "hip_sha256": "029e469a3af6299f640764e7216aa66e5eac77cb7ccf8f5b26f039f19f751952",
+  "passed": true,
+  "path_traced_samples": 128,
+  "resolution": [
+    1080,
+    1350
+  ],
+  "samples_per_pixel": 64,
+  "schema_version": 1
+}

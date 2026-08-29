@@ -1,4 +1,10 @@
-# Study 002 — Mass Flow
+# ARCHIVE — Mass Flow (legacy prototype)
+
+> Historical evidence only. Mass Flow no longer occupies Study 002. The active numbered
+> Study is `study-002-scar-tissue`; the canonical archived Studio record is
+> `work/studio/studies/legacy-mass-flow.json`. Do not treat this folder as an active Study.
+
+Formerly **Study 002 — Mass Flow**.
 
 Phase 2 scale-and-motion capability study. The first probe tests a deterministic
 4,000-agent analytic flow in Houdini while keeping checkpoint and review data

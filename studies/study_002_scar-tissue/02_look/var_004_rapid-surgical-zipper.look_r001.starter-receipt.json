@@ -1,0 +1,1911 @@
+{
+  "active_cache_ancestor": "/obj/PLAYGROUND_SIM/SOURCE_PROMOTED_SIMULATION",
+  "artist_controls": {
+    "bank_width": "/obj/PLAYGROUND_SIM/bank_width",
+    "edges_material": "/stage/MATERIALS_STARTER/EDGES_STARTER_SHADER",
+    "point_radius": "/obj/PLAYGROUND_SIM/point_radius",
+    "points_material": "/stage/MATERIALS_STARTER/POINTS_STARTER_SHADER",
+    "zipper_width": "/obj/PLAYGROUND_SIM/zipper_width"
+  },
+  "cache_checks": [
+    {
+      "errors": [],
+      "frame": 1,
+      "path": "E:/Projects/houdini-ai/studies/study_002_scar-tissue/01_behavior/03_selected/selection_002/run/cache/vex-state.0001.bgeo.sc",
+      "sha256": "f54419d2d6958eaa73b319c2c859a58ef35d6691952446b07eb5bdfa327cbf2b"
+    },
+    {
+      "errors": [],
+      "frame": 2,
+      "path": "E:/Projects/houdini-ai/studies/study_002_scar-tissue/01_behavior/03_selected/selection_002/run/cache/vex-state.0002.bgeo.sc",
+      "sha256": "d066643321b14e1fe669697dc3077afa832a7a9b63b56c8d96161fd8a052fcae"
+    },
+    {
+      "errors": [],
+      "frame": 3,
+      "path": "E:/Projects/houdini-ai/studies/study_002_scar-tissue/01_behavior/03_selected/selection_002/run/cache/vex-state.0003.bgeo.sc",
+      "sha256": "9e307681e67ee7b4c4d2a2301b6f982182c5c57dd60a9438c28245111c7bf73e"
+    },
+    {
+      "errors": [],
+      "frame": 4,
+      "path": "E:/Projects/houdini-ai/studies/study_002_scar-tissue/01_behavior/03_selected/selection_002/run/cache/vex-state.0004.bgeo.sc",
+      "sha256": "c20bca84d2c8345a604c634346eab1d60ec0e2035fcd416dc9863c0d095849b5"
+    },
+    {
+      "errors": [],
+      "frame": 5,
+      "path": "E:/Projects/houdini-ai/studies/study_002_scar-tissue/01_behavior/03_selected/selection_002/run/cache/vex-state.0005.bgeo.sc",
+      "sha256": "a7b9674cd6da66abcb03cb7fcb37b4091ae7a9c5a9a57627b41bed835947ee38"
+    },
+    {
+      "errors": [],
+      "frame": 6,
+      "path": "E:/Projects/houdini-ai/studies/study_002_scar-tissue/01_behavior/03_selected/selection_002/run/cache/vex-state.0006.bgeo.sc",
+      "sha256": "39b8e303cbf7b907cfca609e34d4cebfa971efb03e067725a8faf5c0912473b8"
+    },
+    {
+      "errors": [],
+      "frame": 7,
+      "path": "E:/Projects/houdini-ai/studies/study_002_scar-tissue/01_behavior/03_selected/selection_002/run/cache/vex-state.0007.bgeo.sc",
+      "sha256": "e9f9a0106e4e2d9e5db835c0d4a45d2a1f7f05b99aa7e99aab88577983828d1f"
+    },
+    {
+      "errors": [],
+      "frame": 8,
+      "path": "E:/Projects/houdini-ai/studies/study_002_scar-tissue/01_behavior/03_selected/selection_002/run/cache/vex-state.0008.bgeo.sc",
+      "sha256": "402f6f050ba2537bfa12147ddead9af7d65f7c3ea5e4b0f0bd7ab8b3ec6db2b2"
+    },
+    {
+      "errors": [],
+      "frame": 9,
+      "path": "E:/Projects/houdini-ai/studies/study_002_scar-tissue/01_behavior/03_selected/selection_002/run/cache/vex-state.0009.bgeo.sc",
+      "sha256": "f9d9cbeea55bdf4faf1618d034e733ddfdad8577fde9eb5e797af471588d73d7"
+    },
+    {
+      "errors": [],
+      "frame": 10,
+      "path": "E:/Projects/houdini-ai/studies/study_002_scar-tissue/01_behavior/03_selected/selection_002/run/cache/vex-state.0010.bgeo.sc",
+      "sha256": "cde1648cadf9b7e03e680f8cd60d91d6aeee898ea2503622821fe8ab8cd60d37"
+    },
+    {
+      "errors": [],
+      "frame": 11,
+      "path": "E:/Projects/houdini-ai/studies/study_002_scar-tissue/01_behavior/03_selected/selection_002/run/cache/vex-state.0011.bgeo.sc",
+      "sha256": "b5f751bccecef2740983d143d5cde2d57f325441aa4eb1069b31f872d8e9ddd0"
+    },
+    {
+      "errors": [],
+      "frame": 12,
+      "path": "E:/Projects/houdini-ai/studies/study_002_scar-tissue/01_behavior/03_selected/selection_002/run/cache/vex-state.0012.bgeo.sc",
+      "sha256": "6c0d9a7497ecbfcdfe92e5a1be050bc4fec32ebf436572126b5461bec3840bb3"
+    },
+    {
+      "errors": [],
+      "frame": 13,
+      "path": "E:/Projects/houdini-ai/studies/study_002_scar-tissue/01_behavior/03_selected/selection_002/run/cache/vex-state.0013.bgeo.sc",
+      "sha256": "aec65b986f627f602941bd292547eb84da301b08c89249e469b7e7b29e390761"
+    },
+    {
+      "errors": [],
+      "frame": 14,
+      "path": "E:/Projects/houdini-ai/studies/study_002_scar-tissue/01_behavior/03_selected/selection_002/run/cache/vex-state.0014.bgeo.sc",
+      "sha256": "246af1bf10835dea7395f66e617d8dcea947d58412b62b8b4133acf1aaeeabf6"
+    },
+    {
+      "errors": [],
+      "frame": 15,
+      "path": "E:/Projects/houdini-ai/studies/study_002_scar-tissue/01_behavior/03_selected/selection_002/run/cache/vex-state.0015.bgeo.sc",
+      "sha256": "16b39a839fb1ca92683371785b162c3ffa3ea9b6cf7172e49462a81b0895df57"
+    },
+    {
+      "errors": [],
+      "frame": 16,
+      "path": "E:/Projects/houdini-ai/studies/study_002_scar-tissue/01_behavior/03_selected/selection_002/run/cache/vex-state.0016.bgeo.sc",
+      "sha256": "e754bb5ca9822c6e02024d049e0071edaabe920e1420085851723774566c0da3"
+    },
+    {
+      "errors": [],
+      "frame": 17,
+      "path": "E:/Projects/houdini-ai/studies/study_002_scar-tissue/01_behavior/03_selected/selection_002/run/cache/vex-state.0017.bgeo.sc",
+      "sha256": "d7d610b9157eba9abfb8eb687907dcc9fc149a7c31da566d55d74c34303f9fa7"
+    },
+    {
+      "errors": [],
+      "frame": 18,
+      "path": "E:/Projects/houdini-ai/studies/study_002_scar-tissue/01_behavior/03_selected/selection_002/run/cache/vex-state.0018.bgeo.sc",
+      "sha256": "e643f708f813cff339e4638738aa7000045b9096ec8406a7b652a5b81189f53a"
+    },
+    {
+      "errors": [],
+      "frame": 19,
+      "path": "E:/Projects/houdini-ai/studies/study_002_scar-tissue/01_behavior/03_selected/selection_002/run/cache/vex-state.0019.bgeo.sc",
+      "sha256": "af0d73486abf8067bdacb922e041282f4e5de64016fa15a989c7b7d1264994a8"
+    },
+    {
+      "errors": [],
+      "frame": 20,
+      "path": "E:/Projects/houdini-ai/studies/study_002_scar-tissue/01_behavior/03_selected/selection_002/run/cache/vex-state.0020.bgeo.sc",
+      "sha256": "952caf8c46da450397c570ac3f86384f4633d668b0cec83c16681b3afafc4b33"
+    },
+    {
+      "errors": [],
+      "frame": 21,
+      "path": "E:/Projects/houdini-ai/studies/study_002_scar-tissue/01_behavior/03_selected/selection_002/run/cache/vex-state.0021.bgeo.sc",
+      "sha256": "86fd9b762e59bb0459f39b8d39ff14979d562e6d7d0b114625100b051270217c"
+    },
+    {
+      "errors": [],
+      "frame": 22,
+      "path": "E:/Projects/houdini-ai/studies/study_002_scar-tissue/01_behavior/03_selected/selection_002/run/cache/vex-state.0022.bgeo.sc",
+      "sha256": "98cd038262d57f344dd3cf6be7508c31cc6b53a982bbc57bfc6fa7b1dea48a72"
+    },
+    {
+      "errors": [],
+      "frame": 23,
+      "path": "E:/Projects/houdini-ai/studies/study_002_scar-tissue/01_behavior/03_selected/selection_002/run/cache/vex-state.0023.bgeo.sc",
+      "sha256": "8400e002d3892aa5b067b971222e2dcb309cefa0cb8aa8a1499fa5dbdc78bac3"
+    },
+    {
+      "errors": [],
+      "frame": 24,
+      "path": "E:/Projects/houdini-ai/studies/study_002_scar-tissue/01_behavior/03_selected/selection_002/run/cache/vex-state.0024.bgeo.sc",
+      "sha256": "cff8eba0490ea4ada9c06889fab0c0c6b1cde9bef7fcf52c90f11d7e2b86178a"
+    },
+    {
+      "errors": [],
+      "frame": 25,
+      "path": "E:/Projects/houdini-ai/studies/study_002_scar-tissue/01_behavior/03_selected/selection_002/run/cache/vex-state.0025.bgeo.sc",
+      "sha256": "6f6fd4febbbcbe86e55dabac9675d4b83ee933595a65d7320358717b71f6d074"
+    },
+    {
+      "errors": [],
+      "frame": 26,
+      "path": "E:/Projects/houdini-ai/studies/study_002_scar-tissue/01_behavior/03_selected/selection_002/run/cache/vex-state.0026.bgeo.sc",
+      "sha256": "1696bab643647a9fd6ff4e56c6f1cdf6ba28e5ae82050b6d096935ac49f72623"
+    },
+    {
+      "errors": [],
+      "frame": 27,
+      "path": "E:/Projects/houdini-ai/studies/study_002_scar-tissue/01_behavior/03_selected/selection_002/run/cache/vex-state.0027.bgeo.sc",
+      "sha256": "0de10a805c9b9ccc91ba52b0ffe9720cce766d585ca9e1de98d3eefb0e450910"
+    },
+    {
+      "errors": [],
+      "frame": 28,
+      "path": "E:/Projects/houdini-ai/studies/study_002_scar-tissue/01_behavior/03_selected/selection_002/run/cache/vex-state.0028.bgeo.sc",
+      "sha256": "1554a85c4cf77f083d5215b561e779a4bc2153bc131f257e0057e77785d632c9"
+    },
+    {
+      "errors": [],
+      "frame": 29,
+      "path": "E:/Projects/houdini-ai/studies/study_002_scar-tissue/01_behavior/03_selected/selection_002/run/cache/vex-state.0029.bgeo.sc",
+      "sha256": "ce3ec22b37d172b1f7b7ae22d132fc1ed8803c91a4f5bbef72a7b9a78ffe5ce9"
+    },
+    {
+      "errors": [],
+      "frame": 30,
+      "path": "E:/Projects/houdini-ai/studies/study_002_scar-tissue/01_behavior/03_selected/selection_002/run/cache/vex-state.0030.bgeo.sc",
+      "sha256": "e47577563dfb56e803437eb9c1ca6b6d9aa7e472dbac3154123244b011abbf3d"
+    },
+    {
+      "errors": [],
+      "frame": 31,
+      "path": "E:/Projects/houdini-ai/studies/study_002_scar-tissue/01_behavior/03_selected/selection_002/run/cache/vex-state.0031.bgeo.sc",
+      "sha256": "eac7202fc95fb55704fbcbf35dd86c18e8093607fb3588b25f5c2b6fa41b3afe"
+    },
+    {
+      "errors": [],
+      "frame": 32,
+      "path": "E:/Projects/houdini-ai/studies/study_002_scar-tissue/01_behavior/03_selected/selection_002/run/cache/vex-state.0032.bgeo.sc",
+      "sha256": "5fd94ce05c727d38f08d1276cefd4990766d422ae29ecf9e725698a7418020b5"
+    },
+    {
+      "errors": [],
+      "frame": 33,
+      "path": "E:/Projects/houdini-ai/studies/study_002_scar-tissue/01_behavior/03_selected/selection_002/run/cache/vex-state.0033.bgeo.sc",
+      "sha256": "dffd1d68c3bf553dfa5307b6497cdbdbb73fb599205f51dfbbe310a2c30c65ff"
+    },
+    {
+      "errors": [],
+      "frame": 34,
+      "path": "E:/Projects/houdini-ai/studies/study_002_scar-tissue/01_behavior/03_selected/selection_002/run/cache/vex-state.0034.bgeo.sc",
+      "sha256": "e06b937a59217dd62cebe0381b582f16866849b82a7ccaeb27995716322630dc"
+    },
+    {
+      "errors": [],
+      "frame": 35,
+      "path": "E:/Projects/houdini-ai/studies/study_002_scar-tissue/01_behavior/03_selected/selection_002/run/cache/vex-state.0035.bgeo.sc",
+      "sha256": "68b10a4c1e8fed0545a4bef9b2b19cadfd82fcab0bac154c43daed70a2da1c9a"
+    },
+    {
+      "errors": [],
+      "frame": 36,
+      "path": "E:/Projects/houdini-ai/studies/study_002_scar-tissue/01_behavior/03_selected/selection_002/run/cache/vex-state.0036.bgeo.sc",
+      "sha256": "6d1de941c6610ab8ae13bb136ef17ac5ddb02f33a75e25f3fea2d33b495a5ad1"
+    },
+    {
+      "errors": [],
+      "frame": 37,
+      "path": "E:/Projects/houdini-ai/studies/study_002_scar-tissue/01_behavior/03_selected/selection_002/run/cache/vex-state.0037.bgeo.sc",
+      "sha256": "71580cddac5ddf29dbd80df0cd247c2ea9f4aeb9523acbbea68abfad786fdd4f"
+    },
+    {
+      "errors": [],
+      "frame": 38,
+      "path": "E:/Projects/houdini-ai/studies/study_002_scar-tissue/01_behavior/03_selected/selection_002/run/cache/vex-state.0038.bgeo.sc",
+      "sha256": "a157d943779816151345bef64e9d6e3408f52b4e42470f1dc8211be1047cd447"
+    },
+    {
+      "errors": [],
+      "frame": 39,
+      "path": "E:/Projects/houdini-ai/studies/study_002_scar-tissue/01_behavior/03_selected/selection_002/run/cache/vex-state.0039.bgeo.sc",
+      "sha256": "2c42827357e0f7240eee750623ef5d2b45bf052d0fce7ce74af72d55c1a34ccd"
+    },
+    {
+      "errors": [],
+      "frame": 40,
+      "path": "E:/Projects/houdini-ai/studies/study_002_scar-tissue/01_behavior/03_selected/selection_002/run/cache/vex-state.0040.bgeo.sc",
+      "sha256": "98d5ecb4c5605317aa81d26b721a98e8cea5716e30517a585a9607dc8d8097bb"
+    },
+    {
+      "errors": [],
+      "frame": 41,
+      "path": "E:/Projects/houdini-ai/studies/study_002_scar-tissue/01_behavior/03_selected/selection_002/run/cache/vex-state.0041.bgeo.sc",
+      "sha256": "ac6a393871131f53cbd807725a26aeb77ffec6a8683383b0677a7041736c4ba1"
+    },
+    {
+      "errors": [],
+      "frame": 42,
+      "path": "E:/Projects/houdini-ai/studies/study_002_scar-tissue/01_behavior/03_selected/selection_002/run/cache/vex-state.0042.bgeo.sc",
+      "sha256": "3e8f4e625b22b5fa80eede5e8fab2ce61c834d387010cf5d698a8f086a7344cc"
+    },
+    {
+      "errors": [],
+      "frame": 43,
+      "path": "E:/Projects/houdini-ai/studies/study_002_scar-tissue/01_behavior/03_selected/selection_002/run/cache/vex-state.0043.bgeo.sc",
+      "sha256": "ab903c72e0266d3b2568f88d4b226f699ff4afc3e55f1bf1a4808b46d2ea5788"
+    },
+    {
+      "errors": [],
+      "frame": 44,
+      "path": "E:/Projects/houdini-ai/studies/study_002_scar-tissue/01_behavior/03_selected/selection_002/run/cache/vex-state.0044.bgeo.sc",
+      "sha256": "7df893b79de5a586a4857073b4a6f6f11c2d1d67814ad81d1c25691b3486e7b4"
+    },
+    {
+      "errors": [],
+      "frame": 45,
+      "path": "E:/Projects/houdini-ai/studies/study_002_scar-tissue/01_behavior/03_selected/selection_002/run/cache/vex-state.0045.bgeo.sc",
+      "sha256": "9e543ea72eedb7ea19f51cb1c6c4cbcd729265252c117d44c808bc10d6a4851f"
+    },
+    {
+      "errors": [],
+      "frame": 46,
+      "path": "E:/Projects/houdini-ai/studies/study_002_scar-tissue/01_behavior/03_selected/selection_002/run/cache/vex-state.0046.bgeo.sc",
+      "sha256": "40e3a6263df2649683976b3fcd7f8c3fa4f79d5e7e1e7f70c818dea1b5af5ecc"
+    },
+    {
+      "errors": [],
+      "frame": 47,
+      "path": "E:/Projects/houdini-ai/studies/study_002_scar-tissue/01_behavior/03_selected/selection_002/run/cache/vex-state.0047.bgeo.sc",
+      "sha256": "5c347525dbde8928477e64cfcf2fe5504d67254a7d6d1208818fd7a5bc6f3079"
+    },
+    {
+      "errors": [],
+      "frame": 48,
+      "path": "E:/Projects/houdini-ai/studies/study_002_scar-tissue/01_behavior/03_selected/selection_002/run/cache/vex-state.0048.bgeo.sc",
+      "sha256": "aed15833f00378fb157522291b103c7f6045e811cf200bd5d0990aa13d72f9ee"
+    },
+    {
+      "errors": [],
+      "frame": 49,
+      "path": "E:/Projects/houdini-ai/studies/study_002_scar-tissue/01_behavior/03_selected/selection_002/run/cache/vex-state.0049.bgeo.sc",
+      "sha256": "05958b5f250fb6967f887e37649000d24871aaf8ac21d21f3fce2a0299edebaf"
+    },
+    {
+      "errors": [],
+      "frame": 50,
+      "path": "E:/Projects/houdini-ai/studies/study_002_scar-tissue/01_behavior/03_selected/selection_002/run/cache/vex-state.0050.bgeo.sc",
+      "sha256": "9c254c02a18238af2e187f76771cc39342b4e5fc1ae6c8a4e897003647374482"
+    },
+    {
+      "errors": [],
+      "frame": 51,
+      "path": "E:/Projects/houdini-ai/studies/study_002_scar-tissue/01_behavior/03_selected/selection_002/run/cache/vex-state.0051.bgeo.sc",
+      "sha256": "c014e97e47e1632a6115706759b6c330e87595a2ab158a830b5fe19a6d808c86"
+    },
+    {
+      "errors": [],
+      "frame": 52,
+      "path": "E:/Projects/houdini-ai/studies/study_002_scar-tissue/01_behavior/03_selected/selection_002/run/cache/vex-state.0052.bgeo.sc",
+      "sha256": "3260fd9208446604b6a72e652b97f7fec61d142d78b6dabfffb50faab2695ed3"
+    },
+    {
+      "errors": [],
+      "frame": 53,
+      "path": "E:/Projects/houdini-ai/studies/study_002_scar-tissue/01_behavior/03_selected/selection_002/run/cache/vex-state.0053.bgeo.sc",
+      "sha256": "b6dc61250af5681703f1fbd200cad1523bfec56df808697f36e479fd0c33dca3"
+    },
+    {
+      "errors": [],
+      "frame": 54,
+      "path": "E:/Projects/houdini-ai/studies/study_002_scar-tissue/01_behavior/03_selected/selection_002/run/cache/vex-state.0054.bgeo.sc",
+      "sha256": "4f0c998782377169e06e46acc08ac58d3320952146ddfacd81548849725bd719"
+    },
+    {
+      "errors": [],
+      "frame": 55,
+      "path": "E:/Projects/houdini-ai/studies/study_002_scar-tissue/01_behavior/03_selected/selection_002/run/cache/vex-state.0055.bgeo.sc",
+      "sha256": "6e5f7a78cc243732dc5d2a37160fd3d7f13904db14db7b4b27af65441f490784"
+    },
+    {
+      "errors": [],
+      "frame": 56,
+      "path": "E:/Projects/houdini-ai/studies/study_002_scar-tissue/01_behavior/03_selected/selection_002/run/cache/vex-state.0056.bgeo.sc",
+      "sha256": "4c8c1bcc621a18badf8090b0f13a418a2c6e1d32feb2abedffa0989ccede22bc"
+    },
+    {
+      "errors": [],
+      "frame": 57,
+      "path": "E:/Projects/houdini-ai/studies/study_002_scar-tissue/01_behavior/03_selected/selection_002/run/cache/vex-state.0057.bgeo.sc",
+      "sha256": "9156a884c62537f3ce561686bf8966fa7eb4dfe78c3d3ac0a77eb409cfec39b5"
+    },
+    {
+      "errors": [],
+      "frame": 58,
+      "path": "E:/Projects/houdini-ai/studies/study_002_scar-tissue/01_behavior/03_selected/selection_002/run/cache/vex-state.0058.bgeo.sc",
+      "sha256": "b38ca99b668918a679870191a2c8d9d19b14b793946b495899d8498051fbbcf0"
+    },
+    {
+      "errors": [],
+      "frame": 59,
+      "path": "E:/Projects/houdini-ai/studies/study_002_scar-tissue/01_behavior/03_selected/selection_002/run/cache/vex-state.0059.bgeo.sc",
+      "sha256": "7b20876354cff09136446024619b65e08cee3bc2bf7a1d7807de09c730fef7dc"
+    },
+    {
+      "errors": [],
+      "frame": 60,
+      "path": "E:/Projects/houdini-ai/studies/study_002_scar-tissue/01_behavior/03_selected/selection_002/run/cache/vex-state.0060.bgeo.sc",
+      "sha256": "6a9c8fb72984e5e435f713f61f7f3679799722fce79a5fbe36429af037a774ca"
+    },
+    {
+      "errors": [],
+      "frame": 61,
+      "path": "E:/Projects/houdini-ai/studies/study_002_scar-tissue/01_behavior/03_selected/selection_002/run/cache/vex-state.0061.bgeo.sc",
+      "sha256": "dc8e8ef381048190b7cfd41daedc68044beba42437342bf54feb95843ee62ebf"
+    },
+    {
+      "errors": [],
+      "frame": 62,
+      "path": "E:/Projects/houdini-ai/studies/study_002_scar-tissue/01_behavior/03_selected/selection_002/run/cache/vex-state.0062.bgeo.sc",
+      "sha256": "3ca488e90289a080f0c71ede69e6fcb3af372231139fbcec6912b716a775f854"
+    },
+    {
+      "errors": [],
+      "frame": 63,
+      "path": "E:/Projects/houdini-ai/studies/study_002_scar-tissue/01_behavior/03_selected/selection_002/run/cache/vex-state.0063.bgeo.sc",
+      "sha256": "65417931e685a2bc273d04eae879b1f0905b81f9623308eb64f60265745f6415"
+    },
+    {
+      "errors": [],
+      "frame": 64,
+      "path": "E:/Projects/houdini-ai/studies/study_002_scar-tissue/01_behavior/03_selected/selection_002/run/cache/vex-state.0064.bgeo.sc",
+      "sha256": "1522766338b73c089ac9822d6a5879a17f7337f48d93c6a51d57bf8dc0509d3e"
+    },
+    {
+      "errors": [],
+      "frame": 65,
+      "path": "E:/Projects/houdini-ai/studies/study_002_scar-tissue/01_behavior/03_selected/selection_002/run/cache/vex-state.0065.bgeo.sc",
+      "sha256": "ecf2e9135b94e02fb8b6239cfdfe0e1a40f3e537e5fae82bd0a5f920f7b6c5a1"
+    },
+    {
+      "errors": [],
+      "frame": 66,
+      "path": "E:/Projects/houdini-ai/studies/study_002_scar-tissue/01_behavior/03_selected/selection_002/run/cache/vex-state.0066.bgeo.sc",
+      "sha256": "cea65f3dd5f7e877190743666cd5f7796f42f523962fd8619b4710dc19896ca1"
+    },
+    {
+      "errors": [],
+      "frame": 67,
+      "path": "E:/Projects/houdini-ai/studies/study_002_scar-tissue/01_behavior/03_selected/selection_002/run/cache/vex-state.0067.bgeo.sc",
+      "sha256": "2dd922b8413d419efe2a7e5e19394f4bfa9389d89deb8a68eb481480bb757b93"
+    },
+    {
+      "errors": [],
+      "frame": 68,
+      "path": "E:/Projects/houdini-ai/studies/study_002_scar-tissue/01_behavior/03_selected/selection_002/run/cache/vex-state.0068.bgeo.sc",
+      "sha256": "23a8211fb4f06bb9b6c4210afa38e79ad802e838a27cb2570cdbe00a37cd5bd3"
+    },
+    {
+      "errors": [],
+      "frame": 69,
+      "path": "E:/Projects/houdini-ai/studies/study_002_scar-tissue/01_behavior/03_selected/selection_002/run/cache/vex-state.0069.bgeo.sc",
+      "sha256": "cf390286a7e36333872a23a5829a988a395bea6ff68da003fe0f3df696ac7977"
+    },
+    {
+      "errors": [],
+      "frame": 70,
+      "path": "E:/Projects/houdini-ai/studies/study_002_scar-tissue/01_behavior/03_selected/selection_002/run/cache/vex-state.0070.bgeo.sc",
+      "sha256": "f265cc623ade2c3e6b375d533fda810d7ee2e0fee5c7d4d736fb61ec8fc162e7"
+    },
+    {
+      "errors": [],
+      "frame": 71,
+      "path": "E:/Projects/houdini-ai/studies/study_002_scar-tissue/01_behavior/03_selected/selection_002/run/cache/vex-state.0071.bgeo.sc",
+      "sha256": "6966d48efba4c6da155510474253291f409c6879033c1aaeae47e8a516e91e98"
+    },
+    {
+      "errors": [],
+      "frame": 72,
+      "path": "E:/Projects/houdini-ai/studies/study_002_scar-tissue/01_behavior/03_selected/selection_002/run/cache/vex-state.0072.bgeo.sc",
+      "sha256": "e23267156860a00b44a8275b55280dd999df9adf43ea1d2ac8237409fb55bdb4"
+    },
+    {
+      "errors": [],
+      "frame": 73,
+      "path": "E:/Projects/houdini-ai/studies/study_002_scar-tissue/01_behavior/03_selected/selection_002/run/cache/vex-state.0073.bgeo.sc",
+      "sha256": "98202685655b740591ba3ffe05c53f82c05c98390d27213736c470280b70bf03"
+    },
+    {
+      "errors": [],
+      "frame": 74,
+      "path": "E:/Projects/houdini-ai/studies/study_002_scar-tissue/01_behavior/03_selected/selection_002/run/cache/vex-state.0074.bgeo.sc",
+      "sha256": "eb63f3c7f1f955ed517fde81ec5700248daa2df964454ed6f4b85132f3334b6d"
+    },
+    {
+      "errors": [],
+      "frame": 75,
+      "path": "E:/Projects/houdini-ai/studies/study_002_scar-tissue/01_behavior/03_selected/selection_002/run/cache/vex-state.0075.bgeo.sc",
+      "sha256": "5ca7821f9dab19a3a16590b915a460e2e7c6b4c03c0718cd23c60ec55495e985"
+    },
+    {
+      "errors": [],
+      "frame": 76,
+      "path": "E:/Projects/houdini-ai/studies/study_002_scar-tissue/01_behavior/03_selected/selection_002/run/cache/vex-state.0076.bgeo.sc",
+      "sha256": "716a4edf5ed39cd420c33105afe6a224ce81dbbc68e3af9b77e72f4e9a4781d2"
+    },
+    {
+      "errors": [],
+      "frame": 77,
+      "path": "E:/Projects/houdini-ai/studies/study_002_scar-tissue/01_behavior/03_selected/selection_002/run/cache/vex-state.0077.bgeo.sc",
+      "sha256": "9d75b7be99b9d5edafb0be50f4bd7f516e2933dd58f3cfb0aaa94ef9b0c94cb6"
+    },
+    {
+      "errors": [],
+      "frame": 78,
+      "path": "E:/Projects/houdini-ai/studies/study_002_scar-tissue/01_behavior/03_selected/selection_002/run/cache/vex-state.0078.bgeo.sc",
+      "sha256": "9b47d5ec6a1c9a4c3c3d6f033b4df2f7483b990eea18035dbb69d1b39c024ebe"
+    },
+    {
+      "errors": [],
+      "frame": 79,
+      "path": "E:/Projects/houdini-ai/studies/study_002_scar-tissue/01_behavior/03_selected/selection_002/run/cache/vex-state.0079.bgeo.sc",
+      "sha256": "bd31777adce891fb795d1108fc3a1059c1a4590b2c7a21b6d951dcdb34ba9dcd"
+    },
+    {
+      "errors": [],
+      "frame": 80,
+      "path": "E:/Projects/houdini-ai/studies/study_002_scar-tissue/01_behavior/03_selected/selection_002/run/cache/vex-state.0080.bgeo.sc",
+      "sha256": "c2adaf266569f5b6d73b6c48362f1266091efa4f63d5260422835489af8dd313"
+    },
+    {
+      "errors": [],
+      "frame": 81,
+      "path": "E:/Projects/houdini-ai/studies/study_002_scar-tissue/01_behavior/03_selected/selection_002/run/cache/vex-state.0081.bgeo.sc",
+      "sha256": "6210c1176464a09c98136231be7ad6ed48de62fcb347bd0199d575ef75236b63"
+    },
+    {
+      "errors": [],
+      "frame": 82,
+      "path": "E:/Projects/houdini-ai/studies/study_002_scar-tissue/01_behavior/03_selected/selection_002/run/cache/vex-state.0082.bgeo.sc",
+      "sha256": "63ad3a8eb8fa23e07baf0699c25bd0951170333f302d60ffff626052b74b59f9"
+    },
+    {
+      "errors": [],
+      "frame": 83,
+      "path": "E:/Projects/houdini-ai/studies/study_002_scar-tissue/01_behavior/03_selected/selection_002/run/cache/vex-state.0083.bgeo.sc",
+      "sha256": "cce5bd95b62d8fd08ee51839471d6cf7fc978209e324634b32345def7555fb4e"
+    },
+    {
+      "errors": [],
+      "frame": 84,
+      "path": "E:/Projects/houdini-ai/studies/study_002_scar-tissue/01_behavior/03_selected/selection_002/run/cache/vex-state.0084.bgeo.sc",
+      "sha256": "f0d4dd0de900b6fb1760420dac4c609f434b37934e67e410fd33031194d1d9a4"
+    },
+    {
+      "errors": [],
+      "frame": 85,
+      "path": "E:/Projects/houdini-ai/studies/study_002_scar-tissue/01_behavior/03_selected/selection_002/run/cache/vex-state.0085.bgeo.sc",
+      "sha256": "d6a15783d1ef7a46663b574aa9ef0f013f7c001d3cb207f6b90996daa2b80722"
+    },
+    {
+      "errors": [],
+      "frame": 86,
+      "path": "E:/Projects/houdini-ai/studies/study_002_scar-tissue/01_behavior/03_selected/selection_002/run/cache/vex-state.0086.bgeo.sc",
+      "sha256": "6e83e86475302d7e825a549c10c795282f3337c478cdb2297392190a6d22594d"
+    },
+    {
+      "errors": [],
+      "frame": 87,
+      "path": "E:/Projects/houdini-ai/studies/study_002_scar-tissue/01_behavior/03_selected/selection_002/run/cache/vex-state.0087.bgeo.sc",
+      "sha256": "659e761975d47c9fc2253a3b5fe389b95707d5cc69b9d8e9368fed55ccb66b9a"
+    },
+    {
+      "errors": [],
+      "frame": 88,
+      "path": "E:/Projects/houdini-ai/studies/study_002_scar-tissue/01_behavior/03_selected/selection_002/run/cache/vex-state.0088.bgeo.sc",
+      "sha256": "05121e468889566006637d823430cb6a49aaa28908db60e55b168d46c29fb952"
+    },
+    {
+      "errors": [],
+      "frame": 89,
+      "path": "E:/Projects/houdini-ai/studies/study_002_scar-tissue/01_behavior/03_selected/selection_002/run/cache/vex-state.0089.bgeo.sc",
+      "sha256": "e08a853c51d4ac706d5fac81c560eb2fc297304819fd4218c253cceee9a0c310"
+    },
+    {
+      "errors": [],
+      "frame": 90,
+      "path": "E:/Projects/houdini-ai/studies/study_002_scar-tissue/01_behavior/03_selected/selection_002/run/cache/vex-state.0090.bgeo.sc",
+      "sha256": "d3d95f505bc34d6415017a94809232753a8294c7bb8e4bedd5a6c3d9c0345fe9"
+    },
+    {
+      "errors": [],
+      "frame": 91,
+      "path": "E:/Projects/houdini-ai/studies/study_002_scar-tissue/01_behavior/03_selected/selection_002/run/cache/vex-state.0091.bgeo.sc",
+      "sha256": "99c673cf2587e39afb3a62257d444e85fabf3eb948d955208043071d0b70c93c"
+    },
+    {
+      "errors": [],
+      "frame": 92,
+      "path": "E:/Projects/houdini-ai/studies/study_002_scar-tissue/01_behavior/03_selected/selection_002/run/cache/vex-state.0092.bgeo.sc",
+      "sha256": "f4e519db43e39aa0c53c44739f6d22157c5bf5db5a5a318b8bd26721167fd388"
+    },
+    {
+      "errors": [],
+      "frame": 93,
+      "path": "E:/Projects/houdini-ai/studies/study_002_scar-tissue/01_behavior/03_selected/selection_002/run/cache/vex-state.0093.bgeo.sc",
+      "sha256": "ad2684f7a3ee9dfc58cb32b69dd061c1c95831a5c67a328a275a9042911348cc"
+    },
+    {
+      "errors": [],
+      "frame": 94,
+      "path": "E:/Projects/houdini-ai/studies/study_002_scar-tissue/01_behavior/03_selected/selection_002/run/cache/vex-state.0094.bgeo.sc",
+      "sha256": "7f25502ecc60d62950493430e2618fbd21b750a91b39b77368c7994fd7c806a1"
+    },
+    {
+      "errors": [],
+      "frame": 95,
+      "path": "E:/Projects/houdini-ai/studies/study_002_scar-tissue/01_behavior/03_selected/selection_002/run/cache/vex-state.0095.bgeo.sc",
+      "sha256": "356ef999607c818427da740e03665ac3a937454939c2e30d10494051600d1555"
+    },
+    {
+      "errors": [],
+      "frame": 96,
+      "path": "E:/Projects/houdini-ai/studies/study_002_scar-tissue/01_behavior/03_selected/selection_002/run/cache/vex-state.0096.bgeo.sc",
+      "sha256": "b4de37349980a64f78786e13acc0652e0769bb2466681c75e96e28eebddbd5ca"
+    },
+    {
+      "errors": [],
+      "frame": 97,
+      "path": "E:/Projects/houdini-ai/studies/study_002_scar-tissue/01_behavior/03_selected/selection_002/run/cache/vex-state.0097.bgeo.sc",
+      "sha256": "78118d2a9e17ef63075f6d552d90c564dfc1d858ad9e575abe117bc4655635ff"
+    },
+    {
+      "errors": [],
+      "frame": 98,
+      "path": "E:/Projects/houdini-ai/studies/study_002_scar-tissue/01_behavior/03_selected/selection_002/run/cache/vex-state.0098.bgeo.sc",
+      "sha256": "b5375924bc880f290f52804d884060e5f0d197c29e4e23c8313ea67fbdb5a3ae"
+    },
+    {
+      "errors": [],
+      "frame": 99,
+      "path": "E:/Projects/houdini-ai/studies/study_002_scar-tissue/01_behavior/03_selected/selection_002/run/cache/vex-state.0099.bgeo.sc",
+      "sha256": "f21d9c096543f13ae4e7dee820999a01caad2670c5e3c378015d045bb8b3d983"
+    },
+    {
+      "errors": [],
+      "frame": 100,
+      "path": "E:/Projects/houdini-ai/studies/study_002_scar-tissue/01_behavior/03_selected/selection_002/run/cache/vex-state.0100.bgeo.sc",
+      "sha256": "80b5e560e45a9f9d9953500a78056a19b11d17e3de4ac171202f9e5247a31103"
+    },
+    {
+      "errors": [],
+      "frame": 101,
+      "path": "E:/Projects/houdini-ai/studies/study_002_scar-tissue/01_behavior/03_selected/selection_002/run/cache/vex-state.0101.bgeo.sc",
+      "sha256": "ab5da44a303a5944d4ae4111b159e180542b0929808170e576ecb61a21ac5979"
+    },
+    {
+      "errors": [],
+      "frame": 102,
+      "path": "E:/Projects/houdini-ai/studies/study_002_scar-tissue/01_behavior/03_selected/selection_002/run/cache/vex-state.0102.bgeo.sc",
+      "sha256": "37b7d2ed92234dd30b89615b5b18888fc179181ece81b13a58a392fe4f538295"
+    },
+    {
+      "errors": [],
+      "frame": 103,
+      "path": "E:/Projects/houdini-ai/studies/study_002_scar-tissue/01_behavior/03_selected/selection_002/run/cache/vex-state.0103.bgeo.sc",
+      "sha256": "f5f4a700d87cb726864797c6cc6eb1439c09f67e3dc04042d8bdac70df386ff8"
+    },
+    {
+      "errors": [],
+      "frame": 104,
+      "path": "E:/Projects/houdini-ai/studies/study_002_scar-tissue/01_behavior/03_selected/selection_002/run/cache/vex-state.0104.bgeo.sc",
+      "sha256": "5cb85a87214e42686358e62ec15ca18884dbf0281ba419e66b3206d562ee666b"
+    },
+    {
+      "errors": [],
+      "frame": 105,
+      "path": "E:/Projects/houdini-ai/studies/study_002_scar-tissue/01_behavior/03_selected/selection_002/run/cache/vex-state.0105.bgeo.sc",
+      "sha256": "4ef91b1ae1524aff19cc8d720063c46051261039894cee049bcb7bb2e362326d"
+    },
+    {
+      "errors": [],
+      "frame": 106,
+      "path": "E:/Projects/houdini-ai/studies/study_002_scar-tissue/01_behavior/03_selected/selection_002/run/cache/vex-state.0106.bgeo.sc",
+      "sha256": "5ed14f713a173bd14f1cd303eaa2f2b1dadb09a368d4173429dd0582fda6bad0"
+    },
+    {
+      "errors": [],
+      "frame": 107,
+      "path": "E:/Projects/houdini-ai/studies/study_002_scar-tissue/01_behavior/03_selected/selection_002/run/cache/vex-state.0107.bgeo.sc",
+      "sha256": "bd61852aebc324f892156bc6ab00e98f719412a8742f7ca989557c835123b64b"
+    },
+    {
+      "errors": [],
+      "frame": 108,
+      "path": "E:/Projects/houdini-ai/studies/study_002_scar-tissue/01_behavior/03_selected/selection_002/run/cache/vex-state.0108.bgeo.sc",
+      "sha256": "684019ba8c467930a195fcf29b1e4503cf5c0249b69a2c80ddb2221dd5eeccc6"
+    },
+    {
+      "errors": [],
+      "frame": 109,
+      "path": "E:/Projects/houdini-ai/studies/study_002_scar-tissue/01_behavior/03_selected/selection_002/run/cache/vex-state.0109.bgeo.sc",
+      "sha256": "c6dc747af6c63bbb789457551e2ff5ac758bc21f404d836174e275f61231f779"
+    },
+    {
+      "errors": [],
+      "frame": 110,
+      "path": "E:/Projects/houdini-ai/studies/study_002_scar-tissue/01_behavior/03_selected/selection_002/run/cache/vex-state.0110.bgeo.sc",
+      "sha256": "92fc50ac58d5973afc1220356c596f01770495851130f9cdcefd40d07e3bc468"
+    },
+    {
+      "errors": [],
+      "frame": 111,
+      "path": "E:/Projects/houdini-ai/studies/study_002_scar-tissue/01_behavior/03_selected/selection_002/run/cache/vex-state.0111.bgeo.sc",
+      "sha256": "685e89131826308440bb38de2465d999d7aa9d4a12ddbec2eb93df34032dccd7"
+    },
+    {
+      "errors": [],
+      "frame": 112,
+      "path": "E:/Projects/houdini-ai/studies/study_002_scar-tissue/01_behavior/03_selected/selection_002/run/cache/vex-state.0112.bgeo.sc",
+      "sha256": "735990be2f5004a1b4d1ef139d5127511c8bfcaaed39a270ed587a3ee16a5d59"
+    },
+    {
+      "errors": [],
+      "frame": 113,
+      "path": "E:/Projects/houdini-ai/studies/study_002_scar-tissue/01_behavior/03_selected/selection_002/run/cache/vex-state.0113.bgeo.sc",
+      "sha256": "bd54540f677d5cb7932fea847c1a451d045aca83f0fb6f0311f89a3f6614df71"
+    },
+    {
+      "errors": [],
+      "frame": 114,
+      "path": "E:/Projects/houdini-ai/studies/study_002_scar-tissue/01_behavior/03_selected/selection_002/run/cache/vex-state.0114.bgeo.sc",
+      "sha256": "ad1b0b34db6178a8fa77e6a4ca15c5b78d33c9d81b09f5f738b480d5cec403c3"
+    },
+    {
+      "errors": [],
+      "frame": 115,
+      "path": "E:/Projects/houdini-ai/studies/study_002_scar-tissue/01_behavior/03_selected/selection_002/run/cache/vex-state.0115.bgeo.sc",
+      "sha256": "d1d4418968cea58b4087317b53030be73ffdae6170d8d87dec21e1504e42dfc3"
+    },
+    {
+      "errors": [],
+      "frame": 116,
+      "path": "E:/Projects/houdini-ai/studies/study_002_scar-tissue/01_behavior/03_selected/selection_002/run/cache/vex-state.0116.bgeo.sc",
+      "sha256": "a28fdbbd2686eac957c35ebb5d49b990f09a6e5d93f388dc755cec4025ab6de5"
+    },
+    {
+      "errors": [],
+      "frame": 117,
+      "path": "E:/Projects/houdini-ai/studies/study_002_scar-tissue/01_behavior/03_selected/selection_002/run/cache/vex-state.0117.bgeo.sc",
+      "sha256": "b9785b7b38c6458bbc45a5b1d33096e18ac5cec813151ed8b10613c41c1d7432"
+    },
+    {
+      "errors": [],
+      "frame": 118,
+      "path": "E:/Projects/houdini-ai/studies/study_002_scar-tissue/01_behavior/03_selected/selection_002/run/cache/vex-state.0118.bgeo.sc",
+      "sha256": "b2caa809abe383e734bcd2cffec044e35ff0dbada83e820eb3e1900a6ba61572"
+    },
+    {
+      "errors": [],
+      "frame": 119,
+      "path": "E:/Projects/houdini-ai/studies/study_002_scar-tissue/01_behavior/03_selected/selection_002/run/cache/vex-state.0119.bgeo.sc",
+      "sha256": "90452ed47a6a4fa811c0de337d7173fb0a49b06de4d09678689011898765ad45"
+    },
+    {
+      "errors": [],
+      "frame": 120,
+      "path": "E:/Projects/houdini-ai/studies/study_002_scar-tissue/01_behavior/03_selected/selection_002/run/cache/vex-state.0120.bgeo.sc",
+      "sha256": "01afce0b626bab47311bc96864d0bf76194e66bdcad5a3696af2adc13e69ef75"
+    },
+    {
+      "errors": [],
+      "frame": 121,
+      "path": "E:/Projects/houdini-ai/studies/study_002_scar-tissue/01_behavior/03_selected/selection_002/run/cache/vex-state.0121.bgeo.sc",
+      "sha256": "9ce6ebf39b0916c0395f6cce276454d388cfc6b6a3ff1e4d15ce7154d6b9aec3"
+    },
+    {
+      "errors": [],
+      "frame": 122,
+      "path": "E:/Projects/houdini-ai/studies/study_002_scar-tissue/01_behavior/03_selected/selection_002/run/cache/vex-state.0122.bgeo.sc",
+      "sha256": "a19a8b9fc789b28431337a82b98e9f3827289d1439bb1409fb249b6de44892d7"
+    },
+    {
+      "errors": [],
+      "frame": 123,
+      "path": "E:/Projects/houdini-ai/studies/study_002_scar-tissue/01_behavior/03_selected/selection_002/run/cache/vex-state.0123.bgeo.sc",
+      "sha256": "4d408d43517f620e13f48d5383be864209cf8803474ee526fe17c664baaa3d8f"
+    },
+    {
+      "errors": [],
+      "frame": 124,
+      "path": "E:/Projects/houdini-ai/studies/study_002_scar-tissue/01_behavior/03_selected/selection_002/run/cache/vex-state.0124.bgeo.sc",
+      "sha256": "7f03d78060200818687b58250625b36d3ad70c40f8bbe36dfcfe08c0287e90a8"
+    },
+    {
+      "errors": [],
+      "frame": 125,
+      "path": "E:/Projects/houdini-ai/studies/study_002_scar-tissue/01_behavior/03_selected/selection_002/run/cache/vex-state.0125.bgeo.sc",
+      "sha256": "7effe77f008000a9776ba1d229f8171a80aa8374ad78c6e1af02227b715cc2b5"
+    },
+    {
+      "errors": [],
+      "frame": 126,
+      "path": "E:/Projects/houdini-ai/studies/study_002_scar-tissue/01_behavior/03_selected/selection_002/run/cache/vex-state.0126.bgeo.sc",
+      "sha256": "f9e72f9feb4292d920d39958fbf82a68b0dd8b34746faa0d318d5e8539018699"
+    },
+    {
+      "errors": [],
+      "frame": 127,
+      "path": "E:/Projects/houdini-ai/studies/study_002_scar-tissue/01_behavior/03_selected/selection_002/run/cache/vex-state.0127.bgeo.sc",
+      "sha256": "5b5a04868eff344ba912fbd7663623cd367f0ec971960786c673785b8693d8cd"
+    },
+    {
+      "errors": [],
+      "frame": 128,
+      "path": "E:/Projects/houdini-ai/studies/study_002_scar-tissue/01_behavior/03_selected/selection_002/run/cache/vex-state.0128.bgeo.sc",
+      "sha256": "264004c0bf4140e8c0955e9c2b0c4ff3832f3bf4f493214d5bb278d44417ef64"
+    },
+    {
+      "errors": [],
+      "frame": 129,
+      "path": "E:/Projects/houdini-ai/studies/study_002_scar-tissue/01_behavior/03_selected/selection_002/run/cache/vex-state.0129.bgeo.sc",
+      "sha256": "11b542d70e681b72456a57ea11aed64fe52eb91d249853f9f7ca8db0d3e6670e"
+    },
+    {
+      "errors": [],
+      "frame": 130,
+      "path": "E:/Projects/houdini-ai/studies/study_002_scar-tissue/01_behavior/03_selected/selection_002/run/cache/vex-state.0130.bgeo.sc",
+      "sha256": "fc8fe0c7d6f605ff9a9a92f6545b270cb687ceadca156586636272ebd193ad3e"
+    },
+    {
+      "errors": [],
+      "frame": 131,
+      "path": "E:/Projects/houdini-ai/studies/study_002_scar-tissue/01_behavior/03_selected/selection_002/run/cache/vex-state.0131.bgeo.sc",
+      "sha256": "cd4b14f7398d73f5508c17f2aa4422405152175d370b295c9a37f50046df3a6b"
+    },
+    {
+      "errors": [],
+      "frame": 132,
+      "path": "E:/Projects/houdini-ai/studies/study_002_scar-tissue/01_behavior/03_selected/selection_002/run/cache/vex-state.0132.bgeo.sc",
+      "sha256": "96a5d59706deae00f844b366bd63811bf0b3908fe5933295e20322dbcd97b2a0"
+    },
+    {
+      "errors": [],
+      "frame": 133,
+      "path": "E:/Projects/houdini-ai/studies/study_002_scar-tissue/01_behavior/03_selected/selection_002/run/cache/vex-state.0133.bgeo.sc",
+      "sha256": "7654e96e1439757138de84253dce0ba9d268e4fabae94d235714ba7bd112b4b7"
+    },
+    {
+      "errors": [],
+      "frame": 134,
+      "path": "E:/Projects/houdini-ai/studies/study_002_scar-tissue/01_behavior/03_selected/selection_002/run/cache/vex-state.0134.bgeo.sc",
+      "sha256": "434b9906699bd64d9412c240db4870e44453e379e39cb8aa807f1ee2700fe292"
+    },
+    {
+      "errors": [],
+      "frame": 135,
+      "path": "E:/Projects/houdini-ai/studies/study_002_scar-tissue/01_behavior/03_selected/selection_002/run/cache/vex-state.0135.bgeo.sc",
+      "sha256": "d25b4f283f46f1574ff910a085699defdbd73764d27a22ad70058d95955b2008"
+    },
+    {
+      "errors": [],
+      "frame": 136,
+      "path": "E:/Projects/houdini-ai/studies/study_002_scar-tissue/01_behavior/03_selected/selection_002/run/cache/vex-state.0136.bgeo.sc",
+      "sha256": "7c25bc297bf0d8e7c5c2aa9278fdadd54ed9c3c1a506ec14af222a4f89695bb7"
+    },
+    {
+      "errors": [],
+      "frame": 137,
+      "path": "E:/Projects/houdini-ai/studies/study_002_scar-tissue/01_behavior/03_selected/selection_002/run/cache/vex-state.0137.bgeo.sc",
+      "sha256": "de2299490cbe83160213ca7c230c6b7bff3a9546bd86ca609d7e72449d2e0689"
+    },
+    {
+      "errors": [],
+      "frame": 138,
+      "path": "E:/Projects/houdini-ai/studies/study_002_scar-tissue/01_behavior/03_selected/selection_002/run/cache/vex-state.0138.bgeo.sc",
+      "sha256": "6a38e6cb8826af10f5c10625d2a92fb49424343be74e41c1f22029628f9aedad"
+    },
+    {
+      "errors": [],
+      "frame": 139,
+      "path": "E:/Projects/houdini-ai/studies/study_002_scar-tissue/01_behavior/03_selected/selection_002/run/cache/vex-state.0139.bgeo.sc",
+      "sha256": "e6b7c7c3295f50062c1513e3e6b0c55e5bd258830e74f232ddca96188cfbefca"
+    },
+    {
+      "errors": [],
+      "frame": 140,
+      "path": "E:/Projects/houdini-ai/studies/study_002_scar-tissue/01_behavior/03_selected/selection_002/run/cache/vex-state.0140.bgeo.sc",
+      "sha256": "28f5f776f1234d1ca8f89d94e72f0f880adc14f86fdbde4b2b4621862909521d"
+    },
+    {
+      "errors": [],
+      "frame": 141,
+      "path": "E:/Projects/houdini-ai/studies/study_002_scar-tissue/01_behavior/03_selected/selection_002/run/cache/vex-state.0141.bgeo.sc",
+      "sha256": "5ba44f713d7541d22189501cd625b2d0c4df09cfa6120d73bae7922665c40ae1"
+    },
+    {
+      "errors": [],
+      "frame": 142,
+      "path": "E:/Projects/houdini-ai/studies/study_002_scar-tissue/01_behavior/03_selected/selection_002/run/cache/vex-state.0142.bgeo.sc",
+      "sha256": "610c83f33d1a07612035f6a00569af27d68cce48dc0528bb3e592561c498d747"
+    },
+    {
+      "errors": [],
+      "frame": 143,
+      "path": "E:/Projects/houdini-ai/studies/study_002_scar-tissue/01_behavior/03_selected/selection_002/run/cache/vex-state.0143.bgeo.sc",
+      "sha256": "5e21fc013faf5e376a5d702817b952dee6a9d6b51f9311a9e06700aa6875c91a"
+    },
+    {
+      "errors": [],
+      "frame": 144,
+      "path": "E:/Projects/houdini-ai/studies/study_002_scar-tissue/01_behavior/03_selected/selection_002/run/cache/vex-state.0144.bgeo.sc",
+      "sha256": "f2823ef8a3f54498b3d3bd227960acadb36581595a1c2e985b678d049c34ded6"
+    },
+    {
+      "errors": [],
+      "frame": 145,
+      "path": "E:/Projects/houdini-ai/studies/study_002_scar-tissue/01_behavior/03_selected/selection_002/run/cache/vex-state.0145.bgeo.sc",
+      "sha256": "82247903ff82e6de6dcef9a4958211adc0c13dbba87c01b680c1126a43613dbf"
+    },
+    {
+      "errors": [],
+      "frame": 146,
+      "path": "E:/Projects/houdini-ai/studies/study_002_scar-tissue/01_behavior/03_selected/selection_002/run/cache/vex-state.0146.bgeo.sc",
+      "sha256": "24b066bf17e664e9332f1fbff8eb79f83ed5624d566374e2f4569021b56675bf"
+    },
+    {
+      "errors": [],
+      "frame": 147,
+      "path": "E:/Projects/houdini-ai/studies/study_002_scar-tissue/01_behavior/03_selected/selection_002/run/cache/vex-state.0147.bgeo.sc",
+      "sha256": "b3d6639cfc8074957d82cda197b118378ab22743e7a8a70c1c3c187c0ba0f67e"
+    },
+    {
+      "errors": [],
+      "frame": 148,
+      "path": "E:/Projects/houdini-ai/studies/study_002_scar-tissue/01_behavior/03_selected/selection_002/run/cache/vex-state.0148.bgeo.sc",
+      "sha256": "a6fb5e50534675461cce96c06f4e91670c87ddc7feae12c0fede7b89446bb5e3"
+    },
+    {
+      "errors": [],
+      "frame": 149,
+      "path": "E:/Projects/houdini-ai/studies/study_002_scar-tissue/01_behavior/03_selected/selection_002/run/cache/vex-state.0149.bgeo.sc",
+      "sha256": "bc2cb447a1a3f27a52a8d91ca1955deaaead6f8a274212cfd04af792ba9393f7"
+    },
+    {
+      "errors": [],
+      "frame": 150,
+      "path": "E:/Projects/houdini-ai/studies/study_002_scar-tissue/01_behavior/03_selected/selection_002/run/cache/vex-state.0150.bgeo.sc",
+      "sha256": "6aa6c6641fc622f24d5674a26393af762fdc5282beff94efbd155022f660ba70"
+    },
+    {
+      "errors": [],
+      "frame": 151,
+      "path": "E:/Projects/houdini-ai/studies/study_002_scar-tissue/01_behavior/03_selected/selection_002/run/cache/vex-state.0151.bgeo.sc",
+      "sha256": "c163e9334d5222009a384a55e494ba42bb389b7f71d1d82fe5b7c297c37c1494"
+    },
+    {
+      "errors": [],
+      "frame": 152,
+      "path": "E:/Projects/houdini-ai/studies/study_002_scar-tissue/01_behavior/03_selected/selection_002/run/cache/vex-state.0152.bgeo.sc",
+      "sha256": "2f7f08beee398cc787f63752601690b897768ed98a5908c7cedf5a47a9df54ea"
+    },
+    {
+      "errors": [],
+      "frame": 153,
+      "path": "E:/Projects/houdini-ai/studies/study_002_scar-tissue/01_behavior/03_selected/selection_002/run/cache/vex-state.0153.bgeo.sc",
+      "sha256": "7d9241fa43ace63a339810d2512831658a476da42adfd0c2ee38bf02aee74191"
+    },
+    {
+      "errors": [],
+      "frame": 154,
+      "path": "E:/Projects/houdini-ai/studies/study_002_scar-tissue/01_behavior/03_selected/selection_002/run/cache/vex-state.0154.bgeo.sc",
+      "sha256": "c46cb6f071dfab27cf7706c427cd1b1834925ef9522b6a38ab916e2fb816e095"
+    },
+    {
+      "errors": [],
+      "frame": 155,
+      "path": "E:/Projects/houdini-ai/studies/study_002_scar-tissue/01_behavior/03_selected/selection_002/run/cache/vex-state.0155.bgeo.sc",
+      "sha256": "34637c996a2c4b6129be6476cc1ab8a535220b7c9d5e063f58a8615b08884f03"
+    },
+    {
+      "errors": [],
+      "frame": 156,
+      "path": "E:/Projects/houdini-ai/studies/study_002_scar-tissue/01_behavior/03_selected/selection_002/run/cache/vex-state.0156.bgeo.sc",
+      "sha256": "a4fccc8068598b601994bb1d4af53586c9645a71e600f8d9a1edbc18ff9b94f7"
+    },
+    {
+      "errors": [],
+      "frame": 157,
+      "path": "E:/Projects/houdini-ai/studies/study_002_scar-tissue/01_behavior/03_selected/selection_002/run/cache/vex-state.0157.bgeo.sc",
+      "sha256": "88982376c74b63501854db88ec94d2b3ac9ca4b57d32062b05d97736a2492577"
+    },
+    {
+      "errors": [],
+      "frame": 158,
+      "path": "E:/Projects/houdini-ai/studies/study_002_scar-tissue/01_behavior/03_selected/selection_002/run/cache/vex-state.0158.bgeo.sc",
+      "sha256": "fafc73fda5f046a9cb596a9f18b0b0cbb0ccb4fa08b2e562ef483f0cb8b027af"
+    },
+    {
+      "errors": [],
+      "frame": 159,
+      "path": "E:/Projects/houdini-ai/studies/study_002_scar-tissue/01_behavior/03_selected/selection_002/run/cache/vex-state.0159.bgeo.sc",
+      "sha256": "f56776578b7d0645205e5cd14db281fd9d11123bffe8f6e942fe3ecb3ceb2cb7"
+    },
+    {
+      "errors": [],
+      "frame": 160,
+      "path": "E:/Projects/houdini-ai/studies/study_002_scar-tissue/01_behavior/03_selected/selection_002/run/cache/vex-state.0160.bgeo.sc",
+      "sha256": "3010d3f71be3aa954a45f77fdf571c6034e1d0e39dcea58dfb1e5b5150554e62"
+    },
+    {
+      "errors": [],
+      "frame": 161,
+      "path": "E:/Projects/houdini-ai/studies/study_002_scar-tissue/01_behavior/03_selected/selection_002/run/cache/vex-state.0161.bgeo.sc",
+      "sha256": "50d2abc243451eb8076383315384fcf473a527265f61126460946e7824070391"
+    },
+    {
+      "errors": [],
+      "frame": 162,
+      "path": "E:/Projects/houdini-ai/studies/study_002_scar-tissue/01_behavior/03_selected/selection_002/run/cache/vex-state.0162.bgeo.sc",
+      "sha256": "bba1916594dbc09da59b15668b7fb1bb5299280f2d87b362ad56f22eefe0aa6f"
+    },
+    {
+      "errors": [],
+      "frame": 163,
+      "path": "E:/Projects/houdini-ai/studies/study_002_scar-tissue/01_behavior/03_selected/selection_002/run/cache/vex-state.0163.bgeo.sc",
+      "sha256": "d7f523629838184e1dad30831ded2051a019f388cb87a4fb0b7d24bba51bf109"
+    },
+    {
+      "errors": [],
+      "frame": 164,
+      "path": "E:/Projects/houdini-ai/studies/study_002_scar-tissue/01_behavior/03_selected/selection_002/run/cache/vex-state.0164.bgeo.sc",
+      "sha256": "8ee19864488c37fb56de9b8e71e514194d6ece6eb601b21007dfdbbe2691eb7d"
+    },
+    {
+      "errors": [],
+      "frame": 165,
+      "path": "E:/Projects/houdini-ai/studies/study_002_scar-tissue/01_behavior/03_selected/selection_002/run/cache/vex-state.0165.bgeo.sc",
+      "sha256": "399d72954b5f2212f01865068ab91503af6c8d1b0b5f7acaf9c3c9d07ef7aa46"
+    },
+    {
+      "errors": [],
+      "frame": 166,
+      "path": "E:/Projects/houdini-ai/studies/study_002_scar-tissue/01_behavior/03_selected/selection_002/run/cache/vex-state.0166.bgeo.sc",
+      "sha256": "075f020a98e3cd465cbf318ed898fde475ab15dd3af82455bd94069a722cb19e"
+    },
+    {
+      "errors": [],
+      "frame": 167,
+      "path": "E:/Projects/houdini-ai/studies/study_002_scar-tissue/01_behavior/03_selected/selection_002/run/cache/vex-state.0167.bgeo.sc",
+      "sha256": "8c25523a8ce4cde72efb7ce45cbc45e53cd653a642b25eae00ef7635eefde4af"
+    },
+    {
+      "errors": [],
+      "frame": 168,
+      "path": "E:/Projects/houdini-ai/studies/study_002_scar-tissue/01_behavior/03_selected/selection_002/run/cache/vex-state.0168.bgeo.sc",
+      "sha256": "8a8d71ea30ee9659577ee981bf42a5a519536a8e1182ee271734d3245789d6d6"
+    },
+    {
+      "errors": [],
+      "frame": 169,
+      "path": "E:/Projects/houdini-ai/studies/study_002_scar-tissue/01_behavior/03_selected/selection_002/run/cache/vex-state.0169.bgeo.sc",
+      "sha256": "4f250981ab155303c856299fad9d1d308a729a04556c013e98f924282a0709c8"
+    },
+    {
+      "errors": [],
+      "frame": 170,
+      "path": "E:/Projects/houdini-ai/studies/study_002_scar-tissue/01_behavior/03_selected/selection_002/run/cache/vex-state.0170.bgeo.sc",
+      "sha256": "d3945cc769d670cde652aef159bbb450875e2df872ffd8bf1f8368794adf260d"
+    },
+    {
+      "errors": [],
+      "frame": 171,
+      "path": "E:/Projects/houdini-ai/studies/study_002_scar-tissue/01_behavior/03_selected/selection_002/run/cache/vex-state.0171.bgeo.sc",
+      "sha256": "78a065972445e2de1bc0da818dd97fa73022fae67e0868791d363f23d7b5c047"
+    },
+    {
+      "errors": [],
+      "frame": 172,
+      "path": "E:/Projects/houdini-ai/studies/study_002_scar-tissue/01_behavior/03_selected/selection_002/run/cache/vex-state.0172.bgeo.sc",
+      "sha256": "50aedaf18681fb1e97f9775edef5a9a8a4051b35c7d9d724201db9c0c9b11177"
+    },
+    {
+      "errors": [],
+      "frame": 173,
+      "path": "E:/Projects/houdini-ai/studies/study_002_scar-tissue/01_behavior/03_selected/selection_002/run/cache/vex-state.0173.bgeo.sc",
+      "sha256": "a1619a568d14dd68d6f0bf4f748c08b03913c35440cad25521d5cd7c48ee6a4e"
+    },
+    {
+      "errors": [],
+      "frame": 174,
+      "path": "E:/Projects/houdini-ai/studies/study_002_scar-tissue/01_behavior/03_selected/selection_002/run/cache/vex-state.0174.bgeo.sc",
+      "sha256": "ac75c18b92163db91e1cef94d8e13c04ebd7f40d0db26838fa9e4fff4bae84a6"
+    },
+    {
+      "errors": [],
+      "frame": 175,
+      "path": "E:/Projects/houdini-ai/studies/study_002_scar-tissue/01_behavior/03_selected/selection_002/run/cache/vex-state.0175.bgeo.sc",
+      "sha256": "7ca9a261a5572e2a7122d1bee81e450ca91b58c8c196fd2a556be00ee47ed1d7"
+    },
+    {
+      "errors": [],
+      "frame": 176,
+      "path": "E:/Projects/houdini-ai/studies/study_002_scar-tissue/01_behavior/03_selected/selection_002/run/cache/vex-state.0176.bgeo.sc",
+      "sha256": "dfa9fcf278a88672da52c20bf2ca187b6eb648295889356234394361b18d692b"
+    },
+    {
+      "errors": [],
+      "frame": 177,
+      "path": "E:/Projects/houdini-ai/studies/study_002_scar-tissue/01_behavior/03_selected/selection_002/run/cache/vex-state.0177.bgeo.sc",
+      "sha256": "90f35b52b82097e973f957e2b9f6f14bc66d3f0fc687f35d86ef0c5d31c4c881"
+    },
+    {
+      "errors": [],
+      "frame": 178,
+      "path": "E:/Projects/houdini-ai/studies/study_002_scar-tissue/01_behavior/03_selected/selection_002/run/cache/vex-state.0178.bgeo.sc",
+      "sha256": "b2810a71ca5c3e2291abf7108f8e863784a1c818ffad56c6b59d53a6b914091f"
+    },
+    {
+      "errors": [],
+      "frame": 179,
+      "path": "E:/Projects/houdini-ai/studies/study_002_scar-tissue/01_behavior/03_selected/selection_002/run/cache/vex-state.0179.bgeo.sc",
+      "sha256": "284b66078be8da7205972c2c0039543962b833dec4f0caa780ac4e5d00a5ab87"
+    },
+    {
+      "errors": [],
+      "frame": 180,
+      "path": "E:/Projects/houdini-ai/studies/study_002_scar-tissue/01_behavior/03_selected/selection_002/run/cache/vex-state.0180.bgeo.sc",
+      "sha256": "42b8f01092d535991ba8fdae434248595cd93a19c96eccab8d2f5b6493b20d5f"
+    },
+    {
+      "errors": [],
+      "frame": 181,
+      "path": "E:/Projects/houdini-ai/studies/study_002_scar-tissue/01_behavior/03_selected/selection_002/run/cache/vex-state.0181.bgeo.sc",
+      "sha256": "5d12ad564ed13bdb9724f712d0cac5607b60662ab40410cd2da1955835303197"
+    },
+    {
+      "errors": [],
+      "frame": 182,
+      "path": "E:/Projects/houdini-ai/studies/study_002_scar-tissue/01_behavior/03_selected/selection_002/run/cache/vex-state.0182.bgeo.sc",
+      "sha256": "f8114d307e7d7c85c59edea07897a9fa7f5be03cc038a244aa51a959793c3a19"
+    },
+    {
+      "errors": [],
+      "frame": 183,
+      "path": "E:/Projects/houdini-ai/studies/study_002_scar-tissue/01_behavior/03_selected/selection_002/run/cache/vex-state.0183.bgeo.sc",
+      "sha256": "f082494504a76734957246ee30c592204957f99dc04b03825f8314b9e6dd818d"
+    },
+    {
+      "errors": [],
+      "frame": 184,
+      "path": "E:/Projects/houdini-ai/studies/study_002_scar-tissue/01_behavior/03_selected/selection_002/run/cache/vex-state.0184.bgeo.sc",
+      "sha256": "a4e2ea7ea9d6313adcdf73c9a3e4c1016a200e4b8546d368769bb7d82dd00ddb"
+    },
+    {
+      "errors": [],
+      "frame": 185,
+      "path": "E:/Projects/houdini-ai/studies/study_002_scar-tissue/01_behavior/03_selected/selection_002/run/cache/vex-state.0185.bgeo.sc",
+      "sha256": "c5373a8e273ee95ff45fa94e524e46b4bc0407c0b0a2bb4d403149e0eb0b3eb2"
+    },
+    {
+      "errors": [],
+      "frame": 186,
+      "path": "E:/Projects/houdini-ai/studies/study_002_scar-tissue/01_behavior/03_selected/selection_002/run/cache/vex-state.0186.bgeo.sc",
+      "sha256": "42410c8acb892dde3deb3cbf9185a1d0c376a666d5f4af7642693bfa52c8672c"
+    },
+    {
+      "errors": [],
+      "frame": 187,
+      "path": "E:/Projects/houdini-ai/studies/study_002_scar-tissue/01_behavior/03_selected/selection_002/run/cache/vex-state.0187.bgeo.sc",
+      "sha256": "edd8ccc4c447b016e005c99656eb6a2b93b34b52720d721598476818bb085c29"
+    },
+    {
+      "errors": [],
+      "frame": 188,
+      "path": "E:/Projects/houdini-ai/studies/study_002_scar-tissue/01_behavior/03_selected/selection_002/run/cache/vex-state.0188.bgeo.sc",
+      "sha256": "fdf7480848203162984ce2da20214a9efc94a2c4fcd9ef3abc98d7a186e8f122"
+    },
+    {
+      "errors": [],
+      "frame": 189,
+      "path": "E:/Projects/houdini-ai/studies/study_002_scar-tissue/01_behavior/03_selected/selection_002/run/cache/vex-state.0189.bgeo.sc",
+      "sha256": "62a0dcbce136919d44fa5994a79642f7e8f6d432f20e201b02f676eaf8a95cc1"
+    },
+    {
+      "errors": [],
+      "frame": 190,
+      "path": "E:/Projects/houdini-ai/studies/study_002_scar-tissue/01_behavior/03_selected/selection_002/run/cache/vex-state.0190.bgeo.sc",
+      "sha256": "f1b48c6ecf86ea08eace3904f5245c7d32d6b76ad09662c6d94039717c329547"
+    },
+    {
+      "errors": [],
+      "frame": 191,
+      "path": "E:/Projects/houdini-ai/studies/study_002_scar-tissue/01_behavior/03_selected/selection_002/run/cache/vex-state.0191.bgeo.sc",
+      "sha256": "bbe1ad7e7845a0589d996c78375bca2c993caaf464753ba239d307f0f5ed289b"
+    },
+    {
+      "errors": [],
+      "frame": 192,
+      "path": "E:/Projects/houdini-ai/studies/study_002_scar-tissue/01_behavior/03_selected/selection_002/run/cache/vex-state.0192.bgeo.sc",
+      "sha256": "d12bd716156db50ceb916171d5fc6ac7303643f314a53ca3ac0fc3fcbde0229b"
+    },
+    {
+      "errors": [],
+      "frame": 193,
+      "path": "E:/Projects/houdini-ai/studies/study_002_scar-tissue/01_behavior/03_selected/selection_002/run/cache/vex-state.0193.bgeo.sc",
+      "sha256": "504f96e5ebcc73eef90f5b5decd5e9f0711e1a02197b28e02bc05ac97d9ae5d5"
+    },
+    {
+      "errors": [],
+      "frame": 194,
+      "path": "E:/Projects/houdini-ai/studies/study_002_scar-tissue/01_behavior/03_selected/selection_002/run/cache/vex-state.0194.bgeo.sc",
+      "sha256": "bc7bce9f59ef94bd98b899408faf373e98e73a3ab836db244eda0ef40a058095"
+    },
+    {
+      "errors": [],
+      "frame": 195,
+      "path": "E:/Projects/houdini-ai/studies/study_002_scar-tissue/01_behavior/03_selected/selection_002/run/cache/vex-state.0195.bgeo.sc",
+      "sha256": "b542e666ed5b13bb3bdb65ce555d3f271f6c47744dd512ea88158a92a15e1acf"
+    },
+    {
+      "errors": [],
+      "frame": 196,
+      "path": "E:/Projects/houdini-ai/studies/study_002_scar-tissue/01_behavior/03_selected/selection_002/run/cache/vex-state.0196.bgeo.sc",
+      "sha256": "224d7020b0f0b4daa70018d474b4fa56836f9c75416fabb9ef42e3c3b384bc35"
+    },
+    {
+      "errors": [],
+      "frame": 197,
+      "path": "E:/Projects/houdini-ai/studies/study_002_scar-tissue/01_behavior/03_selected/selection_002/run/cache/vex-state.0197.bgeo.sc",
+      "sha256": "3571e2cdde881239f74f032305d5437f436f51d1107dd906379fb7963b5e0490"
+    },
+    {
+      "errors": [],
+      "frame": 198,
+      "path": "E:/Projects/houdini-ai/studies/study_002_scar-tissue/01_behavior/03_selected/selection_002/run/cache/vex-state.0198.bgeo.sc",
+      "sha256": "0091ef9c8420b5c96ad776912fcdc5b247cfaadfdb5ea0d30fcb554e9ee383c4"
+    },
+    {
+      "errors": [],
+      "frame": 199,
+      "path": "E:/Projects/houdini-ai/studies/study_002_scar-tissue/01_behavior/03_selected/selection_002/run/cache/vex-state.0199.bgeo.sc",
+      "sha256": "ef407e494533790b688626e8944fe7c735f1231ee2060e962b8c2d3a2f5d3120"
+    },
+    {
+      "errors": [],
+      "frame": 200,
+      "path": "E:/Projects/houdini-ai/studies/study_002_scar-tissue/01_behavior/03_selected/selection_002/run/cache/vex-state.0200.bgeo.sc",
+      "sha256": "477a40c016f8ec940297bb34fb86233e9ffc6e99f814e304f09aced39554187b"
+    },
+    {
+      "errors": [],
+      "frame": 201,
+      "path": "E:/Projects/houdini-ai/studies/study_002_scar-tissue/01_behavior/03_selected/selection_002/run/cache/vex-state.0201.bgeo.sc",
+      "sha256": "c4fc4251c19ffd8170886d5cc10138a0a3ef55cfeb1a34968716e5aa31e67a4f"
+    },
+    {
+      "errors": [],
+      "frame": 202,
+      "path": "E:/Projects/houdini-ai/studies/study_002_scar-tissue/01_behavior/03_selected/selection_002/run/cache/vex-state.0202.bgeo.sc",
+      "sha256": "d690b3e00542022066e35fe08448d62cca25a73110842f09f5b974e553cdb2c2"
+    },
+    {
+      "errors": [],
+      "frame": 203,
+      "path": "E:/Projects/houdini-ai/studies/study_002_scar-tissue/01_behavior/03_selected/selection_002/run/cache/vex-state.0203.bgeo.sc",
+      "sha256": "2dceecd16e2097173dc97d38fe8cfe1c4fa97a3f0085a9f0e564048be5a944a4"
+    },
+    {
+      "errors": [],
+      "frame": 204,
+      "path": "E:/Projects/houdini-ai/studies/study_002_scar-tissue/01_behavior/03_selected/selection_002/run/cache/vex-state.0204.bgeo.sc",
+      "sha256": "e6a41eed803d604c0ecf0e353ef03e37a08c612bfc406ba59809dc71d392c66a"
+    },
+    {
+      "errors": [],
+      "frame": 205,
+      "path": "E:/Projects/houdini-ai/studies/study_002_scar-tissue/01_behavior/03_selected/selection_002/run/cache/vex-state.0205.bgeo.sc",
+      "sha256": "41e3ef2b32ebebe40656c8cd9b0d17296684af7eddf2b97aa3be229f71c593a6"
+    },
+    {
+      "errors": [],
+      "frame": 206,
+      "path": "E:/Projects/houdini-ai/studies/study_002_scar-tissue/01_behavior/03_selected/selection_002/run/cache/vex-state.0206.bgeo.sc",
+      "sha256": "777e467c798f75673dddebda6210c695fbb069c526c7490d02c220d0e4b959b5"
+    },
+    {
+      "errors": [],
+      "frame": 207,
+      "path": "E:/Projects/houdini-ai/studies/study_002_scar-tissue/01_behavior/03_selected/selection_002/run/cache/vex-state.0207.bgeo.sc",
+      "sha256": "28c7e022367668abafd1360322d31033d5b68f25aad7986b33309a6686e594ac"
+    },
+    {
+      "errors": [],
+      "frame": 208,
+      "path": "E:/Projects/houdini-ai/studies/study_002_scar-tissue/01_behavior/03_selected/selection_002/run/cache/vex-state.0208.bgeo.sc",
+      "sha256": "0024863b616ad5203b49cfb88b57edd7ccce1475d2b2d56da1bae20219e69f62"
+    },
+    {
+      "errors": [],
+      "frame": 209,
+      "path": "E:/Projects/houdini-ai/studies/study_002_scar-tissue/01_behavior/03_selected/selection_002/run/cache/vex-state.0209.bgeo.sc",
+      "sha256": "9547d5ea80af99f16a7b7651b01a52336fbf6c1590e3c640b0444eb82062014f"
+    },
+    {
+      "errors": [],
+      "frame": 210,
+      "path": "E:/Projects/houdini-ai/studies/study_002_scar-tissue/01_behavior/03_selected/selection_002/run/cache/vex-state.0210.bgeo.sc",
+      "sha256": "10e37712b8178cd9fae3358250e9749bdda21623fda6e96e9cbfc66378415760"
+    },
+    {
+      "errors": [],
+      "frame": 211,
+      "path": "E:/Projects/houdini-ai/studies/study_002_scar-tissue/01_behavior/03_selected/selection_002/run/cache/vex-state.0211.bgeo.sc",
+      "sha256": "2351106982466dacaf04715c1fb1271d142f641ed4baf49014e16dfa05c297d0"
+    },
+    {
+      "errors": [],
+      "frame": 212,
+      "path": "E:/Projects/houdini-ai/studies/study_002_scar-tissue/01_behavior/03_selected/selection_002/run/cache/vex-state.0212.bgeo.sc",
+      "sha256": "af5e21eeedafb8300c84a68f88d744605eba57fc25636ef7cf3f95bbac483e11"
+    },
+    {
+      "errors": [],
+      "frame": 213,
+      "path": "E:/Projects/houdini-ai/studies/study_002_scar-tissue/01_behavior/03_selected/selection_002/run/cache/vex-state.0213.bgeo.sc",
+      "sha256": "65628e8876123e3042dcf3ddef27bb85ae6a5194ca0c494848afaff9f899a76b"
+    },
+    {
+      "errors": [],
+      "frame": 214,
+      "path": "E:/Projects/houdini-ai/studies/study_002_scar-tissue/01_behavior/03_selected/selection_002/run/cache/vex-state.0214.bgeo.sc",
+      "sha256": "4e4adcdbeda59564ef606441f8b5e07aa94f95bfefcd6be7e652a6dac38a708d"
+    },
+    {
+      "errors": [],
+      "frame": 215,
+      "path": "E:/Projects/houdini-ai/studies/study_002_scar-tissue/01_behavior/03_selected/selection_002/run/cache/vex-state.0215.bgeo.sc",
+      "sha256": "b973c1f07874f9ec4b6ed87ea9bd1aa0cb6b7cb3728299ea1045e623b2d268c5"
+    },
+    {
+      "errors": [],
+      "frame": 216,
+      "path": "E:/Projects/houdini-ai/studies/study_002_scar-tissue/01_behavior/03_selected/selection_002/run/cache/vex-state.0216.bgeo.sc",
+      "sha256": "f5e504afc14c966cf66466b60c4413cd140412e2b67f93811f03691e29d45854"
+    },
+    {
+      "errors": [],
+      "frame": 217,
+      "path": "E:/Projects/houdini-ai/studies/study_002_scar-tissue/01_behavior/03_selected/selection_002/run/cache/vex-state.0217.bgeo.sc",
+      "sha256": "a8ff58266511702d70456d40aaaa5dcc13e46d2a85e0831c04bda2299f700341"
+    },
+    {
+      "errors": [],
+      "frame": 218,
+      "path": "E:/Projects/houdini-ai/studies/study_002_scar-tissue/01_behavior/03_selected/selection_002/run/cache/vex-state.0218.bgeo.sc",
+      "sha256": "b96ff6d016fc1634accc4395485deffdffb5d29aeb13f200e3e3853819d4c31d"
+    },
+    {
+      "errors": [],
+      "frame": 219,
+      "path": "E:/Projects/houdini-ai/studies/study_002_scar-tissue/01_behavior/03_selected/selection_002/run/cache/vex-state.0219.bgeo.sc",
+      "sha256": "0d23b88d800228a16f82c6a12ca1dc17ab77e159de82dadb9f7fff629ff76c52"
+    },
+    {
+      "errors": [],
+      "frame": 220,
+      "path": "E:/Projects/houdini-ai/studies/study_002_scar-tissue/01_behavior/03_selected/selection_002/run/cache/vex-state.0220.bgeo.sc",
+      "sha256": "dfdb82e261fcc5babe7a505315e08d53ea7fe79a534241f852aa5a8a3a5cc509"
+    },
+    {
+      "errors": [],
+      "frame": 221,
+      "path": "E:/Projects/houdini-ai/studies/study_002_scar-tissue/01_behavior/03_selected/selection_002/run/cache/vex-state.0221.bgeo.sc",
+      "sha256": "818c380b31e2f995aba4ff777e5b88cbfb831eefe0c7af6eca07fa2269e48bc6"
+    },
+    {
+      "errors": [],
+      "frame": 222,
+      "path": "E:/Projects/houdini-ai/studies/study_002_scar-tissue/01_behavior/03_selected/selection_002/run/cache/vex-state.0222.bgeo.sc",
+      "sha256": "8664234958f8f4bf3a2437a4a02e11060e40c99058f7dacd642b655ff7456126"
+    },
+    {
+      "errors": [],
+      "frame": 223,
+      "path": "E:/Projects/houdini-ai/studies/study_002_scar-tissue/01_behavior/03_selected/selection_002/run/cache/vex-state.0223.bgeo.sc",
+      "sha256": "80c3565cb0487553180e7e5b5fa8bc59803d193fa82e1153bba7933e94b4a01c"
+    },
+    {
+      "errors": [],
+      "frame": 224,
+      "path": "E:/Projects/houdini-ai/studies/study_002_scar-tissue/01_behavior/03_selected/selection_002/run/cache/vex-state.0224.bgeo.sc",
+      "sha256": "a778b753fad49477b5e5d42aa1fc9e47fd2212edf1b880d8e03609011fb06db8"
+    },
+    {
+      "errors": [],
+      "frame": 225,
+      "path": "E:/Projects/houdini-ai/studies/study_002_scar-tissue/01_behavior/03_selected/selection_002/run/cache/vex-state.0225.bgeo.sc",
+      "sha256": "d57a02a46ec0c59f0aedca81142394cf0c37b3464cbbb9f58cf4c5661db1372e"
+    },
+    {
+      "errors": [],
+      "frame": 226,
+      "path": "E:/Projects/houdini-ai/studies/study_002_scar-tissue/01_behavior/03_selected/selection_002/run/cache/vex-state.0226.bgeo.sc",
+      "sha256": "3cc7ae5ee22c6f286cf28e3efcb4c8e6478f15a5d86ce5286366d7ddf485108c"
+    },
+    {
+      "errors": [],
+      "frame": 227,
+      "path": "E:/Projects/houdini-ai/studies/study_002_scar-tissue/01_behavior/03_selected/selection_002/run/cache/vex-state.0227.bgeo.sc",
+      "sha256": "f6d97381c51f570fb98add3ccbfb027b145bab264059e31ce8f892bb421f16ca"
+    },
+    {
+      "errors": [],
+      "frame": 228,
+      "path": "E:/Projects/houdini-ai/studies/study_002_scar-tissue/01_behavior/03_selected/selection_002/run/cache/vex-state.0228.bgeo.sc",
+      "sha256": "5a993405fbefb0cb37d627cfec419f82ffab2ef2f6671df28746b7258ff896ef"
+    },
+    {
+      "errors": [],
+      "frame": 229,
+      "path": "E:/Projects/houdini-ai/studies/study_002_scar-tissue/01_behavior/03_selected/selection_002/run/cache/vex-state.0229.bgeo.sc",
+      "sha256": "a8e3341199a174aa114317d69b9732ca4eb9982d8e0745428d7afc622b9270c4"
+    },
+    {
+      "errors": [],
+      "frame": 230,
+      "path": "E:/Projects/houdini-ai/studies/study_002_scar-tissue/01_behavior/03_selected/selection_002/run/cache/vex-state.0230.bgeo.sc",
+      "sha256": "8e0acf2acaa2b643bfae456879b85a5d0ce37328c0ecd749dcd05b8406dd1c5f"
+    },
+    {
+      "errors": [],
+      "frame": 231,
+      "path": "E:/Projects/houdini-ai/studies/study_002_scar-tissue/01_behavior/03_selected/selection_002/run/cache/vex-state.0231.bgeo.sc",
+      "sha256": "7df5e42bf1dd07679378ecf69852d497e681124b2aa3cbd2bebde0df70d5961a"
+    },
+    {
+      "errors": [],
+      "frame": 232,
+      "path": "E:/Projects/houdini-ai/studies/study_002_scar-tissue/01_behavior/03_selected/selection_002/run/cache/vex-state.0232.bgeo.sc",
+      "sha256": "a38396e67c0e8d1a01e1ac64b3faca8fadb0d380c48077d46eb45bedea8a6b23"
+    },
+    {
+      "errors": [],
+      "frame": 233,
+      "path": "E:/Projects/houdini-ai/studies/study_002_scar-tissue/01_behavior/03_selected/selection_002/run/cache/vex-state.0233.bgeo.sc",
+      "sha256": "be2a2d336184e9995ea1471d0920985c3f5c680339bf45147232940c182cf97a"
+    },
+    {
+      "errors": [],
+      "frame": 234,
+      "path": "E:/Projects/houdini-ai/studies/study_002_scar-tissue/01_behavior/03_selected/selection_002/run/cache/vex-state.0234.bgeo.sc",
+      "sha256": "26b6ecf0c8d17d6f7ed3c93f0a99b681d8240eee06a67e608092fb8ad7e5ecc0"
+    },
+    {
+      "errors": [],
+      "frame": 235,
+      "path": "E:/Projects/houdini-ai/studies/study_002_scar-tissue/01_behavior/03_selected/selection_002/run/cache/vex-state.0235.bgeo.sc",
+      "sha256": "329fa08c1f16ebf2185f852da673adb9556d31b0b84fac4873a7098696b80f74"
+    },
+    {
+      "errors": [],
+      "frame": 236,
+      "path": "E:/Projects/houdini-ai/studies/study_002_scar-tissue/01_behavior/03_selected/selection_002/run/cache/vex-state.0236.bgeo.sc",
+      "sha256": "517aa7e9a7536804d411f1a2b782a9307e3917f426a332834b3db44585d253b0"
+    },
+    {
+      "errors": [],
+      "frame": 237,
+      "path": "E:/Projects/houdini-ai/studies/study_002_scar-tissue/01_behavior/03_selected/selection_002/run/cache/vex-state.0237.bgeo.sc",
+      "sha256": "54d70c10d8c19b6acf9021c8150f1f03329ac2b49d95f43e1ae44a33c9a38fc9"
+    },
+    {
+      "errors": [],
+      "frame": 238,
+      "path": "E:/Projects/houdini-ai/studies/study_002_scar-tissue/01_behavior/03_selected/selection_002/run/cache/vex-state.0238.bgeo.sc",
+      "sha256": "aa4fc74de0001ebf570d1aef7228c6c519c72b5d910220335391ddc3fb8ee37f"
+    },
+    {
+      "errors": [],
+      "frame": 239,
+      "path": "E:/Projects/houdini-ai/studies/study_002_scar-tissue/01_behavior/03_selected/selection_002/run/cache/vex-state.0239.bgeo.sc",
+      "sha256": "1ab24782d1d96b4aca34f07255de0525a9a80328694d4838ceb4cf358133a43f"
+    },
+    {
+      "errors": [],
+      "frame": 240,
+      "path": "E:/Projects/houdini-ai/studies/study_002_scar-tissue/01_behavior/03_selected/selection_002/run/cache/vex-state.0240.bgeo.sc",
+      "sha256": "d4d22a08d859c136d3a356f6f42e273e8a921bbd9f6e51d6a846559642232b6c"
+    },
+    {
+      "errors": [],
+      "frame": 241,
+      "path": "E:/Projects/houdini-ai/studies/study_002_scar-tissue/01_behavior/03_selected/selection_002/run/cache/vex-state.0241.bgeo.sc",
+      "sha256": "33b6e6aa8046d8523a9c9bd8d2679d4e1d890eba1fc0d8f5f734a35d07a1760e"
+    },
+    {
+      "errors": [],
+      "frame": 242,
+      "path": "E:/Projects/houdini-ai/studies/study_002_scar-tissue/01_behavior/03_selected/selection_002/run/cache/vex-state.0242.bgeo.sc",
+      "sha256": "a8775c307f5ca63ea15402b6d8503fd67f2eb577ed4193dc5d1968d5064afa99"
+    },
+    {
+      "errors": [],
+      "frame": 243,
+      "path": "E:/Projects/houdini-ai/studies/study_002_scar-tissue/01_behavior/03_selected/selection_002/run/cache/vex-state.0243.bgeo.sc",
+      "sha256": "a27d15af5e64eddbf853c0f4ddda32b36643b03ba5a0de2e4dcba522f10bc549"
+    },
+    {
+      "errors": [],
+      "frame": 244,
+      "path": "E:/Projects/houdini-ai/studies/study_002_scar-tissue/01_behavior/03_selected/selection_002/run/cache/vex-state.0244.bgeo.sc",
+      "sha256": "1e38e39f0829fbc295ce3dd603ab8343d9c246379f8aeea06d4ca09547760fc3"
+    },
+    {
+      "errors": [],
+      "frame": 245,
+      "path": "E:/Projects/houdini-ai/studies/study_002_scar-tissue/01_behavior/03_selected/selection_002/run/cache/vex-state.0245.bgeo.sc",
+      "sha256": "5bdd033874f771868e49dae1378aca01b4026aad6893ab7fbb97c14a77fcad75"
+    },
+    {
+      "errors": [],
+      "frame": 246,
+      "path": "E:/Projects/houdini-ai/studies/study_002_scar-tissue/01_behavior/03_selected/selection_002/run/cache/vex-state.0246.bgeo.sc",
+      "sha256": "f1993c6b418450cfa84ef26b4aab8d987e48a91caad081fcd6e54d2d9b32e853"
+    },
+    {
+      "errors": [],
+      "frame": 247,
+      "path": "E:/Projects/houdini-ai/studies/study_002_scar-tissue/01_behavior/03_selected/selection_002/run/cache/vex-state.0247.bgeo.sc",
+      "sha256": "14bfae7552bb614a05e5307e32cd370bbf734ce19e3a1b5c134aade76cb02266"
+    },
+    {
+      "errors": [],
+      "frame": 248,
+      "path": "E:/Projects/houdini-ai/studies/study_002_scar-tissue/01_behavior/03_selected/selection_002/run/cache/vex-state.0248.bgeo.sc",
+      "sha256": "c3ad68399fab98868b065243699626d55ed902ce0ac8712f02f79422efd02b08"
+    },
+    {
+      "errors": [],
+      "frame": 249,
+      "path": "E:/Projects/houdini-ai/studies/study_002_scar-tissue/01_behavior/03_selected/selection_002/run/cache/vex-state.0249.bgeo.sc",
+      "sha256": "04fefdc4845e43e2e11775bebc479e5faf9caddc1368c213c9fd859ef8b4ee0b"
+    },
+    {
+      "errors": [],
+      "frame": 250,
+      "path": "E:/Projects/houdini-ai/studies/study_002_scar-tissue/01_behavior/03_selected/selection_002/run/cache/vex-state.0250.bgeo.sc",
+      "sha256": "0ffc29cf185d2825fc4cb29f85c7b52e74360813108e0f7f5df84be0972bfc0b"
+    },
+    {
+      "errors": [],
+      "frame": 251,
+      "path": "E:/Projects/houdini-ai/studies/study_002_scar-tissue/01_behavior/03_selected/selection_002/run/cache/vex-state.0251.bgeo.sc",
+      "sha256": "c12cca2fda9fe988dda006e67c1d3ebcafe48307bee5ee35731d9fa30ddf9114"
+    },
+    {
+      "errors": [],
+      "frame": 252,
+      "path": "E:/Projects/houdini-ai/studies/study_002_scar-tissue/01_behavior/03_selected/selection_002/run/cache/vex-state.0252.bgeo.sc",
+      "sha256": "0793e3bb5e0dccf9b1a39824996ecb9aa8e5e46d6d9ec3565d51c8e6b562896c"
+    },
+    {
+      "errors": [],
+      "frame": 253,
+      "path": "E:/Projects/houdini-ai/studies/study_002_scar-tissue/01_behavior/03_selected/selection_002/run/cache/vex-state.0253.bgeo.sc",
+      "sha256": "c1fa616edf12278c9cceab8f6b82ddbf4f0d8a3feb73047735de24571a8afd8e"
+    },
+    {
+      "errors": [],
+      "frame": 254,
+      "path": "E:/Projects/houdini-ai/studies/study_002_scar-tissue/01_behavior/03_selected/selection_002/run/cache/vex-state.0254.bgeo.sc",
+      "sha256": "4d10f7f0d538d3e265a2f2e5d966843aabc5a5d1ffee82bdd892a630039c661a"
+    },
+    {
+      "errors": [],
+      "frame": 255,
+      "path": "E:/Projects/houdini-ai/studies/study_002_scar-tissue/01_behavior/03_selected/selection_002/run/cache/vex-state.0255.bgeo.sc",
+      "sha256": "3a83a866ffd12fe7c31b11d8361b6e62d04d066bafee43b376aff2ea4ab8cb2d"
+    },
+    {
+      "errors": [],
+      "frame": 256,
+      "path": "E:/Projects/houdini-ai/studies/study_002_scar-tissue/01_behavior/03_selected/selection_002/run/cache/vex-state.0256.bgeo.sc",
+      "sha256": "f9b7eaa1ca36ad2dcbab4dd90107a98081557b470e51b03bd3430f74438f0db9"
+    },
+    {
+      "errors": [],
+      "frame": 257,
+      "path": "E:/Projects/houdini-ai/studies/study_002_scar-tissue/01_behavior/03_selected/selection_002/run/cache/vex-state.0257.bgeo.sc",
+      "sha256": "ee4890a17c2b0734bea815814fa5514eb4236a2bb1ce136d331a48c6e859945b"
+    },
+    {
+      "errors": [],
+      "frame": 258,
+      "path": "E:/Projects/houdini-ai/studies/study_002_scar-tissue/01_behavior/03_selected/selection_002/run/cache/vex-state.0258.bgeo.sc",
+      "sha256": "aa6c1fe26dacc81f1f1f0c529093ed32440f623988c06d465f5e9f7956a6724d"
+    },
+    {
+      "errors": [],
+      "frame": 259,
+      "path": "E:/Projects/houdini-ai/studies/study_002_scar-tissue/01_behavior/03_selected/selection_002/run/cache/vex-state.0259.bgeo.sc",
+      "sha256": "14c29a1203ff6f46d74602c4be1089da5c85a9aa5d312d574c6c25146500e9fa"
+    },
+    {
+      "errors": [],
+      "frame": 260,
+      "path": "E:/Projects/houdini-ai/studies/study_002_scar-tissue/01_behavior/03_selected/selection_002/run/cache/vex-state.0260.bgeo.sc",
+      "sha256": "1bd7016ee4d50e5f096dd98d78ed1a6b5866baf287cc673eb862eaf2193525c9"
+    },
+    {
+      "errors": [],
+      "frame": 261,
+      "path": "E:/Projects/houdini-ai/studies/study_002_scar-tissue/01_behavior/03_selected/selection_002/run/cache/vex-state.0261.bgeo.sc",
+      "sha256": "1e7226ae008aecfb34be930ba694b4f268969802fa19ed742a526ae7605ed825"
+    },
+    {
+      "errors": [],
+      "frame": 262,
+      "path": "E:/Projects/houdini-ai/studies/study_002_scar-tissue/01_behavior/03_selected/selection_002/run/cache/vex-state.0262.bgeo.sc",
+      "sha256": "6f46bdec69902bcdd082c7d9ef4100abb99c1f80c41d42a628c40a629c5d2dde"
+    },
+    {
+      "errors": [],
+      "frame": 263,
+      "path": "E:/Projects/houdini-ai/studies/study_002_scar-tissue/01_behavior/03_selected/selection_002/run/cache/vex-state.0263.bgeo.sc",
+      "sha256": "4825de6f1d8f745e5ed51cf2fa8e6d3bf1466238ec60be1ceff4231e55f0ae5a"
+    },
+    {
+      "errors": [],
+      "frame": 264,
+      "path": "E:/Projects/houdini-ai/studies/study_002_scar-tissue/01_behavior/03_selected/selection_002/run/cache/vex-state.0264.bgeo.sc",
+      "sha256": "18f76b5deec9d8e6d23b6776dee1118f6d321f548d099e81d54db144d01ee555"
+    },
+    {
+      "errors": [],
+      "frame": 265,
+      "path": "E:/Projects/houdini-ai/studies/study_002_scar-tissue/01_behavior/03_selected/selection_002/run/cache/vex-state.0265.bgeo.sc",
+      "sha256": "1b36d49b246f44c06d6a5cb6a3b031e0edfc1b1db657268cffee79c428bdc1de"
+    },
+    {
+      "errors": [],
+      "frame": 266,
+      "path": "E:/Projects/houdini-ai/studies/study_002_scar-tissue/01_behavior/03_selected/selection_002/run/cache/vex-state.0266.bgeo.sc",
+      "sha256": "dfacb61d290ca67320325938a1436bc433ddb00616b1cff9eafaf12b5c64160c"
+    },
+    {
+      "errors": [],
+      "frame": 267,
+      "path": "E:/Projects/houdini-ai/studies/study_002_scar-tissue/01_behavior/03_selected/selection_002/run/cache/vex-state.0267.bgeo.sc",
+      "sha256": "5937ae4c42273227f18e17e85d148add1b180ba6d4480752c3530e3385c4df61"
+    },
+    {
+      "errors": [],
+      "frame": 268,
+      "path": "E:/Projects/houdini-ai/studies/study_002_scar-tissue/01_behavior/03_selected/selection_002/run/cache/vex-state.0268.bgeo.sc",
+      "sha256": "9c09675cb5170a05e5cdc4679238d155e1af39e99a1807fc93c7483ffd3d2ef3"
+    },
+    {
+      "errors": [],
+      "frame": 269,
+      "path": "E:/Projects/houdini-ai/studies/study_002_scar-tissue/01_behavior/03_selected/selection_002/run/cache/vex-state.0269.bgeo.sc",
+      "sha256": "b88c0918d4c67b25ff596bfd18ddc3ff972d7bd3991994d68e6ce3a6470216c2"
+    },
+    {
+      "errors": [],
+      "frame": 270,
+      "path": "E:/Projects/houdini-ai/studies/study_002_scar-tissue/01_behavior/03_selected/selection_002/run/cache/vex-state.0270.bgeo.sc",
+      "sha256": "510dbcbdda306588527732ca92d765e882bebd18f427420ccbbc1beff7d3e334"
+    },
+    {
+      "errors": [],
+      "frame": 271,
+      "path": "E:/Projects/houdini-ai/studies/study_002_scar-tissue/01_behavior/03_selected/selection_002/run/cache/vex-state.0271.bgeo.sc",
+      "sha256": "5a0b6c463b1daecdb345f1d848e5f07f0b17f58c6589044361f53d8aec3c4ef2"
+    },
+    {
+      "errors": [],
+      "frame": 272,
+      "path": "E:/Projects/houdini-ai/studies/study_002_scar-tissue/01_behavior/03_selected/selection_002/run/cache/vex-state.0272.bgeo.sc",
+      "sha256": "8e4aa5165cf10fd2c2f4b05723971d114fac38c2a266f4c5d51a456a5993e64b"
+    },
+    {
+      "errors": [],
+      "frame": 273,
+      "path": "E:/Projects/houdini-ai/studies/study_002_scar-tissue/01_behavior/03_selected/selection_002/run/cache/vex-state.0273.bgeo.sc",
+      "sha256": "66c91ec4361c8907b5c2ba6b749eed58feec5e6316c0947a8fb9eb866c8c75b3"
+    },
+    {
+      "errors": [],
+      "frame": 274,
+      "path": "E:/Projects/houdini-ai/studies/study_002_scar-tissue/01_behavior/03_selected/selection_002/run/cache/vex-state.0274.bgeo.sc",
+      "sha256": "8867686613015e450e4225e4806e926a315b80dcbae88fd1518ab67f21e86999"
+    },
+    {
+      "errors": [],
+      "frame": 275,
+      "path": "E:/Projects/houdini-ai/studies/study_002_scar-tissue/01_behavior/03_selected/selection_002/run/cache/vex-state.0275.bgeo.sc",
+      "sha256": "bce7fc788a00254a77fad7ef1c1a5d16c8099c2128566952baea1e0d142e0b9e"
+    },
+    {
+      "errors": [],
+      "frame": 276,
+      "path": "E:/Projects/houdini-ai/studies/study_002_scar-tissue/01_behavior/03_selected/selection_002/run/cache/vex-state.0276.bgeo.sc",
+      "sha256": "79dfaa5b83e6b04377a27f079a69a6ce6f5f3362229600817415b35915ccf0ef"
+    },
+    {
+      "errors": [],
+      "frame": 277,
+      "path": "E:/Projects/houdini-ai/studies/study_002_scar-tissue/01_behavior/03_selected/selection_002/run/cache/vex-state.0277.bgeo.sc",
+      "sha256": "6b621ab883aaa80932d47c4911166d68c681bb98fc269002836e3bec998148b7"
+    },
+    {
+      "errors": [],
+      "frame": 278,
+      "path": "E:/Projects/houdini-ai/studies/study_002_scar-tissue/01_behavior/03_selected/selection_002/run/cache/vex-state.0278.bgeo.sc",
+      "sha256": "36ab01590591e93446c311e27bf1697e45daf59fb5ba04e81d85127474d44c1f"
+    },
+    {
+      "errors": [],
+      "frame": 279,
+      "path": "E:/Projects/houdini-ai/studies/study_002_scar-tissue/01_behavior/03_selected/selection_002/run/cache/vex-state.0279.bgeo.sc",
+      "sha256": "2b9f44c01522909324a697db11cdd1a77731058edada31d11469e267adf02791"
+    },
+    {
+      "errors": [],
+      "frame": 280,
+      "path": "E:/Projects/houdini-ai/studies/study_002_scar-tissue/01_behavior/03_selected/selection_002/run/cache/vex-state.0280.bgeo.sc",
+      "sha256": "d4191e473c6cc666b7d11ee22ffd3dbc1e48a7b5a85e8f48240680df8f657b64"
+    },
+    {
+      "errors": [],
+      "frame": 281,
+      "path": "E:/Projects/houdini-ai/studies/study_002_scar-tissue/01_behavior/03_selected/selection_002/run/cache/vex-state.0281.bgeo.sc",
+      "sha256": "790c26f1f4f2d74583f9dfb4a5f877cb8fae8580e12be2de4c64e86146c8e55b"
+    },
+    {
+      "errors": [],
+      "frame": 282,
+      "path": "E:/Projects/houdini-ai/studies/study_002_scar-tissue/01_behavior/03_selected/selection_002/run/cache/vex-state.0282.bgeo.sc",
+      "sha256": "7cdf1157dc0c32e5fab45c2394419688b477d5e0264e602d729371865504dea4"
+    },
+    {
+      "errors": [],
+      "frame": 283,
+      "path": "E:/Projects/houdini-ai/studies/study_002_scar-tissue/01_behavior/03_selected/selection_002/run/cache/vex-state.0283.bgeo.sc",
+      "sha256": "c5b48afa5a0dedcd40ebeae62d16cfcb0f93221c491b62bf5778be0b31bc6622"
+    },
+    {
+      "errors": [],
+      "frame": 284,
+      "path": "E:/Projects/houdini-ai/studies/study_002_scar-tissue/01_behavior/03_selected/selection_002/run/cache/vex-state.0284.bgeo.sc",
+      "sha256": "5e46542ff7737913b6c31a25676803d2702a54d712fad246f092e750c4024217"
+    },
+    {
+      "errors": [],
+      "frame": 285,
+      "path": "E:/Projects/houdini-ai/studies/study_002_scar-tissue/01_behavior/03_selected/selection_002/run/cache/vex-state.0285.bgeo.sc",
+      "sha256": "9f5bd7d93df216287699f8d6fff882bc6e442537273543ab290412d333018425"
+    },
+    {
+      "errors": [],
+      "frame": 286,
+      "path": "E:/Projects/houdini-ai/studies/study_002_scar-tissue/01_behavior/03_selected/selection_002/run/cache/vex-state.0286.bgeo.sc",
+      "sha256": "9aee6addb08c22b75e4390f4eadbcea01c03948717d09b4b6b4dcb9aa3cdceeb"
+    },
+    {
+      "errors": [],
+      "frame": 287,
+      "path": "E:/Projects/houdini-ai/studies/study_002_scar-tissue/01_behavior/03_selected/selection_002/run/cache/vex-state.0287.bgeo.sc",
+      "sha256": "dc8ef8f4b7af64a7b4fab56549aa822a891a27ccf49231cc498fae2ef32655e6"
+    },
+    {
+      "errors": [],
+      "frame": 288,
+      "path": "E:/Projects/houdini-ai/studies/study_002_scar-tissue/01_behavior/03_selected/selection_002/run/cache/vex-state.0288.bgeo.sc",
+      "sha256": "c69944e8da3b0a55fe2367575e8f4cdd8b1fd564423b4b591ac920850106ac55"
+    },
+    {
+      "errors": [],
+      "frame": 289,
+      "path": "E:/Projects/houdini-ai/studies/study_002_scar-tissue/01_behavior/03_selected/selection_002/run/cache/vex-state.0289.bgeo.sc",
+      "sha256": "f144bb4a491407c035264493c0ca4e93414e958683e3b1cdbdad1da1a58ed537"
+    },
+    {
+      "errors": [],
+      "frame": 290,
+      "path": "E:/Projects/houdini-ai/studies/study_002_scar-tissue/01_behavior/03_selected/selection_002/run/cache/vex-state.0290.bgeo.sc",
+      "sha256": "d0d740d0558c9c3f8138651ac8448eb084e028095660f500f203a74e55a7e7fa"
+    },
+    {
+      "errors": [],
+      "frame": 291,
+      "path": "E:/Projects/houdini-ai/studies/study_002_scar-tissue/01_behavior/03_selected/selection_002/run/cache/vex-state.0291.bgeo.sc",
+      "sha256": "8e1503a427cbd26e958afefd7ec370731346afcccaa6a7802914a834dc7cf8f1"
+    },
+    {
+      "errors": [],
+      "frame": 292,
+      "path": "E:/Projects/houdini-ai/studies/study_002_scar-tissue/01_behavior/03_selected/selection_002/run/cache/vex-state.0292.bgeo.sc",
+      "sha256": "93c8a0cbaa295def736c2ed04082ecc7089e448d217796d6ae30302b98cdb962"
+    },
+    {
+      "errors": [],
+      "frame": 293,
+      "path": "E:/Projects/houdini-ai/studies/study_002_scar-tissue/01_behavior/03_selected/selection_002/run/cache/vex-state.0293.bgeo.sc",
+      "sha256": "55a47be46363834729173919faed8c892818e3465994e8ec65b468fd6ff46105"
+    },
+    {
+      "errors": [],
+      "frame": 294,
+      "path": "E:/Projects/houdini-ai/studies/study_002_scar-tissue/01_behavior/03_selected/selection_002/run/cache/vex-state.0294.bgeo.sc",
+      "sha256": "41534323ed42cf560af9f80a0e5e595df5cd8f6c37b2e3251f9d438de6659313"
+    },
+    {
+      "errors": [],
+      "frame": 295,
+      "path": "E:/Projects/houdini-ai/studies/study_002_scar-tissue/01_behavior/03_selected/selection_002/run/cache/vex-state.0295.bgeo.sc",
+      "sha256": "777631172184eb9687f73d4e0157d911c3615e29de9dea36104038dff1059345"
+    },
+    {
+      "errors": [],
+      "frame": 296,
+      "path": "E:/Projects/houdini-ai/studies/study_002_scar-tissue/01_behavior/03_selected/selection_002/run/cache/vex-state.0296.bgeo.sc",
+      "sha256": "6a4f7f1ea9b019f62067c2106faa8e413e3c2710928ddfd9c6e3a43ab854edb0"
+    },
+    {
+      "errors": [],
+      "frame": 297,
+      "path": "E:/Projects/houdini-ai/studies/study_002_scar-tissue/01_behavior/03_selected/selection_002/run/cache/vex-state.0297.bgeo.sc",
+      "sha256": "209147898fc018379f5105793f11aff3556a11cb7c72a2d3ad16b34f4ead1ced"
+    },
+    {
+      "errors": [],
+      "frame": 298,
+      "path": "E:/Projects/houdini-ai/studies/study_002_scar-tissue/01_behavior/03_selected/selection_002/run/cache/vex-state.0298.bgeo.sc",
+      "sha256": "9622a6c3d978d207885f46993d40a19cfb9c30fcfa7775920064c356edce743c"
+    },
+    {
+      "errors": [],
+      "frame": 299,
+      "path": "E:/Projects/houdini-ai/studies/study_002_scar-tissue/01_behavior/03_selected/selection_002/run/cache/vex-state.0299.bgeo.sc",
+      "sha256": "8096e25917c06c45681bba5e3ac7978e3fc2c28a6ab4d23f45b3a8385296dbe3"
+    },
+    {
+      "errors": [],
+      "frame": 300,
+      "path": "E:/Projects/houdini-ai/studies/study_002_scar-tissue/01_behavior/03_selected/selection_002/run/cache/vex-state.0300.bgeo.sc",
+      "sha256": "b1ac299222f0176d4f6a69a4aac3feecca0b5dda350a5ca7e901696b58492e4d"
+    }
+  ],
+  "camera": {
+    "focus": 28.037110295361106,
+    "fstop": 11.0,
+    "rotation_y": 25.51387042753424,
+    "translation": [
+      12.076412916183472,
+      -0.00360107421875,
+      25.302960395812992
+    ]
+  },
+  "control_defaults": {
+    "bank_width": 0.012,
+    "point_radius": 0.028,
+    "zipper_width": 0.008
+  },
+  "environment": {
+    "floor_size": [
+      115.01345634460449,
+      115.01345634460449
+    ]
+  },
+  "houdini_version": "22.0.368",
+  "lighting_modes": [
+    "LIGHT_DOME_V1",
+    "LIGHT_DOME_V2",
+    "LIGHT_DOME_V3",
+    "KEY/FILL/RIM"
+  ],
+  "material_bindings": {
+    "/World/RenderEdges/bank_edges": "/materials/EDGES_STARTER",
+    "/World/RenderEdges/zipper_edges": "/materials/EDGES_STARTER",
+    "/World/RenderPoints/instances": "/materials/POINTS_STARTER"
+  },
+  "node_errors": [],
+  "passed": true,
+  "render_configuration": {
+    "camera": "/main_cam",
+    "depth_of_field_enabled": false,
+    "engine": "xpu",
+    "path_traced_samples": 128,
+    "picture": "E:/Projects/houdini-ai/studies/study_002_scar-tissue/02_look/var_004_rapid-surgical-zipper.look_r001.renders/beauty.$F4.exr",
+    "renderer": "BRAY_HdKarma",
+    "resolution": [
+      1080,
+      1350
+    ],
+    "samples_per_pixel": 64
+  },
+  "render_geometry": {
+    "edge_polylines": 384,
+    "point_instances": 256
+  },
+  "schema_version": 1,
+  "source_cache_expression": "E:/Projects/houdini-ai/studies/study_002_scar-tissue/01_behavior/03_selected/selection_002/run/cache/vex-state.$F4.bgeo.sc",
+  "source_component_id": "component-behavior-4d1068fdc350",
+  "source_geometry": {
+    "edge_primitives": 384,
+    "points": 256
+  },
+  "source_selection": "E:/Projects/houdini-ai/studies/study_002_scar-tissue/01_behavior/03_selected/selection_002",
+  "starter_hip": {
+    "bytes": 883969,
+    "path": "E:/Projects/houdini-ai/studies/study_002_scar-tissue/02_look/var_004_rapid-surgical-zipper.look_r001.hiplc",
+    "sha256": "029e469a3af6299f640764e7216aa66e5eac77cb7ccf8f5b26f039f19f751952"
+  },
+  "state": "artist-ready-starter",
+  "template": {
+    "path": "E:/Projects/houdini-ai/houdini/look_setups/basic/basic.hiplc",
+    "sha256": "070d6875e4e77051c09056960bbc1420f231fbb8dafa05aa227dad553f70f5cb"
+  },
+  "timeline": {
+    "duration_seconds": 10.0,
+    "fps": 30.0,
+    "frame_range": [
+      1,
+      300
+    ]
+  },
+  "usd_primitive_types": [
+    "BasisCurves",
+    "Camera",
+    "DomeLight_1",
+    "HoudiniLayerInfo",
+    "Material",
+    "Mesh",
+    "PointInstancer",
+    "RenderProduct",
+    "RenderSettings",
+    "RenderVar",
+    "Scope",
+    "Shader",
+    "Xform"
+  ],
+  "usd_render_primitives": {
+    "/World/RenderEdges/bank_edges": "BasisCurves",
+    "/World/RenderEdges/zipper_edges": "BasisCurves",
+    "/World/RenderPoints/instances": "PointInstancer"
+  },
+  "verified_frame_count": 300
+}

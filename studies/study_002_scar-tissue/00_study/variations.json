@@ -1,0 +1,47 @@
+{
+  "current_variation_id": "variation-004-rapid-surgical-zipper",
+  "schema_version": 1,
+  "study_id": "study-002-scar-tissue",
+  "variations": [
+    {
+      "behavior_selection_id": null,
+      "derived_from": null,
+      "file_stem": "var_001_pixel-memory",
+      "id": "variation-001-pixel-memory",
+      "number": 1,
+      "slug": "pixel-memory",
+      "state": "held",
+      "title": "Pixel Memory"
+    },
+    {
+      "behavior_selection_id": null,
+      "derived_from": null,
+      "file_stem": "var_002_excitable-purse-string-zipper",
+      "id": "variation-002-excitable-purse-string-zipper",
+      "number": 2,
+      "slug": "excitable-purse-string-zipper",
+      "state": "held",
+      "title": "Excitable Purse-string Zipper"
+    },
+    {
+      "behavior_selection_id": null,
+      "derived_from": null,
+      "file_stem": "var_003_tug-and-zip-fasciculation",
+      "id": "variation-003-tug-and-zip-fasciculation",
+      "number": 3,
+      "slug": "tug-and-zip-fasciculation",
+      "state": "held",
+      "title": "Tug-and-Zip Fasciculation"
+    },
+    {
+      "behavior_selection_id": "selection_002",
+      "derived_from": "variation-002-excitable-purse-string-zipper",
+      "file_stem": "var_004_rapid-surgical-zipper",
+      "id": "variation-004-rapid-surgical-zipper",
+      "number": 4,
+      "slug": "rapid-surgical-zipper",
+      "state": "selected",
+      "title": "Rapid Surgical Zipper"
+    }
+  ]
+}

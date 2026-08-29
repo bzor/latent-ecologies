@@ -1,0 +1,47 @@
+{
+  "bullets": [
+    "interaction partners are indexed independently of spatial distance",
+    "one attractive and one repulsive relation per agent",
+    "deterministic relation updates over 960 integration steps"
+  ],
+  "credits": "bzor computational studio",
+  "date": "2026-08-21",
+  "number": 3,
+  "params": [
+    [
+      "AGENTS",
+      "100 000"
+    ],
+    [
+      "RELATIONS",
+      "1 FRIEND / 1 ENEMY"
+    ],
+    [
+      "REWIRING",
+      "DETERMINISTIC SCHEDULE"
+    ],
+    [
+      "HORIZON",
+      "960 STEPS"
+    ],
+    [
+      "ATTRS",
+      "P \u00b7 FRIEND \u00b7 ENEMY"
+    ],
+    [
+      "IDENTITY",
+      "POINT NUMBER"
+    ]
+  ],
+  "schema_version": 1,
+  "source": "study-003-nonlocal-affinity-dance",
+  "study_id": "study-003-nonlocal-affinity-dance",
+  "subtitle": "synchronous point-agent updates with nonlocal attraction and repulsion",
+  "summary": "Simulation of 100 000 point agents. At each step, every agent receives centroid contraction, attraction toward one indexed partner, and repulsion from another indexed partner. Partner assignment is independent of spatial proximity and changes on a deterministic schedule over 960 steps. The point distribution records the combined effects of position integration and the time-varying relation graph; no biological or social equivalence is claimed.",
+  "title": "NONLOCAL AFFINITY GRAPH DYNAMICS",
+  "variation_file_stem": "var_001_primary-treatment",
+  "variation_id": "variation-001-primary-treatment",
+  "variation_number": 1,
+  "variation_slug": "primary-treatment",
+  "variation_title": "Primary Treatment"
+}

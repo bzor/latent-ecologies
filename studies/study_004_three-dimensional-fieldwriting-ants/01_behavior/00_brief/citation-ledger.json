@@ -1,0 +1,143 @@
+{
+  "version": 1,
+  "sources": [
+    {
+      "id": 1,
+      "url": "https://community.wolfram.com/groups/-/m/t/3782476",
+      "title": "Understanding and analyzing deeper Langton’s Ant",
+      "accessed": "2026-08-22"
+    },
+    {
+      "id": 2,
+      "url": "https://www.complex-systems.com/abstracts/v14_i03_a04",
+      "title": "Definition and Behavior of Langton's Ant in Three Dimensions (Hamann, 2003)",
+      "accessed": "2026-08-22"
+    },
+    {
+      "id": 3,
+      "url": "https://doi.org/10.1088/1751-8113/41/40/405101",
+      "title": "Langton's flies (Dorbec & Gajardo, 2008)",
+      "accessed": "2026-08-22"
+    },
+    {
+      "id": 4,
+      "url": "https://doi.org/10.1142/S0218127496000618",
+      "title": "Many-Dimensional Lorentz Cellular Automata and Turing Machines (Bunimovich, 1996)",
+      "accessed": "2026-08-22"
+    },
+    {
+      "id": 5,
+      "url": "https://github.com/GollyGang/ruletablerepository/wiki/TwoDimensionalTuringMachines",
+      "title": "Rule Table Repository: multidimensional Turing machines and turmites",
+      "accessed": "2026-08-22"
+    },
+    {
+      "id": 6,
+      "url": "https://arxiv.org/abs/math/9501233",
+      "title": "Further Travels with My Ant (Gale et al., 1995)",
+      "accessed": "2026-08-22"
+    },
+    {
+      "id": 7,
+      "url": "https://doi.org/10.1016/S0166-218X(00)00334-6",
+      "title": "Complexity of Langton's Ant (Gajardo, Moreira & Goles)",
+      "accessed": "2026-08-22"
+    },
+    {
+      "id": 8,
+      "url": "https://infoscience.epfl.ch/record/28501",
+      "title": "Behaviour of Multiple Generalized Langton's Ants (Beuret & Tomassini)",
+      "accessed": "2026-08-22"
+    },
+    {
+      "id": 9,
+      "url": "https://dspace.mit.edu/bitstream/handle/1721.1/6210/AIM-290.pdf",
+      "title": "Paterson's Worms (Beeler, 1973)",
+      "accessed": "2026-08-22"
+    },
+    {
+      "id": 10,
+      "url": "https://deepblue.lib.umich.edu/bitstream/2027.42/26022/1/0000093.pdf",
+      "title": "Studying Artificial Life with Cellular Automata (Langton, 1986)",
+      "accessed": "2026-08-22"
+    },
+    {
+      "id": 11,
+      "url": "https://doi.org/10.25088/ComplexSystems.21.3.165",
+      "title": "Robustness of Multi-agent Turmite Models (Belgacem & Fatès, 2012)",
+      "accessed": "2026-08-22"
+    },
+    {
+      "id": 12,
+      "url": "https://doi.org/10.46298/dmtcs.2312",
+      "title": "A Symbolic Projection of Langton's Ant (Gajardo, 2003)",
+      "accessed": "2026-08-22"
+    },
+    {
+      "id": 13,
+      "url": "https://doi.org/10.3390/a4010001",
+      "title": "Repeatable Configurations of Generalized Langton Ant (Tsukiji & Hagiwara, 2011)",
+      "accessed": "2026-08-22"
+    },
+    {
+      "id": 14,
+      "url": "https://arxiv.org/abs/2409.10124",
+      "title": "Ants on the Highway (Gajardo, Lutfalla & Rao)",
+      "accessed": "2026-08-22"
+    },
+    {
+      "id": 15,
+      "url": "https://arxiv.org/abs/2505.05426",
+      "title": "Sideways on the Highways (Lutfalla)",
+      "accessed": "2026-08-22"
+    },
+    {
+      "id": 16,
+      "url": "https://github.com/mauriciabad/Langton_Ant_3D",
+      "title": "Mauricia Bad's Langton Ant 3D",
+      "accessed": "2026-08-22"
+    },
+    {
+      "id": 17,
+      "url": "https://github.com/qJay44/Langtons-ant-3D",
+      "title": "qJay44's Langton-ant-3D",
+      "accessed": "2026-08-22"
+    },
+    {
+      "id": 18,
+      "url": "https://github.com/michalkolodziejski/java-ai-langton3d-opengl",
+      "title": "Java/OpenGL 3D Langton Ant",
+      "accessed": "2026-08-22"
+    },
+    {
+      "id": 19,
+      "url": "https://github.com/daka0522/langtonsAnt",
+      "title": "WebGL/WASM Langton Ant 2D/3D",
+      "accessed": "2026-08-22"
+    },
+    {
+      "id": 20,
+      "url": "https://github.com/deadSwank001/Langton-s_Ant_in_Bpy",
+      "title": "Langton Ant in Blender Python",
+      "accessed": "2026-08-22"
+    },
+    {
+      "id": 21,
+      "url": "https://github.com/ptiles/ant",
+      "title": "Generalized Ants on Penrose Tilings",
+      "accessed": "2026-08-22"
+    },
+    {
+      "id": 22,
+      "url": "https://github.com/nasqret/langton-sphere-sim",
+      "title": "Langton Ants on Alternative Surface Topologies",
+      "accessed": "2026-08-22"
+    },
+    {
+      "id": 23,
+      "url": "https://github.com/crashingbooth/3d-langton",
+      "title": "3D Langton Visualization and Sonification",
+      "accessed": "2026-08-22"
+    }
+  ]
+}

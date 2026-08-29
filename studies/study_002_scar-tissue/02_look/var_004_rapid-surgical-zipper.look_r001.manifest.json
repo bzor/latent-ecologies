@@ -1,0 +1,90 @@
+{
+  "files": [
+    {
+      "bytes": 883969,
+      "path": "var_004_rapid-surgical-zipper.look_r001.hiplc",
+      "sha256": "029e469a3af6299f640764e7216aa66e5eac77cb7ccf8f5b26f039f19f751952"
+    },
+    {
+      "bytes": 88138,
+      "path": "var_004_rapid-surgical-zipper.look_r001.starter-receipt.json",
+      "sha256": "cce16a526b51215eb5a415a2499b5c5c483a5fbb118fd32f9b939c14c10f8f83"
+    },
+    {
+      "bytes": 2002,
+      "path": "var_004_rapid-surgical-zipper.look_r001.render-proof.json",
+      "sha256": "3cfa3a5617b0e439054bee73509aa9239090aafee653cd4fb8e60dda952f5548"
+    },
+    {
+      "bytes": 1683054,
+      "path": "var_004_rapid-surgical-zipper.look_r001.renders/beauty.0001.exr",
+      "sha256": "495aa5c4f8208f5f3ea4714ae95bea2a4eb410f4388438b156d839b7a7934f06"
+    },
+    {
+      "bytes": 142619,
+      "path": "var_004_rapid-surgical-zipper.look_r001.renders/beauty.0001.preview.png",
+      "sha256": "277299aa6158908558e92c6fd437d585bba1354c95f903ebd8328e9a9a5ea991"
+    },
+    {
+      "bytes": 1387715,
+      "path": "var_004_rapid-surgical-zipper.look_r001.renders/beauty.0150.exr",
+      "sha256": "0495d9d325502c224004bc43ab3d8151edffe82db29f7607e4a7cf8d2f9591e9"
+    },
+    {
+      "bytes": 84721,
+      "path": "var_004_rapid-surgical-zipper.look_r001.renders/beauty.0150.preview.png",
+      "sha256": "ed988dc2c55749f728b80f1f967145b9b83a10da1ce34cd1ece77b9ee2bead76"
+    },
+    {
+      "bytes": 1374309,
+      "path": "var_004_rapid-surgical-zipper.look_r001.renders/beauty.0300.exr",
+      "sha256": "e536e313a883314bc8c6e514226180db9f022e5c2bd2d1868ebf4d5a714a1654"
+    },
+    {
+      "bytes": 80131,
+      "path": "var_004_rapid-surgical-zipper.look_r001.renders/beauty.0300.preview.png",
+      "sha256": "69a6f30f51a9b04c1c1df121aa1b998a90cd189b2c660f3fc31dc075b9bce8b2"
+    }
+  ],
+  "render_interface": {
+    "edges": {
+      "count": 384,
+      "representation": "rounded polylines",
+      "usd_paths": [
+        "/World/RenderEdges/bank_edges",
+        "/World/RenderEdges/zipper_edges"
+      ],
+      "usd_type": "BasisCurves"
+    },
+    "points": {
+      "count": 256,
+      "prototype": "small packed sphere",
+      "usd_path": "/World/RenderPoints/instances",
+      "usd_type": "PointInstancer"
+    }
+  },
+  "revision": "look_r001",
+  "schema_version": 1,
+  "source_component_id": "component-behavior-4d1068fdc350",
+  "source_selection": "../01_behavior/03_selected/selection_002",
+  "state": "artist-ready-starter",
+  "timeline": {
+    "duration_seconds": 10,
+    "fps": 30,
+    "frame_range": [
+      1,
+      300
+    ]
+  },
+  "variation_id": "var_004_rapid-surgical-zipper",
+  "verification": {
+    "connected_frames": 300,
+    "depth_of_field_enabled": false,
+    "karma_proof_frames": [
+      1,
+      150,
+      300
+    ],
+    "visual_gate": "passed"
+  }
+}

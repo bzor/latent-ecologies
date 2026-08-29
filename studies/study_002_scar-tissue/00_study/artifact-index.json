@@ -1,0 +1,11 @@
+{
+  "active": [
+    "studies/study_002_scar-tissue/01_behavior/03_selected/selection_001/behavior-review-directional-refractory-v3.mp4"
+  ],
+  "archived": [
+    "studies/study_002_scar-tissue/99_archive/pre-reset-golden-run-2026-08-22/archive-manifest.json"
+  ],
+  "schema_version": 1,
+  "study_id": "study-002-scar-tissue",
+  "updated_at": "2026-08-22T17:47:05Z"
+}

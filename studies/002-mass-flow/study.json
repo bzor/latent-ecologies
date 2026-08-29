@@ -3,7 +3,7 @@
   "schema_version": 1,
   "id": "002-mass-flow",
   "title": "Mass Flow",
-  "status": "prototype",
+  "status": "archived",
   "reproducibility": "open",
   "seed": 27183,
   "simulation": {

@@ -191,8 +191,8 @@ domain, advect them through an O(N) analytic vector field, and apply weak phase-
 attractors. Cache only measured checkpoints and a deterministic review subset during
 the first scale test.
 
-**Artistic gate:** The result should read as layered flow with distinct quiet and dense
-regions, not uniform noise or a benchmark cloud.
+**Observational criterion:** the run should produce persistent spatial variation in density
+and flow magnitude rather than an approximately uniform point distribution.
 
 **Observation:** Three broad populations remain visually distinct while repeatedly
 braiding, narrowing, and opening large negative spaces. The deterministic sampling

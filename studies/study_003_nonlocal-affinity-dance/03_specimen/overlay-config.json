@@ -1,0 +1,443 @@
+{
+  "studyId": "STUDY-003",
+  "aspect": "4:5 | 1080x1350",
+  "palette": "bone / sage",
+  "type": {
+    "numeral": "Isonorm Monospaced",
+    "numeralSize": 120,
+    "numeralTracking": -0.15,
+    "display": "Isonorm MN",
+    "titleSize": 20.5,
+    "titleTracking": 0.14,
+    "mini": "Iosevka Mono Light",
+    "miniSize": 8,
+    "miniTracking": 0,
+    "miniLineHeight": 12,
+    "miniMarginSide": 0,
+    "miniMarginTop": 0,
+    "micro": "kroeger 07_56 (pixel)",
+    "microSize": 6,
+    "microTracking": 0
+  },
+  "components": {
+    "frame": {
+      "enabled": true,
+      "bracketLen": 4,
+      "gap": 2,
+      "flip": true,
+      "regTopBottom": true,
+      "regTopBottomSize": 3,
+      "regLeftRight": true,
+      "regLeftRightSize": 3,
+      "colorBar": true
+    },
+    "ruler": {
+      "enabled": false,
+      "divisions": 4,
+      "tickLen": 10,
+      "labels": true,
+      "avoidStudy": true,
+      "mirror": false,
+      "opacity": 1
+    },
+    "bbox": {
+      "enabled": true,
+      "brackets": false,
+      "bracketLen": 3,
+      "gap": 0,
+      "flip": false,
+      "coords": false,
+      "scanline": false
+    },
+    "trackCallout": {
+      "enabled": true,
+      "instances": [
+        {
+          "track": "P17906",
+          "dx": 40,
+          "dy": -40,
+          "marker": "ring",
+          "markerSize": 3,
+          "label": true,
+          "value": "",
+          "spark": false,
+          "sparkFrames": 64,
+          "trail": 48,
+          "accent": true
+        },
+        {
+          "track": "P27606",
+          "dx": -8,
+          "dy": -8,
+          "marker": "ring",
+          "markerSize": 5,
+          "label": false,
+          "value": "",
+          "spark": false,
+          "sparkFrames": 2,
+          "trail": 0,
+          "accent": true
+        },
+        {
+          "track": "P55050",
+          "dx": 52,
+          "dy": 46,
+          "marker": "dot",
+          "markerSize": 7,
+          "label": true,
+          "value": "",
+          "spark": true,
+          "sparkFrames": 64,
+          "trail": 96,
+          "accent": true
+        },
+        {
+          "track": "P79677",
+          "dx": 0,
+          "dy": 0,
+          "marker": "dot",
+          "markerSize": 3,
+          "label": false,
+          "value": "",
+          "spark": false,
+          "sparkFrames": 64,
+          "trail": 80,
+          "accent": true
+        },
+        {
+          "track": "P96444",
+          "dx": 62,
+          "dy": 34,
+          "marker": "crosshair",
+          "markerSize": 5,
+          "label": false,
+          "value": "",
+          "spark": false,
+          "sparkFrames": 64,
+          "trail": 20,
+          "accent": false
+        }
+      ]
+    },
+    "identity": {
+      "enabled": true,
+      "showSolver": true,
+      "showSeed": true
+    },
+    "dotMatrix": {
+      "enabled": true,
+      "instances": [
+        {
+          "side": "right",
+          "gx": 0,
+          "gy": 0,
+          "cols": 4,
+          "rows": 16,
+          "epochFrames": 30,
+          "density": 0.2
+        }
+      ]
+    },
+    "dial": {
+      "enabled": false,
+      "series": "cohesion",
+      "radius": 28,
+      "showValue": true
+    },
+    "studyBlock": {
+      "enabled": true,
+      "anchor": "bottom",
+      "kicker": true,
+      "accent": true,
+      "subtitle": true,
+      "gapTop": -190,
+      "kickerMarginSide": 1,
+      "gapKickerNumeral": -8,
+      "numeralMarginSide": -11,
+      "gapNumeralAccent": -3,
+      "accentMarginSide": 0,
+      "accentWidth": 43,
+      "gapAccentTitle": -9,
+      "titleMarginSide": 0,
+      "gapTitleSubtitle": 0,
+      "subtitleMarginSide": 0
+    },
+    "specTable": {
+      "enabled": true,
+      "width": 165,
+      "cycleSec": 3,
+      "highlight": true
+    },
+    "bars": {
+      "enabled": false,
+      "series": "energy",
+      "bins": 48,
+      "width": 150,
+      "height": 34,
+      "label": ""
+    },
+    "summaryBlock": {
+      "enabled": true,
+      "side": "left",
+      "gx": 0.01,
+      "gy": 25.9,
+      "widthCols": 4,
+      "heading": "SUMMARY",
+      "rule": true
+    },
+    "bulletBlock": {
+      "enabled": false,
+      "side": "left",
+      "gx": 0,
+      "gy": 6,
+      "widthCols": 3,
+      "tick": "·",
+      "accentTicks": true
+    },
+    "footer": {
+      "enabled": false,
+      "blink": true
+    },
+    "tag": {
+      "enabled": true,
+      "text": "NON-LOCAL_AFINNITY_003_BZORSYSTEMS.//"
+    },
+    "scatterRects": {
+      "enabled": true,
+      "opacity": 0.3,
+      "instances": [
+        {
+          "gx": 0,
+          "gy": 6,
+          "width": 1,
+          "height": 0.1,
+          "mirror": true
+        },
+        {
+          "gx": 0,
+          "gy": 6.125,
+          "width": 1,
+          "height": 0.05,
+          "mirror": false
+        },
+        {
+          "gx": 0,
+          "gy": 6.25,
+          "width": 1,
+          "height": 0.02,
+          "mirror": false
+        },
+        {
+          "gx": 0,
+          "gy": 7,
+          "width": 0.05,
+          "height": 1,
+          "mirror": false
+        },
+        {
+          "gx": 0,
+          "gy": 7,
+          "width": 0.05,
+          "height": 0.05,
+          "mirror": true
+        },
+        {
+          "gx": 15,
+          "gy": 5,
+          "width": 2,
+          "height": 0.02,
+          "mirror": false
+        },
+        {
+          "gx": 15,
+          "gy": 4.95,
+          "width": 2,
+          "height": 0.02,
+          "mirror": false
+        },
+        {
+          "gx": 15,
+          "gy": 4.9,
+          "width": 1,
+          "height": 0.1,
+          "mirror": false
+        },
+        {
+          "gx": 15,
+          "gy": 4,
+          "width": 1,
+          "height": 0.03,
+          "mirror": false
+        },
+        {
+          "gx": 15,
+          "gy": 4,
+          "width": 1,
+          "height": 0.2,
+          "mirror": false
+        },
+        {
+          "gx": 15,
+          "gy": 4.21,
+          "width": 0.2,
+          "height": 0.04,
+          "mirror": true
+        },
+        {
+          "gx": 15,
+          "gy": 3.21,
+          "width": 0.2,
+          "height": 0.04,
+          "mirror": true
+        },
+        {
+          "gx": 15,
+          "gy": 3.21,
+          "width": 0.45,
+          "height": 0.04,
+          "mirror": false
+        },
+        {
+          "gx": 15,
+          "gy": 3,
+          "width": 0.45,
+          "height": 0.04,
+          "mirror": false
+        },
+        {
+          "gx": 15,
+          "gy": 3,
+          "width": 0.1,
+          "height": 0.04,
+          "mirror": true
+        },
+        {
+          "gx": 15,
+          "gy": 20,
+          "width": 1,
+          "height": 0.04,
+          "mirror": true
+        },
+        {
+          "gx": 15,
+          "gy": 20,
+          "width": 0.3,
+          "height": 0.04,
+          "mirror": true
+        },
+        {
+          "gx": 15,
+          "gy": 23,
+          "width": 0.05,
+          "height": 1,
+          "mirror": false
+        },
+        {
+          "gx": 15.07,
+          "gy": 23,
+          "width": 0.05,
+          "height": 0.4,
+          "mirror": false
+        },
+        {
+          "gx": 15.07,
+          "gy": 23,
+          "width": 0.05,
+          "height": 0.1,
+          "mirror": false
+        },
+        {
+          "gx": 15.07,
+          "gy": 23.5,
+          "width": 0.05,
+          "height": 0.5,
+          "mirror": false
+        },
+        {
+          "gx": 15.15,
+          "gy": 23,
+          "width": 0.85,
+          "height": 1,
+          "mirror": false
+        },
+        {
+          "gx": 15.95,
+          "gy": 23,
+          "width": 0.05,
+          "height": 1,
+          "mirror": false
+        },
+        {
+          "gx": 15.95,
+          "gy": 23,
+          "width": 0.05,
+          "height": 0.1,
+          "mirror": false
+        },
+        {
+          "gx": 6,
+          "gy": 23,
+          "width": 0.1,
+          "height": 0.1,
+          "mirror": false
+        },
+        {
+          "gx": 6,
+          "gy": 23,
+          "width": 0.1,
+          "height": 0.1,
+          "mirror": false
+        },
+        {
+          "gx": 6,
+          "gy": 23.15,
+          "width": 0.1,
+          "height": 0.05,
+          "mirror": false
+        },
+        {
+          "gx": 6.14,
+          "gy": 23,
+          "width": 0.1,
+          "height": 0.2,
+          "mirror": false
+        },
+        {
+          "gx": 6.14,
+          "gy": 23,
+          "width": 9,
+          "height": 0.02,
+          "mirror": false
+        },
+        {
+          "gx": 16,
+          "gy": 23.9,
+          "width": 0.1,
+          "height": 0.1,
+          "mirror": false
+        }
+      ]
+    },
+    "grid": {
+      "enabled": true,
+      "cols": 23,
+      "rows": 20,
+      "marginPct": 2.5,
+      "square": true,
+      "showCols": true,
+      "showRows": true,
+      "showMargin": false,
+      "dashed": false,
+      "opacity": 0.1
+    }
+  },
+  "ui": {
+    "matte": false,
+    "safe": false,
+    "fullsize": true
+  },
+  "render": {
+    "video": "studies/study_003_nonlocal-affinity-dance/02_look/renders/look.mp4",
+    "still": "studies/study_003_nonlocal-affinity-dance/02_look/renders/look.0207.png"
+  }
+}
