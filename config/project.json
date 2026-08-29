@@ -1,6 +1,8 @@
 {
   "project": "houdini-ai",
   "title": "Computational Natural History",
+  "studies_dir": "studies",
+  "study_directory_pattern": "study_{number:03d}_{slug}",
   "work_dir": "work",
   "publish_mode": "approval_required",
   "default_fps": 30,

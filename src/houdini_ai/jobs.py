@@ -8,6 +8,8 @@ from datetime import datetime, timezone
 from pathlib import Path
 from typing import Any, Mapping
 
+from .stages import LEGACY_GRAPH, StageGraph
+
 
 STAGES = ("validate", "build", "simulate", "probe", "render", "composite", "encode", "package")
 STATES = {"pending", "running", "complete", "failed", "stale"}
@@ -22,6 +24,7 @@ class Job:
     effective_config: Mapping[str, Any]
     input_digest: str
     source_state: str
+    stage_graph: StageGraph = LEGACY_GRAPH
 
 
 def _canonical_json(value: Any) -> bytes:
@@ -60,7 +63,12 @@ def source_state(root: Path) -> str:
     return f"{revision}+dirty.{dirty_digest}"
 
 
-def load_job(root: Path, manifest_path: Path) -> Job:
+def load_job(
+    root: Path,
+    manifest_path: Path,
+    stage_graph: StageGraph = LEGACY_GRAPH,
+    record_kind: str | None = None,
+) -> Job:
     root = root.resolve()
     manifest_path = manifest_path.resolve()
     project = json.loads((root / "config" / "project.json").read_text(encoding="utf-8"))
@@ -72,11 +80,24 @@ def load_job(root: Path, manifest_path: Path) -> Job:
         "source_state": revision,
         "manifest_path": manifest_path.relative_to(root).as_posix(),
     }
+    if stage_graph != LEGACY_GRAPH:
+        effective["stage_graph"] = stage_graph.graph_id
     digest = hashlib.sha256(_canonical_json(effective)).hexdigest()
-    quality = study["presentation"]["quality"]
-    job_id = f"{study['id']}-s{study['seed']}-{quality}-{digest[:12]}"
+    if record_kind is None:
+        quality = study["presentation"]["quality"]
+        if stage_graph == LEGACY_GRAPH:
+            job_id = f"{study['id']}-s{study['seed']}-{quality}-{digest[:12]}"
+        else:
+            job_id = f"{stage_graph.graph_id}-{study['id']}-s{study['seed']}-{quality}-{digest[:12]}"
+    else:
+        version = study.get("schema_version", 1)
+        seed = study.get("seed", study.get("parameters", {}).get("seed"))
+        if seed is None:
+            raise ValueError("studio job record requires a seed")
+        safe_source = revision.replace("+", "-")[:12]
+        job_id = f"{record_kind}-{study['id']}-v{version}-s{seed}-{safe_source}-{digest[:12]}"
     work_dir = root / project["work_dir"] / "jobs" / job_id
-    return Job(job_id, root, work_dir, manifest_path, effective, digest, revision)
+    return Job(job_id, root, work_dir, manifest_path, effective, digest, revision, stage_graph)
 
 
 def _write_json(path: Path, value: Mapping[str, Any]) -> None:
@@ -93,7 +114,7 @@ def _read_receipt(path: Path) -> dict[str, Any] | None:
 
 
 def receipt_path(job: Job, stage: str) -> Path:
-    if stage not in STAGES:
+    if stage not in job.stage_graph.stages:
         raise ValueError(f"unknown stage: {stage}")
     return job.directory / "receipts" / f"{stage}.json"
 
@@ -102,8 +123,14 @@ def prepare_job(job: Job) -> list[dict[str, Any]]:
     job.directory.mkdir(parents=True, exist_ok=True)
     (job.directory / "logs").mkdir(exist_ok=True)
     _write_json(job.directory / "effective-config.json", dict(job.effective_config))
+    receipts_dir = job.directory / "receipts"
+    if receipts_dir.is_dir():
+        expected = {f"{stage}.json" for stage in job.stage_graph.stages}
+        for path in receipts_dir.glob("*.json"):
+            if path.name not in expected:
+                path.unlink()
     receipts = []
-    for stage in STAGES:
+    for stage in job.stage_graph.stages:
         path = receipt_path(job, stage)
         receipt = _read_receipt(path)
         if receipt is None:
@@ -138,5 +165,5 @@ def job_status(job: Job) -> list[dict[str, Any]]:
     return [
         _read_receipt(receipt_path(job, stage))
         or {"stage": stage, "state": "pending", "input_digest": job.input_digest}
-        for stage in STAGES
+        for stage in job.stage_graph.stages
     ]

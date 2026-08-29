@@ -459,7 +459,7 @@ def run_package(job: Job) -> str:
     validate_diagnostic_png(poster, expected_size=_expected_size(job))
 
     caption = (
-        f"{study['title']} — Study 001. {study['simulation']['rule_genome']['system']['agent_count']} agents "
+        f"{study['title']} | Study 001. {study['simulation']['rule_genome']['system']['agent_count']} agents "
         "follow local resource gradients, avoid inhibitory traces left by earlier movement, and gradually redraw the field."
     )
     alt_text = (

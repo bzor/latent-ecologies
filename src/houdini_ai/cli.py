@@ -14,6 +14,7 @@ from .mass_flow import run_mass_flow_probe
 from .pipeline import run_composite, run_encode, run_lookdev, run_milestone3, run_package, run_render, run_simulation
 from .review_studio import serve as serve_review_studio
 from .storage import ALL_CATEGORIES, DEFAULT_CATEGORIES, apply_cleanup, format_bytes, plan_cleanup, storage_report
+from .studio_cli import add_studio_parser
 
 
 ROOT = Path(__file__).resolve().parents[2]
@@ -226,6 +227,7 @@ def build_parser() -> argparse.ArgumentParser:
         command = subparsers.add_parser(name, help=help_text)
         command.add_argument("manifest")
         command.set_defaults(func=handler)
+    add_studio_parser(subparsers, ROOT)
     return parser
 
 

@@ -1,4 +1,4 @@
-"""Automation for the Houdini AI creative laboratory."""
+"""Automation for Bzor Computational Studio."""
 
 __version__ = "0.1.0"
 

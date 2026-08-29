@@ -3,6 +3,7 @@ from __future__ import annotations
 import json
 import mimetypes
 import re
+import secrets
 import threading
 import uuid
 from datetime import datetime, timezone
@@ -12,11 +13,14 @@ from pathlib import Path
 from typing import Any
 from urllib.parse import quote, unquote, urlparse
 
+from .artifact_catalog import resolve_catalog_media
+from .studio_api import COLLECTION_KINDS, StudioAPI
+
 
 MEDIA_EXTENSIONS = {".mp4": "video", ".mov": "video", ".png": "image", ".jpg": "image", ".jpeg": "image"}
 SCENE_EXTENSIONS = {".hip", ".hiplc", ".hipnc"}
 ARTIFACT_ROOTS = {"review", "lookdev", "package", "publish"}
-DECISIONS = {"keep", "reject", "iterate", "approved-look"}
+DECISIONS = {"keep", "iterate", "mutate", "hold", "archive", "reject", "promote"}
 STATUSES = {"open", "acknowledged", "implemented", "resolved"}
 STATUS_TRANSITIONS = {
     "open": {"acknowledged", "resolved"},
@@ -150,11 +154,17 @@ class ReviewStore:
             raise ValueError("text must contain 1 to 2000 characters")
         if decision is not None and decision not in DECISIONS:
             raise ValueError("invalid decision")
+        if kind == "decision" and decision is None:
+            raise ValueError("decision is required for decision notes")
+        if kind == "comment" and decision is not None:
+            raise ValueError("comments cannot contain a decision")
         if timecode is not None and (not isinstance(timecode, (int, float)) or not 0 <= timecode <= 86400):
             raise ValueError("timecode must be between 0 and 86400 seconds")
-        artifact = self.root / "work" / "jobs" / job_id / artifact_path
-        if not job_id or not artifact_path or not artifact.is_file() or not _inside(artifact, self.root / "work" / "jobs"):
-            raise ValueError("artifact does not exist in work/jobs")
+        jobs_root = (self.root / "work" / "jobs").resolve()
+        job_root = (jobs_root / job_id).resolve()
+        artifact = (job_root / artifact_path).resolve()
+        if not job_id or not _inside(job_root, jobs_root) or not artifact_path or not artifact.is_file() or not _inside(artifact, job_root):
+            raise ValueError("artifact does not exist in selected job")
         item = {
             "id": uuid.uuid4().hex,
             "created_at": datetime.now(timezone.utc).isoformat(),
@@ -229,8 +239,9 @@ class ReviewStore:
         if commit is not None and not re.fullmatch(r"[a-f0-9]{7,64}", str(commit)):
             raise ValueError("result commit must be a Git hash")
         if job_id is not None:
-            job_dir = self.root / "work" / "jobs" / str(job_id)
-            if not job_dir.is_dir() or not _inside(job_dir, self.root / "work" / "jobs"):
+            jobs_root = (self.root / "work" / "jobs").resolve()
+            job_dir = (jobs_root / str(job_id)).resolve()
+            if not job_dir.is_dir() or not _inside(job_dir, jobs_root):
                 raise ValueError("result job does not exist")
             if not isinstance(artifact_paths, list) or len(artifact_paths) > 20:
                 raise ValueError("result artifact_paths must be a list of at most 20 paths")
@@ -254,18 +265,77 @@ class ReviewStore:
         temporary.replace(path)
 
 
-def make_handler(root: Path):
+def make_handler(root: Path, *, mutation_token: str | None = None):
     root = root.resolve()
     website = root / "website"
+    overlay_web = root / "design-overlay-generator" / "web"
+    # Study media the overlay preview may reference (renders, sidecars).
+    overlay_media_bases = ("studies", "work")
     store = ReviewStore(root)
+    studio = StudioAPI(root)
 
     class ReviewHandler(BaseHTTPRequestHandler):
         server_version = "HoudiniReviewStudio/0.1"
 
+        def end_headers(self) -> None:
+            host = self.headers.get("Host", "")
+            if self._loopback_authority():
+                self.send_header("Access-Control-Allow-Origin", f"http://{host}")
+            self.send_header(
+                "Content-Security-Policy",
+                getattr(self, "_csp", None)
+                or "default-src 'self'; script-src 'self'; object-src 'none'; base-uri 'none'; frame-ancestors 'none'",
+            )
+            self.send_header("X-Content-Type-Options", "nosniff")
+            super().end_headers()
+
+        def _loopback_authority(self) -> bool:
+            raw = self.headers.get("Host", "")
+            if not raw or any(char in raw for char in "@/?#"):
+                return False
+            try:
+                parsed = urlparse(f"//{raw}")
+                _ = parsed.port
+            except ValueError:
+                return False
+            return parsed.username is None and parsed.password is None and parsed.hostname in {"127.0.0.1", "localhost", "::1"}
+
         def do_GET(self) -> None:  # noqa: N802
             parsed = urlparse(self.path)
+            if not self._loopback_authority():
+                self._error(HTTPStatus.FORBIDDEN, "requests require a loopback Host")
+                return
+            if parsed.path == "/api/studio/session":
+                origin = self.headers.get("Origin")
+                if origin:
+                    origin_parts = urlparse(origin)
+                    host_parts = urlparse(f"//{self.headers.get('Host', '')}")
+                    if origin_parts.scheme != "http" or origin_parts.hostname != host_parts.hostname or origin_parts.port != host_parts.port:
+                        self._error(HTTPStatus.FORBIDDEN, "session token requires the same loopback Origin")
+                        return
+                self._json(studio.session_bootstrap(mutation_token))
+                return
+            if parsed.path == "/api/studio/sessions":
+                self._json(studio.list_sessions())
+                return
+            if parsed.path == "/api/studio/review-inbox":
+                self._json(studio.review_inbox())
+                return
+            if parsed.path == "/api/studio/artifacts/verified":
+                self._json(studio.list_verified_artifacts())
+                return
+            if parsed.path == "/api/studio/catalog":
+                self._json(studio.artifact_catalog())
+                return
             if parsed.path == "/api/jobs":
                 self._json({"jobs": discover_jobs(root)})
+                return
+            if parsed.path == "/api/studio/summary":
+                self._json(studio.summary())
+                return
+            studio_match = re.fullmatch(r"/api/studio/([a-z-]+)", parsed.path)
+            if studio_match and studio_match.group(1) in COLLECTION_KINDS:
+                self._json(studio.list_records(studio_match.group(1)))
                 return
             if parsed.path.startswith("/api/reviews/"):
                 study_id = unquote(parsed.path.removeprefix("/api/reviews/"))
@@ -274,8 +344,45 @@ def make_handler(root: Path):
                 except ValueError as exc:
                     self._error(HTTPStatus.BAD_REQUEST, str(exc))
                 return
+            catalog_media = re.fullmatch(r"/catalog-media/(catalog-[a-f0-9]{20})", parsed.path)
+            if catalog_media:
+                try:
+                    self._file(resolve_catalog_media(root, catalog_media.group(1)), allow_range=True)
+                except FileNotFoundError:
+                    self._error(HTTPStatus.NOT_FOUND, "not found")
+                return
             if parsed.path.startswith("/media/"):
                 self._media(parsed.path)
+                return
+            # Design-overlay generator served on a real origin: file:// pages
+            # in some browsers treat every file URL as a unique origin, which
+            # blocks the preview's render backdrop and persistence.
+            if parsed.path == "/overlay" or parsed.path.startswith("/overlay/"):
+                relative = unquote(parsed.path.removeprefix("/overlay").lstrip("/")) or "index.html"
+                target = (overlay_web / relative).resolve()
+                if not _inside(target, overlay_web) or not target.is_file():
+                    self._error(HTTPStatus.NOT_FOUND, "not found")
+                    return
+                # The overlay app injects @font-face rules via an inline
+                # <style> and previews drag-dropped media through blob: URLs.
+                self._csp = (
+                    "default-src 'self'; script-src 'self'; style-src 'self' 'unsafe-inline'; "
+                    "img-src 'self' blob: data:; media-src 'self' blob:; font-src 'self'; "
+                    "object-src 'none'; base-uri 'none'; frame-ancestors 'none'"
+                )
+                # App files must never be cached (stale app.js breaks
+                # iteration); only media assets get range/cacheable serving.
+                app_file = target.suffix.lower() in {".html", ".js", ".css", ".json"}
+                self._file(target, allow_range=not app_file)
+                return
+            if parsed.path.startswith("/overlay-media/"):
+                relative = unquote(parsed.path.removeprefix("/overlay-media/"))
+                target = (root / relative).resolve()
+                allowed = any(_inside(target, (root / base).resolve()) for base in overlay_media_bases)
+                if not allowed or not target.is_file():
+                    self._error(HTTPStatus.NOT_FOUND, "not found")
+                    return
+                self._file(target, allow_range=True)
                 return
             relative = "index.html" if parsed.path == "/" else unquote(parsed.path.lstrip("/"))
             target = (website / relative).resolve()
@@ -285,7 +392,100 @@ def make_handler(root: Path):
             self._file(target)
 
         def do_POST(self) -> None:  # noqa: N802
+            if not self._allow_mutation():
+                return
             path = urlparse(self.path).path
+            if path == "/api/studio/directions":
+                try:
+                    self._json(studio.create_direction(self._body()), HTTPStatus.CREATED)
+                except (FileNotFoundError, ValueError) as exc:
+                    self._error(HTTPStatus.BAD_REQUEST, str(exc))
+                return
+            if path == "/api/studio/directions/merge":
+                try:
+                    self._json(studio.merge_directions(self._body()), HTTPStatus.CREATED)
+                except (FileNotFoundError, ValueError) as exc:
+                    self._error(HTTPStatus.BAD_REQUEST, str(exc))
+                return
+            direction_match = re.fullmatch(
+                r"/api/studio/directions/(direction-[a-z0-9-]+)/(select|hold|archive|reject|mutate|propose)", path
+            )
+            if direction_match:
+                try:
+                    direction_id, operation = direction_match.groups()
+                    body = self._body()
+                    if operation == "mutate":
+                        result = studio.mutate_direction(direction_id, body)
+                        status = HTTPStatus.CREATED
+                    elif operation == "propose":
+                        result = studio.derive_direction_proposal(direction_id, body)
+                        status = HTTPStatus.CREATED
+                    else:
+                        result = studio.decide_direction(direction_id, operation)
+                        status = HTTPStatus.OK
+                    self._json(result, status)
+                except (FileNotFoundError, ValueError) as exc:
+                    self._error(HTTPStatus.BAD_REQUEST, str(exc))
+                return
+            if path == "/api/studio/notes":
+                try:
+                    self._json(studio.capture_process_note(self._body()), HTTPStatus.CREATED)
+                except ValueError as exc:
+                    self._error(HTTPStatus.BAD_REQUEST, str(exc))
+                return
+            if path == "/api/studio/sessions":
+                try:
+                    self._json(studio.create_session(self._body()), HTTPStatus.CREATED)
+                except (FileExistsError, ValueError) as exc:
+                    self._error(HTTPStatus.BAD_REQUEST, str(exc))
+                return
+            activation_match = re.fullmatch(r"/api/studio/sessions/(session-[a-z0-9-]+)/activate", path)
+            if activation_match:
+                try:
+                    self._body()
+                    self._json(studio.activate_session(activation_match.group(1)))
+                except (FileNotFoundError, ValueError) as exc:
+                    self._error(HTTPStatus.BAD_REQUEST, str(exc))
+                return
+            decision_match = re.fullmatch(r"/api/studio/proposals/([a-z0-9-]+)/(approve|hold)", path)
+            if decision_match:
+                try:
+                    self._body()
+                    proposal_id, decision = decision_match.groups()
+                    result = studio.approve_proposal(proposal_id) if decision == "approve" else studio.hold_proposal(proposal_id)
+                    self._json(result)
+                except (FileNotFoundError, ValueError) as exc:
+                    self._error(HTTPStatus.BAD_REQUEST, str(exc))
+                return
+            promotion_match = re.fullmatch(r"/api/studio/artifacts/([a-z0-9-]+)/promote", path)
+            if promotion_match:
+                try:
+                    body = self._body()
+                    result = studio.promote_artifact(
+                        promotion_match.group(1), str(body.get("component_kind", "")),
+                        str(body.get("rationale", "")), supersedes_id=body.get("supersedes_id"),
+                    )
+                    self._json(result, HTTPStatus.CREATED)
+                except (FileNotFoundError, ValueError) as exc:
+                    self._error(HTTPStatus.BAD_REQUEST, str(exc))
+                return
+            studio_match = re.fullmatch(r"/api/studio/([a-z-]+)", path)
+            if studio_match and studio_match.group(1) in COLLECTION_KINDS:
+                try:
+                    collection = studio_match.group(1)
+                    value = self._body()
+                    if collection == "ideas":
+                        result = studio.capture_idea(value)
+                    elif collection == "affinity-presets":
+                        result = studio.save_affinity_preset(value)
+                    elif collection == "proposals":
+                        result = studio.create_proposal(value)
+                    else:
+                        result = studio.create_record(collection, value)
+                    self._json(result, HTTPStatus.CREATED)
+                except (FileExistsError, ValueError) as exc:
+                    self._error(HTTPStatus.BAD_REQUEST, str(exc))
+                return
             response_match = re.fullmatch(r"/api/reviews/([^/]+)/([a-f0-9]{32})/responses", path)
             if response_match:
                 try:
@@ -305,6 +505,29 @@ def make_handler(root: Path):
                 self._error(HTTPStatus.BAD_REQUEST, str(exc))
 
         def do_PATCH(self) -> None:  # noqa: N802
+            if not self._allow_mutation():
+                return
+            path = urlparse(self.path).path
+            session_match = re.fullmatch(r"/api/studio/sessions/(session-[a-z0-9-]+)", path)
+            if session_match:
+                try:
+                    self._json(studio.update_session(session_match.group(1), self._body()))
+                except (FileNotFoundError, ValueError) as exc:
+                    self._error(HTTPStatus.BAD_REQUEST, str(exc))
+                return
+            studio_match = re.fullmatch(r"/api/studio/([a-z-]+)/([a-z0-9-]+)", path)
+            if studio_match and studio_match.group(1) in COLLECTION_KINDS:
+                try:
+                    body = self._body()
+                    collection, record_id = studio_match.groups()
+                    if collection == "editorial" and "tags" in body:
+                        result = studio.update_editorial_tags(record_id, body["tags"])
+                    else:
+                        result = studio.update_status(collection, record_id, str(body.get("state", "")))
+                    self._json(result)
+                except (FileNotFoundError, ValueError) as exc:
+                    self._error(HTTPStatus.BAD_REQUEST, str(exc))
+                return
             match = re.fullmatch(r"/api/reviews/([^/]+)/([a-f0-9]{32})", urlparse(self.path).path)
             if not match:
                 self._error(HTTPStatus.NOT_FOUND, "not found")
@@ -330,15 +553,38 @@ def make_handler(root: Path):
                 raise ValueError("request body must be a JSON object")
             return value
 
+        def _allow_mutation(self) -> bool:
+            content_type = self.headers.get("Content-Type", "").split(";", 1)[0].strip().lower()
+            if content_type != "application/json":
+                self._error(HTTPStatus.UNSUPPORTED_MEDIA_TYPE, "Content-Type must be application/json")
+                return False
+            if not self._loopback_authority():
+                self._error(HTTPStatus.FORBIDDEN, "mutation requests require a loopback Host")
+                return False
+            origin = self.headers.get("Origin")
+            if origin:
+                origin_parts = urlparse(origin)
+                host_parts = urlparse(f"//{self.headers.get('Host', '')}")
+                if origin_parts.scheme != "http" or origin_parts.hostname != host_parts.hostname or origin_parts.port != host_parts.port:
+                    self._error(HTTPStatus.FORBIDDEN, "mutation requests require the same loopback Origin")
+                    return False
+            if mutation_token is not None and not secrets.compare_digest(
+                self.headers.get("X-Studio-Mutation-Token", ""), mutation_token
+            ):
+                self._error(HTTPStatus.FORBIDDEN, "invalid Studio mutation token")
+                return False
+            return True
+
         def _media(self, request_path: str) -> None:
             parts = request_path.split("/", 3)
             if len(parts) != 4:
                 self._error(HTTPStatus.NOT_FOUND, "not found")
                 return
             job_id, relative = unquote(parts[2]), unquote(parts[3])
-            target = (root / "work" / "jobs" / job_id / relative).resolve()
-            jobs_root = root / "work" / "jobs"
-            if not _inside(target, jobs_root) or not target.is_file():
+            jobs_root = (root / "work" / "jobs").resolve()
+            job_root = (jobs_root / job_id).resolve()
+            target = (job_root / relative).resolve()
+            if not _inside(job_root, jobs_root) or not _inside(target, job_root) or not target.is_file() or _artifact_kind(target) is None:
                 self._error(HTTPStatus.NOT_FOUND, "not found")
                 return
             self._file(target, allow_range=True)
@@ -361,6 +607,8 @@ def make_handler(root: Path):
             self.send_header("Content-Type", mimetypes.guess_type(path.name)[0] or "application/octet-stream")
             self.send_header("Content-Length", str(end - start + 1))
             self.send_header("Accept-Ranges", "bytes")
+            if not allow_range:
+                self.send_header("Cache-Control", "no-store")
             if status == HTTPStatus.PARTIAL_CONTENT:
                 self.send_header("Content-Range", f"bytes {start}-{end}/{size}")
             self.end_headers()
@@ -393,7 +641,8 @@ def make_handler(root: Path):
 
 
 def serve(root: Path, host: str = "127.0.0.1", port: int = 8765) -> None:
-    server = ThreadingHTTPServer((host, port), make_handler(root))
+    mutation_token = secrets.token_urlsafe(32)
+    server = ThreadingHTTPServer((host, port), make_handler(root, mutation_token=mutation_token))
     print(f"review studio: http://{host}:{server.server_port}")
     print("feedback: work/reviews/ (local generated state)")
     try:
