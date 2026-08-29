@@ -1,0 +1,21 @@
+<!doctype html>
+<!--
+  Behavior prototype page template. scripts/scaffold_prototype.py copies this
+  beside a new kernel.js and rewrites the __PLAYGROUND_WEB__ prefix to the
+  correct relative path. Classic scripts only; must work from file://.
+  Uncomment the three.min.js line for kernels with view: "three".
+-->
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <title>Behavior prototype</title>
+  <link rel="stylesheet" href="__PLAYGROUND_WEB__/styles.css">
+</head>
+<body>
+  <div id="playground"></div>
+  <!-- <script src="__PLAYGROUND_WEB__/vendor/three.min.js"></script> -->
+  <script src="__PLAYGROUND_WEB__/rng.js"></script>
+  <script src="__PLAYGROUND_WEB__/harness.js"></script>
+  <script src="./kernel.js"></script>
+</body>
+</html>

@@ -1,0 +1,154 @@
+:root {
+  --bg: #0b0d10;
+  --panel: #11151a;
+  --ink: #d7dde3;
+  --faint: #6b7683;
+  --line: #1d242c;
+  --accent: #58c496;
+}
+
+* { box-sizing: border-box; }
+
+body {
+  margin: 0;
+  background: var(--bg);
+  color: var(--ink);
+  font: 12px/1.5 "Segoe UI", system-ui, sans-serif;
+}
+
+#playground {
+  display: flex;
+  min-height: 100vh;
+}
+
+.panel {
+  width: 280px;
+  flex: none;
+  background: var(--panel);
+  border-right: 1px solid var(--line);
+  padding: 14px 16px 24px;
+  overflow-y: auto;
+}
+
+.panel h1 {
+  font-size: 14px;
+  font-weight: 600;
+  margin: 0 0 2px;
+  letter-spacing: 0.02em;
+}
+
+.mechanism {
+  color: var(--faint);
+  font-size: 10px;
+  letter-spacing: 0.06em;
+  margin-bottom: 14px;
+}
+
+.group {
+  border-top: 1px solid var(--line);
+  padding-top: 10px;
+  margin-top: 12px;
+}
+
+.group h2 {
+  font-size: 10px;
+  font-weight: 600;
+  letter-spacing: 0.12em;
+  color: var(--faint);
+  margin: 0 0 8px;
+}
+
+.row {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  margin-bottom: 6px;
+}
+
+.row-label {
+  flex: 1;
+  color: var(--ink);
+}
+
+.row input[type="number"], .row input[type="text"], .row select {
+  width: 110px;
+  background: var(--bg);
+  color: var(--ink);
+  border: 1px solid var(--line);
+  border-radius: 3px;
+  padding: 3px 6px;
+  font: inherit;
+}
+
+.row input:focus, .row select:focus { outline: 1px solid var(--accent); }
+
+.transport {
+  display: flex;
+  gap: 6px;
+  margin-bottom: 6px;
+}
+
+button {
+  background: var(--bg);
+  color: var(--ink);
+  border: 1px solid var(--line);
+  border-radius: 3px;
+  padding: 4px 10px;
+  font: inherit;
+  cursor: pointer;
+}
+
+button:hover { border-color: var(--accent); color: var(--accent); }
+
+.row-button {
+  display: block;
+  width: 100%;
+  margin-bottom: 6px;
+}
+
+.readout {
+  color: var(--faint);
+  font-variant-numeric: tabular-nums;
+  margin-bottom: 6px;
+}
+
+.hidden-input { display: none; }
+
+.stage {
+  flex: 1;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 20px;
+}
+
+.stage canvas {
+  max-width: 100%;
+  max-height: calc(100vh - 40px);
+  background: #000;
+}
+
+.playground-fluid {
+  height: 100vh;
+  min-height: 0;
+  overflow: hidden;
+}
+
+.playground-fluid .panel {
+  height: 100vh;
+}
+
+.stage-fluid {
+  min-width: 0;
+  height: 100vh;
+  padding: 0;
+  overflow: hidden;
+}
+
+.stage-fluid canvas {
+  display: block;
+  width: 100%;
+  height: 100%;
+  max-width: none;
+  max-height: none;
+}
