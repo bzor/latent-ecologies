@@ -1,0 +1,41 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://example.invalid/houdini-ai/studio/idea.schema.json",
+  "title": "Studio idea",
+  "type": "object",
+  "required": ["schema_version", "id", "title", "raw_text", "state", "visibility"],
+  "properties": {
+    "schema_version": {"$ref": "common.schema.json#/$defs/schema_version"},
+    "id": {"allOf": [{"$ref": "common.schema.json#/$defs/record_id"}, {"pattern": "^idea-"}]},
+    "title": {"$ref": "common.schema.json#/$defs/nonempty_string"},
+    "raw_text": {"$ref": "common.schema.json#/$defs/nonempty_string"},
+    "track": {"$ref": "common.schema.json#/$defs/track"},
+    "state": {"enum": ["inbox", "incubating", "ready", "promoted", "scoped", "proposed", "archived", "rejected"]},
+    "visibility": {"$ref": "common.schema.json#/$defs/visibility"},
+    "source_urls": {"type": "array", "items": {"type": "string", "format": "uri"}, "uniqueItems": true},
+    "short_summary": {"type": "string", "minLength": 1, "maxLength": 500},
+    "long_summary": {"type": "string", "minLength": 1, "maxLength": 20000},
+    "reference_links": {
+      "type": "array",
+      "items": {
+        "type": "object",
+        "required": ["title", "url", "kind"],
+        "properties": {
+          "title": {"type": "string", "minLength": 1, "maxLength": 300},
+          "url": {"type": "string", "format": "uri"},
+          "kind": {"enum": ["paper", "artwork", "video", "dataset", "tool", "article", "other"]},
+          "note": {"type": "string", "minLength": 1, "maxLength": 2000}
+        },
+        "additionalProperties": false
+      }
+    },
+    "tags": {"type": "array", "items": {"type": "string", "pattern": "^[a-z0-9]+(?:-[a-z0-9]+)*$", "maxLength": 50}, "uniqueItems": true},
+    "promoted_study_id": {"type": "string", "pattern": "^[a-z0-9]+(?:-[a-z0-9]+)*$", "maxLength": 80},
+    "created_at": {"type": "string", "format": "date-time"},
+    "updated_at": {"type": "string", "format": "date-time"},
+    "questions": {"type": "array", "items": {"$ref": "common.schema.json#/$defs/nonempty_string"}},
+    "constraints": {"type": "array", "items": {"$ref": "common.schema.json#/$defs/nonempty_string"}},
+    "extensions": {"$ref": "common.schema.json#/$defs/extensions"}
+  },
+  "additionalProperties": false
+}

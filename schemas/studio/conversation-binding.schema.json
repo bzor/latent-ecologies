@@ -1,0 +1,26 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://example.invalid/houdini-ai/studio/conversation-binding.schema.json",
+  "title": "Private external conversation binding",
+  "type": "object",
+  "required": ["schema_version", "id", "platform", "guild_id", "parent_channel_id", "thread_id", "state", "created_at", "updated_at", "visibility"],
+  "oneOf": [
+    {"required": ["study_id"], "not": {"required": ["seed_id"]}},
+    {"required": ["seed_id"], "not": {"required": ["study_id"]}}
+  ],
+  "properties": {
+    "schema_version": {"$ref": "common.schema.json#/$defs/schema_version"},
+    "id": {"type": "string", "pattern": "^binding-discord-[0-9]{17,20}$"},
+    "study_id": {"type": "string", "pattern": "^[a-z0-9]+(?:-[a-z0-9]+)*$", "maxLength": 80},
+    "seed_id": {"type": "string", "pattern": "^idea-[a-z0-9]+(?:-[a-z0-9]+)*$", "maxLength": 100},
+    "platform": {"const": "discord"},
+    "guild_id": {"type": "string", "pattern": "^[0-9]{17,20}$"},
+    "parent_channel_id": {"type": "string", "pattern": "^[0-9]{17,20}$"},
+    "thread_id": {"type": "string", "pattern": "^[0-9]{17,20}$"},
+    "state": {"enum": ["active", "inactive"]},
+    "created_at": {"type": "string", "format": "date-time"},
+    "updated_at": {"type": "string", "format": "date-time"},
+    "visibility": {"const": "private"}
+  },
+  "additionalProperties": false
+}

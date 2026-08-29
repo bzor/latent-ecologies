@@ -1,0 +1,22 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://example.invalid/houdini-ai/studio/artifact.schema.json",
+  "title": "Immutable verified Studio artifact",
+  "type": "object",
+  "required": ["schema_version", "id", "experiment_id", "track", "state", "path", "sha256", "verified", "visibility"],
+  "properties": {
+    "schema_version": {"$ref": "common.schema.json#/$defs/schema_version"},
+    "id": {"allOf": [{"$ref": "common.schema.json#/$defs/record_id"}, {"pattern": "^artifact-"}]},
+    "experiment_id": {"allOf": [{"$ref": "common.schema.json#/$defs/record_ref"}, {"pattern": "^experiment-"}]},
+    "track": {"$ref": "common.schema.json#/$defs/track"},
+    "state": {"const": "verified"},
+    "path": {"type": "string", "pattern": "^(?!.*(?:^|/)\\.\\.(?:/|$))(work/jobs/[a-zA-Z0-9._-]+/.+[^/]|work/studio/handoffs/[a-zA-Z0-9._-]+/.+[^/]|studies/study_[0-9]{3}_[a-z0-9-]+/(01_behavior/(02_review|03_selected)/.+[^/]|03_specimen/.+[^/]|04_delivery/.+[^/]))$"},
+    "sha256": {"type": "string", "pattern": "^sha256:[a-f0-9]{64}$"},
+    "verified": {"const": true},
+    "visibility": {"const": "private"},
+    "decision": {"enum": ["keep", "iterate", "mutate", "hold", "archive", "reject", "promote"]},
+    "decision_note": {"type": "string", "minLength": 1},
+    "extensions": {"$ref": "common.schema.json#/$defs/extensions"}
+  },
+  "additionalProperties": false
+}

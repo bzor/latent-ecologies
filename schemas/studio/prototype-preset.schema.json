@@ -1,0 +1,70 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://example.invalid/houdini-ai/studio/prototype-preset.schema.json",
+  "title": "Behavior prototype preset",
+  "description": "Mechanism-agnostic exported preset from a behavior-playground prototype. Generalizes the Study 003 affinity preset: the identity block plus seed and parameters are the contract the Houdini implementation must replay.",
+  "type": "object",
+  "required": [
+    "schema_version", "kind", "mechanism", "mechanism_version", "title", "note", "seed",
+    "identity", "parameters", "display", "playback", "production_hint", "state", "visibility"
+  ],
+  "properties": {
+    "schema_version": {"$ref": "common.schema.json#/$defs/schema_version"},
+    "kind": {"const": "prototype-preset"},
+    "id": {"allOf": [{"$ref": "common.schema.json#/$defs/record_id"}, {"pattern": "^prototype-preset-"}]},
+    "mechanism": {"type": "string", "pattern": "^[a-z0-9]+(?:-[a-z0-9]+)*-v[0-9]+$"},
+    "mechanism_version": {"type": "integer", "minimum": 1},
+    "study_id": {
+      "anyOf": [
+        {"type": "null"},
+        {"allOf": [{"$ref": "common.schema.json#/$defs/record_ref"}, {"pattern": "^study-"}]}
+      ]
+    },
+    "title": {"type": "string", "minLength": 1, "maxLength": 200},
+    "note": {"type": "string", "maxLength": 4000},
+    "seed": {"type": "integer", "minimum": 0, "maximum": 4294967295},
+    "identity": {
+      "type": "object",
+      "required": ["rng", "initialization", "ordering"],
+      "properties": {
+        "rng": {"const": "mulberry32-v1"},
+        "initialization": {"type": "string", "minLength": 1, "maxLength": 200},
+        "ordering": {"type": "string", "minLength": 1, "maxLength": 200}
+      },
+      "additionalProperties": false
+    },
+    "parameters": {
+      "type": "object",
+      "minProperties": 1,
+      "propertyNames": {"pattern": "^[a-z][a-z0-9_]*$"},
+      "additionalProperties": {"type": ["number", "integer", "boolean", "string"]}
+    },
+    "display": {
+      "type": "object",
+      "propertyNames": {"pattern": "^[a-z][a-z0-9_]*$"},
+      "additionalProperties": {"type": ["number", "integer", "boolean", "string"]}
+    },
+    "playback": {
+      "type": "object",
+      "required": ["steps_per_display_frame"],
+      "properties": {
+        "steps_per_display_frame": {"type": "integer", "minimum": 1, "maximum": 32}
+      },
+      "additionalProperties": false
+    },
+    "production_hint": {
+      "type": "object",
+      "required": ["state", "execution_authorized", "integration_authority"],
+      "properties": {
+        "state": {"const": "candidate"},
+        "execution_authorized": {"const": false},
+        "integration_authority": {"const": "houdini-vex"}
+      },
+      "additionalProperties": false
+    },
+    "state": {"const": "candidate"},
+    "visibility": {"const": "private"},
+    "created_at": {"type": "string", "pattern": "^\\d{4}-\\d{2}-\\d{2}T"}
+  },
+  "additionalProperties": false
+}

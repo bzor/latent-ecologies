@@ -1,0 +1,31 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://example.invalid/houdini-ai/studio/activity.schema.json",
+  "title": "Private idempotent Studio activity receipt",
+  "type": "object",
+  "required": ["schema_version", "id", "action", "actor", "origin", "idempotency_key", "source_ref", "state", "result_refs", "summary", "created_at", "updated_at", "visibility"],
+  "oneOf": [
+    {"required": ["study_id"]},
+    {"required": ["seed_id"]}
+  ],
+  "properties": {
+    "schema_version": {"$ref": "common.schema.json#/$defs/schema_version"},
+    "id": {"type": "string", "pattern": "^activity-[a-f0-9]{20}$"},
+    "study_id": {"type": "string", "pattern": "^[a-z0-9]+(?:-[a-z0-9]+)*$", "maxLength": 80},
+    "seed_id": {"type": "string", "pattern": "^idea-[a-z0-9]+(?:-[a-z0-9]+)*$", "maxLength": 100},
+    "action": {"type": "string", "pattern": "^[a-z][a-z0-9-]*(?:\\.[a-z][a-z0-9-]*)+$", "maxLength": 100},
+    "actor": {"type": "string", "pattern": "^[a-z][a-z0-9-]*$", "maxLength": 80},
+    "origin": {"enum": ["discord", "cli", "local", "migration", "system"]},
+    "idempotency_key": {"type": "string", "minLength": 1, "maxLength": 500},
+    "source_ref": {"type": "string", "minLength": 1, "maxLength": 500},
+    "state": {"enum": ["pending", "completed", "failed"]},
+    "result_refs": {"type": "array", "items": {"$ref": "common.schema.json#/$defs/record_ref"}, "uniqueItems": true},
+    "result": {"type": "object"},
+    "error": {"type": "string", "minLength": 1, "maxLength": 2000},
+    "summary": {"type": "string", "minLength": 1, "maxLength": 2000},
+    "created_at": {"type": "string", "format": "date-time"},
+    "updated_at": {"type": "string", "format": "date-time"},
+    "visibility": {"const": "private"}
+  },
+  "additionalProperties": false
+}

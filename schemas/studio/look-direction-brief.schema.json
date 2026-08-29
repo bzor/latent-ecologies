@@ -1,0 +1,180 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://example.invalid/houdini-ai/studio/look-direction-brief.schema.json",
+  "title": "Selected structural Look Direction Brief",
+  "type": "object",
+  "required": [
+    "schema_version",
+    "id",
+    "study_id",
+    "round_id",
+    "sequence_index",
+    "state",
+    "visibility",
+    "source_behavior_component_id",
+    "source_behavior_content_hash",
+    "source_cache_receipt",
+    "direction"
+  ],
+  "properties": {
+    "schema_version": {"$ref": "common.schema.json#/$defs/schema_version"},
+    "id": {"type": "string", "pattern": "^look-direction-[a-z0-9]+(?:-[a-z0-9]+)*$"},
+    "study_id": {"type": "string", "pattern": "^study-[0-9]{3}-[a-z0-9]+(?:-[a-z0-9]+)*$"},
+    "round_id": {"type": "string", "pattern": "^look-round-[0-9]{3}$"},
+    "sequence_index": {"type": "integer", "minimum": 1},
+    "state": {"const": "selected"},
+    "visibility": {"const": "private"},
+    "source_behavior_component_id": {"type": "string", "pattern": "^component-behavior-"},
+    "source_behavior_content_hash": {"type": "string", "pattern": "^sha256:[a-f0-9]{64}$"},
+    "source_cache_receipt": {
+      "type": "array",
+      "minItems": 1,
+      "items": {
+        "type": "object",
+        "required": ["path", "bytes", "sha256"],
+        "properties": {
+          "path": {
+            "type": "string",
+            "pattern": "^studies/study_[0-9]{3}_[a-z0-9-]+/01_behavior/03_selected/.+[^/]$"
+          },
+          "bytes": {"type": "integer", "minimum": 1},
+          "sha256": {"type": "string", "pattern": "^[a-f0-9]{64}$"}
+        },
+        "additionalProperties": false
+      }
+    },
+    "direction": {
+      "type": "object",
+      "required": [
+        "id",
+        "title",
+        "thesis",
+        "visual_target",
+        "state_to_form_mappings",
+        "primary_hierarchy",
+        "representation_system",
+        "lighting_assumptions",
+        "cost_tier",
+        "motion_proposition",
+        "exclusions",
+        "risks",
+        "cheapest_decisive_probe",
+        "stop_conditions",
+        "implementation_stages"
+      ],
+      "properties": {
+        "id": {"type": "string", "pattern": "^look-direction-[a-z0-9]+(?:-[a-z0-9]+)*$"},
+        "title": {"$ref": "common.schema.json#/$defs/nonempty_string"},
+        "thesis": {"$ref": "common.schema.json#/$defs/nonempty_string"},
+        "visual_target": {
+          "type": "object",
+          "required": [
+            "references",
+            "final_image_thesis",
+            "required_reads",
+            "prohibited_reads",
+            "material_intent",
+            "framing_intent",
+            "lighting_intent",
+            "temporal_signature"
+          ],
+          "properties": {
+            "references": {
+              "type": "array",
+              "minItems": 2,
+              "items": {"$ref": "common.schema.json#/$defs/nonempty_string"}
+            },
+            "final_image_thesis": {"$ref": "common.schema.json#/$defs/nonempty_string"},
+            "required_reads": {
+              "type": "array",
+              "minItems": 1,
+              "items": {"$ref": "common.schema.json#/$defs/nonempty_string"}
+            },
+            "prohibited_reads": {
+              "type": "array",
+              "minItems": 1,
+              "items": {"$ref": "common.schema.json#/$defs/nonempty_string"}
+            },
+            "material_intent": {"$ref": "common.schema.json#/$defs/nonempty_string"},
+            "framing_intent": {"$ref": "common.schema.json#/$defs/nonempty_string"},
+            "lighting_intent": {"$ref": "common.schema.json#/$defs/nonempty_string"},
+            "temporal_signature": {"$ref": "common.schema.json#/$defs/nonempty_string"}
+          },
+          "additionalProperties": false
+        },
+        "state_to_form_mappings": {
+          "type": "array",
+          "minItems": 1,
+          "items": {
+            "type": "object",
+            "required": ["source_attribute", "visible_response", "houdini_mechanism", "acceptance_observable"],
+            "properties": {
+              "source_attribute": {"$ref": "common.schema.json#/$defs/nonempty_string"},
+              "visible_response": {"$ref": "common.schema.json#/$defs/nonempty_string"},
+              "houdini_mechanism": {"$ref": "common.schema.json#/$defs/nonempty_string"},
+              "acceptance_observable": {"$ref": "common.schema.json#/$defs/nonempty_string"}
+            },
+            "additionalProperties": false
+          }
+        },
+        "primary_hierarchy": {
+          "type": "array",
+          "minItems": 1,
+          "items": {"$ref": "common.schema.json#/$defs/nonempty_string"}
+        },
+        "representation_system": {"$ref": "common.schema.json#/$defs/nonempty_string"},
+        "lighting_assumptions": {"$ref": "common.schema.json#/$defs/nonempty_string"},
+        "cost_tier": {"$ref": "common.schema.json#/$defs/cost_tier"},
+        "motion_proposition": {"$ref": "common.schema.json#/$defs/nonempty_string"},
+        "exclusions": {
+          "type": "array",
+          "minItems": 1,
+          "items": {"$ref": "common.schema.json#/$defs/nonempty_string"}
+        },
+        "risks": {
+          "type": "array",
+          "minItems": 1,
+          "items": {"$ref": "common.schema.json#/$defs/nonempty_string"}
+        },
+        "cheapest_decisive_probe": {"$ref": "common.schema.json#/$defs/nonempty_string"},
+        "stop_conditions": {
+          "type": "array",
+          "minItems": 1,
+          "items": {"$ref": "common.schema.json#/$defs/nonempty_string"}
+        },
+        "implementation_stages": {
+          "type": "array",
+          "minItems": 4,
+          "items": {
+            "type": "object",
+            "required": [
+              "id",
+              "title",
+              "intent",
+              "data_inputs",
+              "houdini_strategy",
+              "output",
+              "acceptance_observable"
+            ],
+            "properties": {
+              "id": {"type": "string", "pattern": "^[a-z0-9]+(?:-[a-z0-9]+)*$"},
+              "title": {"$ref": "common.schema.json#/$defs/nonempty_string"},
+              "intent": {"$ref": "common.schema.json#/$defs/nonempty_string"},
+              "data_inputs": {
+                "type": "array",
+                "minItems": 1,
+                "items": {"$ref": "common.schema.json#/$defs/nonempty_string"}
+              },
+              "houdini_strategy": {"$ref": "common.schema.json#/$defs/nonempty_string"},
+              "output": {"$ref": "common.schema.json#/$defs/nonempty_string"},
+              "acceptance_observable": {"$ref": "common.schema.json#/$defs/nonempty_string"}
+            },
+            "additionalProperties": false
+          }
+        }
+      },
+      "additionalProperties": false
+    }
+  },
+  "additionalProperties": false
+}

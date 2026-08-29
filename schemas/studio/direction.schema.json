@@ -1,0 +1,38 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://example.invalid/houdini-ai/studio/direction.schema.json",
+  "title": "Studio behavior direction",
+  "type": "object",
+  "required": ["schema_version", "id", "idea_id", "title", "premise", "mechanism", "expected_emergent_behavior", "cheapest_informative_probe", "risks", "conceptual_distinction", "sibling_relations", "state", "visibility"],
+  "properties": {
+    "schema_version": {"$ref": "common.schema.json#/$defs/schema_version"},
+    "id": {"allOf": [{"$ref": "common.schema.json#/$defs/record_id"}, {"pattern": "^direction-"}]},
+    "idea_id": {"allOf": [{"$ref": "common.schema.json#/$defs/record_ref"}, {"pattern": "^idea-"}]},
+    "title": {"$ref": "common.schema.json#/$defs/nonempty_string"},
+    "premise": {"$ref": "common.schema.json#/$defs/nonempty_string"},
+    "mechanism": {"$ref": "common.schema.json#/$defs/nonempty_string"},
+    "expected_emergent_behavior": {"$ref": "common.schema.json#/$defs/nonempty_string"},
+    "cheapest_informative_probe": {"$ref": "common.schema.json#/$defs/nonempty_string"},
+    "risks": {"type": "array", "minItems": 1, "items": {"$ref": "common.schema.json#/$defs/nonempty_string"}, "uniqueItems": true},
+    "conceptual_distinction": {"$ref": "common.schema.json#/$defs/nonempty_string"},
+    "sibling_relations": {
+      "type": "array",
+      "items": {
+        "type": "object",
+        "required": ["direction_id", "relationship"],
+        "properties": {
+          "direction_id": {"allOf": [{"$ref": "common.schema.json#/$defs/record_ref"}, {"pattern": "^direction-"}]},
+          "relationship": {"$ref": "common.schema.json#/$defs/nonempty_string"}
+        },
+        "additionalProperties": false
+      }
+    },
+    "state": {"enum": ["candidate", "selected", "held", "rejected", "archived"]},
+    "parent_direction_ids": {"type": "array", "minItems": 1, "items": {"allOf": [{"$ref": "common.schema.json#/$defs/record_ref"}, {"pattern": "^direction-"}]}, "uniqueItems": true},
+    "relation_kind": {"enum": ["mutation", "conceptual-merge"]},
+    "visibility": {"$ref": "common.schema.json#/$defs/visibility"},
+    "extensions": {"$ref": "common.schema.json#/$defs/extensions"}
+  },
+  "dependentRequired": {"parent_direction_ids": ["relation_kind"], "relation_kind": ["parent_direction_ids"]},
+  "additionalProperties": false
+}

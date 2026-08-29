@@ -1,0 +1,33 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://example.invalid/houdini-ai/studio/common.schema.json",
+  "title": "Studio shared definitions",
+  "$defs": {
+    "schema_version": {"type": "integer", "const": 1},
+    "record_id": {"type": "string", "pattern": "^[a-z]+-[a-z0-9]+(?:-[a-z0-9]+)*$"},
+    "record_ref": {"type": "string", "pattern": "^[a-z]+-[a-z0-9]+(?:-[a-z0-9]+)*$"},
+    "track": {"enum": ["behavior", "look", "chromatic", "cinematography", "specimen", "field-station"]},
+    "visibility": {"enum": ["private", "public-candidate"]},
+    "cost_tier": {"enum": ["tiny", "probe", "study", "specimen", "external"]},
+    "runner": {"type": "string", "pattern": "^[a-z][a-z0-9_]*(?:\\.[a-z][a-z0-9_]*)+$"},
+    "nonempty_string": {"type": "string", "minLength": 1},
+    "artifact_ref": {"type": "string", "minLength": 1, "pattern": "^[^\\s]+$"},
+    "extensions": {
+      "type": "object",
+      "propertyNames": {"pattern": "^[a-z0-9.-]+/[a-zA-Z0-9._-]+$"},
+      "additionalProperties": true
+    },
+    "editorial_destination": {"enum": ["web", "x", "instagram", "youtube"]},
+    "editorial_role": {"enum": ["field-observation", "research-note", "theory", "failure", "process", "specimen", "download"]},
+    "editorial_tag": {
+      "enum": [
+        "publish:web", "publish:x", "publish:instagram", "publish:youtube",
+        "role:field-observation", "role:research-note", "role:theory", "role:failure",
+        "role:process", "role:specimen", "role:download", "visibility:private",
+        "visibility:public-candidate", "readiness:needs-edit", "readiness:needs-caption",
+        "readiness:needs-a11y", "readiness:ready-for-approval", "readiness:approved",
+        "readiness:published"
+      ]
+    }
+  }
+}

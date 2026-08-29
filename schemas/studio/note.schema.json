@@ -1,0 +1,19 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://example.invalid/houdini-ai/studio/note.schema.json",
+  "title": "Private Studio process observation",
+  "type": "object",
+  "required": ["schema_version", "id", "created_at", "category", "stage", "track", "text", "visibility"],
+  "properties": {
+    "schema_version": {"$ref": "common.schema.json#/$defs/schema_version"},
+    "id": {"allOf": [{"$ref": "common.schema.json#/$defs/record_id"}, {"pattern": "^note-"}]},
+    "created_at": {"type": "string", "format": "date-time"},
+    "category": {"enum": ["working", "pain-point", "missing-functionality", "idea", "question"]},
+    "stage": {"enum": ["idea", "probe", "behavior", "look", "chromatic", "cinematography", "specimen", "field-station", "publication", "workflow"]},
+    "track": {"$ref": "common.schema.json#/$defs/track"},
+    "text": {"$ref": "common.schema.json#/$defs/nonempty_string"},
+    "reference_id": {"$ref": "common.schema.json#/$defs/record_ref"},
+    "visibility": {"const": "private"}
+  },
+  "additionalProperties": false
+}

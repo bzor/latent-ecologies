@@ -1,0 +1,22 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://example.invalid/houdini-ai/studio/component.schema.json",
+  "title": "Studio component",
+  "type": "object",
+  "required": ["schema_version", "id", "track", "state", "component_kind", "source_experiment_id", "source_artifact_ref", "rationale", "content_hash", "visibility"],
+  "properties": {
+    "schema_version": {"$ref": "common.schema.json#/$defs/schema_version"},
+    "id": {"allOf": [{"$ref": "common.schema.json#/$defs/record_id"}, {"pattern": "^component-"}]},
+    "track": {"$ref": "common.schema.json#/$defs/track"},
+    "state": {"enum": ["promoted", "superseded", "archived"]},
+    "component_kind": {"enum": ["behavior", "look", "palette", "shot", "sound"]},
+    "source_experiment_id": {"allOf": [{"$ref": "common.schema.json#/$defs/record_ref"}, {"pattern": "^experiment-"}]},
+    "source_artifact_ref": {"$ref": "common.schema.json#/$defs/artifact_ref"},
+    "rationale": {"$ref": "common.schema.json#/$defs/nonempty_string"},
+    "content_hash": {"type": "string", "pattern": "^sha256:[a-f0-9]{64}$"},
+    "visibility": {"$ref": "common.schema.json#/$defs/visibility"},
+    "supersedes_id": {"allOf": [{"$ref": "common.schema.json#/$defs/record_ref"}, {"pattern": "^component-"}]},
+    "extensions": {"$ref": "common.schema.json#/$defs/extensions"}
+  },
+  "additionalProperties": false
+}

@@ -1,0 +1,23 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://example.invalid/houdini-ai/studio/seed-inclusion.schema.json",
+  "title": "Private inclusion record for the public Seed Bank",
+  "type": "object",
+  "required": ["schema_version", "id", "seed_id", "state", "rights_status", "rights_rationale", "source_ref", "ever_public", "created_at", "updated_at", "visibility"],
+  "properties": {
+    "schema_version": {"$ref": "common.schema.json#/$defs/schema_version"},
+    "id": {"type": "string", "pattern": "^seed-inclusion-[a-f0-9]{20}$"},
+    "seed_id": {"type": "string", "pattern": "^idea-[a-z0-9]+(?:-[a-z0-9]+)*$"},
+    "state": {"enum": ["private", "site-draft", "site-live", "retired"]},
+    "rights_status": {"enum": ["pending", "cleared", "blocked"]},
+    "rights_rationale": {"type": "string", "minLength": 1, "maxLength": 2000},
+    "source_ref": {"type": "string", "minLength": 1, "maxLength": 500},
+    "live_source_ref": {"type": "string", "minLength": 1, "maxLength": 500},
+    "ever_public": {"type": "boolean"},
+    "first_published_at": {"type": "string", "format": "date-time"},
+    "created_at": {"type": "string", "format": "date-time"},
+    "updated_at": {"type": "string", "format": "date-time"},
+    "visibility": {"const": "private"}
+  },
+  "additionalProperties": false
+}

@@ -1,0 +1,77 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://example.invalid/houdini-ai/studio/affinity-preset.schema.json",
+  "title": "Nonlocal affinity exploration preset",
+  "type": "object",
+  "required": [
+    "schema_version", "id", "mechanism", "project_id", "title", "note", "dimensions", "seed",
+    "parameters", "rewiring", "preview", "display", "production_hint", "state", "visibility", "created_at"
+  ],
+  "properties": {
+    "schema_version": {"$ref": "common.schema.json#/$defs/schema_version"},
+    "id": {"allOf": [{"$ref": "common.schema.json#/$defs/record_id"}, {"pattern": "^affinity-preset-"}]},
+    "mechanism": {"const": "nonlocal-affinity-v1"},
+    "project_id": {"const": "study-003-nonlocal-affinity-dance"},
+    "title": {"type": "string", "minLength": 1, "maxLength": 200},
+    "note": {"type": "string", "maxLength": 4000},
+    "dimensions": {"type": "integer", "const": 2},
+    "seed": {"type": "integer", "minimum": 0, "maximum": 4294967295},
+    "parameters": {
+      "type": "object",
+      "required": ["contraction", "attraction", "repulsion", "softening"],
+      "properties": {
+        "contraction": {"type": "number", "minimum": 0.8, "maximum": 1.05},
+        "attraction": {"type": "number", "minimum": 0, "maximum": 0.25},
+        "repulsion": {"type": "number", "minimum": 0, "maximum": 0.25},
+        "softening": {"type": "number", "exclusiveMinimum": 0, "maximum": 1}
+      },
+      "additionalProperties": false
+    },
+    "rewiring": {
+      "type": "object",
+      "required": ["probability_per_simulation_step", "rewires_per_event", "ordering"],
+      "properties": {
+        "probability_per_simulation_step": {"type": "number", "minimum": 0, "maximum": 1},
+        "rewires_per_event": {"type": "integer", "minimum": 1, "maximum": 64},
+        "ordering": {"const": "before-synchronous-position-update"}
+      },
+      "additionalProperties": false
+    },
+    "preview": {
+      "type": "object",
+      "required": ["agent_count", "steps_per_display_frame", "rng", "initialization"],
+      "properties": {
+        "agent_count": {"type": "integer", "minimum": 2, "maximum": 10000},
+        "steps_per_display_frame": {"type": "integer", "minimum": 1, "maximum": 32},
+        "rng": {"const": "mulberry32-v1"},
+        "initialization": {"const": "uniform-square-minus-one-to-one"}
+      },
+      "additionalProperties": false
+    },
+    "display": {
+      "type": "object",
+      "required": ["point_size", "trail_alpha", "viewport_scale", "show_links"],
+      "properties": {
+        "point_size": {"type": "number", "minimum": 0.25, "maximum": 12},
+        "trail_alpha": {"type": "number", "minimum": 0, "maximum": 1},
+        "viewport_scale": {"type": "number", "minimum": 0.1, "maximum": 20},
+        "show_links": {"type": "boolean"}
+      },
+      "additionalProperties": false
+    },
+    "production_hint": {
+      "type": "object",
+      "required": ["state", "execution_authorized", "integration_authority"],
+      "properties": {
+        "state": {"const": "candidate"},
+        "execution_authorized": {"const": false},
+        "integration_authority": {"const": "houdini-vex"}
+      },
+      "additionalProperties": false
+    },
+    "state": {"const": "candidate"},
+    "visibility": {"const": "private"},
+    "created_at": {"type": "string", "pattern": "^\\d{4}-\\d{2}-\\d{2}T"}
+  },
+  "additionalProperties": false
+}

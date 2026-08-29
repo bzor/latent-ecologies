@@ -1,0 +1,57 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://example.invalid/houdini-ai/studio/publication-manifest.schema.json",
+  "title": "Safe read-only public Study manifest",
+  "type": "object",
+  "required": ["schema_version", "id", "content_sha256", "mode", "study", "items"],
+  "properties": {
+    "schema_version": {"$ref": "common.schema.json#/$defs/schema_version"},
+    "id": {"type": "string", "pattern": "^publication-manifest-[a-f0-9]{20}$"},
+    "content_sha256": {"type": "string", "pattern": "^sha256:[a-f0-9]{64}$"},
+    "mode": {"enum": ["living", "archive"]},
+    "study": {
+      "type": "object",
+      "required": ["id", "title", "state", "current_phase"],
+      "properties": {
+        "id": {"type": "string", "pattern": "^[a-z0-9]+(?:-[a-z0-9]+)*$"},
+        "title": {"type": "string", "minLength": 1, "maxLength": 300},
+        "state": {"enum": ["active", "closing", "archived"]},
+        "current_phase": {"enum": ["seed", "directions", "behavior", "look", "specimen", "delivery"]}
+      },
+      "additionalProperties": false
+    },
+    "items": {
+      "type": "array",
+      "items": {
+        "type": "object",
+        "required": ["inclusion_id", "artifact_id", "source_sha256", "state", "title", "caption", "role", "section", "order", "alt_text", "media"],
+        "properties": {
+          "inclusion_id": {"type": "string", "pattern": "^site-inclusion-[a-f0-9]{20}$"},
+          "artifact_id": {"type": "string", "pattern": "^artifact-[a-z0-9]+(?:-[a-z0-9]+)*$"},
+          "source_sha256": {"type": "string", "pattern": "^sha256:[a-f0-9]{64}$"},
+          "state": {"enum": ["site-live", "archive-keep"]},
+          "title": {"type": "string", "minLength": 1, "maxLength": 200},
+          "caption": {"type": "string", "minLength": 1, "maxLength": 4000},
+          "role": {"enum": ["experiment", "comparison", "selected-work", "failure", "process-evidence", "specimen", "research-source"]},
+          "section": {"enum": ["overview", "behavior", "look", "chromatic", "cinematography", "process", "specimen", "archive"]},
+          "order": {"type": "integer", "minimum": 0, "maximum": 1000000},
+          "alt_text": {"type": "string", "minLength": 1, "maxLength": 1000},
+          "media": {
+            "type": "object",
+            "required": ["kind", "extension", "mime", "size", "public_path"],
+            "properties": {
+              "kind": {"enum": ["video", "image", "sequence", "package"]},
+              "extension": {"type": "string", "pattern": "^\\.[a-z0-9]+$"},
+              "mime": {"type": "string", "minLength": 1},
+              "size": {"type": "integer", "minimum": 1},
+              "public_path": {"type": "string", "pattern": "^media/[a-f0-9]{64}\\.[a-z0-9]+$"}
+            },
+            "additionalProperties": false
+          }
+        },
+        "additionalProperties": false
+      }
+    }
+  },
+  "additionalProperties": false
+}

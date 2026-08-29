@@ -1,0 +1,37 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://example.invalid/houdini-ai/studio/seed-publication-manifest.schema.json",
+  "title": "Safe public Seed Bank manifest",
+  "type": "object",
+  "required": ["schema_version", "id", "content_sha256", "seeds"],
+  "properties": {
+    "schema_version": {"$ref": "common.schema.json#/$defs/schema_version"},
+    "id": {"type": "string", "pattern": "^seed-manifest-[a-f0-9]{20}$"},
+    "content_sha256": {"type": "string", "pattern": "^sha256:[a-f0-9]{64}$"},
+    "seeds": {
+      "type": "array",
+      "items": {
+        "type": "object",
+        "required": ["id", "title", "short_summary", "long_summary", "reference_links", "tags", "state", "public_path"],
+        "properties": {
+          "id": {"type": "string", "pattern": "^idea-[a-z0-9]+(?:-[a-z0-9]+)*$"},
+          "title": {"type": "string", "minLength": 1, "maxLength": 300},
+          "short_summary": {"type": "string", "minLength": 1, "maxLength": 500},
+          "long_summary": {"type": "string", "minLength": 1, "maxLength": 20000},
+          "reference_links": {"type": "array", "items": {"type": "object"}},
+          "tags": {"type": "array", "items": {"type": "string"}, "uniqueItems": true},
+          "state": {"enum": ["inbox", "incubating", "ready", "promoted", "archived"]},
+          "public_path": {"type": "string", "pattern": "^seed-[a-z0-9]+(?:-[a-z0-9]+)*-[a-f0-9]{8}\\.html$"},
+          "promoted_study": {
+            "type": "object",
+            "required": ["id", "title"],
+            "properties": {"id": {"type": "string"}, "title": {"type": "string"}},
+            "additionalProperties": false
+          }
+        },
+        "additionalProperties": false
+      }
+    }
+  },
+  "additionalProperties": false
+}

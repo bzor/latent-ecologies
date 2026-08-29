@@ -1,0 +1,27 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://example.invalid/houdini-ai/studio/study.schema.json",
+  "title": "Canonical private Studio Study workspace",
+  "type": "object",
+  "required": ["schema_version", "id", "title", "state", "current_phase", "intent", "approved_selection_ids", "unresolved_questions", "blockers", "recommended_next_action", "created_at", "updated_at", "visibility"],
+  "properties": {
+    "schema_version": {"$ref": "common.schema.json#/$defs/schema_version"},
+    "id": {"type": "string", "pattern": "^[a-z0-9]+(?:-[a-z0-9]+)*$", "maxLength": 80},
+    "title": {"$ref": "common.schema.json#/$defs/nonempty_string"},
+    "state": {"enum": ["active", "closing", "archived"]},
+    "current_phase": {"enum": ["seed", "directions", "behavior", "look", "specimen", "delivery"]},
+    "intent": {"$ref": "common.schema.json#/$defs/nonempty_string"},
+    "selected_branch_id": {"$ref": "common.schema.json#/$defs/record_ref"},
+    "approved_selection_ids": {"type": "array", "items": {"$ref": "common.schema.json#/$defs/record_ref"}, "uniqueItems": true},
+    "unresolved_questions": {"type": "array", "items": {"$ref": "common.schema.json#/$defs/nonempty_string"}},
+    "blockers": {"type": "array", "items": {"$ref": "common.schema.json#/$defs/nonempty_string"}},
+    "recommended_next_action": {"$ref": "common.schema.json#/$defs/nonempty_string"},
+    "idea_id": {"allOf": [{"$ref": "common.schema.json#/$defs/record_ref"}, {"pattern": "^idea-"}]},
+    "specimen_id": {"allOf": [{"$ref": "common.schema.json#/$defs/record_ref"}, {"pattern": "^specimen-"}]},
+    "created_at": {"type": "string", "format": "date-time"},
+    "updated_at": {"type": "string", "format": "date-time"},
+    "visibility": {"const": "private"},
+    "extensions": {"$ref": "common.schema.json#/$defs/extensions"}
+  },
+  "additionalProperties": false
+}

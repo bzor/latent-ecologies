@@ -1,0 +1,19 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://example.invalid/houdini-ai/studio/experiment.schema.json",
+  "title": "Studio experiment",
+  "type": "object",
+  "required": ["schema_version", "id", "proposal_id", "track", "state", "runner", "parameters", "visibility"],
+  "properties": {
+    "schema_version": {"$ref": "common.schema.json#/$defs/schema_version"},
+    "id": {"allOf": [{"$ref": "common.schema.json#/$defs/record_id"}, {"pattern": "^experiment-"}]},
+    "proposal_id": {"allOf": [{"$ref": "common.schema.json#/$defs/record_ref"}, {"pattern": "^proposal-"}]},
+    "track": {"$ref": "common.schema.json#/$defs/track"},
+    "state": {"enum": ["draft", "approved", "running", "completed", "failed", "archived"]},
+    "runner": {"$ref": "common.schema.json#/$defs/runner"},
+    "parameters": {"type": "object"},
+    "visibility": {"$ref": "common.schema.json#/$defs/visibility"},
+    "extensions": {"$ref": "common.schema.json#/$defs/extensions"}
+  },
+  "additionalProperties": false
+}

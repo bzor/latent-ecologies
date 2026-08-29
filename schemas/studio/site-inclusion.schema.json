@@ -1,0 +1,30 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://example.invalid/houdini-ai/studio/site-inclusion.schema.json",
+  "title": "Private editorial inclusion for a public Study",
+  "type": "object",
+  "required": ["schema_version", "id", "study_id", "artifact_id", "source_sha256", "state", "rights_status", "rights_rationale", "public_title", "public_caption", "role", "section", "order", "alt_text", "included_by_activity_id", "ever_public", "created_at", "updated_at", "visibility"],
+  "properties": {
+    "schema_version": {"$ref": "common.schema.json#/$defs/schema_version"},
+    "id": {"type": "string", "pattern": "^site-inclusion-[a-f0-9]{20}$"},
+    "study_id": {"type": "string", "pattern": "^[a-z0-9]+(?:-[a-z0-9]+)*$", "maxLength": 80},
+    "artifact_id": {"type": "string", "pattern": "^artifact-[a-z0-9]+(?:-[a-z0-9]+)*$"},
+    "source_sha256": {"type": "string", "pattern": "^sha256:[a-f0-9]{64}$"},
+    "state": {"enum": ["private", "site-draft", "site-live", "archive-keep", "retired"]},
+    "rights_status": {"enum": ["pending", "cleared", "blocked"]},
+    "rights_rationale": {"type": "string", "minLength": 1, "maxLength": 2000},
+    "public_title": {"type": "string", "minLength": 1, "maxLength": 200},
+    "public_caption": {"type": "string", "minLength": 1, "maxLength": 4000},
+    "role": {"enum": ["experiment", "comparison", "selected-work", "failure", "process-evidence", "specimen", "research-source"]},
+    "section": {"enum": ["overview", "behavior", "look", "chromatic", "cinematography", "process", "specimen", "archive"]},
+    "order": {"type": "integer", "minimum": 0, "maximum": 1000000},
+    "alt_text": {"type": "string", "minLength": 1, "maxLength": 1000},
+    "included_by_activity_id": {"type": "string", "pattern": "^activity-[a-f0-9]{20}$"},
+    "ever_public": {"type": "boolean"},
+    "first_published_at": {"type": "string", "format": "date-time"},
+    "created_at": {"type": "string", "format": "date-time"},
+    "updated_at": {"type": "string", "format": "date-time"},
+    "visibility": {"const": "private"}
+  },
+  "additionalProperties": false
+}
