@@ -1,0 +1,64 @@
+{
+  "schema_version": 1,
+  "kind": "prototype-preset",
+  "mechanism": "refractory-route-ecology-v1",
+  "mechanism_version": 1,
+  "study_id": "study-001-memory-field",
+  "title": "31 · Crowd pressure · Sparse crossings STUDY V3",
+  "note": "Independent paths occasionally recruit at crossings. Risk: May under-sample collective interactions.",
+  "seed": 18432,
+  "identity": {
+    "rng": "mulberry32-v1",
+    "initialization": "five-seeded-gaussian-resources-then-agent-profile-receipt-v1",
+    "ordering": "synchronous-agent-sense-move-deposit-then-field-age-scar-heal-v1"
+  },
+  "parameters": {
+    "agent_count": 320,
+    "grid_width": 128,
+    "grid_height": 213,
+    "domain_width": 1.2,
+    "domain_height": 2,
+    "speed": 0.011,
+    "inertia": 0.82,
+    "turn_rate": 0.23,
+    "exploration": 0.15,
+    "boundary_steer": 2.4,
+    "resource_attraction": 3.1,
+    "trace_follow": 1.7,
+    "scar_avoid": 2.8,
+    "scar_deflect": 1.6,
+    "crowd_radius": 0.035,
+    "crowd_avoid": 0.00012,
+    "trace_deposit": 0.085,
+    "trace_decay": 0.047,
+    "birth_threshold": 0.12,
+    "follow_threshold": 0.09,
+    "scar_trigger": 0.06,
+    "scar_growth": 0.06,
+    "scar_threshold": 0.12,
+    "heal_threshold": 0.035,
+    "scar_decay": 0.00045,
+    "idle_healing": 0.01,
+    "resource_recovery": 0.0025,
+    "consume_rate": 0.004,
+    "energy_gain": 0.8,
+    "energy_cost": 0.0045,
+    "rest_energy": 0.18
+  },
+  "display": {
+    "field_mode": "composite",
+    "field_point_size": 0.0085,
+    "agent_point_size": 0.018,
+    "show_agents": true
+  },
+  "playback": {
+    "steps_per_display_frame": 1
+  },
+  "production_hint": {
+    "state": "candidate",
+    "execution_authorized": false,
+    "integration_authority": "houdini-vex"
+  },
+  "state": "candidate",
+  "visibility": "private"
+}

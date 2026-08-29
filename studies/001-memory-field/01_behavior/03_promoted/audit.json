@@ -1,0 +1,639 @@
+{
+  "asset_file": "refractory-route.hda",
+  "asset_type": "bzor::refractory_route::1.0",
+  "demo_hip": "refractory-route-demo.hiplc",
+  "handoff_contract": "live-hda",
+  "identity_parameters": [
+    "seed",
+    "agent_count",
+    "grid_width",
+    "grid_height",
+    "domain_width",
+    "domain_height",
+    "speed"
+  ],
+  "interactive_semantics": "frame 1 is the embedded initial state; with Steps / Display Frame = S, frame N+1 contains N x S synchronous steps",
+  "mechanism": "refractory-route-ecology-v1",
+  "node_errors": [],
+  "ordered_events": "parallel agent stage, serial deposit accumulation, parallel field stage",
+  "overlay_parameter_manifest_probe": {
+    "parameter_keys": [
+      "behavior.preset",
+      "behavior.seed",
+      "behavior.agent_count",
+      "behavior.speed",
+      "behavior.inertia",
+      "behavior.turn_rate",
+      "behavior.exploration",
+      "behavior.boundary_steer",
+      "behavior.resource_attraction",
+      "behavior.trace_follow",
+      "behavior.scar_avoid",
+      "behavior.scar_deflect",
+      "behavior.crowd_radius",
+      "behavior.crowd_avoid",
+      "behavior.trace_deposit",
+      "behavior.trace_decay",
+      "behavior.follow_threshold",
+      "behavior.scar_trigger",
+      "behavior.scar_growth",
+      "behavior.scar_threshold",
+      "behavior.heal_threshold",
+      "behavior.scar_decay",
+      "behavior.idle_healing",
+      "behavior.resource_recovery",
+      "behavior.consume_rate",
+      "behavior.energy_gain",
+      "behavior.energy_cost",
+      "behavior.rest_energy",
+      "playback.steps_per_frame",
+      "playback.start_frame",
+      "look.field_point_size",
+      "look.agent_point_size"
+    ],
+    "path": "E:/Projects/houdini-ai/work/studio/handoffs/study-001-memory-field-refractory-route-hda-v1/audit-overlay-parameter-manifest.json",
+    "variation": {
+      "file_stem": "var_001_braided-deflection",
+      "number": 1,
+      "title": "Braided Deflection"
+    }
+  },
+  "parity_semantics": "browser kernel computes in float64 and stores float32; VEX computes in float32. Initial states are browser-exact; trajectories are audited against the browser reference at steps 1/6/12/24 and structurally at step 120. birth_threshold is event-diagnostic only in the prototype and is intentionally absent from the HDA.",
+  "presets": [
+    {
+      "initial_state": {
+        "max_energy_delta": 0.0,
+        "max_position_delta": 0.0,
+        "max_resource_delta": 0.0
+      },
+      "parity": [
+        {
+          "field": {
+            "freshMax": 0.08799999952316284,
+            "resourceMax": 1.0,
+            "resourceMin": 0.11601561307907104,
+            "scarMax": 0.001230000052601099
+          },
+          "field_reference": {
+            "freshMax": 0.08799999952316284,
+            "resourceMax": 1,
+            "resourceMin": 0.11601561307907104,
+            "scarMax": 0.0012299999361857772
+          },
+          "max_energy_delta": 2.9802322387695312e-08,
+          "max_position_delta": 2.9802322387695312e-08,
+          "mode_agreement": 1.0,
+          "step": 1
+        },
+        {
+          "field": {
+            "freshMax": 0.1662251055240631,
+            "resourceMax": 1.0,
+            "resourceMin": 0.10811585187911987,
+            "scarMax": 0.015853960067033768
+          },
+          "field_reference": {
+            "freshMax": 0.1662251204252243,
+            "resourceMax": 1,
+            "resourceMin": 0.10811585187911987,
+            "scarMax": 0.015853961929678917
+          },
+          "max_energy_delta": 8.940696716308594e-08,
+          "max_position_delta": 5.960464477539063e-08,
+          "mode_agreement": 1.0,
+          "step": 6
+        },
+        {
+          "field": {
+            "freshMax": 0.24673080444335938,
+            "resourceMax": 1.0,
+            "resourceMin": 0.10583227127790451,
+            "scarMax": 0.05796188861131668
+          },
+          "field_reference": {
+            "freshMax": 0.246730774641037,
+            "resourceMax": 1,
+            "resourceMin": 0.10583227127790451,
+            "scarMax": 0.05796188488602638
+          },
+          "max_energy_delta": 8.940696716308594e-08,
+          "max_position_delta": 1.0132789611816406e-06,
+          "mode_agreement": 1.0,
+          "step": 12
+        },
+        {
+          "field": {
+            "freshMax": 0.30532166361808777,
+            "resourceMax": 1.0,
+            "resourceMin": 0.10051965713500977,
+            "scarMax": 0.1458922177553177
+          },
+          "field_reference": {
+            "freshMax": 0.305321604013443,
+            "resourceMax": 1,
+            "resourceMin": 0.10051966458559036,
+            "scarMax": 0.1458922177553177
+          },
+          "max_energy_delta": 8.940696716308594e-08,
+          "max_position_delta": 2.658367156982422e-05,
+          "mode_agreement": 1.0,
+          "step": 24
+        }
+      ],
+      "source_preset": "refractory-route-14-braided-deflection-hard-switchbacks-study-v1.preset.json",
+      "structural": {
+        "field": {
+          "freshMax": 0.35811445116996765,
+          "resourceMax": 1.0,
+          "resourceMin": 0.061926309019327164,
+          "scarMax": 0.6524262428283691
+        },
+        "field_reference": {
+          "freshMax": 0.4124448895454407,
+          "resourceMax": 1,
+          "resourceMin": 0.06653212755918503,
+          "scarMax": 0.5959165692329407
+        },
+        "mode_histogram": {
+          "0": 274,
+          "1": 162,
+          "2": 76,
+          "3": 0
+        },
+        "positions_finite": true,
+        "positions_in_bounds": true,
+        "reference_mode_counts": [
+          265,
+          186,
+          61,
+          0
+        ],
+        "steps": 120
+      },
+      "title": "14 \u00b7 Braided deflection \u00b7 Hard - switchbacks STUDY V1",
+      "token": "1"
+    },
+    {
+      "initial_state": {
+        "max_energy_delta": 0.0,
+        "max_position_delta": 0.0,
+        "max_resource_delta": 0.0
+      },
+      "parity": [
+        {
+          "field": {
+            "freshMax": 0.18000000715255737,
+            "resourceMax": 1.0,
+            "resourceMin": 0.11801561713218689,
+            "scarMax": 0.006750000175088644
+          },
+          "field_reference": {
+            "freshMax": 0.18000000715255737,
+            "resourceMax": 1,
+            "resourceMin": 0.11801561713218689,
+            "scarMax": 0.006750000640749931
+          },
+          "max_energy_delta": 5.960464477539063e-08,
+          "max_position_delta": 5.960464477539063e-08,
+          "mode_agreement": 1.0,
+          "step": 1
+        },
+        {
+          "field": {
+            "freshMax": 0.32790303230285645,
+            "resourceMax": 1.0,
+            "resourceMin": 0.11521996557712555,
+            "scarMax": 0.049199178814888
+          },
+          "field_reference": {
+            "freshMax": 0.32790303230285645,
+            "resourceMax": 1,
+            "resourceMin": 0.11521996557712555,
+            "scarMax": 0.0491991825401783
+          },
+          "max_energy_delta": 3.5762786865234375e-07,
+          "max_position_delta": 5.960464477539063e-08,
+          "mode_agreement": 1.0,
+          "step": 6
+        },
+        {
+          "field": {
+            "freshMax": 0.2992357015609741,
+            "resourceMax": 1.0,
+            "resourceMin": 0.11352824419736862,
+            "scarMax": 0.11607833951711655
+          },
+          "field_reference": {
+            "freshMax": 0.29923567175865173,
+            "resourceMax": 1,
+            "resourceMin": 0.11352824419736862,
+            "scarMax": 0.11607835441827774
+          },
+          "max_energy_delta": 7.152557373046875e-07,
+          "max_position_delta": 3.993511199951172e-06,
+          "mode_agreement": 1.0,
+          "step": 12
+        },
+        {
+          "field": {
+            "freshMax": 0.31548255681991577,
+            "resourceMax": 1.0,
+            "resourceMin": 0.11131814867258072,
+            "scarMax": 0.2243945449590683
+          },
+          "field_reference": {
+            "freshMax": 0.3154825270175934,
+            "resourceMax": 1,
+            "resourceMin": 0.11131814122200012,
+            "scarMax": 0.2243945151567459
+          },
+          "max_energy_delta": 1.430511474609375e-06,
+          "max_position_delta": 4.1604042053222656e-05,
+          "mode_agreement": 1.0,
+          "step": 24
+        }
+      ],
+      "source_preset": "refractory-route-26-resource-pilgrimage-drifting-foragers-study-v2.preset.json",
+      "structural": {
+        "field": {
+          "freshMax": 0.3668917715549469,
+          "resourceMax": 1.0,
+          "resourceMin": 0.10340161621570587,
+          "scarMax": 0.6616317629814148
+        },
+        "field_reference": {
+          "freshMax": 0.3668917417526245,
+          "resourceMax": 1,
+          "resourceMin": 0.10340159386396408,
+          "scarMax": 0.6616315245628357
+        },
+        "mode_histogram": {
+          "0": 23,
+          "1": 457,
+          "2": 32,
+          "3": 0
+        },
+        "positions_finite": true,
+        "positions_in_bounds": true,
+        "reference_mode_counts": [
+          18,
+          461,
+          33,
+          0
+        ],
+        "steps": 120
+      },
+      "title": "26 \u00b7 Resource pilgrimage \u00b7 Drifting foragers STUDY v2",
+      "token": "2"
+    },
+    {
+      "initial_state": {
+        "max_energy_delta": 0.0,
+        "max_position_delta": 0.0,
+        "max_resource_delta": 0.0
+      },
+      "parity": [
+        {
+          "field": {
+            "freshMax": 0.17000000178813934,
+            "resourceMax": 1.0,
+            "resourceMin": 0.11601591110229492,
+            "scarMax": 0.006149999797344208
+          },
+          "field_reference": {
+            "freshMax": 0.17000000178813934,
+            "resourceMax": 1,
+            "resourceMin": 0.11601591110229492,
+            "scarMax": 0.006150000263005495
+          },
+          "max_energy_delta": 2.9802322387695312e-08,
+          "max_position_delta": 2.9802322387695312e-08,
+          "mode_agreement": 1.0,
+          "step": 1
+        },
+        {
+          "field": {
+            "freshMax": 0.22139091789722443,
+            "resourceMax": 1.0,
+            "resourceMin": 0.11231762170791626,
+            "scarMax": 0.03187515586614609
+          },
+          "field_reference": {
+            "freshMax": 0.22139093279838562,
+            "resourceMax": 1,
+            "resourceMin": 0.11231762915849686,
+            "scarMax": 0.031875159591436386
+          },
+          "max_energy_delta": 8.940696716308594e-08,
+          "max_position_delta": 5.960464477539063e-08,
+          "mode_agreement": 1.0,
+          "step": 6
+        },
+        {
+          "field": {
+            "freshMax": 0.2323094606399536,
+            "resourceMax": 1.0,
+            "resourceMin": 0.10837026685476303,
+            "scarMax": 0.07502368837594986
+          },
+          "field_reference": {
+            "freshMax": 0.2323094755411148,
+            "resourceMax": 1,
+            "resourceMin": 0.10837026685476303,
+            "scarMax": 0.07502370327711105
+          },
+          "max_energy_delta": 8.940696716308594e-08,
+          "max_position_delta": 8.940696716308594e-08,
+          "mode_agreement": 1.0,
+          "step": 12
+        },
+        {
+          "field": {
+            "freshMax": 0.3133144676685333,
+            "resourceMax": 1.0,
+            "resourceMin": 0.10846829414367676,
+            "scarMax": 0.14197206497192383
+          },
+          "field_reference": {
+            "freshMax": 0.3133144676685333,
+            "resourceMax": 1,
+            "resourceMin": 0.10846829414367676,
+            "scarMax": 0.14197206497192383
+          },
+          "max_energy_delta": 8.940696716308594e-08,
+          "max_position_delta": 1.1920928955078125e-07,
+          "mode_agreement": 1.0,
+          "step": 24
+        }
+      ],
+      "source_preset": "refractory-route-31-crowd-pressure-sparse-crossings-study-v3.preset.json",
+      "structural": {
+        "field": {
+          "freshMax": 0.3441353440284729,
+          "resourceMax": 1.0,
+          "resourceMin": 0.09723760932683945,
+          "scarMax": 0.3972915709018707
+        },
+        "field_reference": {
+          "freshMax": 0.34413525462150574,
+          "resourceMax": 1,
+          "resourceMin": 0.09723760932683945,
+          "scarMax": 0.3972909450531006
+        },
+        "mode_histogram": {
+          "0": 136,
+          "1": 179,
+          "2": 5,
+          "3": 0
+        },
+        "positions_finite": true,
+        "positions_in_bounds": true,
+        "reference_mode_counts": [
+          136,
+          179,
+          5,
+          0
+        ],
+        "steps": 120
+      },
+      "title": "31 \u00b7 Crowd pressure \u00b7 Sparse crossings STUDY V3",
+      "token": "3"
+    },
+    {
+      "initial_state": {
+        "max_energy_delta": 0.0,
+        "max_position_delta": 0.0,
+        "max_resource_delta": 0.0
+      },
+      "parity": [
+        {
+          "field": {
+            "freshMax": 0.11999999731779099,
+            "resourceMax": 1.0,
+            "resourceMin": 0.11601561307907104,
+            "scarMax": 0.0031500000040978193
+          },
+          "field_reference": {
+            "freshMax": 0.11999999731779099,
+            "resourceMax": 1,
+            "resourceMin": 0.11601561307907104,
+            "scarMax": 0.0031499997712671757
+          },
+          "max_energy_delta": 2.9802322387695312e-08,
+          "max_position_delta": 5.960464477539063e-08,
+          "mode_agreement": 1.0,
+          "step": 1
+        },
+        {
+          "field": {
+            "freshMax": 0.21101516485214233,
+            "resourceMax": 1.0,
+            "resourceMin": 0.11203818768262863,
+            "scarMax": 0.04447755962610245
+          },
+          "field_reference": {
+            "freshMax": 0.21101516485214233,
+            "resourceMax": 1,
+            "resourceMin": 0.11203818768262863,
+            "scarMax": 0.04447755962610245
+          },
+          "max_energy_delta": 8.940696716308594e-08,
+          "max_position_delta": 1.1920928955078125e-07,
+          "mode_agreement": 1.0,
+          "step": 6
+        },
+        {
+          "field": {
+            "freshMax": 0.27050963044166565,
+            "resourceMax": 1.0,
+            "resourceMin": 0.10459088534116745,
+            "scarMax": 0.0900929868221283
+          },
+          "field_reference": {
+            "freshMax": 0.27050963044166565,
+            "resourceMax": 1,
+            "resourceMin": 0.10459088534116745,
+            "scarMax": 0.0900929868221283
+          },
+          "max_energy_delta": 8.940696716308594e-08,
+          "max_position_delta": 2.384185791015625e-07,
+          "mode_agreement": 1.0,
+          "step": 12
+        },
+        {
+          "field": {
+            "freshMax": 0.3334294855594635,
+            "resourceMax": 1.0,
+            "resourceMin": 0.1044996976852417,
+            "scarMax": 0.1717100590467453
+          },
+          "field_reference": {
+            "freshMax": 0.3334294557571411,
+            "resourceMax": 1,
+            "resourceMin": 0.1044997051358223,
+            "scarMax": 0.1717100292444229
+          },
+          "max_energy_delta": 8.940696716308594e-08,
+          "max_position_delta": 3.5762786865234375e-07,
+          "mode_agreement": 1.0,
+          "step": 24
+        }
+      ],
+      "source_preset": "refractory-route-38-drift-and-exploration-responsive-walkers-study-v4.preset.json",
+      "structural": {
+        "field": {
+          "freshMax": 0.30123671889305115,
+          "resourceMax": 1.0,
+          "resourceMin": 0.07235737890005112,
+          "scarMax": 0.5209859609603882
+        },
+        "field_reference": {
+          "freshMax": 0.29965081810951233,
+          "resourceMax": 1,
+          "resourceMin": 0.07235737890005112,
+          "scarMax": 0.52098548412323
+        },
+        "mode_histogram": {
+          "0": 243,
+          "1": 220,
+          "2": 49,
+          "3": 0
+        },
+        "positions_finite": true,
+        "positions_in_bounds": true,
+        "reference_mode_counts": [
+          238,
+          228,
+          46,
+          0
+        ],
+        "steps": 120
+      },
+      "title": "38 \u00b7 Drift and exploration \u00b7 Responsive walkers - STUDY - v4",
+      "token": "4"
+    },
+    {
+      "initial_state": {
+        "max_energy_delta": 0.0,
+        "max_position_delta": 0.0,
+        "max_resource_delta": 0.0
+      },
+      "parity": [
+        {
+          "field": {
+            "freshMax": 0.11999999731779099,
+            "resourceMax": 1.0,
+            "resourceMin": 0.11601561307907104,
+            "scarMax": 0.0019000000320374966
+          },
+          "field_reference": {
+            "freshMax": 0.11999999731779099,
+            "resourceMax": 1,
+            "resourceMin": 0.11601561307907104,
+            "scarMax": 0.0018999999156221747
+          },
+          "max_energy_delta": 2.9802322387695312e-08,
+          "max_position_delta": 5.960464477539063e-08,
+          "mode_agreement": 1.0,
+          "step": 1
+        },
+        {
+          "field": {
+            "freshMax": 0.27973610162734985,
+            "resourceMax": 1.0,
+            "resourceMin": 0.1081162765622139,
+            "scarMax": 0.03504457697272301
+          },
+          "field_reference": {
+            "freshMax": 0.27973607182502747,
+            "resourceMax": 1,
+            "resourceMin": 0.1081162840127945,
+            "scarMax": 0.03504457324743271
+          },
+          "max_energy_delta": 8.940696716308594e-08,
+          "max_position_delta": 5.960464477539063e-08,
+          "mode_agreement": 1.0,
+          "step": 6
+        },
+        {
+          "field": {
+            "freshMax": 0.3632066547870636,
+            "resourceMax": 1.0,
+            "resourceMin": 0.10110686719417572,
+            "scarMax": 0.07726044207811356
+          },
+          "field_reference": {
+            "freshMax": 0.36320653557777405,
+            "resourceMax": 1,
+            "resourceMin": 0.10110687464475632,
+            "scarMax": 0.07726041972637177
+          },
+          "max_energy_delta": 8.940696716308594e-08,
+          "max_position_delta": 1.1920928955078125e-07,
+          "mode_agreement": 1.0,
+          "step": 12
+        },
+        {
+          "field": {
+            "freshMax": 0.41191765666007996,
+            "resourceMax": 1.0,
+            "resourceMin": 0.08697710931301117,
+            "scarMax": 0.20145155489444733
+          },
+          "field_reference": {
+            "freshMax": 0.411917507648468,
+            "resourceMax": 1,
+            "resourceMin": 0.08697712421417236,
+            "scarMax": 0.20145146548748016
+          },
+          "max_energy_delta": 8.940696716308594e-08,
+          "max_position_delta": 1.7881393432617188e-07,
+          "mode_agreement": 1.0,
+          "step": 24
+        }
+      ],
+      "source_preset": "refractory-route-41-pulse-waves-long-wave-study-v5.preset.json",
+      "structural": {
+        "field": {
+          "freshMax": 0.3660889267921448,
+          "resourceMax": 1.0,
+          "resourceMin": 0.09157025814056396,
+          "scarMax": 0.6382314562797546
+        },
+        "field_reference": {
+          "freshMax": 0.3660888075828552,
+          "resourceMax": 1,
+          "resourceMin": 0.09157026559114456,
+          "scarMax": 0.6382309198379517
+        },
+        "mode_histogram": {
+          "0": 182,
+          "1": 298,
+          "2": 32,
+          "3": 0
+        },
+        "positions_finite": true,
+        "positions_in_bounds": true,
+        "reference_mode_counts": [
+          182,
+          298,
+          32,
+          0
+        ],
+        "steps": 120
+      },
+      "title": "41 \u00b7 Pulse waves \u00b7 Long wave - v5",
+      "token": "5"
+    }
+  ],
+  "procedural_identity_probe": {
+    "agent_count": 24,
+    "identity_source": "procedural-canvas-receipt",
+    "node_errors": [],
+    "positions_finite": true,
+    "simstep_at_frame_4": 3
+  },
+  "schema_version": 1,
+  "state_authority": "vex-geometry",
+  "study_id": "study-001-memory-field"
+}

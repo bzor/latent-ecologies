@@ -1,0 +1,37 @@
+{
+  "schema_version": 1,
+  "study_id": "study-001-memory-field",
+  "state": "artist-ready-starter",
+  "contract": "live-hda",
+  "authoritative_hip": "look.hiplc",
+  "hip_bytes": 887004,
+  "hip_sha256": "baf6160f0f59e241f0a96c797335a32c8959f18d634bc9c82677b6a0e3c0d258",
+  "houdini_version": "22.0.368",
+  "setup_id": "basic",
+  "setup_path": "houdini/look_setups/basic/basic.hiplc",
+  "behavior_hda": {
+    "node_path": "/obj/PLAYGROUND_SIM/PROMOTED_BEHAVIOR",
+    "node_type": "bzor::refractory_route::1.0",
+    "study_copy": "refractory-route.hda",
+    "sha256": "78b5de6db783e8d17fb0e2f02fc0d28a0e994a94960cd210716224f5cf30b1b7",
+    "handoff": "studies/001-memory-field/01_behavior/03_promoted",
+    "default_preset": "1",
+    "presets": [
+      "14 · Braided deflection · Hard - switchbacks STUDY V1",
+      "26 · Resource pilgrimage · Drifting foragers STUDY v2",
+      "31 · Crowd pressure · Sparse crossings STUDY V3",
+      "38 · Drift and exploration · Responsive walkers - STUDY - v4",
+      "41 · Pulse waves · Long wave - v5"
+    ],
+    "source_selects": "studies/001-memory-field/01_behavior/02_selects"
+  },
+  "frame_range": [1, 288],
+  "fps": 24,
+  "duration_seconds": 12,
+  "resolution": [1080, 1350],
+  "render_picture": "$HIP/renders/look.$F4.png",
+  "playback_note": "Frame 1 is the initial state; Steps / Display Frame defaults to 2, so the 288-frame range covers 574 synchronous simulation steps.",
+  "artist_note": "Starter delivered untouched from the basic template; KC owns colour, materials, lighting, camera, and framing in this HIP.",
+  "lock_state": "unlocked",
+  "render_authorized": false
+}

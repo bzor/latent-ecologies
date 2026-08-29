@@ -1,0 +1,51 @@
+{
+  "behavior_hda": {
+    "node_path": "/obj/PLAYGROUND_SIM/PROMOTED_BEHAVIOR",
+    "node_type": "bzor::refractory_route::1.0",
+    "sha256": "78b5de6db783e8d17fb0e2f02fc0d28a0e994a94960cd210716224f5cf30b1b7",
+    "source_path": "E:/Projects/houdini-ai/studies/001-memory-field/01_behavior/03_promoted/refractory-route.hda",
+    "study_copy": "E:/Projects/houdini-ai/studies/001-memory-field/02_look/refractory-route.hda"
+  },
+  "contract": "live-hda",
+  "fps": 24.0,
+  "frame_range": [
+    1,
+    288
+  ],
+  "houdini_version": "22.0.368",
+  "legacy_cache_fallback": "/obj/PLAYGROUND_SIM/SOURCE_PROMOTED_SIMULATION",
+  "missing_external_dependencies": [],
+  "note": "Frame 1 is the HDA's initial state; the simulation is live and re-simmable. The template playback range is inherited from the setup and may need adjusting to the behavior's own timing.",
+  "render_picture": "$HIP/renders/look.$F4.png",
+  "reopen_cooks": [
+    {
+      "errors": [],
+      "frame": 1,
+      "points": 388864
+    },
+    {
+      "errors": [],
+      "frame": 2,
+      "points": 388864
+    },
+    {
+      "errors": [],
+      "frame": 60,
+      "points": 388864
+    }
+  ],
+  "reopen_passed": true,
+  "schema_version": 1,
+  "setup_id": "basic",
+  "starter_hip": {
+    "bytes": 887004,
+    "path": "E:/Projects/houdini-ai/studies/001-memory-field/02_look/look.hiplc",
+    "sha256": "baf6160f0f59e241f0a96c797335a32c8959f18d634bc9c82677b6a0e3c0d258"
+  },
+  "state": "artist-ready-starter",
+  "template": {
+    "drifted_from_setup_record": false,
+    "path": "E:/Projects/houdini-ai/houdini/look_setups/basic/basic.hiplc",
+    "sha256": "070d6875e4e77051c09056960bbc1420f231fbb8dafa05aa227dad553f70f5cb"
+  }
+}

@@ -1,0 +1,64 @@
+{
+  "schema_version": 1,
+  "kind": "prototype-preset",
+  "mechanism": "refractory-route-ecology-v1",
+  "mechanism_version": 1,
+  "study_id": "study-001-memory-field",
+  "title": "41 · Pulse waves · Long wave - v5",
+  "note": "Slow broad waves of recruitment and release. Risk: May look static in short review windows.",
+  "seed": 18432,
+  "identity": {
+    "rng": "mulberry32-v1",
+    "initialization": "five-seeded-gaussian-resources-then-agent-profile-receipt-v1",
+    "ordering": "synchronous-agent-sense-move-deposit-then-field-age-scar-heal-v1"
+  },
+  "parameters": {
+    "agent_count": 512,
+    "grid_width": 128,
+    "grid_height": 213,
+    "domain_width": 1.2,
+    "domain_height": 2,
+    "speed": 0.006,
+    "inertia": 0.82,
+    "turn_rate": 0.23,
+    "exploration": 0.15,
+    "boundary_steer": 2.4,
+    "resource_attraction": 3.1,
+    "trace_follow": 1.7,
+    "scar_avoid": 2.8,
+    "scar_deflect": 1.6,
+    "crowd_radius": 0.055,
+    "crowd_avoid": 0.00042,
+    "trace_deposit": 0.06,
+    "trace_decay": 0.025,
+    "birth_threshold": 0.12,
+    "follow_threshold": 0.09,
+    "scar_trigger": 0.06,
+    "scar_growth": 0.045,
+    "scar_threshold": 0.12,
+    "heal_threshold": 0.035,
+    "scar_decay": 0.0008,
+    "idle_healing": 0.01,
+    "resource_recovery": 0.004,
+    "consume_rate": 0.004,
+    "energy_gain": 0.8,
+    "energy_cost": 0.0045,
+    "rest_energy": 0.18
+  },
+  "display": {
+    "field_mode": "composite",
+    "field_point_size": 0.0085,
+    "agent_point_size": 0.018,
+    "show_agents": true
+  },
+  "playback": {
+    "steps_per_display_frame": 1
+  },
+  "production_hint": {
+    "state": "candidate",
+    "execution_authorized": false,
+    "integration_authority": "houdini-vex"
+  },
+  "state": "candidate",
+  "visibility": "private"
+}

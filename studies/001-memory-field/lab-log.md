@@ -162,3 +162,33 @@ approaches or sectors recorded. The field remains active through frame 240 witho
 invalid positions or resource exhaustion.
 
 **Status:** Probe 007 accepted as the artifact-free baseline for sequence rendering.
+
+## 2026-08-23 — Behavior revision selects promoted to Look Development
+
+**Artist direction:** "for 001 I chose a few selects … can we promote this to look
+dev and create the HDA with those presets? let's make it 12s long 1080x1350 in the
+basic format." The five chosen Refractory Route selects live in
+`01_behavior/02_selects/` (browser candidates 14, 26, 31, 38, 41).
+
+**Shared proposal:** Port the refractory-route browser kernel to a VEX-authoritative
+Behavior HDA (`bzor::refractory_route::1.0`), embed each select's browser-exact
+initial state, expose the full dynamics parameter set with a select-preset menu and
+overlay-manifest export, audit the port against Node-exported reference
+trajectories, then instantiate the `basic` look starter at 12 s / 24 fps
+(frames 1–288) and 1080×1350.
+
+**Observation (measured):** Fresh-session audit passed for all five presets:
+embedded initial states match the browser receipts exactly; trajectories track the
+browser reference within 4.2e-5 domain units through step 24 with full mode
+agreement; step-120 field statistics match within ~1e-6 and mode histograms within a
+few agents. One porting semantic was required: the browser compares float32 state
+against float64 parameters, so the follow-threshold test is `>=` in VEX — without it
+the Drifting Foragers select (trace deposit exactly at follow threshold) loses its
+follow regime entirely. `birth_threshold` feeds only browser event counters and is
+not carried into the HDA. Handoff package and audit:
+`studies/001-memory-field/01_behavior/03_promoted/`.
+
+**Status:** `02_look/look.hiplc` delivered as `artist-ready-starter` (basic setup,
+live re-simmable HDA at `/obj/PLAYGROUND_SIM/PROMOTED_BEHAVIOR`, default preset 1,
+2 steps per display frame, render bound to `$HIP/renders/look.$F4.png`). KC owns
+Look Development from here; rendering waits for an explicit lock.
