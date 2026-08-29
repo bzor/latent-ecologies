@@ -1,5 +1,8 @@
 # Working workflow
 
+> This describes the working prototype-era study pipeline. It remains supported while the
+> new interaction and promotion workflow in `STUDIO_PROTOCOL.md` is implemented.
+
 ## Directing a study
 
 Creative direction can remain conversational: “make the third variation more
@@ -22,6 +25,27 @@ changes before running compute.
 
 Each stage writes a receipt under `work/jobs/<job-id>/`. Receipts make the
 pipeline resumable and show exactly which inputs produced an artifact.
+
+## Artist-led Look Development
+
+Look Development is now artist-led. After a Behavior is promoted, KC and Hermes hold a short setup
+brainstorm. KC explicitly describes the starter HIP and selects or adapts entries from a jointly
+curated setup library. Hermes builds and fresh-reopen verifies that starter file; it does not invent
+or complete the Look autonomously.
+
+KC then edits the HIP and performs Look Development directly. The artist-edited file is authoritative
+and must never be regenerated over. When KC explicitly declares a HIP locked, Hermes snapshots and
+checksums it, performs bounded render preflight, renders and encodes resumably, and writes a receipt
+bound to the locked scene. Any change affecting geometry, material, light, camera, animation, or
+composition requires KC to unlock or version the Look.
+
+After rendering, Hermes hands the verified render package to KC's detail/overlay generator. KC
+completes that stage and exports the post-ready artifact. Only after several completed works reveal
+stable repeated steps should those steps be considered for automation.
+
+See `ARTIST_LED_LOOK_HANDOFF.md` for the active contract. `LOOK_EXECUTION_AGENT.md` documents the
+paused autonomous full-Look research and retained verification infrastructure; it is not the default
+production workflow.
 
 Study 001 runs all local stages with one command:
 

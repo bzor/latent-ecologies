@@ -1,5 +1,12 @@
 # Project plan
 
+> **Prototype-era plan.** This document records the architecture and milestones that
+> established the working Houdini pipeline through Study 001 and Mass Flow. The project
+> is now being reframed as Bzor Computational Studio. Current direction and sequencing
+> live in `STUDIO_VISION.md`, `STUDIO_PROTOCOL.md`, `STUDIO_ARCHITECTURE.md`, and
+> `STUDIO_ROADMAP.md`. Preserve this file as implementation history until the new studio
+> kernel has replaced its contracts.
+
 ## 1. North star
 
 Build a living collection of VEX-heavy artificial ecologies inspired by patterns

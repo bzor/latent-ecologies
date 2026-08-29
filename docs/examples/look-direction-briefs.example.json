@@ -1,0 +1,92 @@
+[
+  {
+    "id": "look-direction-example",
+    "title": "Example structural direction",
+    "thesis": "One sentence naming the physical visual thesis.",
+    "visual_target": {
+      "references": [
+        "references/look/example-reference-a.jpg",
+        "references/look/example-reference-b.jpg"
+      ],
+      "final_image_thesis": "One sentence describing the image, material world, and dominant read—not only the mechanism.",
+      "required_reads": [
+        "the dominant state-driven form",
+        "the persistent-versus-transient hierarchy"
+      ],
+      "prohibited_reads": [
+        "raw point cloud",
+        "flat grey topology diagnostic"
+      ],
+      "material_intent": "Named surface, volume, or emissive response with editable MaterialX controls.",
+      "framing_intent": "Neutral coverage plus a direction-specific hero composition.",
+      "lighting_intent": "Locked neutral baseline plus an authored hero treatment.",
+      "temporal_signature": "What remains visibly legible across early, middle, late, and continuous motion."
+    },
+    "state_to_form_mappings": [
+      {
+        "source_attribute": "authoritative_attribute_name",
+        "visible_response": "geometry or material response",
+        "houdini_mechanism": "Exact SOP, VEX, USD, or MaterialX mechanism.",
+        "acceptance_observable": "A visible or measured result that proves the mapping landed."
+      }
+    ],
+    "primary_hierarchy": [
+      "first read",
+      "second read",
+      "third read"
+    ],
+    "representation_system": "Curves, instances, surfaces, volumes, or another named Houdini system.",
+    "lighting_assumptions": "A fixed neutral comparison rig plus an authored hero lighting treatment.",
+    "cost_tier": "probe",
+    "motion_proposition": "What persists, relaxes, accumulates, moves, or disappears.",
+    "exclusions": [
+      "publication finishing",
+      "Behavior changes"
+    ],
+    "risks": [
+      "The primary way this direction could become generic, decorative, or unreadable."
+    ],
+    "cheapest_decisive_probe": "The smallest live-Houdini artifact that can disprove the thesis.",
+    "stop_conditions": [
+      "Stop when a named source attribute is absent or a required mapping cannot be demonstrated."
+    ],
+    "implementation_stages": [
+      {
+        "id": "inspect-source",
+        "title": "Inspect the authoritative caches",
+        "intent": "Measure real attribute ranges and temporal behavior before designing controls.",
+        "data_inputs": ["authoritative_attribute_name"],
+        "houdini_strategy": "Load frozen caches into a labelled SOURCE branch and record ranges without changing Behavior.",
+        "output": "A normalized, reusable source-data branch.",
+        "acceptance_observable": "The implementation plan records measured source ranges and representative frames."
+      },
+      {
+        "id": "build-primary-form",
+        "title": "Build the primary state-to-form system",
+        "intent": "Establish the direction's dominant physical metaphor.",
+        "data_inputs": ["authoritative_attribute_name"],
+        "houdini_strategy": "Build a dedicated LOOK_PRIMARY branch with exposed remap and scale controls.",
+        "output": "Cooked primary geometry driven by the source data.",
+        "acceptance_observable": "Low and high source values create measurably different primary form."
+      },
+      {
+        "id": "build-supporting-hierarchy",
+        "title": "Build supporting layers and hierarchy",
+        "intent": "Connect secondary simulation data to distinct, subordinate visual systems.",
+        "data_inputs": ["secondary_attribute_name", "agent_state"],
+        "houdini_strategy": "Create adjacent, independently switchable SOP branches and merge them explicitly after validation.",
+        "output": "A readable multi-layer assembly rather than one monolithic network.",
+        "acceptance_observable": "Primary and supporting layers remain independently legible in a neutral probe."
+      },
+      {
+        "id": "temporal-proof-and-handoff",
+        "title": "Prove the temporal read and package the graph",
+        "intent": "Validate the full direction in motion and leave a clean artist-facing scene.",
+        "data_inputs": ["authoritative_attribute_name", "time"],
+        "houdini_strategy": "Cook early, middle, and late probes, organize connected networks top-to-bottom, save, reopen, and recook the canonical HIP.",
+        "output": "Canonical HIP, probe media, implementation plan, and graph audit.",
+        "acceptance_observable": "The reopened HIP cooks without node errors and temporal probes demonstrate the intended evolution."
+      }
+    ]
+  }
+]

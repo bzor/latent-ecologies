@@ -1,5 +1,9 @@
 # Phase 2 plan — Creative framework
 
+> **Superseded as an active roadmap.** The completed capabilities and Mass Flow findings
+> remain valid historical evidence. Active work now follows Behavior → artist-led Look →
+> Specimen → Delivery; historical capability notes remain in `STUDIO_ROADMAP.md`.
+
 ## Strategy
 
 Build four bounded, art-directed capability studies—scale and motion, materials and

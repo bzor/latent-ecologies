@@ -1,18 +1,40 @@
-# Houdini AI — Computational Natural History
+# Bzor Computational Studio
 
-An automation-first creative laboratory for VEX-heavy Houdini systems inspired by
-natural processes, artificial life, cellular automata, flocking, esoteric
-computation, and unfamiliar rule spaces.
+An automation-first system for constructing, testing, and documenting computational
+models, then producing reproducible audiovisual specimens in Houdini. Its scope
+includes agent-based models, cellular automata, graph dynamics, field methods,
+collective motion, stochastic processes, and rule-based simulation.
 
-The project treats the artist and AI as collaborators. The goal is not to produce
-isolated “AI-generated” effects, but to observe, propose, test, mutate, interpret,
-and publish evolving artificial ecologies.
+KC Austin defines the research direction and presentation. Hermes supports literature
+review, hypothesis formation, implementation, parameter exploration, instrumentation,
+validation, rendering, and reproducible packaging. Scientific and technical claims must
+remain tied to sources, defined measurements, or identified observations.
+
+## Current direction
+
+The studio runs one explicit pipeline: Discord Seed Bank → Study brainstorm →
+behaviour production (threeJS prototype or straight Houdini) → live-HDA + look
+template → artist-led look development → locked render → realtime detail pass →
+final package → approval-gated publishing. Every promotion is an explicit KC
+decision with a durable local record.
+
+Start here:
+
+- [Vision — the canonical pipeline](docs/VISION.md)
+- [Scientific and technical voice](docs/TECHNICAL_VOICE.md)
+- [Discord public studio architecture](docs/DISCORD_PUBLIC_STUDIO_ARCHITECTURE.md)
+- [KC–Hermes studio protocol](docs/STUDIO_PROTOCOL.md)
+- [Studio architecture](docs/STUDIO_ARCHITECTURE.md)
+- [Artist-led Look handoff](docs/ARTIST_LED_LOOK_HANDOFF.md)
+
+Superseded vision, roadmap, and prototype-era plans are preserved in
+[docs/archive/](docs/archive/).
 
 ## Principles
 
-- Local rules before predetermined shapes.
-- Emergence, accidents, and failed experiments are valuable outputs.
-- The artist spends time on direction and taste—not frame handling or encoding.
+- Define local rules, state, update order, and boundary conditions before presentation.
+- Preserve anomalous, null, and failed experiments when they provide evidence.
+- KC spends time on research direction and presentation, not frame handling or encoding.
 - Every published specimen retains its seed, rule lineage, and environment.
 - Public participation is welcome but never required.
 - Instrumentation explains what is measured, derived, observed, or hypothesized.
@@ -24,17 +46,17 @@ config/             Shared project and render defaults
 docs/               Vision, architecture, workflow, and roadmap
 houdini/            Houdini packages, HDAs, materials, and scene tools
 src/houdini_ai/     Automation CLI and pipeline code
-studies/            One reproducible directory per experiment
+studies/            Canonical numbered Study vaults and phase-owned artifacts
+studio/             System-wide records and reusable components
 tests/              Automation tests
 website/            Local review studio; future public field notebook
-work/               Local caches and renders (ignored by Git)
+work/               Disposable caches, staging, and legacy generated work
 ```
 
-Start with [docs/PROJECT_PLAN.md](docs/PROJECT_PLAN.md), then read
-[docs/WORKFLOW.md](docs/WORKFLOW.md). The immediate implementation sequence is in
-[docs/VERTICAL_SLICE_PLAN.md](docs/VERTICAL_SLICE_PLAN.md).
-The implemented review milestones and next interaction work are tracked in
-[docs/REVIEW_STUDIO_PLAN.md](docs/REVIEW_STUDIO_PLAN.md).
+The canonical per-Study directory contract is defined in
+[docs/STUDY_VAULT.md](docs/STUDY_VAULT.md). The prototype-era job pipeline is
+documented in [docs/archive/WORKFLOW.md](docs/archive/WORKFLOW.md); it remains
+supported as implementation history.
 
 ## Quick start
 
@@ -49,6 +71,9 @@ python -m houdini_ai status studies/001-memory-field/study.json
 python -m houdini_ai storage
 python -m houdini_ai clean
 python -m houdini_ai review
+python -m houdini_ai studio seed "Agents reinforce paths until saturation makes them repellent"
+python -m houdini_ai studio ideas
+houdini-ai studio study-init study-003-nonlocal-affinity-dance
 python -m unittest discover -s tests
 python -m ruff check .
 ```
@@ -85,6 +110,18 @@ written atomically beneath `work/reviews/`; it cannot execute commands or direct
 modify VEX, manifests, HIP files, or render state.
 Assistant replies can advance notes through acknowledged, implemented, and resolved
 states and link completed work to a commit, replacement job, and verified artifacts.
+
+The local Studio now also provides private idea capture, bounded proposals, component
+promotion from verified lineage, proposal approve/hold controls, and editorial candidate
+records. Its browser navigation separates Inbox,
+Proposals, Runs / Reviews, Components, Specimens, and Editorial. These records are inert
+local JSON: tagging an artifact never uploads or publishes it.
+
+Scar Tissue now has three versioned mutation records, deterministic reference diagnostics,
+and a separate sequential Houdini/VEX-authoritative probe. The latter persists agent and
+oriented field geometry from one VEX cook to the next; it does not claim numerical parity
+with the Python reference model. See `studies/behavior/scar-tissue/lab-log.md` for measured
+scope and remaining observational evidence gaps.
 
 ```powershell
 python -m houdini_ai clean
