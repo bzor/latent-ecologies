@@ -8,8 +8,21 @@ houdini/otls/*.hda
 # Generated work
 work/*
 !work/.gitkeep
-studies/*/output/
-studies/*/cache/
+
+# Canonical Study vault: metadata is versioned; heavy artifacts stay local
+studies/study_*/0[1-6]_*/01_work/
+studies/study_*/0[1-6]_*/02_review/
+studies/study_*/0[1-6]_*/03_selected/
+# Flat Look, Specimen, and Delivery keep metadata visible but heavy media local
+studies/study_*/0[2-4]_*/**/*.png
+studies/study_*/0[2-4]_*/**/*.jpg
+studies/study_*/0[2-4]_*/**/*.jpeg
+studies/study_*/0[2-4]_*/**/*.exr
+studies/study_*/0[2-4]_*/**/*.mp4
+studies/study_*/0[2-4]_*/**/*.mov
+studies/study_*/0[2-4]_*/**/*.bgeo.sc
+studies/study_*/90_shared/cache/
+studies/study_*/99_archive/
 
 # Python
 __pycache__/
@@ -18,6 +31,9 @@ __pycache__/
 dist/
 build/
 *.egg-info/
+
+# Design overlay generator: per-run headless capture data
+design-overlay-generator/web/capture-input.js
 
 # Editors / OS
 .DS_Store
@@ -30,3 +46,20 @@ Thumbs.db
 .env.*
 !env.example
 
+
+# Approved-artifact archives stay local (exceed platform file-size limits)
+studies/*/01_behavior/99_backups/
+
+# Legacy pre-contract Study directories mirror the study_* rules above
+studies/001-memory-field/01_behavior/01_work/
+studies/001-memory-field/01_behavior/03_promoted/backup/
+studies/001-memory-field/01_behavior/03_promoted/receipts/
+studies/001-memory-field/02_look/backup/
+
+# Hermes working scratch; .hermes/plans/ stays versioned
+.hermes/hda-debug/
+
+# Third-party design assets: font licensing and reference imagery stay local
+design-overlay-generator/web/fonts/*
+!design-overlay-generator/web/fonts/README.md
+design-overlay-generator/references/
