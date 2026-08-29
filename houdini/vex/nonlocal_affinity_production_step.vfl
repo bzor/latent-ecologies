@@ -1,0 +1,14 @@
+vector origin = point(0, "P", @ptnum);
+int friend_index = point(0, "friend", @ptnum);
+int enemy_index = point(0, "enemy", @ptnum);
+vector friend_position = point(0, "P", friend_index);
+vector enemy_position = point(0, "P", enemy_index);
+vector friend_offset = friend_position - origin;
+vector enemy_offset = enemy_position - origin;
+float softening = chf("softening");
+vector toward = friend_offset / (softening + length(friend_offset));
+vector away = enemy_offset / (softening + length(enemy_offset));
+
+@P = chf("contraction") * origin
+    + chf("attraction") * toward
+    - chf("repulsion") * away;

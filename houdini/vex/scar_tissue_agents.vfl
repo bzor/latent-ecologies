@@ -1,0 +1,22 @@
+// Behavior Lab: oriented path memory with saturation-driven sign change.
+float dt = 1.0 / chf("fps");
+vector position = @P;
+vector velocity = v@v;
+vector scar_gradient = v@scar_gradient;
+vector scar_direction = v@scar_direction;
+float scar = f@scar_value;
+float sign = scar >= chf("saturation_threshold") ? -1.0 : 1.0;
+vector memory_force = normalize(scar_gradient + set(1e-8, 0, 0)) * sign;
+if (chi("mutation") == 1 && scar >= chf("attraction_threshold") && length(scar_direction) > 1e-6)
+    memory_force = normalize(scar_direction) + memory_force * 0.2;
+if (chi("mutation") == 2 && i@scar_idle < chi("refractory_frames"))
+    memory_force *= -1.0;
+float wander_phase = @id * 0.754877666 + chf("current_frame") * 0.071;
+vector wander = set(sin(wander_phase), cos(wander_phase * 0.73), 0) * chf("wander_strength");
+vector desired = limit_length(velocity + memory_force * chf("field_strength") + wander, chf("max_speed"));
+v@v = lerp(velocity, desired, 1.0 - chf("drag"));
+@P += v@v * dt;
+@P.x = fold_axis(@P.x, chf("domain_width") * 0.5);
+@P.y = fold_axis(@P.y, chf("domain_height") * 0.5);
+f@speed = length(v@v);
+f@deposit = chf("deposit_amount");

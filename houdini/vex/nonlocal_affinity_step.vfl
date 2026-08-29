@@ -1,0 +1,21 @@
+int rewire_point = detail(0, "rewire_point", 0);
+int rewire_friend = detail(0, "rewire_friend", 0);
+int rewire_enemy = detail(0, "rewire_enemy", 0);
+
+if (@ptnum == rewire_point && rewire_point >= 0)
+{
+    i@friend = rewire_friend;
+    i@enemy = rewire_enemy;
+}
+
+vector origin = point(0, "P", @ptnum);
+vector friend_position = point(0, "P", i@friend);
+vector enemy_position = point(0, "P", i@enemy);
+vector friend_offset = friend_position - origin;
+vector enemy_offset = enemy_position - origin;
+float softening = 0.01;
+vector toward = friend_offset / (softening + length(friend_offset));
+vector away = enemy_offset / (softening + length(enemy_offset));
+
+@P = 0.995 * origin + 0.02 * toward - 0.01 * away;
+@P.z = 0.0;

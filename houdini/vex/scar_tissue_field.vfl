@@ -1,0 +1,7 @@
+// Behavior Lab: decay and classify the scalar/oriented scar field.
+f@scar_value *= chf("scar_decay");
+v@scar_direction *= chf("scar_decay");
+i@scar_idle += 1;
+i@scar_state = f@scar_value >= chf("saturation_threshold") ? 2 : f@scar_value >= chf("attraction_threshold") ? 1 : 0;
+if (chi("mutation") == 2 && i@scar_idle > chi("refractory_frames"))
+    f@scar_value *= chf("healing_decay");

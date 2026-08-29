@@ -1,0 +1,59 @@
+{
+  "schema_version": 1,
+  "id": "basic",
+  "title": "Basic",
+  "state": "default",
+  "owner": "KC Austin",
+  "source": {
+    "study_id": "study-003-nonlocal-affinity-dance",
+    "path": "studies/study_003_nonlocal-affinity-dance/02_look/look.hiplc",
+    "sha256": "423406b4a6627ea0fbc851447cc232d646eb2935bd0c680b3ca1d10723491bc7",
+    "extracted_from_retired_path": "studies/study_003_nonlocal-affinity-dance/02_look/01_work/look-round-004/00_look/00_look.hiplc",
+    "original_extraction_sha256": "1ad73f9acc8b3d8f946ffd27cf76d5421873db2f13b91e4bef65210be05bca68",
+    "note": "KC's hand-edited Look experiment derived from the generated base playground. The original and template copies matched at extraction; only obsolete round-local render outputs were rebound afterward."
+  },
+  "template": {
+    "path": "basic.hiplc",
+    "bytes": 865034,
+    "sha256": "070d6875e4e77051c09056960bbc1420f231fbb8dafa05aa227dad553f70f5cb",
+    "houdini_version": "22.0.368",
+    "license_category": "Indie"
+  },
+  "defaults": {
+    "fps": 24,
+    "frame_range": [205, 650],
+    "resolution": [1080, 1350],
+    "camera": "/obj/main_cam",
+    "camera_focal_length_mm": 80,
+    "renderer": "Karma XPU",
+    "samples_per_pixel": 64,
+    "path_traced_samples": 128
+  },
+  "features": [
+    "promoted Behavior File SOP input",
+    "point-visibility fallback",
+    "Trail SOP branch merged with the simulation points",
+    "neutral floor/environment",
+    "editable MaterialX simulation and floor materials",
+    "OBJ camera imported into Solaris",
+    "three user-selected dome-light variants",
+    "optional key/fill/rim rig retained from the base playground",
+    "Karma XPU render settings and USD Render ROP"
+  ],
+  "bindings_on_instantiation": {
+    "required": true,
+    "contract": "live-hda",
+    "tool": "houdini/instantiate_look_starter.py",
+    "behavior_hda_node": "/obj/PLAYGROUND_SIM/PROMOTED_BEHAVIOR",
+    "sim_entry_node": "/obj/PLAYGROUND_SIM/ENSURE_POINT_VISIBILITY",
+    "legacy_cache_fallback_parm": "/obj/PLAYGROUND_SIM/SOURCE_PROMOTED_SIMULATION/file",
+    "render_picture_parm": "/stage/RENDER_KARMA_SETTINGS/picture",
+    "rule": "Hermes copies the template into the Study's flat 02_look directory, installs and wires the promoted Behavior HDA as a live re-simmable node, leaves the legacy cache File SOP disconnected as a fallback, binds a local render path, verifies reopen/cook, writes a starter receipt, and does not alter KC's visual setup unless explicitly asked."
+  },
+  "external_dependencies": [
+    "E:/hdri/bank_vault_4k.exr",
+    "E:/hdri/gear_store_4k.exr",
+    "E:/hdri/studio_small_03_4k.exr"
+  ],
+  "inspection": "inspection.json"
+}

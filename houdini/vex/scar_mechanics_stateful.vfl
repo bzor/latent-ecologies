@@ -1,0 +1,461 @@
+int mode = chi("mode");
+int frame = chi("frame");
+int edge_count = chi("edge_count");
+float bank_half_width = chf("bank_half_width");
+float wound_height = chf("wound_height");
+float activator_decay = chf("activator_decay");
+float refractory_decay = chf("refractory_decay");
+float wave_transfer = chf("wave_transfer");
+float myosin_response = chf("myosin_response");
+float ratchet_rate = chf("ratchet_rate");
+float ratchet_heterogeneity = chf("ratchet_heterogeneity");
+float closure_gain = chf("closure_gain");
+float zip_capture = chf("zip_capture");
+float zip_rate = chf("zip_rate");
+float zip_front_boost = chf("zip_front_boost");
+int zipper_space_mode = chi("zipper_space_mode");
+float tube_azimuth = chf("tube_azimuth");
+float tube_twist_turns = chf("tube_twist_turns");
+int frame_end = chi("frame_end");
+int fibre_count = chi("fibre_count");
+int agent_count = chi("agent_count");
+float domain_width = chf("domain_width");
+float domain_height = chf("domain_height");
+float agent_speed = chf("agent_speed");
+float wander_strength = chf("wander_strength");
+float adhesion_radius = chf("adhesion_radius");
+float traction_gain = chf("traction_gain");
+float pull_decay = chf("pull_decay");
+float uncrimp_rate = chf("uncrimp_rate");
+float lox_deposit = chf("lox_deposit");
+float lox_retention = chf("lox_retention");
+float dwell_rate = chf("dwell_rate");
+float dwell_decay = chf("dwell_decay");
+float bond_rate = chf("bond_rate");
+float bond_threshold = chf("bond_threshold");
+float fibre_move_gain = chf("fibre_move_gain");
+int flow_mode = chi("flow_mode");
+float flow_strength = chf("flow_strength");
+float flow_scale = chf("flow_scale");
+float flow_time_rate = chf("flow_time_rate");
+float flow_center_pull = chf("flow_center_pull");
+float flow_recruit_radius = chf("flow_recruit_radius");
+float flow_recruit_gain = chf("flow_recruit_gain");
+
+vector scar_guided_flow(int flow_mode_value; vector position; int frame_value;
+    float width; float height; float scale; float time_rate; float center_pull)
+{
+    vector direction = {0.0, 1.0, 0.0};
+    if (flow_mode_value == 1) {
+        float wave_phase = position.y * scale + frame_value * time_rate;
+        direction = normalize(set(
+            0.62 * sin(wave_phase) - center_pull * position.x / max(0.1, width),
+            1.0, 0.0));
+    } else if (flow_mode_value == 2) {
+        float band = sin(position.y * scale * 1.7 + frame_value * time_rate);
+        direction = normalize(set(
+            0.95 * band,
+            0.58 + 0.22 * cos(position.x * scale),
+            0.0));
+    } else if (flow_mode_value == 3) {
+        float cell_height = height / 3.0;
+        float row = floor((position.y + height * 0.5) / cell_height);
+        float center_y = -height * 0.5 + (row + 0.5) * cell_height;
+        float center_x = 1.25 * sin(row * 2.41 + frame_value * time_rate * 0.45);
+        vector relative = position - set(center_x, center_y, 0.0);
+        vector tangent = set(-relative.y, relative.x, 0.0);
+        direction = normalize(tangent + set(0.0, 0.16, 0.0)
+            - relative * center_pull * 0.08);
+    } else if (flow_mode_value == 4) {
+        float seam_x = 0.90 * sin(position.y * scale + frame_value * time_rate);
+        float toward_seam = (seam_x - position.x) * center_pull;
+        direction = normalize(set(toward_seam, 1.0, 0.0));
+    }
+    return direction;
+}
+
+if (mode == 0) {
+    vector positions[];
+    float activators[];
+    float refractories[];
+    float myosins[];
+    float ratchets[];
+    float unwrapped_positions[];
+    float tube_angles[];
+    float tube_radii[];
+    int fused_state[];
+    int total_edges = edge_count * 2;
+    for (int i = 0; i < total_edges; i++) {
+        vector p = point(0, "P", i);
+        float a = point(0, "activator", i);
+        float r = point(0, "refractory", i);
+        float m = point(0, "myosin", i);
+        float q = point(0, "ratchet", i);
+        float unwrapped_x = point(0, "unwrapped_x", i);
+        float tube_angle = point(0, "tube_angle", i);
+        float tube_radius = point(0, "tube_radius", i);
+        int f = point(0, "fused", i);
+        append(positions, p);
+        append(activators, a);
+        append(refractories, r);
+        append(myosins, m);
+        append(ratchets, q);
+        append(unwrapped_positions, unwrapped_x);
+        append(tube_angles, tube_angle);
+        append(tube_radii, tube_radius);
+        append(fused_state, f);
+    }
+
+    int pulse_events = 0;
+    for (int i = 0; i < total_edges; i++) {
+        int bank = point(0, "bank", i);
+        int edge_index = point(0, "edge_index", i);
+        int bank_offset = bank < 0 ? 0 : edge_count;
+        int prev_index = bank_offset + max(0, edge_index - 1);
+        int next_index = bank_offset + min(edge_count - 1, edge_index + 1);
+        float neighbor_a = max(activators[prev_index], activators[next_index]);
+        int tip_pacemaker = (edge_index <= 1 || edge_index >= edge_count - 2)
+            && ((frame + (bank > 0 ? 11 : 0)) % 38 < 2);
+        int side_pacemaker = abs(edge_index - edge_count / 3) <= 1
+            && ((frame + 23 + (bank > 0 ? 17 : 0)) % 71 < 2);
+        int pacemaker = tip_pacemaker || side_pacemaker;
+        int fire = refractories[i] < 0.08 && (pacemaker || neighbor_a > 0.62);
+        float new_a = max(activators[i] * activator_decay,
+            fire ? 1.0 : neighbor_a * wave_transfer);
+        float new_r = fire ? 1.0 : max(0.0, refractories[i] - refractory_decay);
+        float new_m = lerp(myosins[i] * 0.94, new_a, myosin_response);
+        float pulse_gate = smooth(0.38, 0.72, new_m);
+        float ratchet_variation = lerp(1.0,
+            fit01(noise(edge_index * 0.085 + bank * 13.7), 0.25, 1.75),
+            clamp(ratchet_heterogeneity, 0.0, 1.0));
+        float new_q = clamp(ratchets[i] + ratchet_rate * ratchet_variation * pulse_gate, 0.0, 1.0);
+        if (pacemaker && fire)
+            pulse_events++;
+
+        vector old_p = positions[i];
+        float yn = edge_count > 1 ? float(edge_index) / float(edge_count - 1) : 0.0;
+        float seam = 0.10 * sin(old_p.y * 0.78) + 0.035 * sin(old_p.y * 2.17);
+        float target_half = bank_half_width * (1.0 - closure_gain * new_q);
+        if (fused_state[i])
+            target_half *= 0.28;
+        float dimple = bank * new_m * 0.045;
+        float target_unwrapped_x = seam + bank * target_half - dimple;
+        float new_unwrapped_x = lerp(unwrapped_positions[i], target_unwrapped_x, 0.22);
+        float target_y = lerp(-wound_height * 0.5, wound_height * 0.5, yn)
+            + 0.025 * sin(frame * 0.11 + edge_index * 0.63 + bank);
+        vector target_p;
+        vector new_p;
+        if (zipper_space_mode == 1) {
+            float target_radius = max(0.0, target_half - new_m * 0.045);
+            int opposite_index = bank < 0 ? edge_count + edge_index : edge_index;
+            float pair_settlement = clamp(
+                0.5 * (ratchets[i] + ratchets[opposite_index]), 0.0, 1.0);
+            float settled_azimuth = tube_azimuth
+                + yn * tube_twist_turns * 6.28318530718 * pair_settlement;
+            float new_radius = lerp(tube_radii[i], target_radius, 0.22);
+            float new_tube_angle = lerp(tube_angles[i], settled_azimuth, 0.22);
+            new_p = set(
+                seam + bank * new_radius * cos(new_tube_angle),
+                lerp(old_p.y, target_y, 0.22),
+                bank * new_radius * sin(new_tube_angle));
+            setpointattrib(0, "tube_angle", i, new_tube_angle, "set");
+            setpointattrib(0, "tube_radius", i, new_radius, "set");
+        } else {
+            target_p = set(target_unwrapped_x, target_y, 0.0);
+            new_p = lerp(old_p, target_p, 0.22);
+        }
+
+        setpointattrib(0, "P", i, new_p, "set");
+        setpointattrib(0, "unwrapped_x", i, new_unwrapped_x, "set");
+        setpointattrib(0, "activator", i, new_a, "set");
+        setpointattrib(0, "refractory", i, new_r, "set");
+        setpointattrib(0, "myosin", i, new_m, "set");
+        setpointattrib(0, "ratchet", i, new_q, "set");
+    }
+
+    int zip_events = 0;
+    int primitive_count = nprimitives(0);
+    for (int prim = 0; prim < primitive_count; prim++) {
+        int kind = prim(0, "kind", prim);
+        int pts[] = primpoints(0, prim);
+        if (len(pts) != 2)
+            continue;
+        vector pa = point(0, "P", pts[0]);
+        vector pb = point(0, "P", pts[1]);
+        float distance_now = distance(pa, pb);
+        if (kind == 1 && zipper_space_mode == 1) {
+            float unwrapped_x_a = point(0, "unwrapped_x", pts[0]);
+            float unwrapped_x_b = point(0, "unwrapped_x", pts[1]);
+            vector unwrapped_a = set(unwrapped_x_a, pa.y, 0.0);
+            vector unwrapped_b = set(unwrapped_x_b, pb.y, 0.0);
+            distance_now = distance(unwrapped_a, unwrapped_b);
+        }
+        float rest = prim(0, "rest_length", prim);
+        float tension = rest > 1e-6 ? max(0.0, distance_now / rest - 1.0) : 0.0;
+        setprimattrib(0, "tension", prim, tension, "set");
+        if (kind != 1)
+            continue;
+
+        int edge_index = point(0, "edge_index", pts[0]);
+        float yn = edge_count > 1 ? float(edge_index) / float(edge_count - 1) : 0.0;
+        float tipness = abs(yn - 0.5) * 2.0;
+        float qa = point(0, "ratchet", pts[0]);
+        float qb = point(0, "ratchet", pts[1]);
+        float opposed_ratchet = min(qa, qb);
+        float capture = zip_capture * lerp(0.72, 1.28, tipness);
+        float front_reach = clamp(0.40 * opposed_ratchet
+            + clamp(frame / 400.0, 0.0, 0.75) * 0.45
+            + zip_front_boost, 0.0, 0.98);
+        int inside_zipper_front = tipness > 1.0 - front_reach;
+        float old_bond = prim(0, "bond", prim);
+        int old_latched = prim(0, "latched", prim);
+        float new_bond = old_bond;
+        if (!old_latched && inside_zipper_front && distance_now < capture && opposed_ratchet > 0.16)
+            new_bond = clamp(old_bond + zip_rate * (0.35 + 0.65 * tipness), 0.0, 1.0);
+        else if (!old_latched)
+            new_bond = max(0.0, old_bond - 0.008);
+        int new_latched = old_latched || new_bond >= 0.56;
+        int age = prim(0, "zip_age", prim);
+        age = new_bond > 0.02 ? age + 1 : 0;
+        if (!old_latched && new_latched) {
+            zip_events++;
+            setpointattrib(0, "fused", pts[0], 1, "set");
+            setpointattrib(0, "fused", pts[1], 1, "set");
+            setpointattrib(0, "zip_partner", pts[0], pts[1], "set");
+            setpointattrib(0, "zip_partner", pts[1], pts[0], "set");
+        }
+        setprimattrib(0, "bond", prim, new_bond, "set");
+        setprimattrib(0, "latched", prim, new_latched, "set");
+        setprimattrib(0, "zip_age", prim, age, "set");
+    }
+    int prior_pulses = detail(0, "pulse_events", 0);
+    int prior_zips = detail(0, "zip_events", 0);
+    setdetailattrib(0, "pulse_events", prior_pulses + pulse_events, "set");
+    setdetailattrib(0, "zip_events", prior_zips + zip_events, "set");
+}
+if (mode == 1) {
+    vector fibre_positions[];
+    vector fibre_dirs[];
+    vector fibre_pulls[];
+    float fibre_crimps[];
+    float fibre_tensions[];
+    float fibre_masses[];
+    float fibre_lox_values[];
+    float incident_bonds[];
+    for (int i = 0; i < fibre_count; i++) {
+        vector p = point(0, "P", i);
+        vector d = point(0, "fdir", i);
+        vector pull = point(0, "pull", i);
+        float crimp = point(0, "crimp", i);
+        float tension = point(0, "fibre_tension", i);
+        float mass = point(0, "mass", i);
+        float lox = point(0, "lox", i);
+        float bond_sum = 0.0;
+        int incident[] = pointprims(0, i);
+        foreach (int primitive; incident)
+            bond_sum += prim(0, "bond", primitive);
+        append(fibre_positions, p);
+        append(fibre_dirs, d);
+        append(fibre_pulls, pull);
+        append(fibre_crimps, crimp);
+        append(fibre_tensions, tension);
+        append(fibre_masses, mass);
+        append(fibre_lox_values, lox);
+        append(incident_bonds, bond_sum);
+    }
+
+    for (int i = 0; i < fibre_count; i++) {
+        vector pull = fibre_pulls[i];
+        float tension = fibre_tensions[i] * 0.91 + length(pull) * traction_gain * 4.0
+            + incident_bonds[i] * 0.035;
+        float recruit = smooth(0.025, 0.22, tension);
+        float crimp = max(0.0, fibre_crimps[i] - uncrimp_rate * recruit);
+        vector direction = fibre_dirs[i];
+        if (length(pull) > 1e-6)
+            direction = normalize(lerp(direction, normalize(pull), 0.24 + 0.32 * recruit));
+        float bundle = incident_bonds[i];
+        float stability = clamp(0.04 + bundle * 0.28 + tension * 0.35, 0.0, 1.0);
+        float mass = max(0.05, fibre_masses[i] * (1.0 - 0.0018 * (1.0 - stability)));
+        vector position = fibre_positions[i] + pull * fibre_move_gain;
+        position.x = clamp(position.x, -domain_width * 0.49, domain_width * 0.49);
+        position.y = clamp(position.y, -domain_height * 0.49, domain_height * 0.49);
+        setpointattrib(0, "P", i, position, "set");
+        setpointattrib(0, "fdir", i, direction, "set");
+        setpointattrib(0, "pull", i, pull * pull_decay, "set");
+        setpointattrib(0, "crimp", i, crimp, "set");
+        setpointattrib(0, "fibre_tension", i, tension, "set");
+        setpointattrib(0, "strain", i, tension * (1.0 - crimp), "set");
+        setpointattrib(0, "stability", i, stability, "set");
+        setpointattrib(0, "bundle_degree", i, bundle, "set");
+        setpointattrib(0, "mass", i, mass, "set");
+        setpointattrib(0, "lox", i, fibre_lox_values[i] * lox_retention, "set");
+    }
+
+    int tug_events = 0;
+    int adhesion_samples = 0;
+    int flow_recruit_events = 0;
+    for (int local_agent = 0; local_agent < agent_count; local_agent++) {
+        int point_number = fibre_count + local_agent;
+        vector position = point(0, "P", point_number);
+        float heading = point(0, "heading", point_number);
+        int anchor = point(0, "anchor", point_number);
+        vector flow_direction = scar_guided_flow(flow_mode, position, frame,
+            domain_width, domain_height, flow_scale, flow_time_rate, flow_center_pull);
+        int cycle = (frame + local_agent * 13) % 96;
+        int phase = cycle < 28 ? 0 : (cycle < 40 ? 1 : (cycle < 73 ? 2 : 3));
+        if (phase == 1 && (anchor < 0 || anchor >= fibre_count)) {
+            int nearby[] = nearpoints(0, position, adhesion_radius, 12);
+            float best_score = -1.0;
+            int best_anchor = -1;
+            foreach (int candidate; nearby) {
+                int candidate_class = point(0, "class", candidate);
+                if (candidate_class != 2)
+                    continue;
+                float candidate_crimp = point(0, "crimp", candidate);
+                float candidate_stability = point(0, "stability", candidate);
+                float score = candidate_crimp * (1.0 - candidate_stability);
+                if (score > best_score) {
+                    best_score = score;
+                    best_anchor = candidate;
+                }
+            }
+            anchor = best_anchor;
+        }
+        if (phase == 2 && anchor >= 0 && anchor < fibre_count) {
+            vector fibre_position = point(0, "P", anchor);
+            vector delta = position - fibre_position;
+            if (length(delta) > 1e-6) {
+                vector pull = normalize(delta) * point(0, "traction", point_number);
+                setpointattrib(0, "pull", anchor, pull, "add");
+                float old_lox = point(0, "lox", anchor);
+                setpointattrib(0, "lox", anchor, clamp(old_lox + lox_deposit, 0.0, 1.0), "set");
+                if (flow_mode > 0 && flow_recruit_radius > 0.0 && flow_recruit_gain > 0.0) {
+                    int recruit_candidates[] = nearpoints(0, position, flow_recruit_radius, 20);
+                    foreach (int recruit_point; recruit_candidates) {
+                        if (recruit_point == anchor || point(0, "class", recruit_point) != 2)
+                            continue;
+                        vector fan_direction = flow_direction;
+                        if (flow_mode == 4) {
+                            vector recruit_position = point(0, "P", recruit_point);
+                            float recruit_seam_x = 0.90 * sin(
+                                recruit_position.y * flow_scale + frame * flow_time_rate);
+                            fan_direction = set(clamp(
+                                recruit_seam_x - recruit_position.x, -1.0, 1.0), 0.0, 0.0);
+                        }
+                        vector fan_pull = fan_direction
+                            * point(0, "traction", point_number) * flow_recruit_gain;
+                        setpointattrib(0, "pull", recruit_point, fan_pull, "add");
+                        vector old_direction = point(0, "fdir", recruit_point);
+                        vector oriented_flow = dot(old_direction, flow_direction) < 0.0
+                            ? -flow_direction : flow_direction;
+                        setpointattrib(0, "fdir", recruit_point,
+                            normalize(lerp(old_direction, oriented_flow, flow_recruit_gain)), "set");
+                        float recruit_lox = point(0, "lox", recruit_point);
+                        setpointattrib(0, "lox", recruit_point,
+                            clamp(recruit_lox + lox_deposit * flow_recruit_gain, 0.0, 1.0), "set");
+                        flow_recruit_events++;
+                    }
+                }
+                heading = atan2(delta.y, delta.x) + 0.28 * sin(frame * 0.09 + local_agent);
+                tug_events++;
+            }
+        }
+        if (phase == 1 || phase == 2)
+            adhesion_samples++;
+        if (phase == 3)
+            anchor = -1;
+        if (flow_mode > 0) {
+            float target_heading = atan2(flow_direction.y, flow_direction.x);
+            float heading_delta = atan2(sin(target_heading - heading), cos(target_heading - heading));
+            heading += flow_strength * heading_delta;
+        }
+        heading += sin(local_agent * 12.9898 + frame * 0.071) * wander_strength;
+        vector velocity = set(cos(heading), sin(heading), 0.0) * agent_speed;
+        float flow_alignment = flow_mode > 0
+            ? fit(dot(normalize(velocity), flow_direction), -1.0, 1.0, 0.0, 1.0)
+            : 0.0;
+        if (phase == 2)
+            velocity *= 0.58;
+        position += velocity;
+        if (position.x > domain_width * 0.5) position.x -= domain_width;
+        if (position.x < -domain_width * 0.5) position.x += domain_width;
+        if (position.y > domain_height * 0.5) position.y -= domain_height;
+        if (position.y < -domain_height * 0.5) position.y += domain_height;
+        setpointattrib(0, "P", point_number, position, "set");
+        setpointattrib(0, "heading", point_number, heading, "set");
+        setpointattrib(0, "phase", point_number, phase, "set");
+        setpointattrib(0, "anchor", point_number, anchor, "set");
+        setpointattrib(0, "flow_alignment", point_number, flow_alignment, "set");
+        setpointattrib(0, "adhesion_age", point_number,
+            (phase == 1 || phase == 2) ? point(0, "adhesion_age", point_number) + 1 : 0, "set");
+    }
+
+    int bond_events = 0;
+    int late_bond_events = 0;
+    int primitive_count = nprimitives(0);
+    for (int primitive = 0; primitive < primitive_count; primitive++) {
+        if (prim(0, "kind", primitive) != 2)
+            continue;
+        int endpoints[] = primpoints(0, primitive);
+        if (len(endpoints) != 2)
+            continue;
+        int a = endpoints[0];
+        int b = endpoints[1];
+        vector pa = point(0, "P", a);
+        vector pb = point(0, "P", b);
+        vector da = point(0, "fdir", a);
+        vector db = point(0, "fdir", b);
+        float separation = distance(pa, pb);
+        float rest = prim(0, "rest_length", primitive);
+        float close = 1.0 - smooth(rest * 0.82, rest * 1.32, separation);
+        float nematic = abs(dot(normalize(da), normalize(db)));
+        float aligned = smooth(0.28, 0.82, nematic);
+        float enzyme = smooth(0.01, 0.24,
+            0.5 * (point(0, "lox", a) + point(0, "lox", b)));
+        float straight = 1.0 - 0.5 * (point(0, "crimp", a) + point(0, "crimp", b));
+        float gate = close * aligned * (0.22 + 0.78 * enzyme) * (0.28 + 0.72 * straight);
+        float dwell = prim(0, "contact_dwell", primitive);
+        dwell = gate > 0.08 ? dwell + dwell_rate * gate : max(0.0, dwell - dwell_decay);
+        float old_bond = prim(0, "bond", primitive);
+        float new_bond = old_bond;
+        if (dwell > 0.32)
+            new_bond = clamp(old_bond + bond_rate * gate, 0.0, 1.0);
+        int old_latched = prim(0, "latched", primitive);
+        int new_latched = old_latched || new_bond >= bond_threshold;
+        if (!old_latched && new_latched) {
+            bond_events++;
+            if (frame > frame_end * 0.75)
+                late_bond_events++;
+        }
+        int age = prim(0, "bond_age", primitive);
+        age = new_bond > 0.02 ? age + 1 : 0;
+        float bond_tension = 0.5 * (point(0, "fibre_tension", a) + point(0, "fibre_tension", b));
+        setprimattrib(0, "contact_dwell", primitive, dwell, "set");
+        setprimattrib(0, "bond", primitive, new_bond, "set");
+        setprimattrib(0, "latched", primitive, new_latched, "set");
+        setprimattrib(0, "bond_age", primitive, age, "set");
+        setprimattrib(0, "tension", primitive, bond_tension, "set");
+        if (new_bond > 0.04) {
+            vector bond_direction = normalize(pb - pa);
+            vector oriented_b = dot(db, bond_direction) < 0.0 ? -db : db;
+            vector oriented_a = dot(da, bond_direction) < 0.0 ? -da : da;
+            setpointattrib(0, "fdir", a, normalize(lerp(da, oriented_b, 0.08 * new_bond)), "set");
+            setpointattrib(0, "fdir", b, normalize(lerp(db, oriented_a, 0.08 * new_bond)), "set");
+            float recruited_lox = 0.48 * new_bond * smooth(0.03, 0.28, bond_tension);
+            setpointattrib(0, "lox", a, max(point(0, "lox", a), recruited_lox), "set");
+            setpointattrib(0, "lox", b, max(point(0, "lox", b), recruited_lox), "set");
+            if (new_latched) {
+                vector correction = bond_direction * (separation - rest) * 0.035 * new_bond;
+                setpointattrib(0, "pull", a, correction, "add");
+                setpointattrib(0, "pull", b, -correction, "add");
+            }
+        }
+    }
+    setdetailattrib(0, "tug_events", detail(0, "tug_events", 0) + tug_events, "set");
+    setdetailattrib(0, "adhesion_samples", detail(0, "adhesion_samples", 0) + adhesion_samples, "set");
+    setdetailattrib(0, "flow_recruit_events", detail(0, "flow_recruit_events", 0) + flow_recruit_events, "set");
+    setdetailattrib(0, "bond_events", detail(0, "bond_events", 0) + bond_events, "set");
+    setdetailattrib(0, "late_bond_events", detail(0, "late_bond_events", 0) + late_bond_events, "set");
+}
+setdetailattrib(0, "mutation_branch", mode, "set");
+setdetailattrib(0, "sim_frame", frame, "set");

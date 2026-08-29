@@ -13,6 +13,8 @@ houdini/vex/          Reusable fields, neighborhoods, growth, and memory functio
 houdini/otls/         Generated/local HDAs (ignored by default)
 houdini/materials/    Karma material and look presets
 houdini/overlays/     Instrumentation geometry and annotation systems
+houdini/look_setups/  Reusable look templates (environments + lighting)
+houdini/archive/      Unreferenced historical scripts, kept for reproducibility
 ```
 
 Implemented study-level tools currently include deterministic Memory Field and Mass

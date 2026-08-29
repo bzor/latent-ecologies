@@ -1,0 +1,318 @@
+// Stateful Scar Tissue solver. Run once per frame over detail geometry.
+// Point classes: 0 = agent, 1 = field cell. All evolving state is read
+// from input geometry and written by this VEX program.
+int agent_count = chi("agent_count");
+int grid_width = chi("grid_width");
+int grid_height = chi("grid_height");
+int frame = chi("current_frame");
+int start_frame = chi("start_frame");
+int mutation = chi("mutation");
+float domain_width = chf("domain_width");
+float domain_height = chf("domain_height");
+float dt = 1.0 / chf("fps");
+float decay = chf("scar_decay");
+float deposit = chf("deposit_amount");
+float attraction = chf("attraction_threshold");
+float saturation = chf("saturation_threshold");
+float field_strength = chf("field_strength");
+float provisional_retention = chf("provisional_retention");
+float collagen_maturation = chf("collagen_maturation");
+float collagen_retention = chf("collagen_retention");
+float wound_width = chf("wound_width");
+float wound_amplitude = chf("wound_amplitude");
+float wound_attraction = chf("wound_attraction");
+float wound_deposit_gain = chf("wound_deposit_gain");
+float peripheral_deposit = chf("peripheral_deposit");
+float reinforcement_gain = chf("reinforcement_gain");
+float tension_alignment = chf("tension_alignment");
+float contraction_rate = chf("contraction_rate");
+float contraction_retention = chf("contraction_retention");
+float weave_angle = chf("weave_angle");
+float crosslink_gain = chf("crosslink_gain");
+float crosslink_retention = chf("crosslink_retention");
+float signal_retention = chf("signal_retention");
+float signal_gain = chf("signal_gain");
+float signal_feedback = chf("signal_feedback");
+float signal_diffusion = chf("signal_diffusion");
+float signal_clearance = chf("signal_clearance");
+int refractory_frames = chi("refractory_frames");
+int field_offset = agent_count;
+int decayed_this_frame = 0;
+
+// Field evolution happens before new deposition, so unoccupied cells age.
+for (int cell = 0; cell < grid_width * grid_height; cell++) {
+    int ptnum = field_offset + cell;
+    float old_scar = point(0, "scar_value", ptnum);
+    float old_provisional = point(0, "provisional_matrix", ptnum);
+    float old_collagen = point(0, "mature_collagen", ptnum);
+    float wound_signal = point(0, "wound_signal", ptnum);
+    vector tension_direction = point(0, "tension_direction", ptnum);
+    float old_contraction = point(0, "scar_contraction", ptnum);
+    float old_crosslink = point(0, "crosslink_density", ptnum);
+    float old_signal = point(0, "fibrotic_signal", ptnum);
+    vector old_direction = point(0, "scar_direction", ptnum);
+    int idle = point(0, "scar_idle", ptnum) + 1;
+    float effective_decay = decay;
+    if ((mutation == 2 || mutation == 3) && idle > refractory_frames)
+        effective_decay = min(decay, chf("healing_decay"));
+    float new_scar = old_scar * effective_decay;
+    float new_provisional = old_provisional;
+    float new_collagen = old_collagen;
+    float new_contraction = old_contraction;
+    float new_crosslink = old_crosslink * crosslink_retention;
+    float new_signal = old_signal;
+    vector new_direction = old_direction * effective_decay;
+    if (mutation == 5 || mutation == 6 || mutation == 7 || mutation == 8) {
+        vector cell_position = point(0, "P", ptnum);
+        float seam_x = sin(cell_position.y * 0.72) * wound_amplitude
+            + sin(cell_position.y * 1.91) * wound_amplitude * 0.25;
+        float seam_slope = cos(cell_position.y * 0.72) * wound_amplitude * 0.72
+            + cos(cell_position.y * 1.91) * wound_amplitude * 1.91 * 0.25;
+        float normalized_distance = (cell_position.x - seam_x) / max(wound_width, 1e-5);
+        wound_signal = exp(-normalized_distance * normalized_distance);
+        tension_direction = normalize(set(seam_slope, 1.0, 0.0));
+    }
+    if (mutation == 8) {
+        int local_index = ptnum - field_offset;
+        int gx = chi("grid_width");
+        int gy = chi("grid_height");
+        int cx = local_index % gx;
+        int cy = local_index / gx;
+        float neighbor_signal = 0.0;
+        neighbor_signal += point(0, "fibrotic_signal", field_offset + cy * gx + ((cx + 1) % gx));
+        neighbor_signal += point(0, "fibrotic_signal", field_offset + cy * gx + ((cx - 1 + gx) % gx));
+        neighbor_signal += point(0, "fibrotic_signal", field_offset + ((cy + 1) % gy) * gx + cx);
+        neighbor_signal += point(0, "fibrotic_signal", field_offset + ((cy - 1 + gy) % gy) * gx + cx);
+        neighbor_signal *= 0.25;
+        float feedback = signal_feedback * old_signal * old_signal * (1.0 - old_signal);
+        float clearance = signal_clearance * lerp(1.7, 0.35, wound_signal) * old_signal;
+        new_signal = clamp(old_signal * signal_retention
+            + signal_diffusion * (neighbor_signal - old_signal)
+            + feedback - clearance, 0.0, 1.0);
+    }
+    if (mutation == 4 || mutation == 5 || mutation == 6 || mutation == 7 || mutation == 8) {
+        float maturation = collagen_maturation;
+        if (mutation == 5)
+            maturation *= lerp(0.65, 1.35, wound_signal);
+        if (mutation == 6) {
+            float edge_signal = exp(-pow((wound_signal - 0.38) / 0.20, 2.0));
+            maturation *= lerp(0.80, 1.30, edge_signal);
+        }
+        if (mutation == 7)
+            maturation *= lerp(0.90, 1.30, new_crosslink);
+        if (mutation == 8)
+            maturation *= lerp(0.75, 1.65, new_signal);
+        float matured = old_provisional * maturation;
+        new_provisional = old_provisional * (1.0 - maturation) * provisional_retention;
+        float effective_collagen_retention = collagen_retention;
+        if (mutation == 7)
+            effective_collagen_retention = lerp(collagen_retention, 0.9998, clamp(new_crosslink, 0.0, 1.0));
+        if (mutation == 8)
+            effective_collagen_retention = lerp(collagen_retention, 0.9999, clamp(new_signal, 0.0, 1.0));
+        new_collagen = old_collagen * effective_collagen_retention + matured;
+        new_scar = min(2.0, new_provisional + new_collagen);
+        new_direction = old_direction * collagen_retention;
+        if (mutation == 5 || mutation == 6) {
+            float align_amount = clamp(matured * tension_alignment, 0.0, 0.22);
+            vector aligned = lerp(new_direction, tension_direction, align_amount);
+            if (length(aligned) > 1e-8)
+                new_direction = normalize(aligned) * min(1.0, length(new_direction) + matured);
+            float contractile_weight = wound_signal;
+            if (mutation == 6)
+                contractile_weight = 0.20 + 1.80 * exp(-pow((wound_signal - 0.38) / 0.20, 2.0));
+            new_contraction = clamp(old_contraction * contraction_retention
+                + new_collagen * contraction_rate * contractile_weight, 0.0, 1.0);
+        }
+    }
+    if (old_scar > 1e-8 && new_scar < old_scar)
+        decayed_this_frame++;
+    setpointattrib(0, "scar_value", ptnum, new_scar, "set");
+    setpointattrib(0, "provisional_matrix", ptnum, new_provisional, "set");
+    setpointattrib(0, "mature_collagen", ptnum, new_collagen, "set");
+    setpointattrib(0, "wound_signal", ptnum, wound_signal, "set");
+    setpointattrib(0, "tension_direction", ptnum, tension_direction, "set");
+    setpointattrib(0, "scar_contraction", ptnum, new_contraction, "set");
+    setpointattrib(0, "crosslink_density", ptnum, new_crosslink, "set");
+    setpointattrib(0, "fibrotic_signal", ptnum, new_signal, "set");
+    setpointattrib(0, "scar_direction", ptnum, new_direction, "set");
+    setpointattrib(0, "scar_idle", ptnum, idle, "set");
+    setpointattrib(0, "scar_state", ptnum,
+        new_scar >= saturation ? 2 : new_scar >= attraction ? 1 : 0, "set");
+}
+
+for (int agent = 0; agent < agent_count; agent++) {
+    vector position = point(0, "P", agent);
+    float heading = point(0, "heading", agent);
+    if (frame == start_frame) {
+        float band = (agent % 3 - 1) * domain_width * 0.18;
+        position.x = band + (rand(agent * 17.13 + chi("seed")) - 0.5) * domain_width * 0.28;
+        position.y = (rand(agent * 31.71 + chi("seed") * 2.0) - 0.5) * domain_height * 0.96;
+        heading = M_PI * 0.5 + (rand(agent * 47.19 + chi("seed") * 3.0) - 0.5) * 1.1;
+    }
+
+    int cx = clamp(int(floor((position.x / domain_width + 0.5) * grid_width)), 0, grid_width - 1);
+    int cy = clamp(int(floor((position.y / domain_height + 0.5) * grid_height)), 0, grid_height - 1);
+    int center_cell = cy * grid_width + cx;
+    int center_pt = field_offset + center_cell;
+    float scar = point(0, "scar_value", center_pt);
+    vector scar_direction = point(0, "scar_direction", center_pt);
+    int scar_idle = point(0, "scar_idle", center_pt);
+    int left = cy * grid_width + ((cx - 1 + grid_width) % grid_width);
+    int right = cy * grid_width + ((cx + 1) % grid_width);
+    int down = ((cy - 1 + grid_height) % grid_height) * grid_width + cx;
+    int up = ((cy + 1) % grid_height) * grid_width + cx;
+    vector gradient = set(
+        point(0, "scar_value", field_offset + right) - point(0, "scar_value", field_offset + left),
+        point(0, "scar_value", field_offset + up) - point(0, "scar_value", field_offset + down), 0);
+
+    float base_target = M_PI * 0.5 + sin(position.y * 0.37 + frame * 0.021 + agent * 0.017) * 0.42;
+    float target = base_target;
+    float movement_profile = rand(agent * 73.17 + chi("seed") * 0.131);
+    float movement_clock = frame + floor(movement_profile * 91.0);
+    float movement_phase = movement_clock - floor(movement_clock / 120.0) * 120.0;
+    if (mutation == 0) {
+        float sign = scar >= saturation ? -1.0 : 1.0;
+        if (length(gradient) > 1e-8)
+            target += atan2(gradient.y * sign, gradient.x * sign) * field_strength * min(1.0, scar + 0.1);
+    } else if (mutation == 1 || mutation == 3 || mutation == 4 || mutation == 5 || mutation == 6 || mutation == 7 || mutation == 8) {
+        if (scar >= attraction && length(scar_direction) > 1e-6 && ((mutation != 3 && mutation != 4 && mutation != 5 && mutation != 6 && mutation != 7 && mutation != 8) || movement_phase < lerp(28.0, 64.0, movement_profile)))
+            target = atan2(scar_direction.y, scar_direction.x);
+        if (length(gradient) > 1e-8)
+            target += atan2(gradient.y, gradient.x) * 0.18;
+        if ((mutation == 3 || mutation == 4 || mutation == 5 || mutation == 6 || mutation == 7 || mutation == 8) && movement_phase >= 64.0 && movement_phase < 88.0 && (scar >= saturation || (scar >= attraction && scar_idle < refractory_frames))) {
+            float handedness = rand(agent * 19.91 + chi("seed")) < 0.5 ? -1.0 : 1.0;
+            target += handedness * M_PI * lerp(0.18, 0.48, movement_profile);
+        }
+        if (mutation == 5 || mutation == 8) {
+            float seam_x = sin(position.y * 0.72) * wound_amplitude
+                + sin(position.y * 1.91) * wound_amplitude * 0.25;
+            float to_seam = seam_x - position.x;
+            float approach = clamp(abs(to_seam) / max(wound_width * 2.0, 1e-5), 0.0, 1.0);
+            float approach_heading = atan2(0.8, to_seam);
+            target = lerp(target, approach_heading,
+                wound_attraction * approach * lerp(0.55, 1.0, movement_profile));
+        }
+        if (mutation == 6) {
+            float seam_x = sin(position.y * 0.72) * wound_amplitude
+                + sin(position.y * 1.91) * wound_amplitude * 0.25;
+            float crossing_side = movement_phase < 60.0 ? 1.0 : -1.0;
+            if (rand(agent * 29.17 + chi("seed")) < 0.5)
+                crossing_side *= -1.0;
+            float target_x = seam_x + crossing_side * wound_width * lerp(0.75, 1.25, movement_profile);
+            float crossing_heading = atan2(0.55, target_x - position.x);
+            float crossing_phase = smooth(12.0, 32.0, movement_phase)
+                * (1.0 - smooth(46.0, 58.0, movement_phase));
+            target = lerp(target, crossing_heading, (0.22 + wound_attraction) * crossing_phase);
+        }
+        if (mutation == 7) {
+            vector tension = point(0, "tension_direction", center_pt);
+            float tangent_heading = length(tension) > 1e-6
+                ? atan2(tension.y, tension.x) : M_PI * 0.5;
+            float family = rand(agent * 41.73 + chi("seed")) < 0.5 ? -1.0 : 1.0;
+            float family_heading = tangent_heading + family * weave_angle;
+            float local_wound = point(0, "wound_signal", center_pt);
+            target = lerp(target, family_heading,
+                clamp(local_wound * (0.28 + 0.32 * movement_profile), 0.0, 0.58));
+        }
+        target += 0.015;
+    } else {
+        float sign = (scar >= saturation || (scar >= attraction && scar_idle < refractory_frames)) ? -1.0 : 1.0;
+        if (length(gradient) > 1e-8)
+            target += atan2(gradient.y * sign, gradient.x * sign) * field_strength * 0.72;
+        target -= 0.015;
+    }
+    float turn = atan2(sin(target - heading), cos(target - heading));
+    float turn_limit = (mutation == 3 || mutation == 4 || mutation == 5 || mutation == 6 || mutation == 7 || mutation == 8) ? lerp(0.04, 0.18, movement_profile) : 0.28;
+    heading += clamp(turn, -turn_limit, turn_limit);
+    float wander_profile = (mutation == 3 || mutation == 4 || mutation == 5 || mutation == 6 || mutation == 7 || mutation == 8) ? lerp(0.45, 1.8, 1.0 - movement_profile) : 1.0;
+    heading += sin(agent * 12.9898 + frame * 0.071 + mutation * 0.37) * chf("wander_strength") * wander_profile;
+    vector velocity = set(cos(heading), sin(heading), 0) * chf("speed");
+    position += velocity * dt;
+    position.x = position.x - floor((position.x + domain_width * 0.5) / domain_width) * domain_width;
+    position.y = position.y - floor((position.y + domain_height * 0.5) / domain_height) * domain_height;
+
+    cx = clamp(int(floor((position.x / domain_width + 0.5) * grid_width)), 0, grid_width - 1);
+    cy = clamp(int(floor((position.y / domain_height + 0.5) * grid_height)), 0, grid_height - 1);
+    center_cell = cy * grid_width + cx;
+    center_pt = field_offset + center_cell;
+    float old_value = point(0, "scar_value", center_pt);
+    vector old_direction = point(0, "scar_direction", center_pt);
+    float local_deposit = deposit;
+    if (mutation == 5) {
+        float local_wound = point(0, "wound_signal", center_pt);
+        float reinforcement = smooth(attraction, saturation, old_value);
+        local_deposit *= lerp(peripheral_deposit, wound_deposit_gain, local_wound)
+            * (1.0 + reinforcement_gain * reinforcement);
+    }
+    if (mutation == 6) {
+        float local_wound = point(0, "wound_signal", center_pt);
+        float edge_signal = exp(-pow((local_wound - 0.38) / 0.20, 2.0));
+        float bridge_signal = smooth(0.58, 0.95, local_wound);
+        float reinforcement = smooth(attraction, saturation, old_value);
+        local_deposit *= 0.16 + wound_deposit_gain * edge_signal
+            + 0.58 * bridge_signal * (1.0 + reinforcement_gain * reinforcement);
+    }
+    if (mutation == 7) {
+        float local_wound = point(0, "wound_signal", center_pt);
+        float reinforcement = smooth(attraction, saturation, old_value);
+        local_deposit *= lerp(0.18, 1.35, local_wound)
+            * (1.0 + 0.45 * reinforcement);
+    }
+    if (mutation == 8) {
+        float local_wound = point(0, "wound_signal", center_pt);
+        float local_signal = point(0, "fibrotic_signal", center_pt);
+        vector cell_position = point(0, "P", center_pt);
+        float hotspot = 0.5 + 0.5 * sin(cell_position.y * 2.15 + 0.7)
+            * sin(cell_position.x * 1.65 - cell_position.y * 0.34 + 1.2);
+        hotspot = pow(clamp(hotspot, 0.0, 1.0), 3.0);
+        local_deposit *= lerp(0.12, 1.05, local_wound)
+            * (1.0 + 2.4 * local_signal + 1.1 * hotspot);
+    }
+    float new_value = min(2.0, old_value + local_deposit);
+    if (mutation == 4 || mutation == 5 || mutation == 6 || mutation == 7 || mutation == 8) {
+        float mature = point(0, "mature_collagen", center_pt);
+        float provisional = min(2.0 - mature, point(0, "provisional_matrix", center_pt) + local_deposit);
+        setpointattrib(0, "provisional_matrix", center_pt, provisional, "set");
+        new_value = min(2.0, mature + provisional);
+    }
+    float blend = local_deposit / max(new_value, local_deposit);
+    vector new_direction = lerp(old_direction, normalize(velocity), blend);
+    if (mutation == 7) {
+        float conflict = 0.0;
+        if (length(old_direction) > 1e-6)
+            conflict = 1.0 - abs(dot(normalize(old_direction), normalize(velocity)));
+        float old_link = point(0, "crosslink_density", center_pt);
+        float new_link = clamp(old_link + local_deposit * crosslink_gain
+            * conflict * smooth(attraction * 0.5, saturation, new_value), 0.0, 1.0);
+        setpointattrib(0, "crosslink_density", center_pt, new_link, "set");
+    }
+    if (mutation == 8) {
+        float local_wound = point(0, "wound_signal", center_pt);
+        vector cell_position = point(0, "P", center_pt);
+        float hotspot = 0.5 + 0.5 * sin(cell_position.y * 2.15 + 0.7)
+            * sin(cell_position.x * 1.65 - cell_position.y * 0.34 + 1.2);
+        hotspot = pow(clamp(hotspot, 0.0, 1.0), 3.0);
+        float old_local_signal = point(0, "fibrotic_signal", center_pt);
+        float deposited_signal = local_deposit * signal_gain
+            * local_wound * (0.25 + 1.75 * hotspot);
+        setpointattrib(0, "fibrotic_signal", center_pt,
+            clamp(old_local_signal + deposited_signal, 0.0, 1.0), "set");
+    }
+    setpointattrib(0, "scar_value", center_pt, new_value, "set");
+    setpointattrib(0, "scar_direction", center_pt, new_direction, "set");
+    setpointattrib(0, "scar_idle", center_pt, 0, "set");
+    setpointattrib(0, "scar_state", center_pt,
+        new_value >= saturation ? 2 : new_value >= attraction ? 1 : 0, "set");
+    setpointattrib(0, "P", agent, position, "set");
+    setpointattrib(0, "heading", agent, heading, "set");
+    setpointattrib(0, "v", agent, velocity, "set");
+    setpointattrib(0, "scar_value", agent, scar, "set");
+    setpointattrib(0, "scar_direction", agent, scar_direction, "set");
+    setpointattrib(0, "scar_idle", agent, scar_idle, "set");
+}
+
+setdetailattrib(0, "behavior_frame", frame, "set");
+setdetailattrib(0, "mutation_branch", mutation, "set");
+setdetailattrib(0, "branch_agent_updates", agent_count, "set");
+setdetailattrib(0, "decayed_cells_total",
+    detail(0, "decayed_cells_total") + decayed_this_frame, "set");
