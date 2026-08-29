@@ -4,14 +4,72 @@
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width,initial-scale=1">
   <title>Latent Ecologies — Review Studio</title>
-  <link rel="stylesheet" href="/styles.css">
+  <link rel="stylesheet" href="/styles.css?v=20260815-1">
 </head>
 <body>
   <header class="masthead">
     <div><span class="eyebrow">LATENT ECOLOGIES</span><h1>Review Studio</h1></div>
     <div class="status"><span class="pulse"></span><span id="jobCount">Loading field records…</span></div>
   </header>
-  <main class="shell">
+  <nav class="studio-nav" aria-label="Studio sections">
+    <button data-view="inbox" class="active">Cockpit / Inbox</button>
+    <button data-view="ideas">Seeds</button>
+    <button data-view="directions">Directions</button>
+    <button data-view="proposals">Proposals</button>
+    <button data-view="catalog">Artifacts</button>
+    <button data-view="reviews">Runs / Reviews</button>
+    <button data-view="components">Components</button>
+    <button data-view="specimens">Specimens</button>
+    <button data-view="editorial">Editorial</button>
+    <a class="instrument-link" href="/affinity.html">Affinity Lab</a>
+    <span class="private-badge">PRIVATE · LOCAL ONLY</span>
+  </nav>
+  <section id="studioPanel" class="studio-panel">
+    <div class="studio-head"><div><span class="eyebrow" id="studioEyebrow">CREATIVE COCKPIT</span><h2 id="studioTitle">Active project and Review Inbox</h2></div><span id="studioSummary">Loading private Studio…</span></div>
+    <div id="studioContent" class="studio-content" aria-live="polite"></div>
+    <form id="ideaForm" class="idea-form hidden">
+      <label>Title<input id="ideaTitle" maxlength="200" required></label>
+      <label>Track<select id="ideaTrack"><option>behavior</option><option>look</option><option>chromatic</option><option>cinematography</option><option>specimen</option><option>field-station</option></select></label>
+      <label class="idea-text">Idea<textarea id="ideaText" maxlength="10000" required placeholder="Seed: describe the mechanism, question, or visual direction."></textarea></label>
+      <button type="submit">Capture privately</button>
+    </form>
+    <form id="sessionForm" class="idea-form hidden">
+      <label>Session title<input id="sessionTitle" maxlength="200" required></label>
+      <label>Project slug<input id="sessionProject" maxlength="80" pattern="[a-z0-9]+(?:-[a-z0-9]+)*" required placeholder="pilot-study-003"></label>
+      <label>Phase<select id="sessionPhase"><option>seed</option><option>directions</option><option>behavior</option><option>look</option><option>chromatic</option><option>cinematography</option><option>specimen</option><option>delivery</option></select></label>
+      <label class="idea-text">Intent<textarea id="sessionIntent" maxlength="4000" required placeholder="What is this session trying to discover or complete?"></textarea></label>
+      <label class="idea-text">Recommended next action<textarea id="sessionNext" maxlength="2000" required placeholder="One concrete next action."></textarea></label>
+      <button type="submit">Create and activate</button>
+    </form>
+    <form id="processNoteForm" class="idea-form hidden">
+      <label>Note kind<select id="processNoteCategory"><option>working</option><option>pain-point</option><option>missing-functionality</option><option>idea</option><option>question</option></select></label>
+      <label>Stage<select id="processNoteStage"><option>workflow</option><option>idea</option><option>probe</option><option>behavior</option><option>look</option><option>chromatic</option><option>cinematography</option><option>specimen</option><option>field-station</option><option>publication</option></select></label>
+      <label>Track<select id="processNoteTrack"><option>behavior</option><option>look</option><option>chromatic</option><option>cinematography</option><option>specimen</option><option>field-station</option></select></label>
+      <label>Reference<input id="processNoteReference" maxlength="200" placeholder="Active session by default"></label>
+      <label class="idea-text">Contextual process note<textarea id="processNoteText" maxlength="10000" required placeholder="Capture friction, a question, or a missing capability where it occurred."></textarea></label>
+      <button type="submit">Add to local record</button>
+    </form>
+    <form id="directionForm" class="idea-form hidden">
+      <label>Seed<select id="directionIdea" required></select></label>
+      <label>Card mode<span id="directionFormMode" class="form-mode">New direction</span></label>
+      <label class="idea-text">Title<input id="directionTitle" maxlength="200" required></label>
+      <label class="idea-text">Premise<textarea id="directionPremise" maxlength="4000" required placeholder="What causal thesis is this direction testing?"></textarea></label>
+      <label class="idea-text">Mechanism<textarea id="directionMechanism" maxlength="4000" required placeholder="Describe the interaction rule, not parameter values."></textarea></label>
+      <label class="idea-text">Expected emergent behavior<textarea id="directionExpected" maxlength="4000" required></textarea></label>
+      <label class="idea-text">Cheapest informative probe<textarea id="directionProbe" maxlength="2000" required></textarea></label>
+      <label class="idea-text">Risks, one per line<textarea id="directionRisks" maxlength="4000" required></textarea></label>
+      <label class="idea-text">Why this is conceptually distinct<textarea id="directionDistinction" maxlength="2000" required placeholder="Explain why this is not merely tuning."></textarea></label>
+      <button type="submit">Save direction card</button>
+      <button id="directionMerge" type="button">Merge checked concepts</button>
+    </form>
+    <form id="promotionForm" class="idea-form hidden">
+      <label>Verified artifact<select id="promotionArtifact" required></select></label>
+      <label>Component kind<select id="promotionKind"><option>behavior</option><option>look</option><option>palette</option><option>shot</option><option>sound</option></select></label>
+      <label class="idea-text">KC rationale<textarea id="promotionRationale" maxlength="2000" required placeholder="Why should this verified artifact become reusable evidence?"></textarea></label>
+      <button type="submit">Promote verified artifact</button>
+    </form>
+  </section>
+  <main id="reviewPanel" class="shell hidden">
     <aside class="rail">
       <div class="rail-title"><span>Studies & runs</span><button id="refresh" title="Refresh">↻</button></div>
       <div id="jobs" class="jobs"></div>
@@ -39,7 +97,9 @@
       <form id="feedbackForm">
         <div class="decision-row">
           <button type="button" data-decision="keep">Keep</button><button type="button" data-decision="iterate">Iterate</button>
-          <button type="button" data-decision="reject">Reject</button><button type="button" data-decision="approved-look">Approve</button>
+          <button type="button" data-decision="mutate">Mutate</button><button type="button" data-decision="hold">Hold</button>
+          <button type="button" data-decision="archive">Archive</button><button type="button" data-decision="reject">Reject</button>
+          <button type="button" data-decision="promote">Promote</button>
         </div>
         <input id="decision" type="hidden">
         <label>Note<textarea id="feedbackText" maxlength="2000" required placeholder="What changed? What should happen next?"></textarea></label>
@@ -49,6 +109,6 @@
       <div id="feedbackItems" class="feedback-items"></div>
     </aside>
   </main>
-  <script src="/app.js"></script>
+  <script src="/app.js?v=20260815-1"></script>
 </body>
 </html>

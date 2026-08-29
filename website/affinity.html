@@ -1,0 +1,103 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width,initial-scale=1">
+  <title>Affinity Lab — Study 003</title>
+  <link rel="stylesheet" href="/affinity.css?v=20260815-1">
+</head>
+<body>
+  <header class="lab-head">
+    <div>
+      <span class="eyebrow">STUDY 003 · BEHAVIOR INSTRUMENT</span>
+      <h1>Nonlocal Affinity Lab</h1>
+    </div>
+    <div class="head-actions">
+      <span class="local-badge">PRIVATE · LOCAL ONLY</span>
+      <a href="/?view=catalog&project=study-003-nonlocal-affinity-dance">Back to Review Studio</a>
+    </div>
+  </header>
+
+  <main class="lab-shell">
+    <aside class="control-panel">
+      <div class="panel-intro">
+        <span class="eyebrow">BEHAVIOR PARAMETERS</span>
+        <p>These controls change the signed nonlocal system itself. Updates are synchronous; rewiring happens before each associated position step.</p>
+      </div>
+
+      <div class="control-grid">
+        <label><span>Particles <output id="agentCountValue">1000</output></span><input id="agentCount" type="range" min="100" max="5000" step="100" value="1000"></label>
+        <label><span>Contraction <output id="contractionValue">0.9950</output></span><input id="contraction" type="range" min="0.9700" max="1.0050" step="0.0001" value="0.9950"></label>
+        <label><span>Friend attraction <output id="attractionValue">0.020</output></span><input id="attraction" type="range" min="0" max="0.080" step="0.001" value="0.020"></label>
+        <label><span>Enemy repulsion <output id="repulsionValue">0.010</output></span><input id="repulsion" type="range" min="0" max="0.080" step="0.001" value="0.010"></label>
+        <label><span>Softening <output id="softeningValue">0.010</output></span><input id="softening" type="range" min="0.001" max="0.100" step="0.001" value="0.010"></label>
+        <label title="Probability is evaluated once per simulation step, not once per displayed frame."><span>Rewire probability / step <output id="rewireProbabilityValue">0.099</output></span><input id="rewireProbability" type="range" min="0" max="0.500" step="0.001" value="0.099"></label>
+        <label><span>Rewires / event <output id="rewiresPerEventValue">1</output></span><input id="rewiresPerEvent" type="range" min="1" max="16" step="1" value="1"></label>
+        <label><span>Steps / display frame <output id="stepsPerFrameValue">1</output></span><input id="stepsPerFrame" type="range" min="1" max="12" step="1" value="1"></label>
+        <label class="seed-control"><span>Deterministic seed</span><input id="seed" type="number" min="0" max="4294967295" step="1" value="122095"></label>
+      </div>
+
+      <div class="transport">
+        <button id="playPause" class="primary" type="button">Pause</button>
+        <button id="singleStep" type="button">Step</button>
+        <button id="resetSame" type="button">Reset</button>
+        <button id="newSeed" type="button">New seed</button>
+        <button id="sourceDefaults" type="button">Source defaults</button>
+      </div>
+
+      <section class="display-controls">
+        <span class="eyebrow">DISPLAY ONLY</span>
+        <p>These controls do not alter behavior or the Houdini handoff.</p>
+        <div class="control-grid compact">
+          <label><span>Point size <output id="pointSizeValue">1.5</output></span><input id="pointSize" type="range" min="0.5" max="5" step="0.1" value="1.5"></label>
+          <label><span>Trail fade <output id="trailAlphaValue">0.16</output></span><input id="trailAlpha" type="range" min="0.02" max="1" step="0.01" value="0.16"></label>
+          <label><span>Viewport extent <output id="viewportScaleValue">1.25</output></span><input id="viewportScale" type="range" min="0.5" max="5" step="0.05" value="1.25"></label>
+          <label class="check-control"><span>Sample relationship links</span><input id="showLinks" type="checkbox"></label>
+        </div>
+      </section>
+    </aside>
+
+    <section class="affinity-stage">
+      <canvas id="affinityCanvas" aria-label="Realtime nonlocal affinity simulation"></canvas>
+      <div class="stage-overlay">
+        <span id="runState">RUNNING</span>
+        <span id="stepMetric">STEP 0</span>
+      </div>
+      <div class="equation">x′ = c·x + a·φ(friend−x) − b·φ(enemy−x)</div>
+    </section>
+
+    <aside class="inspector-panel">
+      <section>
+        <span class="eyebrow">LIVE DIAGNOSTICS</span>
+        <dl class="metrics">
+          <div><dt>FPS</dt><dd id="fpsMetric">—</dd></div>
+          <div><dt>Mean motion</dt><dd id="motionMetric">0</dd></div>
+          <div><dt>Mean radius</dt><dd id="radiusMetric">0</dd></div>
+          <div><dt>Extent</dt><dd id="extentMetric">0</dd></div>
+          <div><dt>Rewires</dt><dd id="rewireMetric">0</dd></div>
+        </dl>
+      </section>
+
+      <section class="preset-editor">
+        <span class="eyebrow">CAPTURE CANDIDATE</span>
+        <p>Saving stores inert parameter data. It does not approve or launch Houdini.</p>
+        <label>Preset name<input id="presetTitle" maxlength="200" value="Affinity candidate" required></label>
+        <label>Observation<textarea id="presetNote" maxlength="4000" placeholder="What behavior is worth preserving?"></textarea></label>
+        <div class="preset-actions">
+          <button id="savePreset" class="primary" type="button">Save to Studio</button>
+          <button id="downloadPreset" type="button">Download JSON</button>
+        </div>
+        <div id="saveStatus" class="save-status" aria-live="polite"></div>
+      </section>
+
+      <section>
+        <div class="saved-head"><span class="eyebrow">SAVED CANDIDATES</span><button id="refreshPresets" type="button">Refresh</button></div>
+        <div id="savedPresets" class="saved-presets"><p class="muted">Loading…</p></div>
+      </section>
+    </aside>
+  </main>
+
+  <script src="/affinity-core.js?v=20260815-1"></script>
+  <script src="/affinity.js?v=20260815-1"></script>
+</body>
+</html>
