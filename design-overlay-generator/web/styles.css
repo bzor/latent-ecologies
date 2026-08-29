@@ -1,0 +1,192 @@
+/* @font-face rules are injected by fonts.js from the FONT_LIBRARY registry. */
+
+* { box-sizing: border-box; margin: 0; }
+
+html, body { height: 100%; }
+
+body {
+  display: flex;
+  background: #111113;
+  color: #c9c9c4;
+  font: 12px/1.4 system-ui, sans-serif;
+}
+
+/* ------------------------------------------------------------ left panel */
+#panel {
+  width: 300px;
+  min-width: 300px;
+  overflow-y: auto;
+  background: #18181b;
+  border-right: 1px solid #26262a;
+  padding: 14px;
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+}
+
+.brand { font: 11px monospace; letter-spacing: 2px; color: #7a7a75; }
+.hint { font: 10px monospace; color: #6a6a66; }
+
+#panel h3 {
+  font: 10px monospace;
+  letter-spacing: 2px;
+  text-transform: uppercase;
+  color: #7a7a75;
+  border-bottom: 1px solid #26262a;
+  padding-bottom: 4px;
+  margin-bottom: 8px;
+}
+
+.row {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  margin: 4px 0;
+}
+.row > span { color: #8f8f8a; min-width: 48px; }
+.row select { flex: 1; min-width: 0; }
+.row.btns { justify-content: flex-start; flex-wrap: wrap; }
+
+.chk { display: flex; align-items: center; gap: 5px; color: #8f8f8a; user-select: none; }
+
+select, button, input[type="text"] {
+  background: #232327;
+  color: #d6d6d0;
+  border: 1px solid #333338;
+  border-radius: 4px;
+  padding: 4px 8px;
+  font: inherit;
+}
+button { cursor: pointer; }
+button:hover { background: #2b2b30; }
+
+input.num {
+  width: 58px;
+  background: #232327;
+  color: #d6d6d0;
+  border: 1px solid #333338;
+  border-radius: 4px;
+  padding: 4px 6px;
+  font: inherit;
+}
+
+/* type slots: font select + size + tracking per voice */
+.type-slot {
+  display: grid;
+  grid-template-columns: 52px 1fr 58px 58px;
+  gap: 6px;
+  align-items: center;
+  margin: 5px 0;
+}
+.type-slot > span { color: #8f8f8a; }
+.type-slot select { min-width: 0; }
+.type-slot input.num { width: auto; }
+
+/* component cards */
+details.comp {
+  background: #1c1c1f;
+  border: 1px solid #232327;
+  border-radius: 4px;
+  padding: 5px 9px;
+  margin-bottom: 6px;
+}
+details.comp summary {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  cursor: pointer;
+  list-style: none;
+  color: #c9c9c4;
+}
+details.comp summary::-webkit-details-marker { display: none; }
+details.comp summary::after { content: "＋"; margin-left: auto; color: #55555a; font-size: 10px; }
+details.comp[open] summary::after { content: "－"; }
+.param {
+  display: grid;
+  grid-template-columns: 1fr auto;
+  gap: 8px;
+  align-items: center;
+  margin: 5px 0 5px 24px;
+  color: #8f8f8a;
+}
+.param input[type="text"] { width: 120px; }
+.param select { max-width: 130px; }
+
+/* repeatable instance lists (schema type "list") */
+.list-param { margin: 5px 0 5px 24px; }
+.list-head {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  color: #8f8f8a;
+  margin-bottom: 4px;
+}
+.list-head button { padding: 2px 7px; font-size: 11px; }
+.list-item {
+  background: #1c1c1f;
+  border: 1px solid #232327;
+  border-radius: 4px;
+  padding: 5px 9px;
+  margin-bottom: 6px;
+}
+.list-item .param { margin-left: 0; }
+.list-item-btns { display: flex; gap: 6px; margin-top: 4px; }
+.list-item-btns button { padding: 2px 7px; font-size: 11px; }
+
+/* ------------------------------------------------------------- stage side */
+.stage-col {
+  flex: 1;
+  min-width: 0;
+  display: flex;
+  flex-direction: column;
+}
+
+main {
+  flex: 1;
+  min-height: 0;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 14px;
+}
+
+.stage-wrap { position: relative; height: 100%; display: flex; align-items: center; }
+
+canvas {
+  max-width: 100%;
+  max-height: 100%;
+  height: 100%;
+  width: auto;
+  object-fit: contain;
+  box-shadow: 0 0 0 1px #26262a, 0 12px 40px rgba(0,0,0,0.5);
+}
+
+#dropHint {
+  position: absolute;
+  left: 50%;
+  bottom: 14px;
+  transform: translateX(-50%);
+  font: 11px monospace;
+  color: #6a6a66;
+  background: rgba(20,20,22,0.8);
+  padding: 4px 10px;
+  border-radius: 4px;
+  pointer-events: none;
+  white-space: nowrap;
+}
+
+/* 100% mode: canvas at actual pixel size, scroll to pan */
+main.natural { display: block; overflow: auto; text-align: center; }
+main.natural .stage-wrap { display: inline-block; height: auto; }
+main.natural canvas { width: auto; height: auto; max-width: none; max-height: none; }
+
+footer {
+  display: flex;
+  align-items: center;
+  gap: 14px;
+  padding: 10px 16px;
+  background: #18181b;
+  border-top: 1px solid #26262a;
+}
+input[type="range"] { flex: 1; accent-color: #e8442e; }
+.mono { font-family: monospace; color: #8f8f8a; }

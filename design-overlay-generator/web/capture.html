@@ -1,0 +1,30 @@
+<!doctype html>
+<!--
+  Headless capture entry point (the "headless PNG seq (alpha)" stage of the
+  DESIGN.md pipeline). Renders exactly one overlay frame on a transparent
+  canvas sized from the URL, then stops.
+
+  Driven by src/houdini_ai/detail_promote.py, which writes capture-input.js
+  (window.CAPTURE_INPUT = {study, config}) beside this file per run and removes
+  it afterwards. Without it, the page falls back to SAMPLE_STUDY and default
+  config for manual testing: capture.html?frame=300&w=1080&h=1350
+-->
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <title>overlay capture</title>
+  <style>
+    html, body { margin: 0; padding: 0; background: transparent; }
+    canvas { display: block; }
+  </style>
+</head>
+<body>
+  <canvas id="stage"></canvas>
+  <script src="fonts.js"></script>
+  <script src="sample-study.js"></script>
+  <script src="overlay.js"></script>
+  <script src="components.js"></script>
+  <script src="capture-input.js"></script>
+  <script src="capture.js"></script>
+</body>
+</html>

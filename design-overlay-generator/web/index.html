@@ -1,0 +1,74 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>design-overlay-generator</title>
+<link rel="stylesheet" href="styles.css">
+</head>
+<body>
+  <aside id="panel">
+    <div class="brand">DESIGN-OVERLAY-GENERATOR</div>
+    <div id="studyLabel" class="hint"></div>
+
+    <section>
+      <div class="row btns">
+        <button id="play">▶ play</button>
+        <label class="chk"><input type="checkbox" id="matte" checked> matte</label>
+        <label class="chk"><input type="checkbox" id="safe"> IG</label>
+        <label class="chk"><input type="checkbox" id="fullsize"> 100%</label>
+      </div>
+    </section>
+
+    <section>
+      <h3>study</h3>
+      <label class="row"><span>aspect</span><select id="preset"></select></label>
+      <label class="row"><span>palette</span><select id="palette"></select></label>
+    </section>
+
+    <section>
+      <h3>type</h3>
+      <div id="typeSlots"></div>
+    </section>
+
+    <section>
+      <h3>components</h3>
+      <div id="componentList"></div>
+    </section>
+
+    <section>
+      <h3>settings</h3>
+      <div class="row btns">
+        <button id="exportBtn">export</button>
+        <button id="importBtn">import</button>
+        <button id="resetBtn">reset</button>
+      </div>
+      <div class="row btns">
+        <button id="promoteExportBtn">export for promote</button>
+        <button id="sampleStudyBtn">sample study</button>
+      </div>
+      <input type="file" id="importFile" accept=".json" hidden>
+      <div id="saveStatus" class="hint">autosave on</div>
+    </section>
+  </aside>
+
+  <div class="stage-col">
+    <main>
+      <div class="stage-wrap">
+        <canvas id="stage" width="1080" height="1920"></canvas>
+        <div id="dropHint">drop a render (image / video) or a study.json anywhere</div>
+      </div>
+    </main>
+    <footer>
+      <input type="range" id="frame" min="0" max="599" value="0" step="1">
+      <span id="frameLabel" class="mono">0000 / 0599</span>
+    </footer>
+  </div>
+
+  <script src="sample-study.js"></script>
+  <script src="fonts.js"></script>
+  <script src="overlay.js"></script>
+  <script src="components.js"></script>
+  <script src="app.js"></script>
+</body>
+</html>
