@@ -24,6 +24,10 @@ from typing import Any
 
 import hou
 
+PROJECT_ROOT = Path(__file__).resolve().parent.parent
+PROJECT_CONFIG = PROJECT_ROOT / "config" / "project.json"
+FALLBACK_FPS = 30
+
 DEFAULT_TEMPLATE_DIR = Path(__file__).resolve().parent / "look_setups" / "basic"
 SIM_CONTAINER = "/obj/PLAYGROUND_SIM"
 SIM_ENTRY = "/obj/PLAYGROUND_SIM/ENSURE_POINT_VISIBILITY"
@@ -31,6 +35,14 @@ LEGACY_CACHE_SOURCE = "/obj/PLAYGROUND_SIM/SOURCE_PROMOTED_SIMULATION"
 SIM_OUTPUT = "/obj/PLAYGROUND_SIM/OUT_SIMULATION"
 RENDER_PICTURE_PARM = "/stage/RENDER_KARMA_SETTINGS/picture"
 HDA_NODE_NAME = "PROMOTED_BEHAVIOR"
+
+
+def project_default_fps() -> int:
+    """The project-wide delivery frame rate from config/project.json."""
+    try:
+        return int(json.loads(PROJECT_CONFIG.read_text(encoding="utf-8"))["default_fps"])
+    except (OSError, KeyError, ValueError, TypeError):
+        return FALLBACK_FPS
 
 
 def native(path: Path) -> str:
@@ -82,6 +94,7 @@ def instantiate(
     cook_frames: list[int],
     force: bool,
     frame_range: tuple[int, int] | None = None,
+    fps: int | None = None,
 ) -> dict[str, Any]:
     setup = json.loads((template_dir / "setup.json").read_text(encoding="utf-8"))
     template_hip = template_dir / setup["template"]["path"]
@@ -134,6 +147,13 @@ def instantiate(
         if picture is None:
             raise RuntimeError(f"template does not match contract: missing {RENDER_PICTURE_PARM}")
         picture.set(render_picture)
+
+    # The look templates carry whatever frame rate the source experiment used, so the
+    # project delivery rate is set explicitly rather than inherited.
+    target_fps = project_default_fps() if fps is None else fps
+    template_fps = hou.fps()
+    if target_fps and float(target_fps) != float(template_fps):
+        hou.setFps(float(target_fps))
 
     if frame_range is not None:
         start, end = frame_range
@@ -190,6 +210,8 @@ def instantiate(
         "render_picture": render_picture or hou.parm(RENDER_PICTURE_PARM).evalAsString(),
         "frame_range": list(frame_range) if frame_range is not None else None,
         "fps": hou.fps(),
+        "template_fps": template_fps,
+        "fps_source": "explicit" if fps is not None else "config/project.json default_fps",
         "houdini_version": hou.applicationVersionString(),
         "reopen_cooks": cooks,
         "reopen_passed": not failed,
@@ -197,7 +219,8 @@ def instantiate(
         "note": (
             "Frame 1 is the HDA's initial state; the simulation is live and re-simmable. "
             "The template playback range is inherited from the setup and may need adjusting "
-            "to the behavior's own timing."
+            "to the behavior's own timing. The frame rate is set to the project delivery rate "
+            "rather than inherited from the template."
         ),
     }
     receipt_path = output_hip.with_suffix(".starter-receipt.json")
@@ -220,6 +243,10 @@ def main() -> int:
         "--frame-range", type=int, nargs=2, metavar=("START", "END"),
         help="playback/global frame range to set on the starter HIP",
     )
+    parser.add_argument(
+        "--fps", type=int,
+        help="frame rate for the starter HIP; defaults to default_fps in config/project.json",
+    )
     args = parser.parse_args()
     instantiate(
         args.template_dir.resolve(),
@@ -229,6 +256,7 @@ def main() -> int:
         args.cook_frames,
         args.force,
         tuple(args.frame_range) if args.frame_range else None,
+        args.fps,
     )
     return 0
 

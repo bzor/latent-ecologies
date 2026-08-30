@@ -43,6 +43,9 @@ sit directly in the phase directory:
 ├── var_001_primary-treatment.look_r001.hiplc
 ├── var_001_primary-treatment.look.json
 ├── var_002_fibrous-remodeling.look_r001.hiplc
+├── look-render.mp4            preview encode, beside the HIP rather than under renders/
+├── locked/                    archival HIP snapshots for checksum binding
+├── renders/                   rendered frames and the render receipt
 └── README.md
 
 03_specimen/
@@ -88,6 +91,12 @@ lighting, camera, and framing decisions all remain in the artist-owned Look HIP.
 authoritative HIP and rendering completes, the variation advances directly to Specimen/detail work.
 
 Receipts live beside the artifact they describe rather than in a separate phase directory.
+
+Rendered frames stay in `02_look/renders/` with their render receipt. The encoded preview
+sits directly in `02_look/` as `look-render.mp4`, so KC reaches the watchable result without
+opening the frame directory, and the overlay config's `render.video` points at that same file.
+Frames and preview encodes are heavy and stay local under the ignore rules; the receipts,
+`look.json`, and the lock receipt are versioned.
 
 Do not silently replace a selection or variation. Preserve its numbered identity and add a sibling.
 

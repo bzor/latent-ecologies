@@ -21,10 +21,13 @@ When a new Behavior enters Look Development, Hermes runs
 4. leaves `SOURCE_PROMOTED_SIMULATION` disconnected as a documented cache fallback
    for heavy sims that later bake;
 5. changes `/stage/RENDER_KARMA_SETTINGS/picture` to a path local to the new Study;
-6. checks the three local HDRI dependencies and reports any missing files;
-7. reopens the saved HIP, cooks the simulation output at representative frames, and
+6. sets the scene frame rate to `default_fps` in `config/project.json` (30) rather than
+   inheriting the template's rate, which is 24 because the template was extracted from
+   KC's Study 003 experiment;
+7. checks the three local HDRI dependencies and reports any missing files;
+8. reopens the saved HIP, cooks the simulation output at representative frames, and
    writes a `*.starter-receipt.json` beside the HIP;
-8. returns the file to KC as `artist-ready-starter`.
+9. returns the file to KC as `artist-ready-starter`.
 
 Do not alter the camera, trails, materials, lighting, framing, samples, or graph layout unless KC asks during the setup brainstorm.
 
