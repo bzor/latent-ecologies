@@ -190,3 +190,15 @@ footer {
 }
 input[type="range"] { flex: 1; accent-color: #e8442e; }
 .mono { font-family: monospace; color: #8f8f8a; }
+
+/* custom palette: extracted color chips + slot-role mapping */
+.swatch-row { display: flex; gap: 6px; margin: 6px 0 4px; }
+.swatch-row input[type="color"] {
+  flex: 1; min-width: 0; height: 26px; padding: 2px;
+  background: #232327; border: 1px solid #333338; border-radius: 4px; cursor: pointer;
+}
+.role-grid {
+  display: grid; grid-template-columns: auto 1fr auto 1fr;
+  gap: 4px 6px; align-items: center; margin: 4px 0;
+}
+.role-grid span { color: #8f8f8a; font: 10px monospace; }

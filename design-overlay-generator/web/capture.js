@@ -36,6 +36,10 @@
       studyId: study.id,
       aspect: DEFAULT_ASPECT,
       palette: Object.keys(OV.PALETTES)[0],
+      custom: {
+        colors: ["#eae8e2", "#9a978f", "#4c4a46", "#e8442e"],
+        roles: { ink: 0, faint: 0, ghost: 0, accent: 3 },
+      },
       type: {
         numeral: "Isonorm Monospaced", numeralSize: 110, numeralTracking: -0.085,
         display: "Blender Pro Bold", titleSize: 21, titleTracking: 0.14,
@@ -91,6 +95,7 @@
     OV.drawOverlay(ctx, W, H, study, {
       frame,
       palette: CONFIG.palette,
+      custom: CONFIG.custom,
       components: CONFIG.components,
     });
     document.title = "capture:done:" + frame;

@@ -212,6 +212,17 @@ actual face unknown — labeled "2DADEC A/B".
 per light/dark variant ("bone" for dark renders, "graphite" for light);
 accent varies. Add palettes there; the select repopulates automatically.
 
+The **custom** palette is built per study from four colors extracted from the
+render itself: "create palette from frame" in the panel samples the current
+backdrop frame (16-level histogram, then chroma-weighted farthest-point
+selection so the render's own accent survives the dominant background) and
+drops the four colors into the config, where color pickers refine them. A
+role mapping links every palette slot (ink/faint/ghost/accent) to one of the
+four; ink-family roles keep their standard alphas so hairlines stay
+hairlines. Resolution lives in `OVERLAY.resolvePalette(name, custom)` —
+shared by app.js and capture.js — and the resolved `P.chips` always carries
+the four raw tones, which the frame component's color bar draws.
+
 ## Config & persistence
 
 Config shape (the exported source of truth and headless render input):
@@ -220,7 +231,11 @@ Config shape (the exported source of truth and headless render input):
 {
   "studyId": "STUDY-042",
   "aspect": "9:16 | 1080x1920",        // key into PRESETS in app.js
-  "palette": "bone / signal red",       // key into OVERLAY.PALETTES
+  "palette": "bone / signal red",       // key into OVERLAY.PALETTES, or "custom"
+  "custom": {                            // per-study four-color palette
+    "colors": ["#d9f5fd", "#9ca3ac", "#ca5764", "#281539"],
+    "roles": { "ink": 0, "faint": 0, "ghost": 0, "accent": 2 }
+  },
   "render": {                            // optional: latest-render pointer,
     "video": "…/renders/look.mp4",       // written by the pipeline; loads as
     "still": "…/renders/look.0207.png"   // backdrop on boot (video → still →
@@ -285,7 +300,6 @@ the tracking component; tracks drive the point-callout component.
 - **Per-component nitpicks + new components** (current phase — see wishlist).
 - **Social safe zones.** Preview has an IG-guides toggle; may need "safe"
   layout variants per platform.
-- **Palette per study.** Possibly auto-suggest accent from render's hue.
 - **Bake chosen fonts/config as study defaults** once the look settles.
 
 The completed export, headless render, composite, and promotion flow is documented

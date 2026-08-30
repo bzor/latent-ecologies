@@ -63,7 +63,7 @@
       if (p.colorBar) {
         // print-production color/density bar: a row of the palette's own tones.
         const sw = 7 * u, sh = 7 * u;
-        const swatches = [P.ink, P.faint, P.ghost, P.accent];
+        const swatches = P.chips || [P.ink, P.faint, P.ghost, P.accent];
         const totalW = swatches.length * sw;
         const bx = W / 2 - totalW / 2, by = H - m + 10 * u;
         for (let i = 0; i < swatches.length; i++) {

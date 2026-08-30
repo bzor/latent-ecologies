@@ -63,6 +63,10 @@
       studyId: study.id,
       aspect: DEFAULT_ASPECT,
       palette: Object.keys(OV.PALETTES)[0],
+      custom: {
+        colors: ["#eae8e2", "#9a978f", "#4c4a46", "#e8442e"],
+        roles: { ink: 0, faint: 0, ghost: 0, accent: 3 },
+      },
       type: {
         numeral: "Isonorm Monospaced", numeralSize: 110, numeralTracking: -0.085,
         display: "Blender Pro Bold", titleSize: 21, titleTracking: 0.14,
@@ -130,10 +134,144 @@
     const preset = $("preset"), palette = $("palette");
     for (const name of Object.keys(PRESETS)) option(preset, name);
     for (const name of Object.keys(OV.PALETTES)) option(palette, name);
+    option(palette, "custom");
     preset.value = CONFIG.aspect;
     palette.value = CONFIG.palette;
     preset.addEventListener("change", () => { CONFIG.aspect = preset.value; touched(); });
-    palette.addEventListener("change", () => { CONFIG.palette = palette.value; touched(); });
+    palette.addEventListener("change", () => {
+      CONFIG.palette = palette.value;
+      refreshCustomPaletteUI();
+      touched();
+    });
+    $("createPaletteBtn").addEventListener("click", createPaletteFromFrame);
+    buildCustomPaletteUI();
+  }
+
+  // Custom palette editor: the four extracted (or hand-picked) colors plus
+  // the role mapping that links every palette slot (ink/faint/ghost/accent)
+  // to one of them. Hidden unless the "custom" palette is selected.
+  const ROLE_KEYS = ["ink", "faint", "ghost", "accent"];
+  function buildCustomPaletteUI() {
+    const host = $("customPalette");
+    host.innerHTML = "";
+    const cu = CONFIG.custom;
+    const sw = document.createElement("div");
+    sw.className = "swatch-row";
+    cu.colors.forEach((c, i) => {
+      const el = document.createElement("input");
+      el.type = "color";
+      el.value = c;
+      el.title = "palette color " + (i + 1);
+      el.addEventListener("input", () => { cu.colors[i] = el.value; touched(); });
+      sw.append(el);
+    });
+    host.append(sw);
+    const grid = document.createElement("div");
+    grid.className = "role-grid";
+    for (const role of ROLE_KEYS) {
+      const lab = document.createElement("span");
+      lab.textContent = role;
+      const sel = document.createElement("select");
+      cu.colors.forEach((_, i) => sel.add(new Option(String(i + 1), i)));
+      sel.value = String(Math.min(cu.colors.length - 1, Math.max(0, cu.roles[role] | 0)));
+      sel.addEventListener("change", () => { cu.roles[role] = +sel.value; touched(); });
+      grid.append(lab, sel);
+    }
+    host.append(grid);
+    refreshCustomPaletteUI();
+  }
+  function refreshCustomPaletteUI() {
+    $("customPalette").style.display = CONFIG.palette === "custom" ? "" : "none";
+  }
+
+  // "create palette": sample the current backdrop frame (video frame or
+  // still), median-cut the pixels down to four colors, and switch the study
+  // to the custom palette. The result lands in CONFIG.custom.colors where
+  // the pickers can refine it.
+  function createPaletteFromFrame() {
+    const media = state.bg;
+    if (!media) { alert("no render loaded \u2014 drop a render or load a render pointer first"); return; }
+    let data;
+    try {
+      const mw = media.videoWidth || media.naturalWidth;
+      const mh = media.videoHeight || media.naturalHeight;
+      if (!mw || !mh) throw new Error("media not ready");
+      const s = Math.min(1, 128 / Math.max(mw, mh));
+      const w = Math.max(1, Math.round(mw * s)), h = Math.max(1, Math.round(mh * s));
+      const oc = document.createElement("canvas");
+      oc.width = w; oc.height = h;
+      const octx = oc.getContext("2d", { willReadFrequently: true });
+      // Nearest-neighbor sampling: smoothing blends small saturated regions
+      // into the background before they can register in the histogram.
+      octx.imageSmoothingEnabled = false;
+      octx.drawImage(media, 0, 0, w, h);
+      data = octx.getImageData(0, 0, w, h).data;
+    } catch (e) {
+      alert("couldn't read pixels from the render (" + (e && e.message ? e.message : e) + ")");
+      return;
+    }
+    const px = [];
+    for (let i = 0; i < data.length; i += 4) {
+      if (data[i + 3] > 127) px.push([data[i], data[i + 1], data[i + 2]]);
+    }
+    if (!px.length) { alert("render frame is fully transparent"); return; }
+    const colors = extractColors(px, 4);
+    // Lightest first (ink for dark renders); accent defaults to the most
+    // chromatic of the rest.
+    colors.sort((a, b) => lum(b) - lum(a));
+    let accent = 1;
+    for (let i = 1; i < colors.length; i++) if (chroma(colors[i]) > chroma(colors[accent])) accent = i;
+    CONFIG.custom.colors = colors.map(hexColor);
+    CONFIG.custom.roles = { ink: 0, faint: 0, ghost: 0, accent };
+    CONFIG.palette = "custom";
+    $("palette").value = "custom";
+    buildCustomPaletteUI();
+    touched();
+  }
+  const lum = (c) => 0.2126 * c[0] + 0.7152 * c[1] + 0.0722 * c[2];
+  const chroma = (c) => Math.max(c[0], c[1], c[2]) - Math.min(c[0], c[1], c[2]);
+  const hexColor = (c) => "#" + c.map((v) => Math.round(v).toString(16).padStart(2, "0")).join("");
+  // Extract `count` palette colors from raw pixels: bin the frame into a
+  // 16-level-per-channel histogram (mean color per bin), then greedily pick
+  // the candidate farthest from everything chosen so far, seeded with the
+  // dominant bin. Distance runs in a chroma-boosted luma/chroma space so a
+  // small saturated region (the render's own accent) beats yet another gray,
+  // and it's weighted by bin population so lone outlier pixels don't win.
+  function extractColors(px, count) {
+    const bins = new Map();
+    for (const p of px) {
+      const k = ((p[0] >> 4) << 8) | ((p[1] >> 4) << 4) | (p[2] >> 4);
+      const e = bins.get(k);
+      if (e) { e[0]++; e[1] += p[0]; e[2] += p[1]; e[3] += p[2]; }
+      else bins.set(k, [1, p[0], p[1], p[2]]);
+    }
+    const thresh = Math.max(4, px.length * 0.001);
+    const cand = [];
+    for (const e of bins.values()) {
+      if (e[0] >= thresh) cand.push({ c: [e[1] / e[0], e[2] / e[0], e[3] / e[0]], n: e[0] });
+    }
+    if (!cand.length) cand.push({ c: px[0].slice(), n: 1 });
+    const CW = 1.5;
+    const ycc = (c) => { const y = lum(c); return [y, CW * (c[2] - y), CW * (c[0] - y)]; };
+    const dist2 = (a, b) => {
+      const pa = ycc(a), pb = ycc(b);
+      const d0 = pa[0] - pb[0], d1 = pa[1] - pb[1], d2 = pa[2] - pb[2];
+      return d0 * d0 + d1 * d1 + d2 * d2;
+    };
+    cand.sort((a, b) => b.n - a.n);
+    const chosen = cand.splice(0, 1);
+    while (chosen.length < count && cand.length) {
+      let bi = 0, best = -1;
+      cand.forEach((cd, i) => {
+        let dmin = Infinity;
+        for (const ch of chosen) dmin = Math.min(dmin, dist2(cd.c, ch.c));
+        const score = dmin * Math.sqrt(cd.n);
+        if (score > best) { best = score; bi = i; }
+      });
+      chosen.push(cand.splice(bi, 1)[0]);
+    }
+    while (chosen.length < count) chosen.push(chosen[chosen.length - 1]);
+    return chosen.map((cd) => cd.c.slice());
   }
 
   function buildTypeSection() {
@@ -321,14 +459,17 @@
       URL.revokeObjectURL(a.href);
     });
     // Canonical promote export: the exact filename the detail-pass promote
-    // flow expects in the Study vault (03_specimen/overlay-config.json) —
-    // see houdini-ai docs/DETAIL_PASS_PROMOTE.md. Same content as "export",
-    // only the canonical name differs.
+    // flow expects in the Study vault, 03_specimen/<file_stem>.overlay-config
+    // .json paired with the same-stemmed specimen sidecar — see houdini-ai
+    // docs/DETAIL_PASS_PROMOTE.md. Same content as "export", only the
+    // canonical name differs. Studies without a variation record (sample
+    // study, legacy exports) fall back to the bare name.
     $("promoteExportBtn").addEventListener("click", () => {
+      const stem = study.variation && study.variation.file_stem;
       const blob = new Blob([JSON.stringify(CONFIG, null, 2)], { type: "application/json" });
       const a = document.createElement("a");
       a.href = URL.createObjectURL(blob);
-      a.download = "overlay-config.json";
+      a.download = (stem ? stem + "." : "") + "overlay-config.json";
       a.click();
       URL.revokeObjectURL(a.href);
     });
@@ -394,6 +535,7 @@
     OV.drawOverlay(ctx, W, H, study, {
       frame: state.frame,
       palette: CONFIG.palette,
+      custom: CONFIG.custom,
       components: CONFIG.components,
     });
 
@@ -527,6 +669,7 @@
       if ($("matte")) $("matte").checked = false;
       $("dropHint").style.display = "none";
       render();
+      if (state.autoPalette) { state.autoPalette = false; createPaletteFromFrame(); }
     };
     const still = () => {
       if (!spec.still) { status("render pointer: no still fallback configured"); return; }
@@ -567,6 +710,7 @@
     for (const key of ["matte", "safe", "fullsize"]) $(key).checked = !!CONFIG.ui[key];
     buildTypeSection();
     buildComponentsSection();
+    buildCustomPaletteUI();
     applyType();
     applyFullsize();
     $("frame").max = study.frames - 1;
@@ -626,7 +770,9 @@
       const match = Object.keys(PRESETS).find((k) => k.startsWith(q.get("ar")));
       if (match) CONFIG.aspect = match;
     }
-    if (q.has("palette") && OV.PALETTES[q.get("palette")]) CONFIG.palette = q.get("palette");
+    const qp = q.get("palette");
+    if (qp && (OV.PALETTES[qp] || qp === "custom")) CONFIG.palette = qp;
+    state.autoPalette = q.has("autopalette");
     if (q.has("frame")) state.frame = Math.min(study.frames - 1, Math.max(0, +q.get("frame") || 0));
     if (q.has("bg")) {
       const bg = q.get("bg");

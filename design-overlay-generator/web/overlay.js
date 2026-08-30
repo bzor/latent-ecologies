@@ -81,6 +81,34 @@
     return pad(Math.floor(s / 60), 2) + ":" + pad(Math.floor(s % 60), 2) + "." + pad(Math.floor((s % 1) * 100), 2);
   }
 
+  // Resolve a palette selection to concrete draw colors. `name` keys into
+  // PALETTES, or "custom" builds the palette from a study's extracted
+  // four-color set: custom = { colors: ["#rrggbb" x4], roles: { ink, faint,
+  // ghost, accent } }, each role an index into colors. Ink-family roles keep
+  // the standard alphas so hairlines stay hairlines whatever color they map
+  // to. P.chips always carries the four raw tones (frame color bar).
+  const ROLE_ALPHA = { ink: 0.95, faint: 0.42, ghost: 0.16 };
+  function resolvePalette(name, custom) {
+    if (name === "custom" && custom && Array.isArray(custom.colors) && custom.colors.length) {
+      const cols = custom.colors;
+      const roles = Object.assign({ ink: 0, faint: 0, ghost: 0, accent: cols.length - 1 }, custom.roles);
+      const pick = (role) => cols[Math.min(cols.length - 1, Math.max(0, roles[role] | 0))];
+      const rgba = (hex, a) => {
+        const n = parseInt(String(hex || "#888888").replace("#", ""), 16) || 0;
+        return "rgba(" + ((n >> 16) & 255) + "," + ((n >> 8) & 255) + "," + (n & 255) + "," + a + ")";
+      };
+      return {
+        ink: rgba(pick("ink"), ROLE_ALPHA.ink),
+        faint: rgba(pick("faint"), ROLE_ALPHA.faint),
+        ghost: rgba(pick("ghost"), ROLE_ALPHA.ghost),
+        accent: pick("accent"),
+        chips: cols.slice(0, 4),
+      };
+    }
+    const P = PALETTES[name] || PALETTES[Object.keys(PALETTES)[0]];
+    return Object.assign({ chips: [P.ink, P.faint, P.ghost, P.accent] }, P);
+  }
+
   function makeLayout(W, H) {
     const mn = Math.min(W, H);
     return { W, H, u: mn / 1000, m: Math.round(mn * 0.055) };
@@ -202,8 +230,9 @@
   // -------------------------------------------------------------- entrypoint
   function drawOverlay(ctx, W, H, study, opts) {
     const frame = opts.frame | 0;
-    const P = (typeof opts.palette === "string" ? PALETTES[opts.palette] : opts.palette) ||
-      PALETTES[Object.keys(PALETTES)[0]];
+    const P = typeof opts.palette === "string"
+      ? resolvePalette(opts.palette, opts.custom)
+      : (opts.palette || resolvePalette(null, null));
     const L = makeLayout(W, H);
     const comps = opts.components || {};
     const shared = { seed: hash32(study.id) };
@@ -241,7 +270,7 @@
   }
 
   window.OVERLAY = {
-    drawOverlay, PALETTES, TYPE,
+    drawOverlay, PALETTES, TYPE, resolvePalette,
     registerComponent, registry, defaultComponents, helpers,
   };
 })();
