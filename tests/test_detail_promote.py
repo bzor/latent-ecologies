@@ -32,11 +32,11 @@ def sample_study(frames: int = 2) -> dict:
         "fps": 24,
         "frames": frames,
         "variation": {
-            "id": "variation-001-primary-treatment",
+            "id": "variation-bhvr001-001-primary-treatment",
             "number": 1,
             "title": "Primary Treatment",
             "slug": "primary-treatment",
-            "file_stem": "var_001_primary-treatment",
+            "file_stem": "bhvr_001_var_001_primary-treatment",
         },
         "series": {"energy": [index / max(1, frames - 1) for index in range(frames)]},
         "bbox": [[0.3, 0.3, 0.7, 0.7] for _ in range(frames)],
@@ -58,9 +58,9 @@ class DetailPromoteUnitTests(unittest.TestCase):
         self.assertEqual(
             dp.variation_package_names(sample_study()),
             {
-                "delivery": "var_001_primary-treatment.delivery.mp4",
-                "overlay_frames": "var_001_primary-treatment.overlay_frames",
-                "receipt": "var_001_primary-treatment.delivery.json",
+                "delivery": "bhvr_001_var_001_primary-treatment.delivery.mp4",
+                "overlay_frames": "bhvr_001_var_001_primary-treatment.overlay_frames",
+                "receipt": "bhvr_001_var_001_primary-treatment.delivery.json",
             },
         )
 

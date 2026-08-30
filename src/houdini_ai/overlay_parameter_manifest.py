@@ -7,13 +7,28 @@ import re
 from pathlib import Path
 from typing import Any, Mapping
 
+from .study_vault import parse_variation_stem, variation_file_stem
+
 
 _VALUE_TYPES = (str, int, float, bool)
 
+# A Behavior HDA reports the variation number and title KC set on it. It does not know
+# which promoted behavior the Study filed it under, so a manifest carries
+# behavior_number only when the asset exposes it, and defaults to the first behavior.
+DEFAULT_BEHAVIOR_NUMBER = 1
 
-def _variation_file_stem(number: int, title: str) -> str:
-    slug = re.sub(r"[^a-z0-9]+", "-", title.lower()).strip("-") or "untitled"
-    return f"var_{number:03d}_{slug}"
+
+def _slug(title: str) -> str:
+    return re.sub(r"[^a-z0-9]+", "-", title.lower()).strip("-") or "untitled"
+
+
+def manifest_behavior_number(manifest: Mapping[str, Any]) -> int:
+    variation = manifest.get("variation")
+    if isinstance(variation, Mapping):
+        number = variation.get("behavior_number")
+        if isinstance(number, int) and not isinstance(number, bool) and 1 <= number <= 999:
+            return number
+    return DEFAULT_BEHAVIOR_NUMBER
 
 
 def validate_overlay_parameter_manifest(manifest: Mapping[str, Any]) -> list[str]:
@@ -31,9 +46,24 @@ def validate_overlay_parameter_manifest(manifest: Mapping[str, Any]) -> list[str
             errors.append("variation.number must be between 1 and 999")
         if not isinstance(title, str) or not title.strip():
             errors.append("variation.title must be a non-empty string")
-        if isinstance(number, int) and isinstance(title, str) and title.strip():
-            if variation.get("file_stem") != _variation_file_stem(number, title):
-                errors.append("variation.file_stem does not match its number and title")
+        behavior_number = variation.get("behavior_number", DEFAULT_BEHAVIOR_NUMBER)
+        if (
+            isinstance(behavior_number, bool)
+            or not isinstance(behavior_number, int)
+            or not 1 <= behavior_number <= 999
+        ):
+            errors.append("variation.behavior_number must be between 1 and 999")
+        elif isinstance(number, int) and isinstance(title, str) and title.strip():
+            # A manifest is an HDA's self-report. An asset built before the behavior
+            # axis existed reports a variation-local stem, which stays acceptable as
+            # input; overlay_manifest_fields upgrades it to the canonical three-axis
+            # stem before anything is written into the vault.
+            canonical = variation_file_stem(behavior_number, number, title)
+            legacy = f"var_{number:03d}_{_slug(title)}"
+            if variation.get("file_stem") not in {canonical, legacy}:
+                errors.append(
+                    "variation.file_stem does not match its behavior number, number, and title"
+                )
 
     source = manifest.get("source")
     if not isinstance(source, Mapping):
@@ -105,18 +135,31 @@ def _display_value(value: object) -> str:
     return str(value)
 
 
-def overlay_manifest_fields(manifest: Mapping[str, Any]) -> dict[str, Any]:
-    """Map a validated manifest to structured and legacy overlay fields."""
+def overlay_manifest_fields(
+    manifest: Mapping[str, Any], behavior_number: int | None = None
+) -> dict[str, Any]:
+    """Map a validated manifest to structured and legacy overlay fields.
+
+    ``behavior_number`` supplies the Study's behavior identity for an asset whose
+    Overlay Detail folder does not expose one. It recomposes the canonical stem, so
+    the sidecar written into the vault always carries the full three-axis identity
+    even when the manifest came from an older HDA.
+    """
     parameters = [dict(parameter) for parameter in manifest["parameters"]]
     variation = dict(manifest["variation"])
-    slug = str(variation["file_stem"]).split("_", 2)[2]
+    behavior = manifest_behavior_number(manifest) if behavior_number is None else behavior_number
+    stem = variation_file_stem(behavior, int(variation["number"]), str(variation["title"]))
+    variation["behavior_number"] = behavior
+    variation["file_stem"] = stem
+    slug = parse_variation_stem(stem)["slug"]
     return {
         "variation": {
-            "id": f"variation-{int(variation['number']):03d}-{slug}",
+            "id": f"variation-bhvr{behavior:03d}-{int(variation['number']):03d}-{slug}",
             "number": variation["number"],
+            "behavior_number": behavior,
             "title": variation["title"],
             "slug": slug,
-            "file_stem": variation["file_stem"],
+            "file_stem": stem,
         },
         "parameter_manifest": {
             "schema_version": manifest["schema_version"],

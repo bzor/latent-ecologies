@@ -1,0 +1,422 @@
+{
+  "parameters": [
+    {
+      "animated": false,
+      "key": "behavior.preset",
+      "label": "Select Preset",
+      "parameter": "preset",
+      "type": "string",
+      "units": "token",
+      "value": "4"
+    },
+    {
+      "animated": false,
+      "key": "behavior.seed",
+      "label": "Deterministic Seed",
+      "parameter": "seed",
+      "type": "integer",
+      "units": "integer",
+      "value": 18432
+    },
+    {
+      "animated": false,
+      "comparison_range": [
+        2.0,
+        4096.0
+      ],
+      "key": "behavior.agent_count",
+      "label": "Agent Count",
+      "parameter": "agent_count",
+      "type": "integer",
+      "units": "agents",
+      "value": 512
+    },
+    {
+      "animated": false,
+      "comparison_range": [
+        0.002,
+        0.03
+      ],
+      "key": "behavior.speed",
+      "label": "Speed",
+      "parameter": "speed",
+      "type": "float",
+      "units": "domain-units/step",
+      "value": 0.01
+    },
+    {
+      "animated": false,
+      "comparison_range": [
+        0.0,
+        0.99
+      ],
+      "key": "behavior.inertia",
+      "label": "Inertia",
+      "parameter": "inertia",
+      "type": "float",
+      "units": "coefficient",
+      "value": 0.65
+    },
+    {
+      "animated": false,
+      "comparison_range": [
+        0.01,
+        0.8
+      ],
+      "key": "behavior.turn_rate",
+      "label": "Turn Rate",
+      "parameter": "turn_rate",
+      "type": "float",
+      "units": "coefficient",
+      "value": 0.42
+    },
+    {
+      "animated": false,
+      "comparison_range": [
+        0.0,
+        1.0
+      ],
+      "key": "behavior.exploration",
+      "label": "Exploration",
+      "parameter": "exploration",
+      "type": "float",
+      "units": "coefficient",
+      "value": 0.22
+    },
+    {
+      "animated": false,
+      "comparison_range": [
+        0.0,
+        8.0
+      ],
+      "key": "behavior.boundary_steer",
+      "label": "Boundary Steer",
+      "parameter": "boundary_steer",
+      "type": "float",
+      "units": "coefficient",
+      "value": 0.1
+    },
+    {
+      "animated": false,
+      "comparison_range": [
+        0.0,
+        8.0
+      ],
+      "key": "behavior.resource_attraction",
+      "label": "Resource Attraction",
+      "parameter": "resource_attraction",
+      "type": "float",
+      "units": "coefficient",
+      "value": 3.1
+    },
+    {
+      "animated": false,
+      "comparison_range": [
+        0.0,
+        6.0
+      ],
+      "key": "behavior.trace_follow",
+      "label": "Trace Follow",
+      "parameter": "trace_follow",
+      "type": "float",
+      "units": "coefficient",
+      "value": 1.7
+    },
+    {
+      "animated": false,
+      "comparison_range": [
+        0.0,
+        8.0
+      ],
+      "key": "behavior.scar_avoid",
+      "label": "Scar Avoid",
+      "parameter": "scar_avoid",
+      "type": "float",
+      "units": "coefficient",
+      "value": 2.8
+    },
+    {
+      "animated": false,
+      "comparison_range": [
+        0.0,
+        6.0
+      ],
+      "key": "behavior.scar_deflect",
+      "label": "Scar Deflect",
+      "parameter": "scar_deflect",
+      "type": "float",
+      "units": "coefficient",
+      "value": 1.6
+    },
+    {
+      "animated": false,
+      "comparison_range": [
+        0.01,
+        0.15
+      ],
+      "key": "behavior.crowd_radius",
+      "label": "Crowd Radius",
+      "parameter": "crowd_radius",
+      "type": "float",
+      "units": "domain-units",
+      "value": 0.055
+    },
+    {
+      "animated": false,
+      "comparison_range": [
+        0.0,
+        0.004
+      ],
+      "key": "behavior.crowd_avoid",
+      "label": "Crowd Avoid",
+      "parameter": "crowd_avoid",
+      "type": "float",
+      "units": "coefficient",
+      "value": 0.00042
+    },
+    {
+      "animated": false,
+      "comparison_range": [
+        0.001,
+        0.15
+      ],
+      "key": "behavior.trace_deposit",
+      "label": "Trace Deposit",
+      "parameter": "trace_deposit",
+      "type": "float",
+      "units": "per-step",
+      "value": 0.06
+    },
+    {
+      "animated": false,
+      "comparison_range": [
+        0.001,
+        0.2
+      ],
+      "key": "behavior.trace_decay",
+      "label": "Trace Decay",
+      "parameter": "trace_decay",
+      "type": "float",
+      "units": "per-step",
+      "value": 0.047
+    },
+    {
+      "animated": false,
+      "comparison_range": [
+        0.01,
+        0.5
+      ],
+      "key": "behavior.follow_threshold",
+      "label": "Follow Threshold",
+      "parameter": "follow_threshold",
+      "type": "float",
+      "units": "field-value",
+      "value": 0.09
+    },
+    {
+      "animated": false,
+      "comparison_range": [
+        0.0,
+        0.5
+      ],
+      "key": "behavior.scar_trigger",
+      "label": "Scar Trigger",
+      "parameter": "scar_trigger",
+      "type": "float",
+      "units": "field-value",
+      "value": 0.06
+    },
+    {
+      "animated": false,
+      "comparison_range": [
+        0.0,
+        0.1
+      ],
+      "key": "behavior.scar_growth",
+      "label": "Scar Growth",
+      "parameter": "scar_growth",
+      "type": "float",
+      "units": "per-step",
+      "value": 0.06
+    },
+    {
+      "animated": false,
+      "comparison_range": [
+        0.01,
+        1.0
+      ],
+      "key": "behavior.scar_threshold",
+      "label": "Scar Threshold",
+      "parameter": "scar_threshold",
+      "type": "float",
+      "units": "field-value",
+      "value": 0.12
+    },
+    {
+      "animated": false,
+      "comparison_range": [
+        0.0,
+        0.5
+      ],
+      "key": "behavior.heal_threshold",
+      "label": "Heal Threshold",
+      "parameter": "heal_threshold",
+      "type": "float",
+      "units": "field-value",
+      "value": 0.035
+    },
+    {
+      "animated": false,
+      "comparison_range": [
+        0.0001,
+        0.02
+      ],
+      "key": "behavior.scar_decay",
+      "label": "Scar Decay",
+      "parameter": "scar_decay",
+      "type": "float",
+      "units": "per-step",
+      "value": 0.00045
+    },
+    {
+      "animated": false,
+      "comparison_range": [
+        0.0,
+        0.1
+      ],
+      "key": "behavior.idle_healing",
+      "label": "Idle Healing",
+      "parameter": "idle_healing",
+      "type": "float",
+      "units": "per-step",
+      "value": 0.01
+    },
+    {
+      "animated": false,
+      "comparison_range": [
+        0.0,
+        0.02
+      ],
+      "key": "behavior.resource_recovery",
+      "label": "Resource Recovery",
+      "parameter": "resource_recovery",
+      "type": "float",
+      "units": "per-step",
+      "value": 0.0025
+    },
+    {
+      "animated": false,
+      "comparison_range": [
+        0.0,
+        0.02
+      ],
+      "key": "behavior.consume_rate",
+      "label": "Consume Rate",
+      "parameter": "consume_rate",
+      "type": "float",
+      "units": "per-step",
+      "value": 0.004
+    },
+    {
+      "animated": false,
+      "comparison_range": [
+        0.0,
+        3.0
+      ],
+      "key": "behavior.energy_gain",
+      "label": "Energy Gain",
+      "parameter": "energy_gain",
+      "type": "float",
+      "units": "coefficient",
+      "value": 0.8
+    },
+    {
+      "animated": false,
+      "comparison_range": [
+        0.0,
+        0.03
+      ],
+      "key": "behavior.energy_cost",
+      "label": "Energy Cost",
+      "parameter": "energy_cost",
+      "type": "float",
+      "units": "per-step",
+      "value": 0.0045
+    },
+    {
+      "animated": false,
+      "comparison_range": [
+        0.0,
+        0.95
+      ],
+      "key": "behavior.rest_energy",
+      "label": "Rest Energy",
+      "parameter": "rest_energy",
+      "type": "float",
+      "units": "energy",
+      "value": 0.18
+    },
+    {
+      "animated": false,
+      "comparison_range": [
+        1.0,
+        12.0
+      ],
+      "key": "playback.steps_per_frame",
+      "label": "Steps / Display Frame",
+      "parameter": "steps_per_frame",
+      "type": "integer",
+      "units": "steps",
+      "value": 2
+    },
+    {
+      "animated": false,
+      "key": "playback.start_frame",
+      "label": "Start Frame",
+      "parameter": "start_frame",
+      "type": "integer",
+      "units": "frame",
+      "value": 1
+    },
+    {
+      "animated": false,
+      "comparison_range": [
+        0.0005,
+        0.08
+      ],
+      "key": "look.field_point_size",
+      "label": "Field Point Size",
+      "parameter": "field_point_size",
+      "type": "float",
+      "units": "houdini-units",
+      "value": 0.0085
+    },
+    {
+      "animated": false,
+      "comparison_range": [
+        0.0005,
+        0.1
+      ],
+      "key": "look.agent_point_size",
+      "label": "Agent Point Size",
+      "parameter": "agent_point_size",
+      "type": "float",
+      "units": "houdini-units",
+      "value": 0.026
+    }
+  ],
+  "schema_version": 1,
+  "source": {
+    "asset_type": "bzor::refractory_route::1.0",
+    "frame": 225.0,
+    "hip_dirty": true,
+    "hip_path": "E:/Projects/houdini-ai/studies/001-memory-field/02_look/look.hiplc",
+    "hip_sha256": null,
+    "node_path": "/obj/PLAYGROUND_SIM/PROMOTED_BEHAVIOR"
+  },
+  "variation": {
+    "file_stem": "var_001_memory-field",
+    "number": 1,
+    "title": "Memory Field"
+  }
+}

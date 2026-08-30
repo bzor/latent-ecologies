@@ -318,12 +318,14 @@ def command_study_variation_add(args: argparse.Namespace) -> int:
         vault,
         number=args.number,
         title=args.title,
+        behavior_number=args.behavior_number,
         state=args.state,
         behavior_selection_id=args.behavior_selection_id,
         derived_from=args.derived_from,
         make_current=not args.no_make_current,
     )
     print(f"variation: {variation['id']}")
+    print(f"behavior: {variation['behavior_number']:03d}")
     print(f"file-stem: {variation['file_stem']}")
     return 0
 
@@ -748,6 +750,12 @@ def add_studio_parser(subparsers: argparse._SubParsersAction, root: Path) -> Non
         "--state",
         choices=("active", "held", "selected", "completed", "archived"),
         default="active",
+    )
+    study_variation_add.add_argument(
+        "--behavior-number",
+        type=int,
+        default=1,
+        help="promoted behavior this variation descends from; variation numbers restart at 1 per behavior",
     )
     study_variation_add.add_argument("--behavior-selection-id")
     study_variation_add.add_argument("--derived-from")

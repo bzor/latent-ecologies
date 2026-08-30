@@ -8,7 +8,7 @@ File SOP is left in place but disconnected as a fallback reference.
 Run under hython:
 
     hython houdini/instantiate_look_starter.py \
-        --hda studies/<study>/01_behavior/03_promoted/<asset>.hda \
+        --hda studies/<study>/01_behavior/03_selected/<asset>.hda \
         --output studies/<study>/02_look/look.hiplc
 """
 

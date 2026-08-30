@@ -16,7 +16,7 @@ class OverlayParameterManifestTests(unittest.TestCase):
             "variation": {
                 "number": 4,
                 "title": "High Attraction",
-                "file_stem": "var_004_high-attraction",
+                "file_stem": "bhvr_001_var_004_high-attraction",
             },
             "source": {
                 "hip_path": "E:/study/02_look/look-v004.hiplc",

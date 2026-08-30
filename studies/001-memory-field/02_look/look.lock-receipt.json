@@ -1,0 +1,129 @@
+{
+  "behavior_hda": {
+    "definition_in_sync": true,
+    "matches_promoted_package": true,
+    "node_path": "/obj/PLAYGROUND_SIM/PROMOTED_BEHAVIOR",
+    "node_type": "bzor::refractory_route::1.0",
+    "sha256": "78b5de6db783e8d17fb0e2f02fc0d28a0e994a94960cd210716224f5cf30b1b7",
+    "study_copy": "refractory-route.hda"
+  },
+  "camera": {
+    "aperture": 41.4213562373095,
+    "focal": 80.0,
+    "focus_distance": 5.0,
+    "fstop": 5.6,
+    "path": "/obj/main_cam",
+    "resolution": [
+      1080,
+      1350
+    ]
+  },
+  "color_pipeline": {
+    "ocio": "C:/PROGRA~1/SIDEEF~1/HOUDIN~2.368/packages/ocio/houdini-config-v3.0.0_aces-v2.0_ocio-v2.5.ocio"
+  },
+  "duration_seconds": 18.75,
+  "fps": 24.0,
+  "frame_range": [
+    1,
+    450
+  ],
+  "kind": "look-lock-receipt",
+  "known_gaps": [
+    "look.overlay-parameters.json exported with hip_dirty=true and no checksum: hou.hipFile.hasUnsavedChanges() is always true in hython after load, so headless export cannot bind a checksum. Press Export Overlay Parameter Manifest once in the GUI for a checksum-bound manifest before locked delivery.",
+    "locked/ snapshots are archival only; they do not cook in place because the HDA reference resolves relative to $HIP. Copy back beside look.hiplc to run one."
+  ],
+  "locked_hip": {
+    "bytes": 965128,
+    "houdini_version": "22.0.368",
+    "path": "studies/001-memory-field/02_look/look.hiplc",
+    "revision": "r002",
+    "sha256": "6f5b8db09ace5b8f182d500afb4dbb030f79e91102dc27bbe15987653681cbac"
+  },
+  "output_products": {
+    "directory": "renders/",
+    "kind": "png-sequence",
+    "pattern": "look.$F4.png",
+    "resolution": [
+      1080,
+      1350
+    ]
+  },
+  "preflight": {
+    "cooks": [
+      {
+        "errors": [],
+        "frame": 1,
+        "points": 348160,
+        "seconds": 0.16
+      }
+    ],
+    "load_seconds": 0.4,
+    "measured_seconds_per_frame": 29.0,
+    "probe_frame": 225,
+    "reopen_passed": true
+  },
+  "protected_snapshot": {
+    "identical_to_locked_hip": true,
+    "path": "studies/001-memory-field/02_look/locked/look.locked-r001.hiplc",
+    "sha256": "43511714df72ad9c72b8451167870425c87820e2f1cd92795e0e54f13b848f96"
+  },
+  "render": {
+    "bound_hip_sha256": "6f5b8db09ace5b8f182d500afb4dbb030f79e91102dc27bbe15987653681cbac",
+    "frames": 450,
+    "note": "Rendered as one uninterrupted run so the solver state is continuous; partial or resumed renders of this scene produce visible seams where runs join.",
+    "receipt": "renders/render-receipt.json",
+    "revision": "r002",
+    "single_contiguous_run": true,
+    "verification": {
+      "anomalies_over_1_8x_median": 0,
+      "blank_frames": 0,
+      "frames_present": "1..450, none missing",
+      "identical_consecutive_frames": 0,
+      "temporal_residual_max": 5.623,
+      "temporal_residual_median": 4.991,
+      "uniform_size_mode": "1080x1350 RGBA"
+    }
+  },
+  "render_settings": {
+    "depth_of_field": true,
+    "diffuse_limit": 2.0,
+    "engine": "xpu",
+    "motion_blur": false,
+    "path_traced_samples": 128,
+    "picture_pattern": "$HIP/renders/look.$F4.png",
+    "renderer": "BRAY_HdKarmaXPU",
+    "rop": "/stage/OUT_KARMA",
+    "samples_per_pixel": 64,
+    "settings_node": "/stage/RENDER_KARMA_SETTINGS",
+    "volume_limit": 0.0
+  },
+  "revisions": {
+    "r001": {
+      "role": "historical: produced a superseded render that was discarded for run-seam artifacts; no longer the source of any delivered frames",
+      "sha256": "43511714df72ad9c72b8451167870425c87820e2f1cd92795e0e54f13b848f96",
+      "snapshot": "locked/look.locked-r001.hiplc"
+    },
+    "r002": {
+      "caveat": "Karma XPU and the multi-threaded solver are not bit-reproducible across processes, so pixel- or geometry-identity cannot be demonstrated by re-running; the argument rests on the parameter diff.",
+      "changed_parameters": [
+        {
+          "from": "Primary Treatment",
+          "parm": "/obj/PLAYGROUND_SIM/PROMOTED_BEHAVIOR/overlay_variation_title",
+          "to": "Memory Field"
+        }
+      ],
+      "evidence": [
+        "HDA parameter diff before/after the edit reported exactly one changed parm, an overlay metadata string not wired to geometry, shading, camera, or lighting",
+        "point counts identical at frames 100/225/450 (350208) across both revisions",
+        "r001-vs-r002 re-render of frame 225 differs by 80.2% of pixels (mean 32.1); re-rendering r002 against itself differs by 78.2% (mean 32.9), so the difference is within Karma XPU run-to-run non-determinism"
+      ],
+      "image_affecting": false,
+      "role": "authoritative HIP and the source of the delivered 450-frame render; differs from r001 only by overlay_variation_title",
+      "sha256": "6f5b8db09ace5b8f182d500afb4dbb030f79e91102dc27bbe15987653681cbac",
+      "snapshot": "locked/look.locked-r002.hiplc"
+    }
+  },
+  "schema_version": 1,
+  "state": "artist-locked",
+  "study_id": "study-001-memory-field"
+}

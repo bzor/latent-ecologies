@@ -17,7 +17,7 @@ from pathlib import Path
 from typing import Any, Mapping
 
 from .display_text import validate_display_text
-from .study_vault import variation_file_stem
+from .study_vault import parse_variation_stem, variation_file_stem
 
 STUDY_CARD_NAME = "study-card.json"
 
@@ -57,14 +57,23 @@ def validate_study_card(card: Mapping[str, Any]) -> list[str]:
     if not isinstance(variation_title, str) or not variation_title.strip():
         errors.append("variation_title must be a non-empty string")
     elif isinstance(variation_number, int) and 1 <= variation_number <= 999:
-        expected_stem = variation_file_stem(variation_number, variation_title)
-        expected_slug = expected_stem.split("_", 2)[2]
-        if card["variation_file_stem"] != expected_stem:
-            errors.append("variation_file_stem does not match variation number and title")
-        if card["variation_slug"] != expected_slug:
-            errors.append("variation_slug does not match variation title")
-        if card["variation_id"] != f"variation-{variation_number:03d}-{expected_slug}":
-            errors.append("variation_id does not match variation number and title")
+        behavior_number = card.get("variation_behavior_number", 1)
+        if (
+            isinstance(behavior_number, bool)
+            or not isinstance(behavior_number, int)
+            or not 1 <= behavior_number <= 999
+        ):
+            errors.append("variation_behavior_number must be between 1 and 999")
+        else:
+            expected_stem = variation_file_stem(behavior_number, variation_number, variation_title)
+            expected_slug = parse_variation_stem(expected_stem)["slug"]
+            expected_id = f"variation-bhvr{behavior_number:03d}-{variation_number:03d}-{expected_slug}"
+            if card["variation_file_stem"] != expected_stem:
+                errors.append("variation_file_stem does not match variation number and title")
+            if card["variation_slug"] != expected_slug:
+                errors.append("variation_slug does not match variation title")
+            if card["variation_id"] != expected_id:
+                errors.append("variation_id does not match variation number and title")
     for key in _OPTIONAL_STRINGS:
         if key in card and not isinstance(card[key], str):
             errors.append(f"{key} must be a string")
@@ -130,11 +139,12 @@ def card_from_records(
     """Scaffold an initial card from canonical Study, Seed, and variation records."""
     seed = seed_record or {}
     variation = variation_record or {
-        "id": "variation-001-primary-treatment",
+        "id": "variation-bhvr001-001-primary-treatment",
         "number": 1,
+        "behavior_number": 1,
         "title": "Primary Treatment",
         "slug": "primary-treatment",
-        "file_stem": "var_001_primary-treatment",
+        "file_stem": "bhvr_001_var_001_primary-treatment",
     }
     study_id = str(study_record.get("id", ""))
     digits = "".join(char for char in study_id if char.isdigit())
@@ -143,6 +153,7 @@ def card_from_records(
         "study_id": study_id,
         "variation_id": variation["id"],
         "variation_number": variation["number"],
+        "variation_behavior_number": variation.get("behavior_number", 1),
         "variation_title": variation["title"],
         "variation_slug": variation["slug"],
         "variation_file_stem": variation["file_stem"],

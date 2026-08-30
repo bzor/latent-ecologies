@@ -108,6 +108,10 @@ def _value_type(parm):
 
 def export_overlay_manifest(node):
     number = int(node.evalParm("overlay_variation_number"))
+    # The Study assigns the behavior axis; an asset built before it existed has no
+    # such parm and reports the first behavior.
+    behavior_parm = node.parm("overlay_behavior_number")
+    behavior_number = int(behavior_parm.eval()) if behavior_parm is not None else 1
     title = node.evalParm("overlay_variation_title").strip()
     if number < 1 or number > 999:
         raise hou.NodeError("Overlay variation number must be between 1 and 999")
@@ -142,9 +146,10 @@ def export_overlay_manifest(node):
     manifest = {
         "schema_version": 1,
         "variation": {
+            "behavior_number": behavior_number,
             "number": number,
             "title": title,
-            "file_stem": "var_{:03d}_{}".format(number, _slug(title)),
+            "file_stem": "bhvr_{:03d}_var_{:03d}_{}".format(behavior_number, number, _slug(title)),
         },
         "source": {
             "hip_path": hip_path,

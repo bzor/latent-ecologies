@@ -91,7 +91,7 @@ class NonlocalAffinityHDATests(unittest.TestCase):
             self.assertEqual(audit["num_points_ui_maximum"], 500000)
             manifest_probe = audit["overlay_parameter_manifest_probe"]
             self.assertEqual(manifest_probe["variation"]["number"], 7)
-            self.assertEqual(manifest_probe["variation"]["file_stem"], "var_007_graph-tension")
+            self.assertEqual(manifest_probe["variation"]["file_stem"], "bhvr_001_var_007_graph-tension")
             self.assertIn("behavior.attraction", manifest_probe["parameter_keys"])
             self.assertIn("look.point_size", manifest_probe["parameter_keys"])
             manifest_path = output / "hda/audit-overlay-parameter-manifest.json"

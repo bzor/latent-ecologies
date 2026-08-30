@@ -186,7 +186,7 @@ against float64 parameters, so the follow-threshold test is `>=` in VEX — with
 the Drifting Foragers select (trace deposit exactly at follow threshold) loses its
 follow regime entirely. `birth_threshold` feeds only browser event counters and is
 not carried into the HDA. Handoff package and audit:
-`studies/001-memory-field/01_behavior/03_promoted/`.
+`studies/001-memory-field/01_behavior/03_selected/`.
 
 **Status:** `02_look/look.hiplc` delivered as `artist-ready-starter` (basic setup,
 live re-simmable HDA at `/obj/PLAYGROUND_SIM/PROMOTED_BEHAVIOR`, default preset 1,

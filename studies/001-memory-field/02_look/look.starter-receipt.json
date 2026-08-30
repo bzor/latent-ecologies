@@ -3,7 +3,7 @@
     "node_path": "/obj/PLAYGROUND_SIM/PROMOTED_BEHAVIOR",
     "node_type": "bzor::refractory_route::1.0",
     "sha256": "78b5de6db783e8d17fb0e2f02fc0d28a0e994a94960cd210716224f5cf30b1b7",
-    "source_path": "E:/Projects/houdini-ai/studies/001-memory-field/01_behavior/03_promoted/refractory-route.hda",
+    "source_path": "E:/Projects/houdini-ai/studies/001-memory-field/01_behavior/03_selected/refractory-route.hda",
     "study_copy": "E:/Projects/houdini-ai/studies/001-memory-field/02_look/refractory-route.hda"
   },
   "contract": "live-hda",

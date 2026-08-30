@@ -39,8 +39,9 @@
   "subtitle": "synchronous point-agent updates with nonlocal attraction and repulsion",
   "summary": "Simulation of 100 000 point agents. At each step, every agent receives centroid contraction, attraction toward one indexed partner, and repulsion from another indexed partner. Partner assignment is independent of spatial proximity and changes on a deterministic schedule over 960 steps. The point distribution records the combined effects of position integration and the time-varying relation graph; no biological or social equivalence is claimed.",
   "title": "NONLOCAL AFFINITY GRAPH DYNAMICS",
-  "variation_file_stem": "var_001_primary-treatment",
-  "variation_id": "variation-001-primary-treatment",
+  "variation_behavior_number": 1,
+  "variation_file_stem": "bhvr_001_var_001_primary-treatment",
+  "variation_id": "variation-bhvr001-001-primary-treatment",
   "variation_number": 1,
   "variation_slug": "primary-treatment",
   "variation_title": "Primary Treatment"

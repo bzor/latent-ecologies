@@ -33,7 +33,7 @@ overlay project:
   `overlay_parameters`, updates the sidecar variation identity, and appends readable
   values to the existing `params` table;
 - write the sidecar to the Study vault as
-  `03_specimen/var_NNN_title-slug.specimen.json`, beside the variation-matched
+  `03_specimen/bhvr_NNN_var_NNN_title-slug.specimen.json`, beside the variation-matched
   overlay config it pairs with;
 - record the render location in the overlay config's `render` pointer so the
   preview auto-loads it as the backdrop (video, else first-frame still);
@@ -48,7 +48,7 @@ persisted config, aspect-ratio presets. Hermes does not adjust KC's presentation
 
 When satisfied, KC clicks **export for promote** in the panel, which downloads
 the exact config with its canonical name, and saves it as
-`03_specimen/var_NNN_title-slug.overlay-config.json` in the Study vault. The exported file is the
+`03_specimen/bhvr_NNN_var_NNN_title-slug.overlay-config.json` in the Study vault. The exported file is the
 canonical record; browser localStorage is not.
 
 ## 3. Promote (KC, in Discord)
@@ -87,7 +87,7 @@ approval-gated stage.
    PNG-pattern render, frame-count verified, H.264 faststart output.
 4. Promote command + receipt — `python -m houdini_ai.detail_promote --study …
    --config … --render … --out …` runs validate → overlay render → composite →
-   `var_NNN_title-slug.delivery.json` binding SHA-256s of the specimen sidecar, overlay config,
+   `bhvr_NNN_var_NNN_title-slug.delivery.json` binding SHA-256s of the specimen sidecar, overlay config,
    render input/receipt, and the overlay source version (hash of `web/`
    sources). This command is the integration point Hermes calls when KC says
    `promote` in the Study thread; the Discord wiring itself lives with Hermes.
@@ -106,13 +106,13 @@ that skip when the tool is absent).
 - Editing overlay config after promote creates a new promote, never a silent
   rewrite of the delivered package.
 - A promote requires canonical variation identity and emits
-  `var_NNN_title-slug.delivery.mp4`, `var_NNN_title-slug.delivery.json`, and a
+  `bhvr_NNN_var_NNN_title-slug.delivery.mp4`, `bhvr_NNN_var_NNN_title-slug.delivery.json`, and a
   variation-matched overlay-frame directory.
 
 ## Practical notes
 
-**The variation stem is enforced, not conventional.** `detail_promote.py` matches
-`var_[0-9]{3}_[a-z0-9]+(?:-[a-z0-9]+)*` and refuses anything else, and
+**The variation stem is enforced, not conventional.** `detail_promote.py` matches the shared
+`VARIATION_STEM` pattern from `study_vault.py` and refuses anything else, and
 `overlay_parameter_manifest.py` independently rejects a `file_stem` that does not
 match the number and title it was given. `study_vault.py` generates the same shape.
 Any other naming scheme means changing all three plus their tests, and migrating the

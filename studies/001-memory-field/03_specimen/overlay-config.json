@@ -1,0 +1,8 @@
+{
+  "aspect": "4:5 | 1080x1350",
+  "render": {
+    "still": "studies/001-memory-field/02_look/renders/look.0225.png",
+    "video": "studies/001-memory-field/02_look/bhvr_001_var_001_memory-field.look-render.mp4"
+  },
+  "studyId": "STUDY-001"
+}

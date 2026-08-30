@@ -38,12 +38,47 @@ def _variation_slug(title: str) -> str:
     return slug
 
 
-def variation_file_stem(number: int, title: str) -> str:
-    """Return the canonical filename stem shared by Look, Specimen, and Delivery."""
+def _stem_number(value: Any, label: str) -> int:
+    if isinstance(value, bool) or not isinstance(value, int) or not 1 <= value <= 999:
+        raise ValueError(f"{label} must be an integer from 1 to 999")
+    return value
 
-    if isinstance(number, bool) or not isinstance(number, int) or not 1 <= number <= 999:
-        raise ValueError("variation number must be an integer from 1 to 999")
-    return f"var_{number:03d}_{_variation_slug(title)}"
+
+def variation_file_stem(behavior_number: int, variation_number: int, title: str) -> str:
+    """Return the canonical filename stem shared by Look, Specimen, and Delivery.
+
+    Three axes, each doing one job: ``bhvr`` identifies which promoted behavior the
+    work descends from, ``var`` identifies a creative direction taken off that
+    behavior, and a ``_rNNN`` suffix applied by later phases identifies a save within
+    one direction. Variation numbers restart at 1 for each behavior; the behavior
+    number keeps the stems distinct in the flat Specimen and Delivery directories.
+
+    The Study is not part of the stem because it is already the containing directory.
+    Files leaving the vault are qualified with the Study at export time instead.
+    """
+
+    behavior = _stem_number(behavior_number, "behavior number")
+    variation = _stem_number(variation_number, "variation number")
+    return f"bhvr_{behavior:03d}_var_{variation:03d}_{_variation_slug(title)}"
+
+
+VARIATION_STEM = re.compile(
+    r"bhvr_(?P<behavior>[0-9]{3})_var_(?P<variation>[0-9]{3})_"
+    r"(?P<slug>[a-z0-9]+(?:-[a-z0-9]+)*)"
+)
+
+
+def parse_variation_stem(stem: str) -> dict[str, Any]:
+    """Split a canonical stem back into its behavior number, variation number, and slug."""
+
+    match = VARIATION_STEM.fullmatch(stem) if isinstance(stem, str) else None
+    if match is None:
+        raise ValueError(f"not a canonical variation stem: {stem!r}")
+    return {
+        "behavior_number": int(match.group("behavior")),
+        "variation_number": int(match.group("variation")),
+        "slug": match.group("slug"),
+    }
 
 
 def add_study_variation(
@@ -51,30 +86,42 @@ def add_study_variation(
     *,
     number: int,
     title: str,
+    behavior_number: int = 1,
     state: str = "active",
     behavior_selection_id: str | None = None,
     derived_from: str | None = None,
     make_current: bool = True,
 ) -> dict[str, Any]:
-    """Add one stable variation identity to an initialized Study vault."""
+    """Add one stable variation identity to an initialized Study vault.
+
+    ``number`` restarts at 1 for each behavior, so a variation is identified by the
+    pair (behavior_number, number). Registering the same pair twice is refused.
+    """
 
     if state not in {"active", "held", "selected", "completed", "archived"}:
         raise ValueError("variation state is invalid")
-    stem = variation_file_stem(number, title)
-    slug = stem.split("_", 2)[2]
-    variation_id = f"variation-{number:03d}-{slug}"
+    stem = variation_file_stem(behavior_number, number, title)
+    slug = parse_variation_stem(stem)["slug"]
+    variation_id = f"variation-bhvr{behavior_number:03d}-{number:03d}-{slug}"
     path = Path(vault) / "00_study" / "variations.json"
     registry = json.loads(path.read_text(encoding="utf-8"))
     variations = registry.get("variations")
     if not isinstance(variations, list):
         raise ValueError("variation registry is malformed")
-    if any(item.get("number") == number for item in variations if isinstance(item, dict)):
-        raise ValueError(f"variation number {number:03d} already exists")
+    if any(
+        item.get("number") == number and item.get("behavior_number", 1) == behavior_number
+        for item in variations
+        if isinstance(item, dict)
+    ):
+        raise ValueError(
+            f"variation {number:03d} already exists for behavior {behavior_number:03d}"
+        )
     if derived_from is not None and not any(
         item.get("id") == derived_from for item in variations if isinstance(item, dict)
     ):
         raise ValueError("derived_from must reference an existing variation")
     variation: dict[str, Any] = {
+        "behavior_number": behavior_number,
         "behavior_selection_id": behavior_selection_id,
         "derived_from": derived_from,
         "file_stem": stem,
@@ -85,7 +132,7 @@ def add_study_variation(
         "title": title.strip(),
     }
     variations.append(variation)
-    variations.sort(key=lambda item: item["number"])
+    variations.sort(key=lambda item: (item.get("behavior_number", 1), item["number"]))
     if make_current:
         registry["current_variation_id"] = variation_id
     temporary = path.with_suffix(".json.tmp")
@@ -97,6 +144,7 @@ def add_study_variation(
             card = json.loads(card_path.read_text(encoding="utf-8"))
             card.update(
                 {
+                    "variation_behavior_number": variation["behavior_number"],
                     "variation_file_stem": variation["file_stem"],
                     "variation_id": variation["id"],
                     "variation_number": variation["number"],
@@ -177,15 +225,16 @@ def initialize_study_vault(root: Path, study: Mapping[str, Any]) -> Path:
         study_directory / "variations.json",
         json.dumps(
             {
-                "current_variation_id": "variation-001-primary-treatment",
-                "schema_version": 1,
+                "current_variation_id": "variation-bhvr001-001-primary-treatment",
+                "schema_version": 2,
                 "study_id": study_id,
                 "variations": [
                     {
+                        "behavior_number": 1,
                         "behavior_selection_id": None,
                         "derived_from": None,
-                        "file_stem": "var_001_primary-treatment",
-                        "id": "variation-001-primary-treatment",
+                        "file_stem": "bhvr_001_var_001_primary-treatment",
+                        "id": "variation-bhvr001-001-primary-treatment",
                         "number": 1,
                         "slug": "primary-treatment",
                         "state": "active",

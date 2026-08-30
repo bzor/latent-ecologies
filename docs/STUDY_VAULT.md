@@ -40,47 +40,73 @@ sit directly in the phase directory:
 
 ```text
 02_look/
-├── var_001_primary-treatment.look_r001.hiplc
-├── var_001_primary-treatment.look.json
-├── var_002_fibrous-remodeling.look_r001.hiplc
-├── look-render.mp4            preview encode, beside the HIP rather than under renders/
+├── bhvr_001_var_001_primary-treatment.look_r001.hiplc
+├── bhvr_001_var_001_primary-treatment.look.json
+├── bhvr_002_var_001_fibrous-remodeling.look_r001.hiplc
+├── bhvr_001_var_001_primary-treatment.look-render.mp4   preview, beside the HIP
 ├── locked/                    archival HIP snapshots for checksum binding
 ├── renders/                   rendered frames and the render receipt
 └── README.md
 
 03_specimen/
-├── var_001_primary-treatment.specimen.json
-├── var_001_primary-treatment.overlay-config.json
-└── var_001_primary-treatment.preview.mp4
+├── bhvr_001_var_001_primary-treatment.specimen.json
+├── bhvr_001_var_001_primary-treatment.overlay-config.json
+└── bhvr_001_var_001_primary-treatment.preview.mp4
 
 04_delivery/
-├── var_001_primary-treatment.delivery.mp4
-├── var_001_primary-treatment.delivery.json
-└── var_001_primary-treatment.overlay_frames/  only when retained
+├── bhvr_001_var_001_primary-treatment.delivery.mp4
+├── bhvr_001_var_001_primary-treatment.delivery.json
+└── bhvr_001_var_001_primary-treatment.overlay_frames/  only when retained
 ```
 
 ## Variations
 
-Every Study owns `00_study/variations.json` and starts with variation `001`, even when it currently
-has only one treatment. A variation has a permanent number, a descriptive title, a canonical ID,
-state, optional Behavior selection, and optional parent variation. Several sibling variations may
-remain active or held; choosing a current production target never deletes or demotes the others.
+A Study fans out along two axes, and they mean different things.
+
+A **behavior** is a distinct promoted simulation: its own HDA, its own promotion gate, its own
+package under `01_behavior/03_selected/bhvr_NNN_slug/`. A Study promotes as many as KC selects.
+
+A **variation** is a creative direction taken off one behavior. Because the handoff is a live HDA,
+changing the behavior's exposed parameters during Look Development is a variation, not a new
+behavior. Promote a new behavior only when the mechanism itself differs: different VEX, a different
+solver, a different HDA. If a change is reachable from the promoted HDA's parameters, it belongs on
+the variation axis.
+
+Every Study owns `00_study/variations.json` and starts with variation `001` of behavior `001`, even
+when it currently has only one treatment. A variation has a permanent number, a behavior number, a
+descriptive title, a canonical ID, state, optional Behavior selection, and optional parent
+variation. Several sibling variations may remain active or held; choosing a current production
+target never deletes or demotes the others.
 
 The canonical filename stem is:
 
 ```text
-var_NNN_title-slug
+bhvr_NNN_var_NNN_title-slug
 ```
 
-Variation and revision are separate axes. `var_002_fibrous-remodeling.look_r003.hiplc` is revision
-3 of creative variation 2. A save revision never consumes a new variation number. Look, Specimen,
-and Delivery filenames must carry the same variation stem; use a directory only for a bounded
-package such as a retained frame sequence.
+Variation numbers restart at `001` for each behavior. The behavior number keeps stems distinct in
+the flat Specimen and Delivery directories, so `bhvr_001_var_001_dense-braid` and
+`bhvr_002_var_001_tight-orbit` coexist without collision.
+
+The Study is deliberately absent from the stem: it is already the containing directory, and
+repeating it would give every file in a Study an identical prefix before the part that
+distinguishes it. Files leaving the vault are qualified with the Study at export time instead.
+
+Behavior, variation, and revision are three separate axes.
+`bhvr_002_var_001_fibrous-remodeling.look_r003.hiplc` is revision 3 of creative variation 1 taken
+off promoted behavior 2. A save revision never consumes a new variation number, and a variation
+never consumes a new behavior number. Look, Specimen, and Delivery filenames must carry the same
+stem; use a directory only for a bounded package such as a retained frame sequence.
+
+Choose between a variation and a revision by what you want to keep: a **variation** is a direction
+you want preserved alongside its siblings, a **revision** is progress toward one direction that
+supersedes the last save.
 
 Register a sibling treatment before creating its files:
 
 ```powershell
-houdini-ai studio study-variation-add study-002-scar-tissue 4 "Slow Load-selected Maturation" --no-make-current
+houdini-ai studio study-variation-add study-002-scar-tissue 2 "Slow Load-selected Maturation" `
+    --behavior-number 2 --behavior-selection-id selection_002 --no-make-current
 ```
 
 This prints the exact filename stem to use. Existing receipt-bound artifacts keep their historical
@@ -92,9 +118,10 @@ authoritative HIP and rendering completes, the variation advances directly to Sp
 
 Receipts live beside the artifact they describe rather than in a separate phase directory.
 
-Rendered frames stay in `02_look/renders/` with their render receipt. The encoded preview
-sits directly in `02_look/` as `look-render.mp4`, so KC reaches the watchable result without
+Rendered frames stay in `02_look/renders/` with their render receipt. The encoded preview sits
+directly in `02_look/` as `<stem>.look-render.mp4`, so KC reaches the watchable result without
 opening the frame directory, and the overlay config's `render.video` points at that same file.
+The preview carries the variation stem because a Study holds several of them at once.
 Frames and preview encodes are heavy and stay local under the ignore rules; the receipts,
 `look.json`, and the lock receipt are versioned.
 

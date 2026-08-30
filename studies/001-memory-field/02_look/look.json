@@ -1,37 +1,65 @@
 {
-  "schema_version": 1,
-  "study_id": "study-001-memory-field",
-  "state": "artist-ready-starter",
-  "contract": "live-hda",
+  "artist_note": "Artist-led Look Development complete; KC declared the HIP locked 2026-08-29. Frame range extended from the delivered 288 to 450.",
   "authoritative_hip": "look.hiplc",
-  "hip_bytes": 887004,
-  "hip_sha256": "baf6160f0f59e241f0a96c797335a32c8959f18d634bc9c82677b6a0e3c0d258",
-  "houdini_version": "22.0.368",
-  "setup_id": "basic",
-  "setup_path": "houdini/look_setups/basic/basic.hiplc",
   "behavior_hda": {
+    "default_preset": "1",
+    "handoff": "studies/001-memory-field/01_behavior/03_selected",
     "node_path": "/obj/PLAYGROUND_SIM/PROMOTED_BEHAVIOR",
     "node_type": "bzor::refractory_route::1.0",
-    "study_copy": "refractory-route.hda",
-    "sha256": "78b5de6db783e8d17fb0e2f02fc0d28a0e994a94960cd210716224f5cf30b1b7",
-    "handoff": "studies/001-memory-field/01_behavior/03_promoted",
-    "default_preset": "1",
     "presets": [
-      "14 · Braided deflection · Hard - switchbacks STUDY V1",
-      "26 · Resource pilgrimage · Drifting foragers STUDY v2",
-      "31 · Crowd pressure · Sparse crossings STUDY V3",
-      "38 · Drift and exploration · Responsive walkers - STUDY - v4",
-      "41 · Pulse waves · Long wave - v5"
+      "14 \u00b7 Braided deflection \u00b7 Hard - switchbacks STUDY V1",
+      "26 \u00b7 Resource pilgrimage \u00b7 Drifting foragers STUDY v2",
+      "31 \u00b7 Crowd pressure \u00b7 Sparse crossings STUDY V3",
+      "38 \u00b7 Drift and exploration \u00b7 Responsive walkers - STUDY - v4",
+      "41 \u00b7 Pulse waves \u00b7 Long wave - v5"
     ],
-    "source_selects": "studies/001-memory-field/01_behavior/02_selects"
+    "sha256": "78b5de6db783e8d17fb0e2f02fc0d28a0e994a94960cd210716224f5cf30b1b7",
+    "source_selects": "studies/001-memory-field/01_behavior/02_selects",
+    "study_copy": "refractory-route.hda"
   },
-  "frame_range": [1, 288],
+  "contract": "live-hda",
+  "duration_seconds": 18.75,
   "fps": 24,
-  "duration_seconds": 12,
-  "resolution": [1080, 1350],
-  "render_picture": "$HIP/renders/look.$F4.png",
+  "frame_range": [
+    1,
+    450
+  ],
+  "hip_bytes": 962612,
+  "hip_revision": "r002",
+  "hip_sha256": "6f5b8db09ace5b8f182d500afb4dbb030f79e91102dc27bbe15987653681cbac",
+  "houdini_version": "22.0.368",
+  "lock_receipt": "look.lock-receipt.json",
+  "lock_state": "locked",
+  "locked_snapshot": "locked/look.locked-r002.hiplc",
+  "overlay_parameter_manifest": "look.overlay-parameters.json",
   "playback_note": "Frame 1 is the initial state; Steps / Display Frame defaults to 2, so the 288-frame range covers 574 synchronous simulation steps.",
-  "artist_note": "Starter delivered untouched from the basic template; KC owns colour, materials, lighting, camera, and framing in this HIP.",
-  "lock_state": "unlocked",
-  "render_authorized": false
+  "preview_video": {
+    "duration_seconds": 15.0,
+    "fps": 30,
+    "frames": 450,
+    "note": "450 frames encoded at 30 fps. The scene, render, and specimen sidecar are authored at 24 fps; this preview plays the same frames 25 percent faster (15.0 s rather than 18.75 s).",
+    "path": "bhvr_001_var_001_memory-field.look-render.mp4"
+  },
+  "render_authorized": true,
+  "render_picture": "$HIP/renders/look.$F4.png",
+  "render_receipt": "renders/render-receipt.json",
+  "render_snapshot": "locked/look.locked-r002.hiplc",
+  "render_verified": true,
+  "resolution": [
+    1080,
+    1350
+  ],
+  "schema_version": 1,
+  "setup_id": "basic",
+  "setup_path": "houdini/look_setups/basic/basic.hiplc",
+  "state": "render-complete",
+  "study_id": "study-001-memory-field",
+  "variation": {
+    "behavior_number": 1,
+    "file_stem": "bhvr_001_var_001_memory-field",
+    "id": "variation-bhvr001-001-memory-field",
+    "number": 1,
+    "slug": "memory-field",
+    "title": "Memory Field"
+  }
 }

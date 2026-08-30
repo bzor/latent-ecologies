@@ -21,9 +21,9 @@ from houdini_ai.studio_store import StudioStore
 
 class StudyVaultTests(unittest.TestCase):
     def test_variation_file_stem_separates_variation_identity_from_revision(self) -> None:
-        self.assertEqual(variation_file_stem(2, "Fibrous Remodeling"), "var_002_fibrous-remodeling")
+        self.assertEqual(variation_file_stem(1, 2, "Fibrous Remodeling"), "bhvr_001_var_002_fibrous-remodeling")
         with self.assertRaises(ValueError):
-            variation_file_stem(0, "Invalid")
+            variation_file_stem(1, 0, "Invalid")
 
     def test_add_study_variation_records_stable_identity_and_lineage(self) -> None:
         with tempfile.TemporaryDirectory() as directory:
@@ -37,11 +37,11 @@ class StudyVaultTests(unittest.TestCase):
                 number=2,
                 title="Fibrous Remodeling",
                 behavior_selection_id="selection_001",
-                derived_from="variation-001-primary-treatment",
+                derived_from="variation-bhvr001-001-primary-treatment",
             )
 
-            self.assertEqual(variation["id"], "variation-002-fibrous-remodeling")
-            self.assertEqual(variation["file_stem"], "var_002_fibrous-remodeling")
+            self.assertEqual(variation["id"], "variation-bhvr001-002-fibrous-remodeling")
+            self.assertEqual(variation["file_stem"], "bhvr_001_var_002_fibrous-remodeling")
             registry = json.loads((vault / "00_study" / "variations.json").read_text(encoding="utf-8"))
             self.assertEqual(registry["current_variation_id"], variation["id"])
             self.assertEqual(registry["variations"][-1], variation)
@@ -56,11 +56,11 @@ class StudyVaultTests(unittest.TestCase):
             card_path.write_text(
                 json.dumps(
                     {
-                        "variation_id": "variation-001-primary-treatment",
+                        "variation_id": "variation-bhvr001-001-primary-treatment",
                         "variation_number": 1,
                         "variation_title": "Primary Treatment",
                         "variation_slug": "primary-treatment",
-                        "variation_file_stem": "var_001_primary-treatment",
+                        "variation_file_stem": "bhvr_001_var_001_primary-treatment",
                     }
                 ),
                 encoding="utf-8",
@@ -69,11 +69,11 @@ class StudyVaultTests(unittest.TestCase):
             add_study_variation(vault, number=2, title="Fibrous Remodeling")
 
             card = json.loads(card_path.read_text(encoding="utf-8"))
-            self.assertEqual(card["variation_id"], "variation-002-fibrous-remodeling")
+            self.assertEqual(card["variation_id"], "variation-bhvr001-002-fibrous-remodeling")
             self.assertEqual(card["variation_number"], 2)
             self.assertEqual(card["variation_title"], "Fibrous Remodeling")
             self.assertEqual(card["variation_slug"], "fibrous-remodeling")
-            self.assertEqual(card["variation_file_stem"], "var_002_fibrous-remodeling")
+            self.assertEqual(card["variation_file_stem"], "bhvr_001_var_002_fibrous-remodeling")
 
     def test_initialize_creates_the_complete_numbered_contract(self) -> None:
         with tempfile.TemporaryDirectory() as directory:
@@ -119,14 +119,15 @@ class StudyVaultTests(unittest.TestCase):
             self.assertEqual(
                 json.loads((vault / "00_study" / "variations.json").read_text(encoding="utf-8")),
                 {
-                    "current_variation_id": "variation-001-primary-treatment",
-                    "schema_version": 1,
+                    "current_variation_id": "variation-bhvr001-001-primary-treatment",
+                    "schema_version": 2,
                     "study_id": study["id"],
                     "variations": [{
                         "behavior_selection_id": None,
                         "derived_from": None,
-                        "file_stem": "var_001_primary-treatment",
-                        "id": "variation-001-primary-treatment",
+                        "behavior_number": 1,
+                        "file_stem": "bhvr_001_var_001_primary-treatment",
+                        "id": "variation-bhvr001-001-primary-treatment",
                         "number": 1,
                         "slug": "primary-treatment",
                         "state": "active",
@@ -186,12 +187,12 @@ class StudyVaultTests(unittest.TestCase):
                 code = cli.main([
                     "studio", "study-variation-add", study["id"], "2", "Fibrous Remodeling",
                     "--behavior-selection-id", "selection_001",
-                    "--derived-from", "variation-001-primary-treatment",
+                    "--derived-from", "variation-bhvr001-001-primary-treatment",
                 ])
 
             self.assertEqual(code, 0)
-            self.assertIn("variation: variation-002-fibrous-remodeling", output.getvalue())
-            self.assertIn("file-stem: var_002_fibrous-remodeling", output.getvalue())
+            self.assertIn("variation: variation-bhvr001-002-fibrous-remodeling", output.getvalue())
+            self.assertIn("file-stem: bhvr_001_var_002_fibrous-remodeling", output.getvalue())
 
 
 if __name__ == "__main__":

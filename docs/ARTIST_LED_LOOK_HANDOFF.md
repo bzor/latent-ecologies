@@ -84,7 +84,7 @@ parameters while the look develops. A heavy simulation may bake an internal cach
 but the cache is never the handoff itself and is always regenerable from the HDA.
 
 The canonical handoff package (HDA, demo scene, embedded initial states, receipts,
-and audit) lives inside the Study, at `studies/<study>/01_behavior/03_promoted/`,
+and audit) lives inside the Study, at `studies/<study>/01_behavior/03_selected/`,
 not under `work/studio/handoffs/` (KC direction, 2026-08-24: keep promotion
 artifacts in the studies directory). Promotion is not complete until the HDA is
 also wired into the chosen look-setup template in the Study's `02_look` directory
@@ -241,9 +241,10 @@ no anomalies. Report the median and maximum residual in the render record.
   whatever rate the look template was authored at. Set `--fps` only when a Study needs
   something else, and record why.
 - **The preview video sits in the Look directory**, as
-  `studies/<study>/02_look/look-render.mp4`, beside `look.hiplc`. Frames stay in
-  `02_look/renders/`. KC should not have to open the frame directory to watch a
-  render.
+  `studies/<study>/02_look/<variation-stem>.look-render.mp4`, beside the Look HIP.
+  Frames stay in `02_look/renders/`. KC should not have to open the frame directory
+  to watch a render. The preview carries the variation stem because a Study holds
+  several of them at once.
 - Point the overlay config's `render.video` at that path so the detail-pass backdrop
   loads from the same file KC reviews.
 

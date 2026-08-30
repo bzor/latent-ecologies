@@ -130,6 +130,11 @@ def main() -> int:
     parser.add_argument("--fps", type=int, help="defaults to the HIP fps")
     parser.add_argument("--card", type=Path, help="canonical 00_study/study-card.json (text identity source)")
     parser.add_argument("--parameter-manifest", type=Path, help="locked-HIP overlay parameter manifest")
+    parser.add_argument(
+        "--behavior-number", type=int,
+        help="promoted behavior this variation descends from; supplies the bhvr_NNN part of the "
+             "stem when the HDA does not expose one (default 1)",
+    )
     parser.add_argument("--id", help="overlay id override, e.g. STUDY-003")
     parser.add_argument("--number", type=int, help="override (required when no --card)")
     parser.add_argument("--title", help="override (required when no --card)")
@@ -165,7 +170,9 @@ def main() -> int:
     manifest_fields = {}
     manifest_params: list[list[str]] = []
     if args.parameter_manifest:
-        manifest_fields = overlay_manifest_fields(load_overlay_parameter_manifest(args.parameter_manifest))
+        manifest_fields = overlay_manifest_fields(
+            load_overlay_parameter_manifest(args.parameter_manifest), args.behavior_number
+        )
         manifest_params = manifest_fields.pop("params")
         text["variation"] = manifest_fields.pop("variation")
     text["params"] = [list(pair) for pair in text["params"]] + manifest_params + [item.split("=", 1) for item in args.param]

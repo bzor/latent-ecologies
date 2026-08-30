@@ -15,11 +15,11 @@ def sample_card() -> dict:
     return {
         "schema_version": 1,
         "study_id": "study-003-nonlocal-affinity-dance",
-        "variation_id": "variation-001-primary-treatment",
+        "variation_id": "variation-bhvr001-001-primary-treatment",
         "variation_number": 1,
         "variation_title": "Primary Treatment",
         "variation_slug": "primary-treatment",
-        "variation_file_stem": "var_001_primary-treatment",
+        "variation_file_stem": "bhvr_001_var_001_primary-treatment",
         "number": 3,
         "title": "NONLOCAL AFFINITY",
         "subtitle": "agent fields with distance-defying attraction",
@@ -105,11 +105,11 @@ class StudyCardTests(unittest.TestCase):
         self.assertEqual(
             fields["variation"],
             {
-                "id": "variation-001-primary-treatment",
+                "id": "variation-bhvr001-001-primary-treatment",
                 "number": 1,
                 "title": "Primary Treatment",
                 "slug": "primary-treatment",
-                "file_stem": "var_001_primary-treatment",
+                "file_stem": "bhvr_001_var_001_primary-treatment",
             },
         )
         self.assertEqual(fields["summary"], "Agents form transient alliances with distant partners.")
@@ -134,11 +134,11 @@ class StudyCardTests(unittest.TestCase):
         study = {
             "id": "STUDY-003", "title": "T", "fps": 24, "frames": 3,
             "variation": {
-                "id": "variation-001-primary-treatment",
+                "id": "variation-bhvr001-001-primary-treatment",
                 "number": 1,
                 "title": "Primary Treatment",
                 "slug": "primary-treatment",
-                "file_stem": "var_001_primary-treatment",
+                "file_stem": "bhvr_001_var_001_primary-treatment",
             },
             "bullets": ["ok"],
             "tracks": {

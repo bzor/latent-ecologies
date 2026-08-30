@@ -25,6 +25,8 @@ from typing import Any, Mapping, Sequence
 
 from PIL import Image
 
+from .study_vault import VARIATION_STEM
+
 PROJECT_ROOT = Path(__file__).resolve().parents[2]
 OVERLAY_ROOT = PROJECT_ROOT / "design-overlay-generator"
 DEFAULT_CHROME = Path(r"C:\Program Files\Google\Chrome\Application\chrome.exe")
@@ -67,7 +69,7 @@ def variation_package_names(study: Mapping[str, Any]) -> dict[str, str]:
     if not isinstance(variation, Mapping):
         raise ValueError("study.json has no variation object")
     stem = variation.get("file_stem")
-    if not isinstance(stem, str) or not re.fullmatch(r"var_[0-9]{3}_[a-z0-9]+(?:-[a-z0-9]+)*", stem):
+    if not isinstance(stem, str) or VARIATION_STEM.fullmatch(stem) is None:
         raise ValueError("study.json variation file_stem is not canonical")
     return {
         "delivery": f"{stem}.delivery.mp4",
