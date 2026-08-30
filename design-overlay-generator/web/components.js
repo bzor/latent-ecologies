@@ -438,8 +438,8 @@
       gapTop: 0, kickerMarginSide: 2, gapKickerNumeral: 0, numeralMarginSide: -4,
       gapNumeralAccent: 0, accentMarginSide: 0, accentWidth: 46, gapAccentTitle: 0,
       titleMarginSide: 0, gapTitleSubtitle: 0, variationLine: true,
-      variationMarginSide: 0, gapVariationSubtitle: 0,
-      sourceLine: false, subtitleMarginSide: 0, subtitleWidth: 240,
+      variationSize: 11, variationMarginSide: 0, gapVariationSubtitle: 0,
+      sourceLine: false, dateLine: true, subtitleMarginSide: 0, subtitleWidth: 240,
     },
     schema: [
       { key: "anchor", label: "anchor", type: "select", options: ["auto", "top", "bottom"] },
@@ -457,9 +457,11 @@
       { key: "titleMarginSide", label: "title margin (x)", type: "number", min: -40, max: 40, step: 1 },
       { key: "gapTitleSubtitle", label: "gap margin (y): title → subtitle", type: "number", min: -40, max: 60, step: 1 },
       { key: "variationLine", label: "behavior / variation line", type: "bool" },
+      { key: "variationSize", label: "variation size (u)", type: "number", min: 6, max: 40, step: 0.5 },
       { key: "variationMarginSide", label: "variation margin (x)", type: "number", min: -40, max: 40, step: 1 },
       { key: "gapVariationSubtitle", label: "gap margin (y): variation → subtitle", type: "number", min: -40, max: 60, step: 1 },
-      { key: "sourceLine", label: "source / date line", type: "bool" },
+      { key: "sourceLine", label: "source line", type: "bool" },
+      { key: "dateLine", label: "date line", type: "bool" },
       { key: "subtitleMarginSide", label: "subtitle margin (x)", type: "number", min: -40, max: 40, step: 1 },
       { key: "subtitleWidth", label: "subtitle wrap width", type: "number", min: 80, max: 500, step: 5 },
     ],
@@ -507,12 +509,19 @@
 
       // Three-axis index line: behavior + variation numbers from the study's
       // variation record (absent on the sample study and legacy exports).
+      // Display voice like the title, at its own configurable size.
       if (p.variationLine && study.variation &&
           study.variation.behavior_number !== undefined && study.variation.number !== undefined) {
         const idx = "BHVR " + h.pad(study.variation.behavior_number, 3) +
           " / VAR " + h.pad(study.variation.number, 3);
-        y = h.drawMiniBlock(ctx, L, P, x + p.variationMarginSide * u, y, [{ t: idx, dim: true }]) +
-          p.gapVariationSubtitle * u;
+        const varSizePx = Math.round(p.variationSize * u);
+        ctx.font = "700 " + varSizePx + "px " + T.display;
+        try { ctx.letterSpacing = (varSizePx * T.titleTracking).toFixed(2) + "px"; } catch (e) {}
+        ctx.fillStyle = P.ink;
+        ctx.textAlign = "left"; ctx.textBaseline = "alphabetic";
+        ctx.fillText(idx, x + p.variationMarginSide * u, y + p.variationSize * u);
+        try { ctx.letterSpacing = "0px"; } catch (e) {}
+        y += p.variationSize * u + 12 * u + p.gapVariationSubtitle * u;
       }
 
       if (p.subtitle) {
@@ -522,7 +531,8 @@
           ...h.wrapMini(ctx, study.subtitle.toUpperCase(), maxWidth),
           // Off by default: a source worth citing (arXiv id) earns the line;
           // exporters that fill source with the study folder name do not.
-          ...(p.sourceLine ? h.wrapMini(ctx, "SRC " + study.source + "   " + study.date, maxWidth) : []),
+          ...(p.sourceLine ? h.wrapMini(ctx, "SRC " + study.source, maxWidth) : []),
+          ...(p.dateLine && study.date ? [study.date] : []),
         ].map((t) => ({ t, dim: true }));
         h.drawMiniBlock(ctx, L, P, x + p.subtitleMarginSide * u, y, lines);
       }
