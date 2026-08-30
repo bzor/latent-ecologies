@@ -437,7 +437,7 @@
       anchor: "auto", kicker: true, accent: true, subtitle: true,
       gapTop: 0, kickerMarginSide: 2, gapKickerNumeral: 0, numeralMarginSide: -4,
       gapNumeralAccent: 0, accentMarginSide: 0, accentWidth: 46, gapAccentTitle: 0,
-      titleMarginSide: 0, gapTitleSubtitle: 0, subtitleMarginSide: 0,
+      titleMarginSide: 0, gapTitleSubtitle: 0, subtitleMarginSide: 0, subtitleWidth: 240,
     },
     schema: [
       { key: "anchor", label: "anchor", type: "select", options: ["auto", "top", "bottom"] },
@@ -455,6 +455,7 @@
       { key: "titleMarginSide", label: "title margin (x)", type: "number", min: -40, max: 40, step: 1 },
       { key: "gapTitleSubtitle", label: "gap margin (y): title → subtitle", type: "number", min: -40, max: 60, step: 1 },
       { key: "subtitleMarginSide", label: "subtitle margin (x)", type: "number", min: -40, max: 40, step: 1 },
+      { key: "subtitleWidth", label: "subtitle wrap width", type: "number", min: 80, max: 500, step: 5 },
     ],
     // Every line has its own left-margin offset (side of x=m) and every gap
     // between lines is additive on top of the original fixed spacing —
@@ -494,15 +495,18 @@
       ctx.font = "700 " + titleSizePx + "px " + T.display;
       try { ctx.letterSpacing = (titleSizePx * T.titleTracking).toFixed(2) + "px"; } catch (e) {}
       ctx.fillStyle = P.ink;
-      ctx.fillText(study.title, x + p.titleMarginSide * u, y + titleSize);
+      ctx.fillText(study.title.toUpperCase(), x + p.titleMarginSide * u, y + titleSize);
       try { ctx.letterSpacing = "0px"; } catch (e) {}
       y += titleSize + 12 * u + p.gapTitleSubtitle * u;
 
       if (p.subtitle) {
-        h.drawMiniBlock(ctx, L, P, x + p.subtitleMarginSide * u, y, [
-          { t: study.subtitle.toUpperCase(), dim: true },
-          { t: "SRC " + study.source + "   " + study.date, dim: true },
-        ]);
+        h.miniFont(ctx, 8.5 * u);
+        const maxWidth = p.subtitleWidth * u;
+        const lines = [
+          ...h.wrapMini(ctx, study.subtitle.toUpperCase(), maxWidth),
+          ...h.wrapMini(ctx, "SRC " + study.source + "   " + study.date, maxWidth),
+        ].map((t) => ({ t, dim: true }));
+        h.drawMiniBlock(ctx, L, P, x + p.subtitleMarginSide * u, y, lines);
       }
     },
   });
