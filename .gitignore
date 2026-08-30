@@ -50,10 +50,15 @@ Thumbs.db
 # Approved-artifact archives stay local (exceed platform file-size limits)
 studies/*/01_behavior/99_backups/
 
-# Legacy pre-contract Study directories mirror the study_* rules above
+# Legacy pre-contract Study directories mirror the study_* rules above. The heavy-media
+# rules further up are scoped to studies/study_*/, which this directory name predates.
+studies/001-memory-field/02_look/renders/
+studies/001-memory-field/**/*.mp4
+studies/001-memory-field/**/*.mov
+studies/001-memory-field/**/*.exr
 studies/001-memory-field/01_behavior/01_work/
-studies/001-memory-field/01_behavior/03_promoted/backup/
-studies/001-memory-field/01_behavior/03_promoted/receipts/
+studies/001-memory-field/01_behavior/03_selected/backup/
+studies/001-memory-field/01_behavior/03_selected/receipts/
 studies/001-memory-field/02_look/backup/
 
 # Hermes working scratch; .hermes/plans/ stays versioned
