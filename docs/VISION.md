@@ -46,7 +46,7 @@ Look development (artist-led)
         │  KC declares the HIP locked
         ▼
 Render (system-owned)
-  bounded, resumable, verified; not yet the final artifact
+  bounded, single-pass, verified; not yet the final artifact
         │  render verified
         ▼
 Detail pass (design overlay generator)
@@ -119,9 +119,14 @@ snapshots it (path, checksum, versions, frame range) and preflights a fresh reop
 
 ### 5. Render
 
-The system owns bounded, resumable rendering of the locked snapshot: deterministic frame
-paths, interruption-safe resume, frame validation, encoding, and a render receipt bound
-to the locked HIP checksum. A completed render is not yet the final artifact.
+The system owns bounded rendering of the locked snapshot: deterministic frame paths,
+frame validation, temporal continuity validation, encoding, and a render receipt bound to
+the locked HIP checksum. A completed render is not yet the final artifact.
+
+A delivery render runs as one uninterrupted pass. Resume is only safe once a scene's
+geometry is cached to disk, because a live-HDA scene re-cooks its solver per run and the
+joins between runs are visible in motion. Deliverables are 30 fps, and the preview encode
+sits in the Look directory beside the HIP. See `RENDER_INTEGRITY.md`.
 
 **Gate:** render verified — the package moves automatically to the detail pass.
 
@@ -165,6 +170,16 @@ governed by an explicit allowlist. Public exposure is treated as irreversible.
 - **Detail-pass promote (stage 6):** built — see `DETAIL_PASS_PROMOTE.md`. The
   remaining wiring is Hermes-side: calling `python -m houdini_ai.detail_promote` when
   KC promotes in the Study thread, and posting the preview back.
+- **Safe resume (stage 5):** a delivery render must currently run in one pass, because
+  runs do not share a solver trajectory. Caching a simulation to disk in the Look HIP
+  removes the cause and makes resume safe. Not yet adopted; it is a post-lock scene
+  change and needs KC's approval per Study. See `RENDER_INTEGRITY.md`.
+- **Overlay manifest checksum (stage 6):** a headless manifest export cannot bind a HIP
+  checksum, so locked delivery needs one manual GUI export. Fixing the dirty check in
+  the HDA builder would close it.
+- **Legacy Study directories:** `studies/001-memory-field/` predates the
+  `study_NNN_slug` contract and has no `00_study/`. `study-init` would create a parallel
+  directory rather than adopt it, so migration is an explicit decision.
 - **Setup library (stage 4):** only `basic` exists; grows organically with use.
 
 ## Document map
@@ -177,6 +192,7 @@ Current, canonical:
   publication boundary.
 - `STUDIO_PROTOCOL.md` — KC–Hermes conversational conventions.
 - `ARTIST_LED_LOOK_HANDOFF.md` — stage 4–6 mechanics (live-HDA contract).
+- `RENDER_INTEGRITY.md` — stage 5 reproducibility limits, the single-run rule, and sequence verification.
 - `DETAIL_PASS_PROMOTE.md` — stage 6 detail-pass and promote flow.
 - `THREEJS_PROTOTYPE_ROUTE.md` — stage 3 browser-prototype route and identity contract.
 

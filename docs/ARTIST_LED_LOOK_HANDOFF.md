@@ -186,20 +186,69 @@ Suggested states:
 
 ## 7. Render execution
 
-Hermes owns bounded, resumable rendering, not presentation decisions.
+Hermes owns bounded rendering and verification. Presentation decisions stay with KC.
 
 The render stage should:
 
 - consume the locked snapshot;
 - render deterministic frame paths;
-- preserve already valid frames after interruption;
+- render a delivery sequence as one uninterrupted run;
 - validate frame numbers, dimensions, decoding, freshness, and visible content;
+- validate temporal continuity across the sequence;
 - record errors and terminate bounded process trees on timeout;
 - encode and probe requested video or image-sequence outputs;
 - generate a render receipt bound to the locked HIP checksum;
 - never publish automatically.
 
 A completed render is still not the post-ready artifact.
+
+### Single-run rule
+
+A live-HDA scene re-cooks its solver from the start frame on every render run, and a
+multi-threaded solver drifts at float level between processes. Frames rendered in
+separate runs therefore sit on different trajectories, and the join reads as a
+one-frame pop in motion. Per-frame validation cannot see it.
+
+A delivery render is one run over the whole frame range, with `renders/` empty so
+every frame is pending. Cost probes render to a scratch path, never into the delivery
+directory, because a reused single-frame run is the worst case of this failure.
+
+`render_look_sequence.py` records run structure in its receipt, warns when a render
+would be stitched from several runs, and refuses to start under `--require-contiguous`
+when it would reuse frames.
+
+Resume stays unsafe for such a scene until the simulation is cached to disk. That
+option, its cost, and the measured figures behind this rule are in
+`RENDER_INTEGRITY.md`.
+
+### Verification
+
+Frame-level checks are not sufficient on their own. Run the temporal residual scan
+before handing a render onward, and again after any partial re-render:
+
+```powershell
+python scripts/verify_render_sequence.py studies/<study>/02_look/renders `
+    --pattern "look.*.png" --start <first> --end <last>
+```
+
+A render is verified when the frame set is complete and uniform and the scan reports
+no anomalies. Report the median and maximum residual in the render record.
+
+### Delivery conventions
+
+- **Frame rate is 30 fps.** `config/project.json` carries `default_fps`, and
+  `instantiate_look_starter.py` sets it on every new starter rather than inheriting
+  whatever rate the look template was authored at. Set `--fps` only when a Study needs
+  something else, and record why.
+- **The preview video sits in the Look directory**, as
+  `studies/<study>/02_look/look-render.mp4`, beside `look.hiplc`. Frames stay in
+  `02_look/renders/`. KC should not have to open the frame directory to watch a
+  render.
+- Point the overlay config's `render.video` at that path so the detail-pass backdrop
+  loads from the same file KC reviews.
+
+A render whose scene frame rate differs from the delivery rate plays at a different
+duration than the scene timing implies. Record both rates when they differ.
 
 ## 8. Detail/overlay handoff
 
