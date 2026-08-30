@@ -2703,7 +2703,7 @@
   ],
   "bullets": [],
   "credits": "",
-  "date": "",
+  "date": "2026-08-30",
   "fps": 30,
   "frame_range": [
     1,
@@ -3725,8 +3725,8 @@
     "seed": 18432,
     "substeps": 2
   },
-  "source": "",
-  "subtitle": "",
+  "source": "001-memory-field",
+  "subtitle": "agents shape territory through their own decaying memory",
   "summary": "",
   "title": "Memory Field",
   "tracks": {

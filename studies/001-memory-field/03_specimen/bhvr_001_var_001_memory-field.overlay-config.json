@@ -1,0 +1,544 @@
+{
+  "studyId": "STUDY-001",
+  "aspect": "4:5 | 1080x1350",
+  "palette": "custom",
+  "custom": {
+    "colors": [
+      "#d8f4fd",
+      "#9ba3ad",
+      "#c76666",
+      "#2f183c"
+    ],
+    "roles": {
+      "ink": 3,
+      "faint": 3,
+      "ghost": 3,
+      "accent": 2
+    }
+  },
+  "type": {
+    "numeral": "Isonorm Monospaced",
+    "numeralSize": 118,
+    "numeralTracking": -0.15,
+    "display": "Isonorm MN",
+    "titleSize": 18,
+    "titleTracking": 0.14,
+    "mini": "Iosevka Mono Light",
+    "miniSize": 8,
+    "miniTracking": 0,
+    "miniLineHeight": 12,
+    "miniMarginSide": 0,
+    "miniMarginTop": 0,
+    "micro": "kroeger 07_56 (pixel)",
+    "microSize": 6,
+    "microTracking": 0
+  },
+  "components": {
+    "frame": {
+      "enabled": true,
+      "bracketLen": 4,
+      "gap": 2,
+      "flip": true,
+      "regTopBottom": true,
+      "regTopBottomSize": 3,
+      "regLeftRight": true,
+      "regLeftRightSize": 3,
+      "colorBar": true
+    },
+    "ruler": {
+      "enabled": false,
+      "divisions": 4,
+      "tickLen": 10,
+      "labels": true,
+      "avoidStudy": true,
+      "mirror": false,
+      "opacity": 1
+    },
+    "bbox": {
+      "enabled": false,
+      "brackets": false,
+      "bracketLen": 3,
+      "gap": 0,
+      "flip": false,
+      "coords": false,
+      "scanline": false
+    },
+    "trackCallout": {
+      "enabled": true,
+      "instances": [
+        {
+          "track": "P1",
+          "dx": 62,
+          "dy": 34,
+          "marker": "crosshair",
+          "markerSize": 8,
+          "label": false,
+          "value": "",
+          "spark": false,
+          "sparkFrames": 64,
+          "trail": 20,
+          "accent": false
+        },
+        {
+          "track": "P128",
+          "dx": 52,
+          "dy": -52,
+          "marker": "ring",
+          "markerSize": 2,
+          "label": true,
+          "value": "",
+          "spark": true,
+          "sparkFrames": 64,
+          "trail": 0,
+          "accent": true
+        },
+        {
+          "track": "P1",
+          "dx": 52,
+          "dy": -52,
+          "marker": "ring",
+          "markerSize": 2,
+          "label": true,
+          "value": "",
+          "spark": true,
+          "sparkFrames": 64,
+          "trail": 0,
+          "accent": true
+        }
+      ]
+    },
+    "identity": {
+      "enabled": true,
+      "showSolver": true,
+      "showSeed": true
+    },
+    "dotMatrix": {
+      "enabled": true,
+      "instances": [
+        {
+          "side": "right",
+          "gx": 0,
+          "gy": 0,
+          "cols": 4,
+          "rows": 16,
+          "epochFrames": 30,
+          "density": 0.2
+        }
+      ]
+    },
+    "dial": {
+      "enabled": false,
+      "series": "cohesion",
+      "radius": 28,
+      "showValue": true
+    },
+    "studyBlock": {
+      "enabled": true,
+      "anchor": "bottom",
+      "kicker": true,
+      "accent": true,
+      "subtitle": true,
+      "gapTop": -190,
+      "kickerMarginSide": 1,
+      "gapKickerNumeral": -8,
+      "numeralMarginSide": -11,
+      "gapNumeralAccent": -3,
+      "accentMarginSide": 0,
+      "accentWidth": 40,
+      "gapAccentTitle": -9,
+      "titleMarginSide": 0,
+      "gapTitleSubtitle": 0,
+      "subtitleMarginSide": 0,
+      "subtitleWidth": 125
+    },
+    "specTable": {
+      "enabled": false,
+      "width": 165,
+      "cycleSec": 3,
+      "highlight": true
+    },
+    "bars": {
+      "enabled": false,
+      "series": "energy",
+      "bins": 48,
+      "width": 150,
+      "height": 34,
+      "label": ""
+    },
+    "summaryBlock": {
+      "enabled": true,
+      "side": "left",
+      "gx": 0.01,
+      "gy": 25.9,
+      "widthCols": 4,
+      "heading": "SUMMARY",
+      "rule": true
+    },
+    "bulletBlock": {
+      "enabled": false,
+      "side": "right",
+      "gx": 0,
+      "gy": 6,
+      "widthCols": 3,
+      "tick": "·",
+      "accentTicks": true
+    },
+    "footer": {
+      "enabled": false,
+      "blink": true
+    },
+    "tag": {
+      "enabled": true,
+      "text": ""
+    },
+    "scatterRects": {
+      "enabled": true,
+      "opacity": 1,
+      "instances": [
+        {
+          "gx": 0,
+          "gy": 6,
+          "width": 1,
+          "height": 0.1,
+          "mirror": true
+        },
+        {
+          "gx": 0,
+          "gy": 6.125,
+          "width": 1,
+          "height": 0.05,
+          "mirror": false
+        },
+        {
+          "gx": 0,
+          "gy": 6.25,
+          "width": 1,
+          "height": 0.02,
+          "mirror": false
+        },
+        {
+          "gx": 0,
+          "gy": 7,
+          "width": 0.05,
+          "height": 1,
+          "mirror": false
+        },
+        {
+          "gx": 0,
+          "gy": 7,
+          "width": 0.05,
+          "height": 0.05,
+          "mirror": true
+        },
+        {
+          "gx": 15,
+          "gy": 5,
+          "width": 2,
+          "height": 0.02,
+          "mirror": false
+        },
+        {
+          "gx": 15,
+          "gy": 4.95,
+          "width": 2,
+          "height": 0.02,
+          "mirror": false
+        },
+        {
+          "gx": 15,
+          "gy": 4.9,
+          "width": 1,
+          "height": 0.1,
+          "mirror": false
+        },
+        {
+          "gx": 15,
+          "gy": 4,
+          "width": 1,
+          "height": 0.03,
+          "mirror": false
+        },
+        {
+          "gx": 15,
+          "gy": 4,
+          "width": 1,
+          "height": 0.2,
+          "mirror": false
+        },
+        {
+          "gx": 15,
+          "gy": 4.21,
+          "width": 0.2,
+          "height": 0.04,
+          "mirror": true
+        },
+        {
+          "gx": 15,
+          "gy": 3.21,
+          "width": 0.2,
+          "height": 0.04,
+          "mirror": true
+        },
+        {
+          "gx": 15,
+          "gy": 3.21,
+          "width": 0.45,
+          "height": 0.04,
+          "mirror": false
+        },
+        {
+          "gx": 15,
+          "gy": 3,
+          "width": 0.45,
+          "height": 0.04,
+          "mirror": false
+        },
+        {
+          "gx": 15,
+          "gy": 3,
+          "width": 0.1,
+          "height": 0.04,
+          "mirror": true
+        },
+        {
+          "gx": 15,
+          "gy": 20,
+          "width": 1,
+          "height": 0.04,
+          "mirror": true
+        },
+        {
+          "gx": 15,
+          "gy": 20,
+          "width": 0.3,
+          "height": 0.04,
+          "mirror": true
+        },
+        {
+          "gx": 15,
+          "gy": 23,
+          "width": 0.05,
+          "height": 1,
+          "mirror": false
+        },
+        {
+          "gx": 15.07,
+          "gy": 23,
+          "width": 0.05,
+          "height": 0.4,
+          "mirror": false
+        },
+        {
+          "gx": 15.07,
+          "gy": 23,
+          "width": 0.05,
+          "height": 0.1,
+          "mirror": false
+        },
+        {
+          "gx": 15.07,
+          "gy": 23.5,
+          "width": 0.05,
+          "height": 0.5,
+          "mirror": false
+        },
+        {
+          "gx": 15.15,
+          "gy": 23,
+          "width": 0.85,
+          "height": 1,
+          "mirror": false
+        },
+        {
+          "gx": 15.95,
+          "gy": 23,
+          "width": 0.05,
+          "height": 1,
+          "mirror": false
+        },
+        {
+          "gx": 15.95,
+          "gy": 23,
+          "width": 0.05,
+          "height": 0.1,
+          "mirror": false
+        },
+        {
+          "gx": 6,
+          "gy": 23,
+          "width": 0.1,
+          "height": 0.1,
+          "mirror": false
+        },
+        {
+          "gx": 6,
+          "gy": 23,
+          "width": 0.1,
+          "height": 0.1,
+          "mirror": false
+        },
+        {
+          "gx": 6,
+          "gy": 23.15,
+          "width": 0.1,
+          "height": 0.05,
+          "mirror": false
+        },
+        {
+          "gx": 6.14,
+          "gy": 23,
+          "width": 0.1,
+          "height": 0.2,
+          "mirror": false
+        },
+        {
+          "gx": 6.14,
+          "gy": 23,
+          "width": 9,
+          "height": 0.02,
+          "mirror": false
+        },
+        {
+          "gx": 16,
+          "gy": 23.9,
+          "width": 0.1,
+          "height": 0.1,
+          "mirror": false
+        },
+        {
+          "gx": 22,
+          "gy": 7,
+          "width": 0.03,
+          "height": 10,
+          "mirror": false
+        },
+        {
+          "gx": 22,
+          "gy": 7,
+          "width": 0.06,
+          "height": 1,
+          "mirror": false
+        },
+        {
+          "gx": 22,
+          "gy": 17,
+          "width": 0.1,
+          "height": 0.1,
+          "mirror": false
+        },
+        {
+          "gx": 23,
+          "gy": 17,
+          "width": 0.05,
+          "height": 0.1,
+          "mirror": false
+        },
+        {
+          "gx": 0,
+          "gy": 17,
+          "width": 0.05,
+          "height": 0.1,
+          "mirror": false
+        },
+        {
+          "gx": 0,
+          "gy": 28,
+          "width": 1,
+          "height": 1,
+          "mirror": false
+        },
+        {
+          "gx": 0,
+          "gy": 28,
+          "width": 0.05,
+          "height": 1,
+          "mirror": false
+        },
+        {
+          "gx": 1,
+          "gy": 28,
+          "width": 0.05,
+          "height": 0.05,
+          "mirror": false
+        },
+        {
+          "gx": 1,
+          "gy": 28.95,
+          "width": 10.2,
+          "height": 0.05,
+          "mirror": false
+        },
+        {
+          "gx": 11.1,
+          "gy": 28.9,
+          "width": 0.1,
+          "height": 0.05,
+          "mirror": false
+        },
+        {
+          "gx": 1,
+          "gy": 28.85,
+          "width": 0.1,
+          "height": 0.05,
+          "mirror": false
+        },
+        {
+          "gx": 0,
+          "gy": 28.85,
+          "width": 0.8,
+          "height": 0.05,
+          "mirror": false
+        },
+        {
+          "gx": 0,
+          "gy": 28.8,
+          "width": 2,
+          "height": 0.02,
+          "mirror": false
+        },
+        {
+          "gx": 0,
+          "gy": 24.2,
+          "width": 0.02,
+          "height": 3.98,
+          "mirror": false
+        },
+        {
+          "gx": 0,
+          "gy": 26,
+          "width": 0.1,
+          "height": 0.05,
+          "mirror": false
+        },
+        {
+          "gx": 0,
+          "gy": 24.2,
+          "width": 0.1,
+          "height": 0.05,
+          "mirror": false
+        }
+      ]
+    },
+    "grid": {
+      "enabled": true,
+      "cols": 23,
+      "rows": 20,
+      "marginPct": 2.5,
+      "square": true,
+      "showCols": true,
+      "showRows": true,
+      "showMargin": false,
+      "dashed": false,
+      "opacity": 0.1
+    }
+  },
+  "ui": {
+    "matte": false,
+    "safe": false,
+    "fullsize": true
+  },
+  "render": {
+    "still": "studies/001-memory-field/02_look/renders/look.0225.png",
+    "video": "studies/001-memory-field/02_look/bhvr_001_var_001_memory-field.look-render.mp4"
+  }
+}
