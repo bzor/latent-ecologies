@@ -20,23 +20,32 @@
   "contract": "live-hda",
   "detail_tracking": {
     "group": "overlay_track",
-    "label_attrib": "track_label",
     "node": "/obj/PLAYGROUND_SIM/OVERLAY_TRACK",
-    "state": "empty; list point numbers in the snippet to enable callouts"
+    "track_values": [
+      "energy",
+      "phase"
+    ],
+    "tracked_agents": [
+      1,
+      128,
+      256,
+      380
+    ]
   },
   "duration_seconds": 18.75,
   "fps": 24,
+  "fps_note": "The scene is authored at 24 fps (fps field above). The specimen sidecar and the delivered package are 30 fps: detail_promote passes the sidecar's fps straight to ffmpeg, so it must match the approved 30 fps preview.",
   "frame_range": [
     1,
     450
   ],
-  "hip_bytes": 968088,
-  "hip_revision": "r003",
-  "hip_sha256": "36eafcae706c57eec8946fc14d0d7530378950bcc3e58b3d31a26364adaa1bcd",
+  "hip_bytes": 967318,
+  "hip_revision": "r004",
+  "hip_sha256": "74b986a2952b233f4283582f38b0259d27bb4fe12f5b83010005bc355bd4b8db",
   "houdini_version": "22.0.368",
   "lock_receipt": "look.lock-receipt.json",
   "lock_state": "locked",
-  "locked_snapshot": "locked/look.locked-r003.hiplc",
+  "locked_snapshot": "locked/look.locked-r004.hiplc",
   "overlay_parameter_manifest": "look.overlay-parameters.json",
   "playback_note": "Frame 1 is the initial state; Steps / Display Frame defaults to 2, so the 288-frame range covers 574 synchronous simulation steps.",
   "preview_video": {

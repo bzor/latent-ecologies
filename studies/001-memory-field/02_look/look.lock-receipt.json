@@ -21,6 +21,27 @@
   "color_pipeline": {
     "ocio": "C:/PROGRA~1/SIDEEF~1/HOUDIN~2.368/packages/ocio/houdini-config-v3.0.0_aces-v2.0_ocio-v2.5.ocio"
   },
+  "detail_tracking": {
+    "input": "blast1 (agent points only, so listed numbers are agent indices 0..511)",
+    "labels": [
+      "P1",
+      "P128",
+      "P256",
+      "P380"
+    ],
+    "node": "/obj/PLAYGROUND_SIM/OVERLAY_TRACK",
+    "track_values": [
+      "energy",
+      "phase"
+    ],
+    "tracked": [
+      1,
+      128,
+      256,
+      380
+    ],
+    "warning": "this node is in the render path; it must only tag points, never delete them"
+  },
   "duration_seconds": 18.75,
   "fps": 24.0,
   "frame_range": [
@@ -36,8 +57,8 @@
     "bytes": 965128,
     "houdini_version": "22.0.368",
     "path": "studies/001-memory-field/02_look/look.hiplc",
-    "revision": "r003",
-    "sha256": "36eafcae706c57eec8946fc14d0d7530378950bcc3e58b3d31a26364adaa1bcd"
+    "revision": "r004",
+    "sha256": "74b986a2952b233f4283582f38b0259d27bb4fe12f5b83010005bc355bd4b8db"
   },
   "output_products": {
     "directory": "renders/",
@@ -137,6 +158,23 @@
       "role": "current authoritative HIP; adds the OVERLAY_TRACK detail-pass wrangle",
       "sha256": "36eafcae706c57eec8946fc14d0d7530378950bcc3e58b3d31a26364adaa1bcd",
       "snapshot": "locked/look.locked-r003.hiplc"
+    },
+    "r004": {
+      "changed_nodes": [
+        "OVERLAY_TRACK moved into the render path: blast1 -> OVERLAY_TRACK -> copytopoints1[1], trail1[0]",
+        "removed an else-branch removepoint() from the snippet, which culled every untracked agent",
+        "tracked agents 1, 128, 256, 380 (indices into blast1's 512 agent points)"
+      ],
+      "evidence": [
+        "OUT_SIMULATION unchanged against the pre-edit baseline at frames 1, 225, and 450: 348160/350208/350208 points, agents 130048, field 218112",
+        "overlay_track carries 1016 members, the 254 sphere copies of each of the four flagged agents; the exporter keys tracks by label so they resolve to four callouts",
+        "fresh reopen cooks all three frames with no errors"
+      ],
+      "image_affecting": false,
+      "render_still_valid": true,
+      "role": "current authoritative HIP; OVERLAY_TRACK spliced into the agent branch with four agents flagged",
+      "sha256": "74b986a2952b233f4283582f38b0259d27bb4fe12f5b83010005bc355bd4b8db",
+      "snapshot": "locked/look.locked-r004.hiplc"
     }
   },
   "schema_version": 1,
