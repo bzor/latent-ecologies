@@ -467,7 +467,7 @@ class FieldwritingAntTests(unittest.TestCase):
             self.assertEqual(dimensions, [(320, 320)] * 4)
             self.assertGreater(len({path.read_bytes() for path in paths}), 2)
             with Image.open(paths[-1]).convert("RGB") as image:
-                self.assertTrue(any(g > r + 25 and g > b + 5 for r, g, b in image.get_flattened_data()))
+                self.assertTrue(any(g > r + 25 and g > b + 5 for r, g, b in image.getdata()))
 
     def test_renderer_profiles_distinguish_anatomy_and_microcells(self) -> None:
         result = hamann_direction_result("RLRUUUL", steps=1_000, snapshot_interval=500)

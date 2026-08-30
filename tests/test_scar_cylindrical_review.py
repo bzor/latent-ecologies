@@ -85,7 +85,7 @@ class ScarCylindricalReviewTests(unittest.TestCase):
                     with Image.open(path) as image:
                         self.assertEqual(image.size, (960, 540) if family is not outputs["combined"] else (1920, 540))
             with Image.open(outputs["oblique"][0]) as image:
-                colors = set(image.get_flattened_data())
+                colors = set(image.getdata())
             self.assertTrue(any(b > 80 and abs(r - g) < 18 for r, g, b in colors))
             self.assertTrue(any(r > 220 and g > 175 and b < 130 for r, g, b in colors))
 

@@ -28,7 +28,7 @@ class ScarMechanicsPackageTests(unittest.TestCase):
         with tempfile.TemporaryDirectory() as directory:
             frame = render_mechanics_frames(metrics, config, Path(directory), size=(360, 540))[-1]
             image = Image.open(frame).convert("RGB")
-            colors = list(image.get_flattened_data())
+            colors = list(image.getdata())
             self.assertTrue(any(b > 180 and g > 140 and r < 120 for r, g, b in colors))
             self.assertTrue(any(r > 210 and g > 160 and b < 120 for r, g, b in colors))
 
@@ -44,7 +44,7 @@ class ScarMechanicsPackageTests(unittest.TestCase):
         with tempfile.TemporaryDirectory() as directory:
             frame = render_mechanics_frames(metrics, config, Path(directory), size=(360, 540))[-1]
             image = Image.open(frame).convert("RGB")
-            colors = list(image.get_flattened_data())
+            colors = list(image.getdata())
             self.assertTrue(any(b > 170 and g > 160 and r < 120 for r, g, b in colors))
             self.assertTrue(any(r > 210 and 70 < g < 190 and b < 90 for r, g, b in colors))
             self.assertTrue(any(abs(r - g) < 20 and abs(g - b) < 20 and r > 100 for r, g, b in colors))
@@ -64,7 +64,7 @@ class ScarMechanicsPackageTests(unittest.TestCase):
         config = {"parameters": {"domain_width": 8.0, "domain_height": 12.0, "flow_mode": 1}}
         with tempfile.TemporaryDirectory() as directory:
             frame = render_mechanics_frames(metrics, config, Path(directory), size=(360, 540))[-1]
-            colors = list(Image.open(frame).convert("RGB").get_flattened_data())
+            colors = list(Image.open(frame).convert("RGB").getdata())
             self.assertIn((65, 145, 170), colors)
 
 
