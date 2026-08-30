@@ -36,8 +36,8 @@
     "bytes": 965128,
     "houdini_version": "22.0.368",
     "path": "studies/001-memory-field/02_look/look.hiplc",
-    "revision": "r002",
-    "sha256": "6f5b8db09ace5b8f182d500afb4dbb030f79e91102dc27bbe15987653681cbac"
+    "revision": "r003",
+    "sha256": "36eafcae706c57eec8946fc14d0d7530378950bcc3e58b3d31a26364adaa1bcd"
   },
   "output_products": {
     "directory": "renders/",
@@ -118,9 +118,25 @@
         "r001-vs-r002 re-render of frame 225 differs by 80.2% of pixels (mean 32.1); re-rendering r002 against itself differs by 78.2% (mean 32.9), so the difference is within Karma XPU run-to-run non-determinism"
       ],
       "image_affecting": false,
-      "role": "authoritative HIP and the source of the delivered 450-frame render; differs from r001 only by overlay_variation_title",
+      "role": "source of the delivered 450-frame render; render-receipt.json binds this checksum",
       "sha256": "6f5b8db09ace5b8f182d500afb4dbb030f79e91102dc27bbe15987653681cbac",
       "snapshot": "locked/look.locked-r002.hiplc"
+    },
+    "r003": {
+      "changed_nodes": [
+        "added /obj/PLAYGROUND_SIM/OVERLAY_TRACK (attribwrangle, points)",
+        "rewired blast1[0] and blast2[0] from ENSURE_POINT_VISIBILITY to OVERLAY_TRACK"
+      ],
+      "evidence": [
+        "the wrangle creates neither the overlay_track group nor the track_label attrib while its point list is empty, verified on a grid before and after",
+        "OUT_SIMULATION geometry is unchanged at frames 1, 225, and 450: identical point counts (348208/350208/350208), identical groups (agents 130048, field 218112), and an identical point-attribute set",
+        "fresh reopen cooks all three frames with no errors"
+      ],
+      "image_affecting": false,
+      "render_still_valid": true,
+      "role": "current authoritative HIP; adds the OVERLAY_TRACK detail-pass wrangle",
+      "sha256": "36eafcae706c57eec8946fc14d0d7530378950bcc3e58b3d31a26364adaa1bcd",
+      "snapshot": "locked/look.locked-r003.hiplc"
     }
   },
   "schema_version": 1,
