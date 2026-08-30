@@ -439,7 +439,7 @@
       gapNumeralAccent: 0, accentMarginSide: 0, accentWidth: 46, gapAccentTitle: 0,
       titleMarginSide: 0, gapTitleSubtitle: 0, variationLine: true,
       variationMarginSide: 0, gapVariationSubtitle: 0,
-      subtitleMarginSide: 0, subtitleWidth: 240,
+      sourceLine: false, subtitleMarginSide: 0, subtitleWidth: 240,
     },
     schema: [
       { key: "anchor", label: "anchor", type: "select", options: ["auto", "top", "bottom"] },
@@ -459,6 +459,7 @@
       { key: "variationLine", label: "behavior / variation line", type: "bool" },
       { key: "variationMarginSide", label: "variation margin (x)", type: "number", min: -40, max: 40, step: 1 },
       { key: "gapVariationSubtitle", label: "gap margin (y): variation → subtitle", type: "number", min: -40, max: 60, step: 1 },
+      { key: "sourceLine", label: "source / date line", type: "bool" },
       { key: "subtitleMarginSide", label: "subtitle margin (x)", type: "number", min: -40, max: 40, step: 1 },
       { key: "subtitleWidth", label: "subtitle wrap width", type: "number", min: 80, max: 500, step: 5 },
     ],
@@ -519,7 +520,9 @@
         const maxWidth = p.subtitleWidth * u;
         const lines = [
           ...h.wrapMini(ctx, study.subtitle.toUpperCase(), maxWidth),
-          ...h.wrapMini(ctx, "SRC " + study.source + "   " + study.date, maxWidth),
+          // Off by default: a source worth citing (arXiv id) earns the line;
+          // exporters that fill source with the study folder name do not.
+          ...(p.sourceLine ? h.wrapMini(ctx, "SRC " + study.source + "   " + study.date, maxWidth) : []),
         ].map((t) => ({ t, dim: true }));
         h.drawMiniBlock(ctx, L, P, x + p.subtitleMarginSide * u, y, lines);
       }
