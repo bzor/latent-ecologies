@@ -733,7 +733,10 @@
     ],
     draw({ ctx, L, P, study, p, h }) {
       const { W, H, u, m } = L;
-      const text = p.text || (study.title + " // " + study.solver.name).toUpperCase();
+      const v = study.variation;
+      const idx = v && v.behavior_number !== undefined && v.number !== undefined
+        ? " // BHVR " + h.pad(v.behavior_number, 3) + " / VAR " + h.pad(v.number, 3) : "";
+      const text = p.text || study.title.toUpperCase() + idx;
       ctx.save();
       ctx.translate(W - m + 14 * u, H - m);
       ctx.rotate(-Math.PI / 2);
