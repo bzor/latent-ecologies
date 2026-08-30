@@ -108,3 +108,44 @@ that skip when the tool is absent).
 - A promote requires canonical variation identity and emits
   `var_NNN_title-slug.delivery.mp4`, `var_NNN_title-slug.delivery.json`, and a
   variation-matched overlay-frame directory.
+
+## Practical notes
+
+**The variation stem is enforced, not conventional.** `detail_promote.py` matches
+`var_[0-9]{3}_[a-z0-9]+(?:-[a-z0-9]+)*` and refuses anything else, and
+`overlay_parameter_manifest.py` independently rejects a `file_stem` that does not
+match the number and title it was given. `study_vault.py` generates the same shape.
+Any other naming scheme means changing all three plus their tests, and migrating the
+Studies already using it. Choose the descriptive slug carefully at variation
+registration, because sibling variations are distinguished by it.
+
+**The variation title lives on the HDA.** The stem comes from
+`overlay_variation_number` and `overlay_variation_title` in the Behavior HDA's
+`Overlay Detail` folder. These default to the HDA's authored values, so a starter
+carries whatever the asset shipped with. Set the title before exporting the manifest.
+Changing it after lock modifies the HIP and produces a new revision. That is
+acceptable for an overlay metadata string because it does not touch geometry,
+shading, camera, or lighting, but record the parameter diff and the new checksum.
+Renderer non-determinism means image neutrality cannot be shown by re-rendering
+(`RENDER_INTEGRITY.md`).
+
+**Bind the parameter manifest when exporting the sidecar.** Passing
+`--parameter-manifest` to `export_overlay_study.py` supplies the variation identity
+and fills the `params` table from the curated HDA controls. Without it the sidecar
+carries an empty `params` list unless a study card or explicit `--param` values are
+given.
+
+**Series must vary.** `--series` reads float detail attributes and normalizes each to
+0 through 1 across the frame range. A constant attribute has zero span and normalizes
+to 0.0 on every frame, which draws as a dead flat bar. Check that an attribute
+actually changes before exporting it as a series. Constants belong in the parameter
+table as static readouts. On Study 001, `simstep` varied while `agent_count` and
+`field_count` were constant.
+
+**Tracked points are opt-in.** Callouts need an `overlay_track` point group in the
+HIP, optionally with a `track_label` string attribute. Without it the sidecar exports
+an empty `tracks` object and no callouts are available.
+
+**A headless manifest export is never checksum-bound.** See the operational note in
+`RENDER_INTEGRITY.md`. The result is valid for the detail pass and must be
+regenerated from the GUI for locked delivery.
