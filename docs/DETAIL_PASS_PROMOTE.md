@@ -142,9 +142,18 @@ actually changes before exporting it as a series. Constants belong in the parame
 table as static readouts. On Study 001, `simstep` varied while `agent_count` and
 `field_count` were constant.
 
-**Tracked points are opt-in.** Callouts need an `overlay_track` point group in the
-HIP, optionally with a `track_label` string attribute. Without it the sidecar exports
-an empty `tracks` object and no callouts are available.
+**Tracked points are opt-in but pre-plumbed.** Callouts need an `overlay_track` point
+group on the subject SOP, optionally with a `track_label` string attribute. The `basic`
+look setup ships an `OVERLAY_TRACK` wrangle downstream of the simulation entry point for
+exactly this; it is empty by default and creates nothing until point numbers are listed,
+so an unused setup is geometrically identical to one without it. Without any flagged
+points the sidecar exports an empty `tracks` object and no callouts are available.
+
+A HIP that predates the wrangle does not need editing: `export_overlay_study.py` takes
+`--track POINTNUM[=LABEL]` and resolves targets against the first frame's geometry.
+Tracks follow point numbers rather than ids, which assumes constant point topology over
+the frame range. Add `--track-value ATTRIB` to sample a float point attribute per tracked
+point per frame, normalized across the range, so a callout can carry a live readout.
 
 **A headless manifest export is never checksum-bound.** See the operational note in
 `RENDER_INTEGRITY.md`. The result is valid for the detail pass and must be

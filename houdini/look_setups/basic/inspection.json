@@ -1,582 +1,31 @@
 {
-  "schema_version": 1,
-  "hip_path": "E:\\Projects\\houdini-ai\\houdini\\look_setups\\basic\\basic.hiplc",
-  "hip_bytes": 865034,
-  "hip_sha256": "070d6875e4e77051c09056960bbc1420f231fbb8dafa05aa227dad553f70f5cb",
-  "houdini_version": "22.0.368",
-  "license_category": "licenseCategoryType.Indie",
-  "fps": 24.0,
-  "frame_range": [
-    205.0,
-    650.0
-  ],
-  "playback_range": [
-    205.0,
-    650.0
-  ],
   "current_frame": 286.0,
-  "nodes": [
-    {
-      "path": "/obj/PLAYGROUND_SIM",
-      "type": "geo",
-      "inputs": [],
-      "display_flag": null,
-      "render_flag": null,
-      "parms": {
-        "shop_materialpath": ""
-      }
-    },
-    {
-      "path": "/obj/PLAYGROUND_SIM/SOURCE_PROMOTED_SIMULATION",
-      "type": "file",
-      "inputs": [],
-      "display_flag": false,
-      "render_flag": false,
-      "parms": {
-        "filemode": "read",
-        "file": "E:/Projects/houdini-ai/studies/study_003_nonlocal-affinity-dance/01_behavior/03_selected/selection_002/cache_sequence/cache/state.0286.bgeo.sc"
-      }
-    },
-    {
-      "path": "/obj/PLAYGROUND_SIM/ENSURE_POINT_VISIBILITY",
-      "type": "attribwrangle",
-      "inputs": [
-        "/obj/PLAYGROUND_SIM/SOURCE_PROMOTED_SIMULATION"
-      ],
-      "display_flag": false,
-      "render_flag": false,
-      "parms": {}
-    },
-    {
-      "path": "/obj/PLAYGROUND_SIM/OUT_SIMULATION",
-      "type": "null",
-      "inputs": [
-        "/obj/PLAYGROUND_SIM/merge1"
-      ],
-      "display_flag": true,
-      "render_flag": true,
-      "parms": {}
-    },
-    {
-      "path": "/obj/PLAYGROUND_SIM/trail1",
-      "type": "trail",
-      "inputs": [
-        "/obj/PLAYGROUND_SIM/ENSURE_POINT_VISIBILITY"
-      ],
-      "display_flag": false,
-      "render_flag": false,
-      "parms": {}
-    },
-    {
-      "path": "/obj/PLAYGROUND_SIM/merge1",
-      "type": "merge",
-      "inputs": [
-        "/obj/PLAYGROUND_SIM/set_trail_scale",
-        "/obj/PLAYGROUND_SIM/ENSURE_POINT_VISIBILITY"
-      ],
-      "display_flag": false,
-      "render_flag": false,
-      "parms": {}
-    },
-    {
-      "path": "/obj/PLAYGROUND_SIM/set_trail_scale",
-      "type": "attribwrangle",
-      "inputs": [
-        "/obj/PLAYGROUND_SIM/trail1"
-      ],
-      "display_flag": false,
-      "render_flag": false,
-      "parms": {}
-    },
-    {
-      "path": "/obj/PLAYGROUND_ENVIRONMENT",
-      "type": "geo",
-      "inputs": [],
-      "display_flag": null,
-      "render_flag": null,
-      "parms": {
-        "shop_materialpath": ""
-      }
-    },
-    {
-      "path": "/obj/PLAYGROUND_ENVIRONMENT/NEUTRAL_FLOOR",
-      "type": "grid",
-      "inputs": [],
-      "display_flag": false,
-      "render_flag": false,
-      "parms": {}
-    },
-    {
-      "path": "/obj/PLAYGROUND_ENVIRONMENT/PLACE_FLOOR",
-      "type": "xform",
-      "inputs": [
-        "/obj/PLAYGROUND_ENVIRONMENT/NEUTRAL_FLOOR"
-      ],
-      "display_flag": false,
-      "render_flag": false,
-      "parms": {}
-    },
-    {
-      "path": "/obj/PLAYGROUND_ENVIRONMENT/OUT_ENVIRONMENT",
-      "type": "null",
-      "inputs": [
-        "/obj/PLAYGROUND_ENVIRONMENT/PLACE_FLOOR"
-      ],
-      "display_flag": true,
-      "render_flag": true,
-      "parms": {}
-    },
-    {
-      "path": "/obj/main_cam",
-      "type": "cam",
-      "inputs": [],
-      "display_flag": null,
-      "render_flag": null,
-      "parms": {
-        "resx": "1080",
-        "resy": "1350",
-        "focal": "80"
-      }
-    },
-    {
-      "path": "/obj/main_cam/camOrigin",
-      "type": "add",
-      "inputs": [],
-      "display_flag": false,
-      "render_flag": false,
-      "parms": {}
-    },
-    {
-      "path": "/obj/main_cam/file1",
-      "type": "file",
-      "inputs": [],
-      "display_flag": false,
-      "render_flag": false,
-      "parms": {
-        "filemode": "read",
-        "file": "defcam.bgeo"
-      }
-    },
-    {
-      "path": "/obj/main_cam/xform1",
-      "type": "xform",
-      "inputs": [
-        "/obj/main_cam/file1"
-      ],
-      "display_flag": true,
-      "render_flag": true,
-      "parms": {}
-    },
-    {
-      "path": "/stage/IMPORT_SIMULATION",
-      "type": "sopimport",
-      "inputs": [],
-      "display_flag": null,
-      "render_flag": null,
-      "parms": {}
-    },
-    {
-      "path": "/stage/IMPORT_ENVIRONMENT",
-      "type": "sopimport",
-      "inputs": [],
-      "display_flag": null,
-      "render_flag": null,
-      "parms": {}
-    },
-    {
-      "path": "/stage/MERGE_SCENE",
-      "type": "merge",
-      "inputs": [
-        "/stage/IMPORT_SIMULATION",
-        "/stage/IMPORT_ENVIRONMENT",
-        "/stage/IMPORT_MAIN_CAM"
-      ],
-      "display_flag": null,
-      "render_flag": null,
-      "parms": {}
-    },
-    {
-      "path": "/stage/MATERIALS_STARTER",
-      "type": "materiallibrary",
-      "inputs": [
-        "/stage/MERGE_SCENE"
-      ],
-      "display_flag": null,
-      "render_flag": null,
-      "parms": {}
-    },
-    {
-      "path": "/stage/MATERIALS_STARTER/SIM_STARTER_SHADER",
-      "type": "mtlxstandard_surface",
-      "inputs": [],
-      "display_flag": null,
-      "render_flag": null,
-      "parms": {}
-    },
-    {
-      "path": "/stage/MATERIALS_STARTER/SIM_STARTER",
-      "type": "mtlxsurfacematerial",
-      "inputs": [
-        "/stage/MATERIALS_STARTER/SIM_STARTER_SHADER"
-      ],
-      "display_flag": null,
-      "render_flag": null,
-      "parms": {}
-    },
-    {
-      "path": "/stage/MATERIALS_STARTER/FLOOR_NEUTRAL_SHADER",
-      "type": "mtlxstandard_surface",
-      "inputs": [],
-      "display_flag": null,
-      "render_flag": null,
-      "parms": {}
-    },
-    {
-      "path": "/stage/MATERIALS_STARTER/FLOOR_NEUTRAL",
-      "type": "mtlxsurfacematerial",
-      "inputs": [
-        "/stage/MATERIALS_STARTER/FLOOR_NEUTRAL_SHADER"
-      ],
-      "display_flag": null,
-      "render_flag": null,
-      "parms": {}
-    },
-    {
-      "path": "/stage/ASSIGN_STARTER_MATERIALS",
-      "type": "assignmaterial",
-      "inputs": [
-        "/stage/MATERIALS_STARTER"
-      ],
-      "display_flag": null,
-      "render_flag": null,
-      "parms": {}
-    },
-    {
-      "path": "/stage/LIGHT_DOME_V1",
-      "type": "domelight::3.0",
-      "inputs": [
-        "/stage/camera_edit"
-      ],
-      "display_flag": null,
-      "render_flag": null,
-      "parms": {
-        "xn__inputsintensity_i0a": "0.8"
-      }
-    },
-    {
-      "path": "/stage/KEY",
-      "type": "distantlight::2.0",
-      "inputs": [
-        "/stage/camera_edit"
-      ],
-      "display_flag": null,
-      "render_flag": null,
-      "parms": {
-        "xn__inputsintensity_i0a": "4"
-      }
-    },
-    {
-      "path": "/stage/FILL",
-      "type": "distantlight::2.0",
-      "inputs": [
-        "/stage/KEY"
-      ],
-      "display_flag": null,
-      "render_flag": null,
-      "parms": {
-        "xn__inputsintensity_i0a": "1.5"
-      }
-    },
-    {
-      "path": "/stage/RIM",
-      "type": "distantlight::2.0",
-      "inputs": [
-        "/stage/FILL"
-      ],
-      "display_flag": null,
-      "render_flag": null,
-      "parms": {
-        "xn__inputsintensity_i0a": "3"
-      }
-    },
-    {
-      "path": "/stage/SELECT_LIGHTING_MODE",
-      "type": "switch",
-      "inputs": [
-        "/stage/LIGHT_DOME_V1",
-        "/stage/LIGHT_DOME_V2",
-        "/stage/LIGHT_DOME_V3",
-        "/stage/RIM"
-      ],
-      "display_flag": null,
-      "render_flag": null,
-      "parms": {}
-    },
-    {
-      "path": "/stage/RENDER_KARMA_SETTINGS",
-      "type": "karmarendersettings",
-      "inputs": [
-        "/stage/SELECT_LIGHTING_MODE"
-      ],
-      "display_flag": null,
-      "render_flag": null,
-      "parms": {
-        "picture": "E:/Projects/houdini-ai/houdini/look_setups/basic/renders/basic.0286.png",
-        "camera": "/main_cam",
-        "samplesperpixel": "64",
-        "pathtracedsamples": "128"
-      }
-    },
-    {
-      "path": "/stage/RENDER_KARMA_SETTINGS/sopnet",
-      "type": "sopnet",
-      "inputs": [],
-      "display_flag": null,
-      "render_flag": null,
-      "parms": {
-        "shop_materialpath": ""
-      }
-    },
-    {
-      "path": "/stage/RENDER_KARMA_SETTINGS/sopnet/line1",
-      "type": "line",
-      "inputs": [],
-      "display_flag": false,
-      "render_flag": false,
-      "parms": {}
-    },
-    {
-      "path": "/stage/RENDER_KARMA_SETTINGS/sopnet/tonemap_curve",
-      "type": "attribwrangle",
-      "inputs": [
-        "/stage/RENDER_KARMA_SETTINGS/sopnet/line1"
-      ],
-      "display_flag": true,
-      "render_flag": true,
-      "parms": {}
-    },
-    {
-      "path": "/stage/RENDER_KARMA_SETTINGS/sopnet/attribwrangle1",
-      "type": "attribwrangle",
-      "inputs": [
-        "/stage/RENDER_KARMA_SETTINGS/sopnet/line1"
-      ],
-      "display_flag": false,
-      "render_flag": false,
-      "parms": {}
-    },
-    {
-      "path": "/stage/RENDER_KARMA_SETTINGS/sopnet/resample1",
-      "type": "resample",
-      "inputs": [
-        "/stage/RENDER_KARMA_SETTINGS/sopnet/tonemap_curve"
-      ],
-      "display_flag": false,
-      "render_flag": false,
-      "parms": {}
-    },
-    {
-      "path": "/stage/RENDER_KARMA_SETTINGS/pythonscript1",
-      "type": "pythonscript",
-      "inputs": [
-        "/stage/RENDER_KARMA_SETTINGS/merge1"
-      ],
-      "display_flag": null,
-      "render_flag": null,
-      "parms": {}
-    },
-    {
-      "path": "/stage/RENDER_KARMA_SETTINGS/output0",
-      "type": "output",
-      "inputs": [
-        "/stage/RENDER_KARMA_SETTINGS/configurelayer2"
-      ],
-      "display_flag": null,
-      "render_flag": null,
-      "parms": {}
-    },
-    {
-      "path": "/stage/RENDER_KARMA_SETTINGS/rendersettings",
-      "type": "rendersettings",
-      "inputs": [
-        "/stage/RENDER_KARMA_SETTINGS/warning"
-      ],
-      "display_flag": null,
-      "render_flag": null,
-      "parms": {
-        "camera": ""
-      }
-    },
-    {
-      "path": "/stage/RENDER_KARMA_SETTINGS/additional_vars",
-      "type": "null",
-      "inputs": [],
-      "display_flag": null,
-      "render_flag": null,
-      "parms": {}
-    },
-    {
-      "path": "/stage/RENDER_KARMA_SETTINGS/prune1",
-      "type": "prune",
-      "inputs": [
-        "/stage/RENDER_KARMA_SETTINGS/additional_vars"
-      ],
-      "display_flag": null,
-      "render_flag": null,
-      "parms": {}
-    },
-    {
-      "path": "/stage/RENDER_KARMA_SETTINGS/configurelayer1",
-      "type": "configurelayer",
-      "inputs": [
-        "/stage/RENDER_KARMA_SETTINGS/prune1"
-      ],
-      "display_flag": null,
-      "render_flag": null,
-      "parms": {}
-    },
-    {
-      "path": "/stage/RENDER_KARMA_SETTINGS/null1",
-      "type": "null",
-      "inputs": [],
-      "display_flag": null,
-      "render_flag": null,
-      "parms": {}
-    },
-    {
-      "path": "/stage/RENDER_KARMA_SETTINGS/select_secondary_rendervars",
-      "type": "switch",
-      "inputs": [
-        "/stage/RENDER_KARMA_SETTINGS/null1",
-        "/stage/RENDER_KARMA_SETTINGS/configurelayer1"
-      ],
-      "display_flag": null,
-      "render_flag": null,
-      "parms": {}
-    },
-    {
-      "path": "/stage/RENDER_KARMA_SETTINGS/merge1",
-      "type": "merge",
-      "inputs": [
-        "/stage/RENDER_KARMA_SETTINGS/rendersettings",
-        "/stage/RENDER_KARMA_SETTINGS/select_secondary_rendervars"
-      ],
-      "display_flag": null,
-      "render_flag": null,
-      "parms": {}
-    },
-    {
-      "path": "/stage/RENDER_KARMA_SETTINGS/configurelayer2",
-      "type": "configurelayer",
-      "inputs": [
-        "/stage/RENDER_KARMA_SETTINGS/pythonscript1"
-      ],
-      "display_flag": null,
-      "render_flag": null,
-      "parms": {}
-    },
-    {
-      "path": "/stage/RENDER_KARMA_SETTINGS/input",
-      "type": "null",
-      "inputs": [
-        "/stage/SELECT_LIGHTING_MODE"
-      ],
-      "display_flag": null,
-      "render_flag": null,
-      "parms": {}
-    },
-    {
-      "path": "/stage/RENDER_KARMA_SETTINGS/warning",
-      "type": "error",
-      "inputs": [
-        "/stage/RENDER_KARMA_SETTINGS/input"
-      ],
-      "display_flag": null,
-      "render_flag": null,
-      "parms": {}
-    },
-    {
-      "path": "/stage/OUT_KARMA",
-      "type": "usdrender_rop",
-      "inputs": [
-        "/stage/RENDER_KARMA_SETTINGS"
-      ],
-      "display_flag": null,
-      "render_flag": null,
-      "parms": {
-        "renderer": "BRAY_HdKarmaXPU",
-        "lopoutput": "__render__.usd"
-      }
-    },
-    {
-      "path": "/stage/LIGHT_DOME_V2",
-      "type": "domelight::3.0",
-      "inputs": [
-        "/stage/camera_edit"
-      ],
-      "display_flag": null,
-      "render_flag": null,
-      "parms": {
-        "xn__inputsintensity_i0a": "1.56"
-      }
-    },
-    {
-      "path": "/stage/LIGHT_DOME_V3",
-      "type": "domelight::3.0",
-      "inputs": [
-        "/stage/camera_edit"
-      ],
-      "display_flag": null,
-      "render_flag": null,
-      "parms": {
-        "xn__inputsintensity_i0a": "0.76"
-      }
-    },
-    {
-      "path": "/stage/IMPORT_MAIN_CAM",
-      "type": "sceneimport::2.0",
-      "inputs": [],
-      "display_flag": null,
-      "render_flag": null,
-      "parms": {}
-    },
-    {
-      "path": "/stage/camera_edit",
-      "type": "camera",
-      "inputs": [
-        "/stage/ASSIGN_STARTER_MATERIALS"
-      ],
-      "display_flag": null,
-      "render_flag": null,
-      "parms": {}
-    }
-  ],
   "displayed_sop_cooks": [
     {
-      "path": "/obj/PLAYGROUND_SIM/OUT_SIMULATION",
-      "passed": true,
       "errors": [],
+      "passed": true,
+      "path": "/obj/PLAYGROUND_SIM/OUT_SIMULATION",
       "points": 1400000,
       "prims": 0
     },
     {
-      "path": "/obj/PLAYGROUND_ENVIRONMENT/OUT_ENVIRONMENT",
-      "passed": true,
       "errors": [],
+      "passed": true,
+      "path": "/obj/PLAYGROUND_ENVIRONMENT/OUT_ENVIRONMENT",
       "points": 100,
       "prims": 81
     },
     {
-      "path": "/obj/main_cam/xform1",
-      "passed": true,
       "errors": [],
+      "passed": true,
+      "path": "/obj/main_cam/xform1",
       "points": 336,
       "prims": 72
     },
     {
-      "path": "/stage/RENDER_KARMA_SETTINGS/sopnet/tonemap_curve",
-      "passed": true,
       "errors": [],
+      "passed": true,
+      "path": "/stage/RENDER_KARMA_SETTINGS/sopnet/tonemap_curve",
       "points": 101,
       "prims": 1
     }
@@ -614,5 +63,566 @@
       "parm": "/stage/OUT_KARMA/savetodirectory_directory",
       "value": "$HOUDINI_TEMP_DIR/usd_renders/$RENDERID"
     }
-  ]
+  ],
+  "fps": 24.0,
+  "frame_range": [
+    205.0,
+    650.0
+  ],
+  "hip_bytes": 867712,
+  "hip_path": "E:\\Projects\\houdini-ai\\houdini\\look_setups\\basic\\basic.hiplc",
+  "hip_sha256": "3048efef7c6a37279cdce0937609b650508981d4831e92b06e1a0e63e29f6909",
+  "houdini_version": "22.0.368",
+  "license_category": "licenseCategoryType.Indie",
+  "nodes": [
+    {
+      "display_flag": null,
+      "inputs": [],
+      "parms": {
+        "shop_materialpath": ""
+      },
+      "path": "/obj/PLAYGROUND_SIM",
+      "render_flag": null,
+      "type": "geo"
+    },
+    {
+      "display_flag": false,
+      "inputs": [],
+      "parms": {
+        "file": "E:/Projects/houdini-ai/studies/study_003_nonlocal-affinity-dance/01_behavior/03_selected/selection_002/cache_sequence/cache/state.0286.bgeo.sc",
+        "filemode": "read"
+      },
+      "path": "/obj/PLAYGROUND_SIM/SOURCE_PROMOTED_SIMULATION",
+      "render_flag": false,
+      "type": "file"
+    },
+    {
+      "display_flag": false,
+      "inputs": [
+        "/obj/PLAYGROUND_SIM/SOURCE_PROMOTED_SIMULATION"
+      ],
+      "parms": {},
+      "path": "/obj/PLAYGROUND_SIM/ENSURE_POINT_VISIBILITY",
+      "render_flag": false,
+      "type": "attribwrangle"
+    },
+    {
+      "display_flag": false,
+      "inputs": [
+        "/obj/PLAYGROUND_SIM/ENSURE_POINT_VISIBILITY"
+      ],
+      "parms": {},
+      "path": "/obj/PLAYGROUND_SIM/OVERLAY_TRACK",
+      "render_flag": false,
+      "type": "attribwrangle"
+    },
+    {
+      "display_flag": true,
+      "inputs": [
+        "/obj/PLAYGROUND_SIM/merge1"
+      ],
+      "parms": {},
+      "path": "/obj/PLAYGROUND_SIM/OUT_SIMULATION",
+      "render_flag": true,
+      "type": "null"
+    },
+    {
+      "display_flag": false,
+      "inputs": [
+        "/obj/PLAYGROUND_SIM/OVERLAY_TRACK"
+      ],
+      "parms": {},
+      "path": "/obj/PLAYGROUND_SIM/trail1",
+      "render_flag": false,
+      "type": "trail"
+    },
+    {
+      "display_flag": false,
+      "inputs": [
+        "/obj/PLAYGROUND_SIM/set_trail_scale",
+        "/obj/PLAYGROUND_SIM/OVERLAY_TRACK"
+      ],
+      "parms": {},
+      "path": "/obj/PLAYGROUND_SIM/merge1",
+      "render_flag": false,
+      "type": "merge"
+    },
+    {
+      "display_flag": false,
+      "inputs": [
+        "/obj/PLAYGROUND_SIM/trail1"
+      ],
+      "parms": {},
+      "path": "/obj/PLAYGROUND_SIM/set_trail_scale",
+      "render_flag": false,
+      "type": "attribwrangle"
+    },
+    {
+      "display_flag": null,
+      "inputs": [],
+      "parms": {
+        "shop_materialpath": ""
+      },
+      "path": "/obj/PLAYGROUND_ENVIRONMENT",
+      "render_flag": null,
+      "type": "geo"
+    },
+    {
+      "display_flag": false,
+      "inputs": [],
+      "parms": {},
+      "path": "/obj/PLAYGROUND_ENVIRONMENT/NEUTRAL_FLOOR",
+      "render_flag": false,
+      "type": "grid"
+    },
+    {
+      "display_flag": false,
+      "inputs": [
+        "/obj/PLAYGROUND_ENVIRONMENT/NEUTRAL_FLOOR"
+      ],
+      "parms": {},
+      "path": "/obj/PLAYGROUND_ENVIRONMENT/PLACE_FLOOR",
+      "render_flag": false,
+      "type": "xform"
+    },
+    {
+      "display_flag": true,
+      "inputs": [
+        "/obj/PLAYGROUND_ENVIRONMENT/PLACE_FLOOR"
+      ],
+      "parms": {},
+      "path": "/obj/PLAYGROUND_ENVIRONMENT/OUT_ENVIRONMENT",
+      "render_flag": true,
+      "type": "null"
+    },
+    {
+      "display_flag": null,
+      "inputs": [],
+      "parms": {
+        "focal": "80",
+        "resx": "1080",
+        "resy": "1350"
+      },
+      "path": "/obj/main_cam",
+      "render_flag": null,
+      "type": "cam"
+    },
+    {
+      "display_flag": false,
+      "inputs": [],
+      "parms": {},
+      "path": "/obj/main_cam/camOrigin",
+      "render_flag": false,
+      "type": "add"
+    },
+    {
+      "display_flag": false,
+      "inputs": [],
+      "parms": {
+        "file": "defcam.bgeo",
+        "filemode": "read"
+      },
+      "path": "/obj/main_cam/file1",
+      "render_flag": false,
+      "type": "file"
+    },
+    {
+      "display_flag": true,
+      "inputs": [
+        "/obj/main_cam/file1"
+      ],
+      "parms": {},
+      "path": "/obj/main_cam/xform1",
+      "render_flag": true,
+      "type": "xform"
+    },
+    {
+      "display_flag": null,
+      "inputs": [],
+      "parms": {},
+      "path": "/stage/IMPORT_SIMULATION",
+      "render_flag": null,
+      "type": "sopimport"
+    },
+    {
+      "display_flag": null,
+      "inputs": [],
+      "parms": {},
+      "path": "/stage/IMPORT_ENVIRONMENT",
+      "render_flag": null,
+      "type": "sopimport"
+    },
+    {
+      "display_flag": null,
+      "inputs": [
+        "/stage/IMPORT_SIMULATION",
+        "/stage/IMPORT_ENVIRONMENT",
+        "/stage/IMPORT_MAIN_CAM"
+      ],
+      "parms": {},
+      "path": "/stage/MERGE_SCENE",
+      "render_flag": null,
+      "type": "merge"
+    },
+    {
+      "display_flag": null,
+      "inputs": [
+        "/stage/MERGE_SCENE"
+      ],
+      "parms": {},
+      "path": "/stage/MATERIALS_STARTER",
+      "render_flag": null,
+      "type": "materiallibrary"
+    },
+    {
+      "display_flag": null,
+      "inputs": [],
+      "parms": {},
+      "path": "/stage/MATERIALS_STARTER/SIM_STARTER_SHADER",
+      "render_flag": null,
+      "type": "mtlxstandard_surface"
+    },
+    {
+      "display_flag": null,
+      "inputs": [
+        "/stage/MATERIALS_STARTER/SIM_STARTER_SHADER"
+      ],
+      "parms": {},
+      "path": "/stage/MATERIALS_STARTER/SIM_STARTER",
+      "render_flag": null,
+      "type": "mtlxsurfacematerial"
+    },
+    {
+      "display_flag": null,
+      "inputs": [],
+      "parms": {},
+      "path": "/stage/MATERIALS_STARTER/FLOOR_NEUTRAL_SHADER",
+      "render_flag": null,
+      "type": "mtlxstandard_surface"
+    },
+    {
+      "display_flag": null,
+      "inputs": [
+        "/stage/MATERIALS_STARTER/FLOOR_NEUTRAL_SHADER"
+      ],
+      "parms": {},
+      "path": "/stage/MATERIALS_STARTER/FLOOR_NEUTRAL",
+      "render_flag": null,
+      "type": "mtlxsurfacematerial"
+    },
+    {
+      "display_flag": null,
+      "inputs": [
+        "/stage/MATERIALS_STARTER"
+      ],
+      "parms": {},
+      "path": "/stage/ASSIGN_STARTER_MATERIALS",
+      "render_flag": null,
+      "type": "assignmaterial"
+    },
+    {
+      "display_flag": null,
+      "inputs": [
+        "/stage/camera_edit"
+      ],
+      "parms": {
+        "xn__inputsintensity_i0a": "0.8"
+      },
+      "path": "/stage/LIGHT_DOME_V1",
+      "render_flag": null,
+      "type": "domelight::3.0"
+    },
+    {
+      "display_flag": null,
+      "inputs": [
+        "/stage/camera_edit"
+      ],
+      "parms": {
+        "xn__inputsintensity_i0a": "4"
+      },
+      "path": "/stage/KEY",
+      "render_flag": null,
+      "type": "distantlight::2.0"
+    },
+    {
+      "display_flag": null,
+      "inputs": [
+        "/stage/KEY"
+      ],
+      "parms": {
+        "xn__inputsintensity_i0a": "1.5"
+      },
+      "path": "/stage/FILL",
+      "render_flag": null,
+      "type": "distantlight::2.0"
+    },
+    {
+      "display_flag": null,
+      "inputs": [
+        "/stage/FILL"
+      ],
+      "parms": {
+        "xn__inputsintensity_i0a": "3"
+      },
+      "path": "/stage/RIM",
+      "render_flag": null,
+      "type": "distantlight::2.0"
+    },
+    {
+      "display_flag": null,
+      "inputs": [
+        "/stage/LIGHT_DOME_V1",
+        "/stage/LIGHT_DOME_V2",
+        "/stage/LIGHT_DOME_V3",
+        "/stage/RIM"
+      ],
+      "parms": {},
+      "path": "/stage/SELECT_LIGHTING_MODE",
+      "render_flag": null,
+      "type": "switch"
+    },
+    {
+      "display_flag": null,
+      "inputs": [
+        "/stage/SELECT_LIGHTING_MODE"
+      ],
+      "parms": {
+        "camera": "/main_cam",
+        "pathtracedsamples": "128",
+        "picture": "E:/Projects/houdini-ai/houdini/look_setups/basic/renders/basic.0286.png",
+        "samplesperpixel": "64"
+      },
+      "path": "/stage/RENDER_KARMA_SETTINGS",
+      "render_flag": null,
+      "type": "karmarendersettings"
+    },
+    {
+      "display_flag": null,
+      "inputs": [],
+      "parms": {
+        "shop_materialpath": ""
+      },
+      "path": "/stage/RENDER_KARMA_SETTINGS/sopnet",
+      "render_flag": null,
+      "type": "sopnet"
+    },
+    {
+      "display_flag": false,
+      "inputs": [],
+      "parms": {},
+      "path": "/stage/RENDER_KARMA_SETTINGS/sopnet/line1",
+      "render_flag": false,
+      "type": "line"
+    },
+    {
+      "display_flag": true,
+      "inputs": [
+        "/stage/RENDER_KARMA_SETTINGS/sopnet/line1"
+      ],
+      "parms": {},
+      "path": "/stage/RENDER_KARMA_SETTINGS/sopnet/tonemap_curve",
+      "render_flag": true,
+      "type": "attribwrangle"
+    },
+    {
+      "display_flag": false,
+      "inputs": [
+        "/stage/RENDER_KARMA_SETTINGS/sopnet/line1"
+      ],
+      "parms": {},
+      "path": "/stage/RENDER_KARMA_SETTINGS/sopnet/attribwrangle1",
+      "render_flag": false,
+      "type": "attribwrangle"
+    },
+    {
+      "display_flag": false,
+      "inputs": [
+        "/stage/RENDER_KARMA_SETTINGS/sopnet/tonemap_curve"
+      ],
+      "parms": {},
+      "path": "/stage/RENDER_KARMA_SETTINGS/sopnet/resample1",
+      "render_flag": false,
+      "type": "resample"
+    },
+    {
+      "display_flag": null,
+      "inputs": [
+        "/stage/RENDER_KARMA_SETTINGS/merge1"
+      ],
+      "parms": {},
+      "path": "/stage/RENDER_KARMA_SETTINGS/pythonscript1",
+      "render_flag": null,
+      "type": "pythonscript"
+    },
+    {
+      "display_flag": null,
+      "inputs": [
+        "/stage/RENDER_KARMA_SETTINGS/configurelayer2"
+      ],
+      "parms": {},
+      "path": "/stage/RENDER_KARMA_SETTINGS/output0",
+      "render_flag": null,
+      "type": "output"
+    },
+    {
+      "display_flag": null,
+      "inputs": [
+        "/stage/RENDER_KARMA_SETTINGS/warning"
+      ],
+      "parms": {
+        "camera": ""
+      },
+      "path": "/stage/RENDER_KARMA_SETTINGS/rendersettings",
+      "render_flag": null,
+      "type": "rendersettings"
+    },
+    {
+      "display_flag": null,
+      "inputs": [],
+      "parms": {},
+      "path": "/stage/RENDER_KARMA_SETTINGS/additional_vars",
+      "render_flag": null,
+      "type": "null"
+    },
+    {
+      "display_flag": null,
+      "inputs": [
+        "/stage/RENDER_KARMA_SETTINGS/additional_vars"
+      ],
+      "parms": {},
+      "path": "/stage/RENDER_KARMA_SETTINGS/prune1",
+      "render_flag": null,
+      "type": "prune"
+    },
+    {
+      "display_flag": null,
+      "inputs": [
+        "/stage/RENDER_KARMA_SETTINGS/prune1"
+      ],
+      "parms": {},
+      "path": "/stage/RENDER_KARMA_SETTINGS/configurelayer1",
+      "render_flag": null,
+      "type": "configurelayer"
+    },
+    {
+      "display_flag": null,
+      "inputs": [],
+      "parms": {},
+      "path": "/stage/RENDER_KARMA_SETTINGS/null1",
+      "render_flag": null,
+      "type": "null"
+    },
+    {
+      "display_flag": null,
+      "inputs": [
+        "/stage/RENDER_KARMA_SETTINGS/null1",
+        "/stage/RENDER_KARMA_SETTINGS/configurelayer1"
+      ],
+      "parms": {},
+      "path": "/stage/RENDER_KARMA_SETTINGS/select_secondary_rendervars",
+      "render_flag": null,
+      "type": "switch"
+    },
+    {
+      "display_flag": null,
+      "inputs": [
+        "/stage/RENDER_KARMA_SETTINGS/rendersettings",
+        "/stage/RENDER_KARMA_SETTINGS/select_secondary_rendervars"
+      ],
+      "parms": {},
+      "path": "/stage/RENDER_KARMA_SETTINGS/merge1",
+      "render_flag": null,
+      "type": "merge"
+    },
+    {
+      "display_flag": null,
+      "inputs": [
+        "/stage/RENDER_KARMA_SETTINGS/pythonscript1"
+      ],
+      "parms": {},
+      "path": "/stage/RENDER_KARMA_SETTINGS/configurelayer2",
+      "render_flag": null,
+      "type": "configurelayer"
+    },
+    {
+      "display_flag": null,
+      "inputs": [
+        "/stage/SELECT_LIGHTING_MODE"
+      ],
+      "parms": {},
+      "path": "/stage/RENDER_KARMA_SETTINGS/input",
+      "render_flag": null,
+      "type": "null"
+    },
+    {
+      "display_flag": null,
+      "inputs": [
+        "/stage/RENDER_KARMA_SETTINGS/input"
+      ],
+      "parms": {},
+      "path": "/stage/RENDER_KARMA_SETTINGS/warning",
+      "render_flag": null,
+      "type": "error"
+    },
+    {
+      "display_flag": null,
+      "inputs": [
+        "/stage/RENDER_KARMA_SETTINGS"
+      ],
+      "parms": {
+        "lopoutput": "__render__.usd",
+        "renderer": "BRAY_HdKarmaXPU"
+      },
+      "path": "/stage/OUT_KARMA",
+      "render_flag": null,
+      "type": "usdrender_rop"
+    },
+    {
+      "display_flag": null,
+      "inputs": [
+        "/stage/camera_edit"
+      ],
+      "parms": {
+        "xn__inputsintensity_i0a": "1.56"
+      },
+      "path": "/stage/LIGHT_DOME_V2",
+      "render_flag": null,
+      "type": "domelight::3.0"
+    },
+    {
+      "display_flag": null,
+      "inputs": [
+        "/stage/camera_edit"
+      ],
+      "parms": {
+        "xn__inputsintensity_i0a": "0.76"
+      },
+      "path": "/stage/LIGHT_DOME_V3",
+      "render_flag": null,
+      "type": "domelight::3.0"
+    },
+    {
+      "display_flag": null,
+      "inputs": [],
+      "parms": {},
+      "path": "/stage/IMPORT_MAIN_CAM",
+      "render_flag": null,
+      "type": "sceneimport::2.0"
+    },
+    {
+      "display_flag": null,
+      "inputs": [
+        "/stage/ASSIGN_STARTER_MATERIALS"
+      ],
+      "parms": {},
+      "path": "/stage/camera_edit",
+      "render_flag": null,
+      "type": "camera"
+    }
+  ],
+  "playback_range": [
+    205.0,
+    650.0
+  ],
+  "schema_version": 1
 }

@@ -6,6 +6,13 @@
 
 The setup keeps the promoted simulation visible, adds a Trail SOP branch, merges trails with the live points, provides a neutral floor, editable MaterialX starters, KC's OBJ camera, multiple dome choices, the optional photographer rig, and Karma XPU output.
 
+An `OVERLAY_TRACK` point wrangle sits directly downstream of the simulation entry
+point, feeding both the trail branch and the merge. It flags points for detail-pass
+overlay callouts by adding them to the `overlay_track` group with an optional
+`track_label`. It is empty by default and creates neither the group nor the
+attribute until point numbers are listed in the snippet, so an untouched setup is
+geometrically identical to one without it. See `docs/DETAIL_PASS_PROMOTE.md`.
+
 It is intentionally a starting point—not completed Look Development.
 
 ## Instantiation
@@ -29,7 +36,7 @@ When a new Behavior enters Look Development, Hermes runs
    writes a `*.starter-receipt.json` beside the HIP;
 9. returns the file to KC as `artist-ready-starter`.
 
-Do not alter the camera, trails, materials, lighting, framing, samples, or graph layout unless KC asks during the setup brainstorm.
+Do not alter the camera, trails, materials, lighting, framing, samples, or graph layout unless KC asks during the setup brainstorm. Editing the `OVERLAY_TRACK` snippet is expected artist work and does not count as altering the setup.
 
 After KC edits the copied HIP, that Study file is authoritative. Never regenerate over it.
 
