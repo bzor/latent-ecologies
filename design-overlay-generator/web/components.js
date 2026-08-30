@@ -437,7 +437,9 @@
       anchor: "auto", kicker: true, accent: true, subtitle: true,
       gapTop: 0, kickerMarginSide: 2, gapKickerNumeral: 0, numeralMarginSide: -4,
       gapNumeralAccent: 0, accentMarginSide: 0, accentWidth: 46, gapAccentTitle: 0,
-      titleMarginSide: 0, gapTitleSubtitle: 0, subtitleMarginSide: 0, subtitleWidth: 240,
+      titleMarginSide: 0, gapTitleSubtitle: 0, variationLine: true,
+      variationMarginSide: 0, gapVariationSubtitle: 0,
+      subtitleMarginSide: 0, subtitleWidth: 240,
     },
     schema: [
       { key: "anchor", label: "anchor", type: "select", options: ["auto", "top", "bottom"] },
@@ -454,6 +456,9 @@
       { key: "gapAccentTitle", label: "gap margin (y): accent → title", type: "number", min: -40, max: 60, step: 1 },
       { key: "titleMarginSide", label: "title margin (x)", type: "number", min: -40, max: 40, step: 1 },
       { key: "gapTitleSubtitle", label: "gap margin (y): title → subtitle", type: "number", min: -40, max: 60, step: 1 },
+      { key: "variationLine", label: "behavior / variation line", type: "bool" },
+      { key: "variationMarginSide", label: "variation margin (x)", type: "number", min: -40, max: 40, step: 1 },
+      { key: "gapVariationSubtitle", label: "gap margin (y): variation → subtitle", type: "number", min: -40, max: 60, step: 1 },
       { key: "subtitleMarginSide", label: "subtitle margin (x)", type: "number", min: -40, max: 40, step: 1 },
       { key: "subtitleWidth", label: "subtitle wrap width", type: "number", min: 80, max: 500, step: 5 },
     ],
@@ -498,6 +503,16 @@
       ctx.fillText(study.title.toUpperCase(), x + p.titleMarginSide * u, y + titleSize);
       try { ctx.letterSpacing = "0px"; } catch (e) {}
       y += titleSize + 12 * u + p.gapTitleSubtitle * u;
+
+      // Three-axis index line: behavior + variation numbers from the study's
+      // variation record (absent on the sample study and legacy exports).
+      if (p.variationLine && study.variation &&
+          study.variation.behavior_number !== undefined && study.variation.number !== undefined) {
+        const idx = "BHVR " + h.pad(study.variation.behavior_number, 3) +
+          " / VAR " + h.pad(study.variation.number, 3);
+        y = h.drawMiniBlock(ctx, L, P, x + p.variationMarginSide * u, y, [{ t: idx, dim: true }]) +
+          p.gapVariationSubtitle * u;
+      }
 
       if (p.subtitle) {
         h.miniFont(ctx, 8.5 * u);
