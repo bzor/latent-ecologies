@@ -89,6 +89,14 @@ rather than posting around it. Per-platform shapes:
 - **Shorts:** title line plus a short description.
 - **TikTok:** short description plus hashtag block.
 
+**Caption content rule (KC direction, 2026-08-31, Study 001):** caption prose
+describes the system — the mechanism, what guides the agents, and the process.
+Production and render metadata (frame counts, fps, resolution, encode settings,
+solver and seed provenance) never appear in caption prose. Reproduction
+identifiers (agents, seed, solver, fields) belong in the params line;
+render facts stay in receipts. Prefer tight phrasing over completeness. This is
+an editorial rule applied when authoring the study card, not a mechanical check.
+
 Alt text is drafted from the card's title, subtitle, and summary. Every caption and
 alt text is a **draft**: KC edits or approves the exact text at posting time, and
 the mechanical validator does not replace the final human read for AI cadence.

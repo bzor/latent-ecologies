@@ -24,17 +24,13 @@
     [
       "FIELDS",
       "RESOURCE / INHIBITION / OCCUPANCY"
-    ],
-    [
-      "HORIZON",
-      "450 FRAMES @ 30 FPS"
     ]
   ],
   "schema_version": 1,
   "source": "study-001-memory-field",
   "study_id": "study-001-memory-field",
   "subtitle": "agents shape territory through their decaying memory",
-  "summary": "Simulation of 512 point agents on a shared field, integrated with a POP/VEX solver from deterministic seed 18432. Each agent steers by blending four influences: attraction toward remaining resource, a pull along the trace field left by earlier passages, avoidance of scarred and crowded ground, and a small exploration term. As it moves it consumes resource, which recovers slowly, and deposits a decaying trace of its passage. Ground under repeated traffic scars over: scarred cells deflect later routes, and scars heal only while traffic stays away. The territory structure across the 450 frames records this cycle: routes written, overused, scarred over, and rerouted. The memory framing is an analogy; no biological claim is made.",
+  "summary": "Simulation of 512 point agents on a shared field. Each agent steers by blending four influences: attraction toward remaining resource, a pull along the trace field left by earlier passages, avoidance of scarred and crowded ground, and a small exploration term. As it moves it consumes resource, which recovers slowly, and deposits a decaying trace of its passage. Ground under repeated traffic scars over: scarred cells deflect later routes, and scars heal only with no traffic. The territory structured by routes written, overused, scarred over, and rerouted.",
   "title": "Memory Field",
   "variation_behavior_number": 1,
   "variation_file_stem": "bhvr_001_var_001_memory-field",
