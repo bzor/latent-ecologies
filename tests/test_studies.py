@@ -8,7 +8,6 @@ from houdini_ai.studies import (
     focus_study,
     focused_study,
     list_studies,
-    migrate_sessions_to_studies,
 )
 from houdini_ai.studio_schema import validate_record
 from houdini_ai.studio_store import StudioStore
@@ -56,49 +55,6 @@ class StudyTests(unittest.TestCase):
             self.assertEqual([item["id"] for item in records if item["is_focused"]], [second["id"]])
             self.assertEqual({item["state"] for item in records}, {"active"})
             self.assertTrue((Path(directory) / "studio" / "study-state" / "focused.json").is_file())
-
-    def test_session_migration_is_dry_run_preserving_idempotent_and_maps_known_project_identity(self) -> None:
-        with tempfile.TemporaryDirectory() as directory:
-            root = Path(directory)
-            store = StudioStore(root)
-            session = {
-                "schema_version": 1,
-                "id": "session-pilot-study-003-abc12345",
-                "title": "Pilot Study 003 — Nonlocal Affinity Dance",
-                "project_slug": "pilot-study-003",
-                "state": "open",
-                "current_phase": "behavior",
-                "intent": "Preserve exact behavior identity.",
-                "approved_selection_ids": [],
-                "unresolved_questions": [],
-                "blockers": [],
-                "recommended_next_action": "Review the comparison.",
-                "created_at": "2026-08-15T12:00:00Z",
-                "updated_at": "2026-08-15T13:00:00Z",
-                "visibility": "private",
-            }
-            store.create("sessions", session["id"], session)
-            store.create("session-state", "active", {"session_id": session["id"]})
-
-            dry_run = migrate_sessions_to_studies(store)
-
-            self.assertFalse(dry_run["applied"])
-            self.assertEqual(dry_run["items"][0]["study_id"], "study-003-nonlocal-affinity-dance")
-            self.assertEqual(dry_run["items"][0]["action"], "create")
-            self.assertEqual(store.list("studies")[0], [])
-            self.assertEqual(store.read("sessions", session["id"]), session)
-
-            applied = migrate_sessions_to_studies(store, apply=True)
-            repeated = migrate_sessions_to_studies(store, apply=True)
-
-            self.assertTrue(applied["applied"])
-            self.assertEqual(repeated["items"][0]["action"], "exists")
-            study = store.read("studies", "study-003-nonlocal-affinity-dance")
-            self.assertEqual(study["created_at"], session["created_at"])
-            self.assertEqual(study["updated_at"], session["updated_at"])
-            self.assertEqual(study["extensions"]["studio/migrated-from-session"], session["id"])
-            self.assertEqual(focused_study(store)["id"], study["id"])
-            self.assertEqual(store.read("sessions", session["id"]), session)
 
 
 if __name__ == "__main__":

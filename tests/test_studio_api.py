@@ -285,7 +285,6 @@ class StudioAPITests(unittest.TestCase):
         for label in ("Cockpit / Inbox", "Seeds", "Directions", "Proposals", "Artifacts", "Runs / Reviews", "Components", "Specimens", "Editorial"):
             self.assertIn(label, html)
         self.assertIn('id="ideaForm"', html)
-        self.assertIn('id="sessionForm"', html)
         self.assertIn('id="processNoteForm"', html)
         self.assertIn('id="directionForm"', html)
         self.assertIn('id="directionMerge"', html)
@@ -308,10 +307,8 @@ class StudioAPITests(unittest.TestCase):
         self.assertIn("showStartupError", script)
         self.assertIn("Unable to load the private Studio", script)
         self.assertIn("/api/studio/review-inbox", script)
-        self.assertIn("/api/studio/sessions", script)
         self.assertIn("/api/studio/notes", script)
         self.assertIn("renderCockpit", script)
-        self.assertIn("recommended_next_action", script)
         self.assertIn("renderDirectionBoard", script)
         self.assertIn("/api/studio/directions", script)
         for operation in ("select", "hold", "mutate", "merge", "archive", "reject", "propose"):

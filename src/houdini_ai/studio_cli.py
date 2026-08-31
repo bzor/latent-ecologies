@@ -11,32 +11,20 @@ from urllib.parse import urlparse
 from .conversation_bindings import bind_discord_thread, resolve_discord_thread
 from .editorial import approve_editorial, editorial_summary, tag_artifact, untag_artifact
 from .directions import DIRECTION_DECISIONS, create_direction, decide_direction, derive_probe_proposal, merge_directions, mutate_direction
-from .golden_specimens import register_scar_tissue
-from .look_execution import (
-    build_aggregate_review,
-    make_hermes_worker,
-    make_hython_hip_verifier,
-    make_hython_direction_scaffold_builder,
-    make_hython_playground_builder,
-    prepare_look_round,
-    run_look_round,
-)
-from .pilot_study_003 import bootstrap_pilot_study_003
-from .process_notes import NOTE_CATEGORIES, NOTE_STAGES, capture_note, filtered_notes, write_digest
+from .process_notes import NOTE_CATEGORIES, NOTE_STAGES, capture_note, capture_retro, filtered_notes, write_digest
 from .promotions import promote_artifact
 from .proposals import approve_proposal, create_proposal
 from .public_seed_bank import build_public_seed_bank
 from .public_site import build_public_site
 from .review_inbox import build_review_inbox
-from .seed_bank import create_seed, promote_seed_to_study_command, transition_seed, update_seed
+from .seed_bank import build_seed_digest, create_seed, promote_seed_to_study_command, transition_seed, update_seed
 from .seed_publication import create_seed_site_draft, set_seed_rights, transition_seed_publication
 from .site_inclusions import create_site_draft, set_site_rights, transition_site_inclusion
 from .studio_commands import CommandContext
 from .studio_schema import validate_record
-from .studio_sessions import PHASES, activate_session, create_session, list_sessions, update_session
 from .studio_store import StudioStore
 from .studio_types import DECISIONS, TRACKS
-from .studies import list_studies, migrate_sessions_to_studies
+from .studies import list_studies
 from .study_vault import add_study_variation, initialize_study_vault
 
 REGISTERED_PROPOSAL_RUNNERS = frozenset(("behavior.probe", "behavior.scar_probe", "behavior.scar_tissue_probe", "look.scar_tissue_probe"))
@@ -168,6 +156,9 @@ def command_approve(args: argparse.Namespace) -> int:
     return 0
 
 
+MICRO_RETRO_NUDGE = "micro-retro: ask KC what dragged and what was fun; record with `studio retro`"
+
+
 def command_decide(args: argparse.Namespace) -> int:
     store = _store(args)
     record = store.read("artifacts", args.artifact_id)
@@ -175,12 +166,14 @@ def command_decide(args: argparse.Namespace) -> int:
     store.update("artifacts", args.artifact_id, updated)
     print(f"id: {args.artifact_id}")
     print(f"decision: {args.decision}")
+    print(MICRO_RETRO_NUDGE)
     return 0
 
 
 def command_promote(args: argparse.Namespace) -> int:
     record = promote_artifact(_store(args), args.studio_root, args.artifact_id, args.kind, args.rationale)
     _print_record(record, "components", args.studio_root)
+    print(MICRO_RETRO_NUDGE)
     return 0
 
 
@@ -209,6 +202,24 @@ def command_note(args: argparse.Namespace) -> int:
     return 0
 
 
+def command_retro(args: argparse.Namespace) -> int:
+    records = capture_retro(
+        _store(args), args.stage, args.track,
+        dragged=args.dragged, fun=args.fun, reference_id=args.reference,
+    )
+    for record in records:
+        _print_record(record, "notes", args.studio_root)
+    return 0
+
+
+def command_seed_digest(args: argparse.Namespace) -> int:
+    from datetime import datetime, timezone
+
+    today = args.date or datetime.now(timezone.utc).date().isoformat()
+    print(build_seed_digest(_store(args), today=today), end="")
+    return 0
+
+
 def command_notes(args: argparse.Namespace) -> int:
     store = _store(args)
     if args.digest:
@@ -220,70 +231,10 @@ def command_notes(args: argparse.Namespace) -> int:
     return 0
 
 
-def command_register_golden(args: argparse.Namespace) -> int:
-    if args.project != "scar-tissue":
-        raise ValueError("unknown golden project")
-    record = register_scar_tissue(args.studio_root)
-    _print_record(record, "specimens", args.studio_root)
-    progress = record["extensions"]["studio/render-progress"]
-    print(
-        f"render: {progress['contiguous_frames']}/{progress['expected_frames']} contiguous "
-        f"({progress['completed_frames']} total files, resume at {progress['next_frame']})"
-    )
-    return 0
 
 
-def command_bootstrap_pilot_003(args: argparse.Namespace) -> int:
-    records = bootstrap_pilot_study_003(args.studio_root)
-    print(f"idea: {records['idea']['id']}")
-    for direction in records["directions"]:
-        print(f"direction: {direction['state']} {direction['title']} ({direction['id']})")
-    print(f"proposal: {records['proposal']['state']} {records['proposal']['id']}")
-    print("session: active Pilot Study 003")
-    return 0
 
 
-def command_session_create(args: argparse.Namespace) -> int:
-    record = create_session(
-        _store(args),
-        {
-            "title": args.title,
-            "project_slug": args.project,
-            "current_phase": args.phase,
-            "intent": args.intent,
-            "approved_selection_ids": [],
-            "unresolved_questions": [],
-            "blockers": [],
-            "recommended_next_action": args.next_action,
-        },
-        activate=args.activate,
-    )
-    _print_record(record, "sessions", args.studio_root)
-    return 0
-
-
-def command_sessions(args: argparse.Namespace) -> int:
-    for record in list_sessions(_store(args)):
-        status = "active" if record["is_active"] else "resumable"
-        print(f"{record['id']}\t{status}\t{record['current_phase']}\t{record['title']}")
-    return 0
-
-
-def command_session_update(args: argparse.Namespace) -> int:
-    value = json.loads(args.changes_json)
-    if not isinstance(value, dict):
-        raise ValueError("changes-json must be an object")
-    record = update_session(_store(args), args.session_id, value)
-    print(f"id: {record['id']}")
-    print(f"phase: {record['current_phase']}")
-    return 0
-
-
-def command_session_activate(args: argparse.Namespace) -> int:
-    record = activate_session(_store(args), args.session_id)
-    print(f"id: {record['id']}")
-    print("state: active")
-    return 0
 
 
 def command_inbox(args: argparse.Namespace) -> int:
@@ -292,16 +243,6 @@ def command_inbox(args: argparse.Namespace) -> int:
         print(f"{item['source_type']}\t{item['stage']}\t{item['id']}\t{item['text']}")
     return 0
 
-
-def command_study_migrate(args: argparse.Namespace) -> int:
-    result = migrate_sessions_to_studies(_store(args), apply=args.apply)
-    if args.json:
-        print(json.dumps(result, indent=2, sort_keys=True))
-    else:
-        print(f"mode: {'applied' if result['applied'] else 'dry-run'}")
-        for item in result["items"]:
-            print(f"{item['source_session_id']}\t{item['action']}\t{item['study_id']}")
-    return 0
 
 
 def command_study_init(args: argparse.Namespace) -> int:
@@ -351,75 +292,7 @@ def _read_json_input(root: Path, raw_path: str, label: str) -> object:
         raise ValueError(f"could not read {label}: {error}") from error
 
 
-def command_look_round_prepare(args: argparse.Namespace) -> int:
-    source = _read_json_input(args.studio_root, args.source_json, "source-json")
-    directions = _read_json_input(args.studio_root, args.directions_json, "directions-json")
-    if not isinstance(source, dict):
-        raise ValueError("source-json must contain an object")
-    if not isinstance(directions, list) or any(not isinstance(item, dict) for item in directions):
-        raise ValueError("directions-json must contain an array of objects")
-    manifest = prepare_look_round(args.studio_root, args.study_id, source, directions)
-    print(f"manifest: {manifest}")
-    print("state: prepared")
-    print("review: withheld until every direction is decision-ready with validated renders")
-    return 0
 
-
-def command_look_round_run(args: argparse.Namespace) -> int:
-    prefix = json.loads(args.agent_command_json)
-    if not isinstance(prefix, list) or any(not isinstance(part, str) for part in prefix):
-        raise ValueError("agent-command-json must be an array of command strings")
-    manifest_path = Path(args.manifest)
-    if not manifest_path.is_absolute():
-        manifest_path = args.studio_root / manifest_path
-    manifest_value = json.loads(manifest_path.read_text(encoding="utf-8"))
-    policy = manifest_value.get("execution_policy", {})
-    policy_timeout = policy.get("worker_timeout_seconds", 1800) if isinstance(policy, dict) else 1800
-    if not isinstance(policy_timeout, int) or policy_timeout < 1:
-        raise ValueError("Look round execution policy has an invalid worker timeout")
-    effective_timeout = min(args.timeout, policy_timeout)
-    max_tokens = policy.get("max_total_tokens_per_attempt", 200000)
-    max_cost = policy.get("max_estimated_cost_usd_per_attempt", 10.0)
-    if not isinstance(max_tokens, int) or max_tokens < 1:
-        raise ValueError("Look round execution policy has an invalid token budget")
-    if not isinstance(max_cost, (int, float)) or isinstance(max_cost, bool) or max_cost <= 0:
-        raise ValueError("Look round execution policy has an invalid cost budget")
-    worker = make_hermes_worker(
-        args.studio_root,
-        prefix,
-        timeout=effective_timeout,
-        max_total_tokens=max_tokens,
-        max_estimated_cost_usd=float(max_cost),
-    )
-    hip_verifier = make_hython_hip_verifier(args.studio_root, timeout=effective_timeout)
-    playground_builder = make_hython_playground_builder(args.studio_root, timeout=effective_timeout)
-    scaffold_builder = make_hython_direction_scaffold_builder(
-        args.studio_root, timeout=min(effective_timeout, 180)
-    )
-    completed = run_look_round(
-        args.studio_root,
-        manifest_path,
-        worker,
-        hip_verifier,
-        playground_builder,
-        cost_approved=args.approve_gated_cost,
-        scaffold_builder=scaffold_builder,
-    )
-    state = json.loads(completed.read_text(encoding="utf-8"))["state"]
-    print(f"manifest: {completed}")
-    print(f"state: {state}")
-    print("review: still withheld; run look-round-review only after every visual gate passes")
-    return 0
-
-
-def command_look_round_review(args: argparse.Namespace) -> int:
-    manifest_path = Path(args.manifest)
-    if not manifest_path.is_absolute():
-        manifest_path = args.studio_root / manifest_path
-    review = build_aggregate_review(args.studio_root, manifest_path)
-    print(f"review: {review}")
-    print(f"comparison: {review.with_name('COMPARISON.md')}")
-    return 0
 
 
 def command_conversation_bind(args: argparse.Namespace) -> int:
@@ -703,42 +576,24 @@ def add_studio_parser(subparsers: argparse._SubParsersAction, root: Path) -> Non
     note.add_argument("--track", required=True, choices=TRACKS)
     note.add_argument("--reference")
     note.set_defaults(func=command_note)
+    seed_digest = commands.add_parser("seed-digest", help="print the Discord-postable Seed Bank digest")
+    seed_digest.add_argument("--date", help="override the digest date (default: today, UTC)")
+    seed_digest.set_defaults(func=command_seed_digest)
+    retro = commands.add_parser("retro", help="record a gate micro-retro: what dragged, what was fun")
+    retro.add_argument("--stage", required=True, choices=NOTE_STAGES)
+    retro.add_argument("--track", required=True, choices=TRACKS)
+    retro.add_argument("--dragged", help="KC's answer to 'what dragged?', verbatim")
+    retro.add_argument("--fun", help="KC's answer to 'what was actually fun?', verbatim")
+    retro.add_argument("--reference")
+    retro.set_defaults(func=command_retro)
     notes = commands.add_parser("notes", help="list process observations or write a digest")
     notes.add_argument("--category", choices=NOTE_CATEGORIES)
     notes.add_argument("--stage", choices=NOTE_STAGES)
     notes.add_argument("--track", choices=TRACKS)
     notes.add_argument("--digest", action="store_true")
     notes.set_defaults(func=command_notes)
-    register_golden = commands.add_parser("register-golden", help="register a proven project as a private golden specimen")
-    register_golden.add_argument("project", choices=("scar-tissue",))
-    register_golden.set_defaults(func=command_register_golden)
-    bootstrap_pilot = commands.add_parser(
-        "bootstrap-pilot-003", help="create the accepted Pilot Study 003 seed and inert probe proposal"
-    )
-    bootstrap_pilot.set_defaults(func=command_bootstrap_pilot_003)
-    session_create = commands.add_parser("session-create", help="create a private resumable creative session")
-    session_create.add_argument("title")
-    session_create.add_argument("--project", required=True)
-    session_create.add_argument("--intent", required=True)
-    session_create.add_argument("--next-action", required=True)
-    session_create.add_argument("--phase", choices=PHASES, default="seed")
-    session_create.add_argument("--activate", action="store_true")
-    session_create.set_defaults(func=command_session_create)
-    sessions = commands.add_parser("sessions", help="list active and resumable creative sessions")
-    sessions.set_defaults(func=command_sessions)
-    session_update = commands.add_parser("session-update", help="update bounded creative-session context")
-    session_update.add_argument("session_id")
-    session_update.add_argument("changes_json")
-    session_update.set_defaults(func=command_session_update)
-    session_activate = commands.add_parser("session-activate", help="select the one active creative session")
-    session_activate.add_argument("session_id")
-    session_activate.set_defaults(func=command_session_activate)
     inbox = commands.add_parser("inbox", help="list unresolved work across all Studio stages")
     inbox.set_defaults(func=command_inbox)
-    study_migrate = commands.add_parser("study-migrate", help="project legacy sessions into canonical Studies")
-    study_migrate.add_argument("--apply", action="store_true", help="write missing Studies; default is dry-run")
-    study_migrate.add_argument("--json", action="store_true")
-    study_migrate.set_defaults(func=command_study_migrate)
     study_init = commands.add_parser("study-init", help="create the canonical numbered directory contract for a Study")
     study_init.add_argument("study_id")
     study_init.set_defaults(func=command_study_init)
@@ -764,24 +619,6 @@ def add_studio_parser(subparsers: argparse._SubParsersAction, root: Path) -> Non
     studies = commands.add_parser("studies", help="list canonical Studies")
     studies.add_argument("--json", action="store_true")
     studies.set_defaults(func=command_studies)
-    look_prepare = commands.add_parser("look-round-prepare", help="freeze isolated packets for selected Look directions")
-    look_prepare.add_argument("study_id")
-    look_prepare.add_argument("source_json", help="JSON file containing the promoted Behavior handoff")
-    look_prepare.add_argument("directions_json", help="JSON file containing selected Look Direction Briefs")
-    look_prepare.set_defaults(func=command_look_round_prepare)
-    look_run = commands.add_parser("look-round-run", help="execute fresh Look agents sequentially; review remains withheld")
-    look_run.add_argument("manifest")
-    look_run.add_argument("--agent-command-json", default='["hermes"]')
-    look_run.add_argument("--timeout", type=int, default=1800, help="maximum seconds per direction")
-    look_run.add_argument(
-        "--approve-gated-cost",
-        action="store_true",
-        help="explicitly approve study, specimen, or external cost tiers in this round",
-    )
-    look_run.set_defaults(func=command_look_round_run)
-    look_review = commands.add_parser("look-round-review", help="release one comparison after every Look direction verifies")
-    look_review.add_argument("manifest")
-    look_review.set_defaults(func=command_look_round_review)
     conversation_bind = commands.add_parser("conversation-bind", help="bind one Discord thread to a Study")
     conversation_bind.add_argument("study_id")
     conversation_bind.add_argument("--guild-id", required=True)

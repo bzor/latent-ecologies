@@ -33,19 +33,11 @@
       <label class="idea-text">Idea<textarea id="ideaText" maxlength="10000" required placeholder="Seed: describe the mechanism, question, or visual direction."></textarea></label>
       <button type="submit">Capture privately</button>
     </form>
-    <form id="sessionForm" class="idea-form hidden">
-      <label>Session title<input id="sessionTitle" maxlength="200" required></label>
-      <label>Project slug<input id="sessionProject" maxlength="80" pattern="[a-z0-9]+(?:-[a-z0-9]+)*" required placeholder="pilot-study-003"></label>
-      <label>Phase<select id="sessionPhase"><option>seed</option><option>directions</option><option>behavior</option><option>look</option><option>chromatic</option><option>cinematography</option><option>specimen</option><option>delivery</option></select></label>
-      <label class="idea-text">Intent<textarea id="sessionIntent" maxlength="4000" required placeholder="What is this session trying to discover or complete?"></textarea></label>
-      <label class="idea-text">Recommended next action<textarea id="sessionNext" maxlength="2000" required placeholder="One concrete next action."></textarea></label>
-      <button type="submit">Create and activate</button>
-    </form>
     <form id="processNoteForm" class="idea-form hidden">
       <label>Note kind<select id="processNoteCategory"><option>working</option><option>pain-point</option><option>missing-functionality</option><option>idea</option><option>question</option></select></label>
       <label>Stage<select id="processNoteStage"><option>workflow</option><option>idea</option><option>probe</option><option>behavior</option><option>look</option><option>chromatic</option><option>cinematography</option><option>specimen</option><option>field-station</option><option>publication</option></select></label>
       <label>Track<select id="processNoteTrack"><option>behavior</option><option>look</option><option>chromatic</option><option>cinematography</option><option>specimen</option><option>field-station</option></select></label>
-      <label>Reference<input id="processNoteReference" maxlength="200" placeholder="Active session by default"></label>
+      <label>Reference<input id="processNoteReference" maxlength="200" placeholder="Component or artifact id"></label>
       <label class="idea-text">Contextual process note<textarea id="processNoteText" maxlength="10000" required placeholder="Capture friction, a question, or a missing capability where it occurred."></textarea></label>
       <button type="submit">Add to local record</button>
     </form>

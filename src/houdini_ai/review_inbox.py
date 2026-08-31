@@ -6,7 +6,6 @@ import json
 from pathlib import Path
 from typing import Any
 
-from .studio_sessions import active_session
 from .studio_store import StudioStore
 
 
@@ -118,40 +117,12 @@ def build_review_inbox(root: Path) -> dict[str, Any]:
             )
         )
 
-    session = active_session(store)
-    if session:
-        created_at = str(session.get("updated_at", ""))
-        stage = str(session.get("current_phase", "workflow"))
-        for index, question in enumerate(session.get("unresolved_questions", [])):
-            items.append(
-                _item(
-                    "session-question",
-                    f"{session['id']}-question-{index + 1}",
-                    str(question),
-                    created_at=created_at,
-                    stage=stage,
-                    reference_id=str(session["id"]),
-                )
-            )
-        for index, blocker in enumerate(session.get("blockers", [])):
-            items.append(
-                _item(
-                    "session-blocker",
-                    f"{session['id']}-blocker-{index + 1}",
-                    str(blocker),
-                    created_at=created_at,
-                    stage=stage,
-                    reference_id=str(session["id"]),
-                )
-            )
-
     items.sort(key=lambda item: (str(item.get("created_at", "")), str(item.get("id", ""))), reverse=True)
     counts: dict[str, int] = {}
     for item in items:
         source_type = str(item["source_type"])
         counts[source_type] = counts.get(source_type, 0) + 1
     return {
-        "session_id": session.get("id") if session else None,
         "total": len(items),
         "counts": counts,
         "items": items,

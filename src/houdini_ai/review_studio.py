@@ -315,9 +315,6 @@ def make_handler(root: Path, *, mutation_token: str | None = None):
                         return
                 self._json(studio.session_bootstrap(mutation_token))
                 return
-            if parsed.path == "/api/studio/sessions":
-                self._json(studio.list_sessions())
-                return
             if parsed.path == "/api/studio/review-inbox":
                 self._json(studio.review_inbox())
                 return
@@ -433,20 +430,6 @@ def make_handler(root: Path, *, mutation_token: str | None = None):
                 except ValueError as exc:
                     self._error(HTTPStatus.BAD_REQUEST, str(exc))
                 return
-            if path == "/api/studio/sessions":
-                try:
-                    self._json(studio.create_session(self._body()), HTTPStatus.CREATED)
-                except (FileExistsError, ValueError) as exc:
-                    self._error(HTTPStatus.BAD_REQUEST, str(exc))
-                return
-            activation_match = re.fullmatch(r"/api/studio/sessions/(session-[a-z0-9-]+)/activate", path)
-            if activation_match:
-                try:
-                    self._body()
-                    self._json(studio.activate_session(activation_match.group(1)))
-                except (FileNotFoundError, ValueError) as exc:
-                    self._error(HTTPStatus.BAD_REQUEST, str(exc))
-                return
             decision_match = re.fullmatch(r"/api/studio/proposals/([a-z0-9-]+)/(approve|hold)", path)
             if decision_match:
                 try:
@@ -508,13 +491,6 @@ def make_handler(root: Path, *, mutation_token: str | None = None):
             if not self._allow_mutation():
                 return
             path = urlparse(self.path).path
-            session_match = re.fullmatch(r"/api/studio/sessions/(session-[a-z0-9-]+)", path)
-            if session_match:
-                try:
-                    self._json(studio.update_session(session_match.group(1), self._body()))
-                except (FileNotFoundError, ValueError) as exc:
-                    self._error(HTTPStatus.BAD_REQUEST, str(exc))
-                return
             studio_match = re.fullmatch(r"/api/studio/([a-z-]+)/([a-z0-9-]+)", path)
             if studio_match and studio_match.group(1) in COLLECTION_KINDS:
                 try:

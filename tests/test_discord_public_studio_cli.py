@@ -20,44 +20,6 @@ class DiscordPublicStudioCliTests(unittest.TestCase):
             result = cli.main(["studio", *args])
         return result, output.getvalue()
 
-    def test_study_migration_defaults_to_dry_run_and_emits_machine_readable_receipt(self) -> None:
-        with tempfile.TemporaryDirectory() as directory:
-            root = Path(directory)
-            store = StudioStore(root)
-            session = {
-                "schema_version": 1,
-                "id": "session-pilot-study-003-abc12345",
-                "title": "Pilot Study 003 — Nonlocal Affinity Dance",
-                "project_slug": "pilot-study-003",
-                "state": "open",
-                "current_phase": "behavior",
-                "intent": "Preserve exact behavior identity.",
-                "approved_selection_ids": [],
-                "unresolved_questions": [],
-                "blockers": [],
-                "recommended_next_action": "Review the comparison.",
-                "created_at": "2026-08-15T12:00:00Z",
-                "updated_at": "2026-08-15T13:00:00Z",
-                "visibility": "private",
-            }
-            store.create("sessions", session["id"], session)
-
-            code, output = self.run_cli(root, "study-migrate", "--json")
-
-            self.assertEqual(code, 0)
-            dry_run = json.loads(output)
-            self.assertFalse(dry_run["applied"])
-            self.assertEqual(store.list("studies")[0], [])
-
-            code, output = self.run_cli(root, "study-migrate", "--apply", "--json")
-            self.assertEqual(code, 0)
-            self.assertTrue(json.loads(output)["applied"])
-
-            code, output = self.run_cli(root, "studies", "--json")
-            self.assertEqual(code, 0)
-            studies = json.loads(output)
-            self.assertEqual(studies[0]["id"], "study-003-nonlocal-affinity-dance")
-
     def test_discord_binding_commands_emit_private_machine_readable_routing_records(self) -> None:
         with tempfile.TemporaryDirectory() as directory:
             root = Path(directory)

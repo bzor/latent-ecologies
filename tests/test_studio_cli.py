@@ -8,8 +8,6 @@ from pathlib import Path
 from unittest.mock import patch
 
 from houdini_ai import cli
-from houdini_ai.golden_specimens import GoldenSpecimenError, register_scar_tissue
-from houdini_ai.studio_sessions import ensure_scar_tissue_session
 from houdini_ai.studio_schema import validate_record
 from houdini_ai.studio_store import StudioStore
 
@@ -98,125 +96,6 @@ class StudioCliTests(unittest.TestCase):
             self.assertIn(text.strip(), content)
             self.assertIn("component-look-a", content)
 
-    def test_register_scar_tissue_golden_lineage_is_private_truthful_and_idempotent(self) -> None:
-        with tempfile.TemporaryDirectory() as directory:
-            root = Path(directory)
-            store = StudioStore(root)
-            existing_components = (
-                ("component-behavior-b3bcc837c3e2", "behavior", "behavior"),
-                ("component-look-6013004ba32c", "look", "look"),
-                ("component-palette-a52433fdb147", "chromatic", "palette"),
-            )
-            for component_id, track, kind in existing_components:
-                store.create(
-                    "components",
-                    component_id,
-                    {
-                        "schema_version": 1,
-                        "id": component_id,
-                        "track": track,
-                        "state": "promoted",
-                        "component_kind": kind,
-                        "source_experiment_id": f"experiment-scar-tissue-{track}",
-                        "source_artifact_ref": f"work/jobs/scar-tissue-{track}/review/evidence.bin",
-                        "rationale": f"KC selected the {track} component.",
-                        "content_hash": "sha256:" + hashlib.sha256(component_id.encode()).hexdigest(),
-                        "visibility": "private",
-                    },
-                )
-
-            handoff = root / "work" / "studio" / "handoffs" / "scar-tissue-abc-a-v1"
-            handoff.mkdir(parents=True)
-            (handoff / "scar-tissue-abc-a-handoff.hiplc").write_bytes(b"hip")
-            frames = handoff / "portrait-frames"
-            frames.mkdir()
-            for frame in range(1, 219):
-                (frames / f"scar-tissue-portrait-{frame:04d}.png").write_bytes(b"png")
-
-            with patch("houdini_ai.runners.RunnerRegistry.dispatch") as dispatch:
-                code, output = self.run_cli(root, "register-golden", "scar-tissue")
-                self.assertEqual(code, 0, output)
-                self.assertEqual(self.run_cli(root, "register-golden", "scar-tissue")[0], 0)
-                dispatch.assert_not_called()
-
-            specimen = store.read("specimens", "specimen-scar-tissue-v1")
-            self.assertEqual(validate_record("specimen", specimen), [])
-            self.assertEqual(specimen["state"], "rendering")
-            self.assertFalse(specimen["approved"])
-            self.assertEqual(specimen["visibility"], "private")
-            self.assertEqual(len(specimen["component_ids"]), 4)
-            self.assertEqual(
-                {store.read("components", component_id)["component_kind"] for component_id in specimen["component_ids"]},
-                {"behavior", "look", "palette", "shot"},
-            )
-            progress = specimen["extensions"]["studio/render-progress"]
-            self.assertEqual(progress["completed_frames"], 218)
-            self.assertEqual(progress["contiguous_frames"], 218)
-            self.assertEqual(progress["expected_frames"], 1260)
-            self.assertEqual(progress["next_frame"], 219)
-            self.assertEqual(specimen["extensions"]["studio/sound-decision"], "undecided")
-            self.assertEqual(len(store.list("specimens")[0]), 1)
-            self.assertEqual(len(store.list("components")[0]), 4)
-            session = store.read("sessions", "session-scar-tissue-golden-run")
-            self.assertEqual(session["current_phase"], "delivery")
-            self.assertEqual(session["specimen_id"], "specimen-scar-tissue-v1")
-            self.assertEqual(session["approved_selection_ids"], specimen["component_ids"])
-            self.assertIn("sound", " ".join(session["unresolved_questions"]).lower())
-            self.assertIn("219", session["recommended_next_action"])
-            self.assertEqual(store.read("session-state", "active")["session_id"], session["id"])
-            self.assertEqual(len(store.list("sessions")[0]), 1)
-
-    def test_scar_tissue_behavior_reset_blocks_legacy_golden_reactivation(self) -> None:
-        with tempfile.TemporaryDirectory() as directory:
-            root = Path(directory)
-            store = StudioStore(root)
-            store.create("studies", "study-002-scar-tissue", {
-                "id": "study-002-scar-tissue",
-                "state": "active",
-                "current_phase": "behavior",
-                "extensions": {"studio/reset-from-study-id": "scar-tissue"},
-            })
-            specimen = {"id": "specimen-scar-tissue-v1", "component_ids": []}
-
-            with self.assertRaisesRegex(GoldenSpecimenError, "reset to Behavior"):
-                register_scar_tissue(root)
-            with self.assertRaisesRegex(ValueError, "reset to Behavior"):
-                ensure_scar_tissue_session(store, specimen)
-
-            self.assertEqual(store.list("sessions")[0], [])
-            self.assertEqual(store.list("specimens")[0], [])
-
-    def test_session_cli_creates_updates_activates_and_lists_inbox_without_execution(self) -> None:
-        with tempfile.TemporaryDirectory() as directory:
-            root = Path(directory)
-            with patch("houdini_ai.runners.RunnerRegistry.dispatch") as dispatch:
-                code, output = self.run_cli(
-                    root,
-                    "session-create",
-                    "Pilot Study",
-                    "--project",
-                    "pilot-study",
-                    "--intent",
-                    "Explore safely.",
-                    "--next-action",
-                    "Draft three directions.",
-                    "--activate",
-                )
-                self.assertEqual(code, 0)
-                session_id = output.splitlines()[0].split(": ", 1)[1]
-                code, _ = self.run_cli(
-                    root,
-                    "session-update",
-                    session_id,
-                    json.dumps({"current_phase": "directions", "unresolved_questions": ["Which direction?"]}),
-                )
-                self.assertEqual(code, 0)
-                self.assertIn(session_id, self.run_cli(root, "sessions")[1])
-                inbox = self.run_cli(root, "inbox")[1]
-                self.assertIn("session-question", inbox)
-                self.assertIn("Which direction?", inbox)
-                dispatch.assert_not_called()
-
     def test_direction_cli_selects_a_thesis_and_derives_proposed_probe_without_execution(self) -> None:
         with tempfile.TemporaryDirectory() as directory:
             root = Path(directory)
@@ -248,21 +127,59 @@ class StudioCliTests(unittest.TestCase):
                 self.assertIn(direction_id, self.run_cli(root, "directions")[1])
                 dispatch.assert_not_called()
 
-    def test_pilot_study_003_bootstrap_cli_is_idempotent_and_non_executing(self) -> None:
+    def test_note_capture_refreshes_digest_automatically(self) -> None:
         with tempfile.TemporaryDirectory() as directory:
             root = Path(directory)
-            with patch("houdini_ai.runners.RunnerRegistry.dispatch") as dispatch:
-                first_code, first_output = self.run_cli(root, "bootstrap-pilot-003")
-                second_code, second_output = self.run_cli(root, "bootstrap-pilot-003")
-            self.assertEqual((first_code, second_code), (0, 0))
-            self.assertEqual(first_output, second_output)
-            self.assertIn("idea: idea-nonlocal-affinity-dance-", first_output)
-            self.assertIn("direction: selected Faithful Nonlocal Signed Graph", first_output)
-            self.assertIn("direction: held Graph Choreography", first_output)
-            self.assertIn("direction: held Encounter Memory", first_output)
-            self.assertIn("proposal: proposed proposal-", first_output)
-            self.assertIn("session: active Pilot Study 003", first_output)
-            dispatch.assert_not_called()
+            code, _ = self.run_cli(
+                root, "note", "the packet flow feels fast", "--category", "working",
+                "--stage", "behavior", "--track", "behavior",
+            )
+            self.assertEqual(code, 0)
+            digest = root / "studio" / "PROCESS_NOTES.md"
+            self.assertTrue(digest.is_file())
+            self.assertIn("the packet flow feels fast", digest.read_text(encoding="utf-8"))
+
+    def test_retro_records_both_answers_as_notes(self) -> None:
+        with tempfile.TemporaryDirectory() as directory:
+            root = Path(directory)
+            code, output = self.run_cli(
+                root, "retro", "--stage", "look", "--track", "look",
+                "--dragged", "waiting on the starter build", "--fun", "the one-frame probes",
+                "--reference", "component-look-a",
+            )
+            self.assertEqual(code, 0)
+            store = StudioStore(root)
+            ids = [line.split(": ", 1)[1] for line in output.splitlines() if line.startswith("id: ")]
+            self.assertEqual(len(ids), 2)
+            categories = {store.read("notes", note_id)["category"] for note_id in ids}
+            self.assertEqual(categories, {"pain-point", "working"})
+            for note_id in ids:
+                self.assertEqual(store.read("notes", note_id)["reference_id"], "component-look-a")
+
+    def test_retro_accepts_a_single_answer_but_not_none(self) -> None:
+        with tempfile.TemporaryDirectory() as directory:
+            root = Path(directory)
+            code, output = self.run_cli(root, "retro", "--stage", "look", "--track", "look", "--fun", "clean handoff")
+            self.assertEqual(code, 0)
+            self.assertEqual(output.count("id: "), 1)
+            with self.assertRaisesRegex(ValueError, "at least one answer"):
+                self.run_cli(root, "retro", "--stage", "look", "--track", "look")
+
+    def test_gate_decisions_print_the_micro_retro_nudge(self) -> None:
+        with tempfile.TemporaryDirectory() as directory:
+            root = Path(directory)
+            store = StudioStore(root)
+            artifact_path = root / "work" / "jobs" / "run" / "review" / "artifact.bin"
+            artifact_path.parent.mkdir(parents=True)
+            artifact_path.write_bytes(b"ok")
+            store.create("ideas", "idea-a", {"id": "idea-a", "track": "behavior", "state": "proposed"})
+            store.create("proposals", "proposal-a", {"id": "proposal-a", "idea_id": "idea-a", "track": "behavior", "state": "approved"})
+            store.create("experiments", "experiment-a", {"id": "experiment-a", "proposal_id": "proposal-a", "track": "behavior", "state": "completed"})
+            store.create("artifacts", "artifact-a", {"schema_version": 1, "id": "artifact-a", "experiment_id": "experiment-a", "track": "behavior", "state": "verified", "path": "work/jobs/run/review/artifact.bin", "sha256": "sha256:" + hashlib.sha256(b"ok").hexdigest(), "verified": True, "visibility": "private"})
+            _, decide_output = self.run_cli(root, "decide", "artifact-a", "promote", "--note", "selected")
+            self.assertIn("micro-retro", decide_output)
+            _, promote_output = self.run_cli(root, "promote", "artifact-a", "--kind", "behavior", "--rationale", "KC rationale")
+            self.assertIn("micro-retro", promote_output)
 
 
 if __name__ == "__main__":

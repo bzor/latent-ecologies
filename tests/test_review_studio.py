@@ -367,7 +367,7 @@ class ReviewStudioTests(unittest.TestCase):
                 server.server_close()
                 thread.join(timeout=2)
 
-    def test_creative_session_and_review_inbox_http_round_trip(self) -> None:
+    def test_note_capture_and_review_inbox_http_round_trip(self) -> None:
         with tempfile.TemporaryDirectory() as directory:
             root = Path(directory)
             website = root / "website"
@@ -386,54 +386,23 @@ class ReviewStudioTests(unittest.TestCase):
                 with urllib.request.urlopen(request) as response:
                     return response.status, json.load(response)
 
-            payload = {
-                "title": "Pilot Study",
-                "project_slug": "pilot-study",
-                "current_phase": "seed",
-                "intent": "Explore $(touch escaped) as inert prose.",
-                "approved_selection_ids": [],
-                "unresolved_questions": ["Which direction?"],
-                "blockers": [],
-                "recommended_next_action": "Draft behavior directions.",
-                "activate": True,
-            }
             try:
                 bootstrap = json.load(urllib.request.urlopen(base + "/api/studio/session"))
-                self.assertIsNone(bootstrap["active_session"])
-                self.assertIn("directions", bootstrap["phases"])
+                self.assertEqual(bootstrap, {"mutation_token": "token"})
 
-                status, created = mutate("/api/studio/sessions", payload)
-                self.assertEqual(status, 201)
-                self.assertTrue(created["is_active"])
-                session_id = created["id"]
-
-                status, updated = mutate(
-                    f"/api/studio/sessions/{session_id}",
-                    {"current_phase": "directions", "recommended_next_action": "Compare three mechanisms."},
-                    method="PATCH",
-                )
-                self.assertEqual(status, 200)
-                self.assertEqual(updated["current_phase"], "directions")
-                self.assertEqual(updated["recommended_next_action"], "Compare three mechanisms.")
-
-                sessions = json.load(urllib.request.urlopen(base + "/api/studio/sessions"))
-                self.assertEqual(sessions["items"][0]["id"], session_id)
-                self.assertTrue(sessions["items"][0]["is_active"])
                 status, note = mutate(
                     "/api/studio/notes",
                     {
-                        "text": "Should this question remain visible?",
+                        "text": "Should this question remain visible? $(touch escaped)",
                         "category": "question",
                         "stage": "behavior",
                         "track": "behavior",
-                        "reference_id": session_id,
+                        "reference_id": "component-behavior-a",
                     },
                 )
                 self.assertEqual(status, 201)
-                self.assertEqual(note["reference_id"], session_id)
+                self.assertEqual(note["reference_id"], "component-behavior-a")
                 inbox = json.load(urllib.request.urlopen(base + "/api/studio/review-inbox"))
-                self.assertEqual(inbox["session_id"], session_id)
-                self.assertEqual(inbox["counts"]["session-question"], 1)
                 self.assertEqual(inbox["counts"]["process-question"], 1)
                 self.assertFalse((root / "escaped").exists())
             finally:

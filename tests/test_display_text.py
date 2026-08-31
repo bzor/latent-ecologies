@@ -33,9 +33,7 @@ class DisplayTextTests(unittest.TestCase):
             "artifact_catalog.py",
             "nonlocal_affinity_review.py",
             "pipeline.py",
-            "pilot_study_003.py",
             "public_seed_bank.py",
-            "studio_sessions.py",
         )
         for name in python_sources:
             path = ROOT / "src" / "houdini_ai" / name

@@ -13,7 +13,6 @@ from .process_notes import capture_note
 from .promotions import promote_artifact as promote_verified_artifact
 from .proposals import create_proposal as create_bounded_proposal
 from .review_inbox import build_review_inbox
-from .studio_sessions import PHASES, activate_session, active_session, create_session, list_sessions, update_session
 from .studio_schema import validate_record
 from .studio_store import StudioStore
 from .studio_types import can_transition, effective_visibility, validate_editorial_tags
@@ -235,24 +234,9 @@ class StudioAPI:
         return {"items": build_artifact_catalog(self.root), "errors": []}
 
     def session_bootstrap(self, mutation_token: str | None) -> dict[str, Any]:
-        return {"mutation_token": mutation_token, "active_session": active_session(self.store), "phases": PHASES}
-
-    def create_session(self, value: dict[str, Any]) -> dict[str, Any]:
-        payload = dict(value)
-        activate = payload.pop("activate", False)
-        if not isinstance(activate, bool):
-            raise ValueError("activate must be a boolean")
-        record = create_session(self.store, payload, activate=activate)
-        return {**record, "is_active": activate}
-
-    def list_sessions(self) -> dict[str, Any]:
-        return {"items": list_sessions(self.store), "errors": []}
-
-    def activate_session(self, session_id: str) -> dict[str, Any]:
-        return activate_session(self.store, session_id)
-
-    def update_session(self, session_id: str, value: dict[str, Any]) -> dict[str, Any]:
-        return update_session(self.store, session_id, value)
+        # The endpoint keeps its historical name: it bootstraps the browser's
+        # mutation token; creative-session records are retired.
+        return {"mutation_token": mutation_token}
 
     def review_inbox(self) -> dict[str, Any]:
         return build_review_inbox(self.root)
