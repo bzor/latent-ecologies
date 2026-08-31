@@ -27,6 +27,7 @@
     ]
   ],
   "schema_version": 1,
+  "short_summary": "512 agents route across a shared field, following decaying traces and rerouting around scars left by repeated traffic.",
   "source": "study-001-memory-field",
   "study_id": "study-001-memory-field",
   "subtitle": "agents shape territory through their decaying memory",

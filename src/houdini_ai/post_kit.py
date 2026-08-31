@@ -96,7 +96,7 @@ def build_captions(card: Mapping[str, Any], stage: str) -> dict[str, str]:
     study = _study_line(card)
     subtitle = str(card.get("subtitle", ""))
     summary = str(card.get("summary", ""))
-    sentence = _first_sentence(summary)
+    sentence = str(card.get("short_summary", "")) or _first_sentence(summary)
     stage_line = _stage_line(card, stage)
     bullets = "\n".join(f"- {item}" for item in card.get("bullets", []))
     params = " · ".join(f"{label} {value}" for label, value in card.get("params", []))

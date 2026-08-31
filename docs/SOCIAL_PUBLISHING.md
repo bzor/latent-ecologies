@@ -83,8 +83,10 @@ generated text follows `TECHNICAL_VOICE.md` and must pass
 `display_text.validate_display_text`; generation fails loudly on a violation
 rather than posting around it. Per-platform shapes:
 
-- **X / Bluesky:** number, title, subtitle, one summary sentence — trimmed to fit
-  280 / 300 characters. No hashtags.
+- **X / Bluesky:** number, title, subtitle, and the card's `short_summary` (falling
+  back to the first summary sentence) — trimmed to fit 280 / 300 characters. No
+  hashtags. The `short_summary` is a purpose-written one-liner describing the
+  system; it is reusable by any other surface that needs the compact description.
 - **Instagram:** full summary, bullets, headline parameters, hashtag block.
 - **Shorts:** title line plus a short description.
 - **TikTok:** short description plus hashtag block.

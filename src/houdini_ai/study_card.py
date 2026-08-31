@@ -32,7 +32,7 @@ _REQUIRED = (
     "number",
     "title",
 )
-_OPTIONAL_STRINGS = ("overlay_id", "subtitle", "summary", "source", "date", "credits")
+_OPTIONAL_STRINGS = ("overlay_id", "subtitle", "summary", "short_summary", "source", "date", "credits")
 
 
 def validate_study_card(card: Mapping[str, Any]) -> list[str]:

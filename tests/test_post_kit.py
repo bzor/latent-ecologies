@@ -84,6 +84,16 @@ class CaptionTests(unittest.TestCase):
         self.assertLessEqual(len(caption), pk.PLATFORMS["x"]["caption_limit"])
         self.assertIn("STUDY 003", caption)
 
+    def test_short_summary_replaces_first_sentence_on_short_platforms(self) -> None:
+        card = sample_card()
+        card["short_summary"] = "512 agents reroute around scars left by repeated traffic."
+        captions = pk.build_captions(card, "delivery")
+        for platform in ("x", "bluesky", "shorts", "tiktok"):
+            self.assertIn(card["short_summary"], captions[platform])
+            self.assertNotIn("Simulation of 100 000", captions[platform])
+        self.assertIn("Simulation of 100 000", captions["instagram"])
+        self.assertNotIn(card["short_summary"], captions["instagram"])
+
     def test_rejects_unknown_stage(self) -> None:
         with self.assertRaises(ValueError):
             pk.build_captions(sample_card(), "seed")
