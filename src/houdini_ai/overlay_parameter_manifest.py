@@ -169,3 +169,61 @@ def overlay_manifest_fields(
         "overlay_parameters": parameters,
         "params": [[parameter["label"], _display_value(parameter["value"])] for parameter in parameters],
     }
+
+
+HEADLESS_BINDING = "headless-clean-load"
+
+
+def bind_headless_overlay_manifest(
+    manifest_path: Path,
+    hip_path: Path,
+    pre_load_sha256: str,
+) -> dict[str, Any]:
+    """Bind a headless manifest export to the locked HIP's on-disk checksum.
+
+    ``hou.hipFile.hasUnsavedChanges()`` reports true in hython immediately after a
+    clean load, so an HDA export can never bind the checksum itself in a headless
+    session. The driver that loaded the scene holds the missing evidence: it hashed
+    the HIP before loading, made no scene mutations before exporting, and the file
+    is unchanged afterwards. This function verifies that claim against the on-disk
+    file and rewrites the manifest with the bound checksum and its provenance.
+    """
+    import hashlib
+
+    manifest = load_overlay_parameter_manifest(manifest_path)
+    errors = validate_overlay_parameter_manifest(manifest)
+    if errors:
+        raise ValueError("manifest is invalid: " + "; ".join(errors))
+
+    digest = "sha256:" + hashlib.sha256(Path(hip_path).read_bytes()).hexdigest()
+    if not pre_load_sha256.startswith("sha256:"):
+        pre_load_sha256 = "sha256:" + pre_load_sha256
+    if digest != pre_load_sha256:
+        raise ValueError(
+            f"HIP changed on disk between load and binding: {pre_load_sha256} became {digest}"
+        )
+
+    source = dict(manifest["source"])
+    recorded = Path(str(source["hip_path"]))
+    if recorded.resolve() != Path(hip_path).resolve():
+        raise ValueError(
+            f"manifest was exported from {recorded}, not the HIP being bound ({hip_path})"
+        )
+
+    existing = source.get("hip_sha256")
+    if existing is not None:
+        if existing != digest:
+            raise ValueError(
+                f"manifest already binds {existing}, which does not match the on-disk HIP {digest}"
+            )
+        return manifest
+
+    source["hip_sha256"] = digest
+    source["hip_dirty"] = False
+    source["checksum_binding"] = HEADLESS_BINDING
+    bound = dict(manifest)
+    bound["source"] = source
+    temporary = manifest_path.with_suffix(manifest_path.suffix + ".tmp")
+    temporary.write_text(json.dumps(bound, indent=2, sort_keys=True) + "\n", encoding="utf-8")
+    temporary.replace(manifest_path)
+    return bound
