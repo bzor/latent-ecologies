@@ -1,0 +1,45 @@
+{
+  "bullets": [
+    "resource, inhibition, and occupancy fields with decaying agent traces",
+    "scars form where traffic exceeds a threshold, deflect later routes, and heal when idle",
+    "promoted as the live HDA bzor::refractory_route::1.0"
+  ],
+  "credits": "bzor computational studio",
+  "date": "2026-08-30",
+  "number": 1,
+  "overlay_id": "STUDY-001",
+  "params": [
+    [
+      "AGENTS",
+      "512"
+    ],
+    [
+      "SEED",
+      "18432"
+    ],
+    [
+      "SOLVER",
+      "POP/VEX"
+    ],
+    [
+      "FIELDS",
+      "RESOURCE / INHIBITION / OCCUPANCY"
+    ],
+    [
+      "HORIZON",
+      "450 FRAMES @ 30 FPS"
+    ]
+  ],
+  "schema_version": 1,
+  "source": "study-001-memory-field",
+  "study_id": "study-001-memory-field",
+  "subtitle": "agents shape territory through their own decaying memory",
+  "summary": "Simulation of 512 point agents on a shared field, integrated with a POP/VEX solver from deterministic seed 18432. Each step the agents sense resource, inhibition, and occupancy fields, steer, consume, and deposit a decaying trace; scars form where accumulated traffic exceeds a threshold, deflect later routes, and heal when idle. The rendered territory structure records the interaction of trace decay and scar dynamics over 450 frames. The memory framing is an analogy; no biological claim is made.",
+  "title": "Memory Field",
+  "variation_behavior_number": 1,
+  "variation_file_stem": "bhvr_001_var_001_memory-field",
+  "variation_id": "variation-bhvr001-001-memory-field",
+  "variation_number": 1,
+  "variation_slug": "memory-field",
+  "variation_title": "Memory Field"
+}

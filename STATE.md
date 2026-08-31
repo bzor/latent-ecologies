@@ -48,8 +48,10 @@ _Last updated: 2026-08-31_
   Discord summary, receipt with constraint checks. Hand-post from the kit for
   now; Phase 2 (Discord approval loop → Postiz adapter → publication receipts)
   and Phase 3 (post queue + weekly nudge) are specified in the doc. First
-  candidates: Study 001's delivery video and lineage poster (Studies 001/002
-  need a `00_study/study-card.json` before a kit can build).
+  candidates: Study 001's delivery video and lineage poster. Study 001's card
+  is drafted at `studies/001-memory-field/00_study/study-card.json` (summary
+  wording awaiting KC review); Study 002 still needs a card before a kit can
+  build.
 
 - **Studio rituals (2026-08-31):** completion posters
   (`python -m houdini_ai.lineage_poster`), the study-close held-branch revisit, and
