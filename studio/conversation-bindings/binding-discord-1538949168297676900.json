@@ -1,0 +1,13 @@
+{
+  "created_at": "2026-08-17T16:34:34Z",
+  "guild_id": "1538362418277908530",
+  "id": "binding-discord-1538949168297676900",
+  "parent_channel_id": "1538634194882924726",
+  "platform": "discord",
+  "schema_version": 1,
+  "seed_id": "idea-lineage-machines-2951fbb2",
+  "state": "active",
+  "thread_id": "1538949168297676900",
+  "updated_at": "2026-08-17T16:34:34Z",
+  "visibility": "private"
+}

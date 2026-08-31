@@ -1,0 +1,28 @@
+{
+  "id": "experiment-scar-tissue-chromatic-v7",
+  "parameters": {
+    "cube_color_attributes": [
+      "scar_value",
+      "scar_idle",
+      "scar_state"
+    ],
+    "cube_state_roles": {
+      "0": "blue-slate",
+      "1": "electric-blue",
+      "2": "teal"
+    },
+    "frame": 150,
+    "palette": "bioluminal-depth",
+    "peak": 0.95,
+    "source_behavior_component_id": "component-behavior-b3bcc837c3e2",
+    "source_look_component_id": "component-look-6013004ba32c",
+    "vertical_exponent": 2.0,
+    "vertical_profile": "floor-to-state-tip-power"
+  },
+  "proposal_id": "proposal-scar-tissue-chromatic-v1",
+  "runner": "look.scar_tissue_probe",
+  "schema_version": 1,
+  "state": "archived",
+  "track": "chromatic",
+  "visibility": "private"
+}

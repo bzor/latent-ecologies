@@ -151,8 +151,8 @@ Hermes records the exact wording as a private, timestamped observation with:
 - optional artifact or component reference;
 - no automatic execution, mutation, promotion, or publication.
 
-Canonical records live under `work/studio/notes/`. A generated
-`work/studio/PROCESS_NOTES.md` digest groups observations for workflow review while leaving
+Canonical records live under `studio/notes/`. A generated
+`studio/PROCESS_NOTES.md` digest groups observations for workflow review while leaving
 the individual JSON records authoritative.
 
 ### Decide a branch
@@ -322,4 +322,4 @@ The interaction milestone above is built into the Studio CLI: the idea inbox
 decisions including mutate, hold, archive, and promote (`decide`, `promote`),
 promotion records with rationale, publication tags with a private-by-default
 candidate queue (`tag`, `untag`, `editorial`), and conversational process notes
-(`note`, `notes`, `work/studio/PROCESS_NOTES.md`).
+(`note`, `notes`, `studio/PROCESS_NOTES.md`).

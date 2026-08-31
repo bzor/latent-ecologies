@@ -1,0 +1,32 @@
+{
+  "cost_tier": "study",
+  "direction_ids": [
+    "direction-fbe9c254e174"
+  ],
+  "extensions": {
+    "bzor.systems/explicit-user-approval": "KC said to run the simulation first at one hundred thousand particles in 3D; trails and sizing are deferred to Look Development."
+  },
+  "hypothesis": "Tight, wide, and cohesive swirl presets will remain behaviorally distinct after scaling to 100,000 VEX-authoritative 3D points.",
+  "id": "proposal-c5421b02875c",
+  "idea_id": "idea-nonlocal-affinity-dance-b774404e",
+  "mechanism": "Preserve each saved signed nonlocal force law and stochastic rewiring policy; initialize an identical seeded 3D graph; integrate synchronously in VEX; retain sparse neutral checkpoints.",
+  "outputs": [
+    "three VEX-authoritative 100k 3D cache sequences",
+    "three reopenable HIPLC scenes",
+    "geometry-derived metrics and checksum receipts",
+    "neutral behavior comparison without trails or Look decisions"
+  ],
+  "question": "How do the three selected Canvas sweet spots behave at 100,000 points in a shared 3D production domain?",
+  "runner": "behavior.nonlocal_affinity_3d",
+  "schema_version": 1,
+  "state": "approved",
+  "stop_conditions": [
+    "any VEX compile or cook error",
+    "any non-finite point position",
+    "wrong point count or dimensional collapse",
+    "missing sparse checkpoint or final cache",
+    "receipt or checksum verification failure"
+  ],
+  "track": "behavior",
+  "visibility": "private"
+}

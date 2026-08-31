@@ -62,24 +62,24 @@ and reusable components.
 Versioned under Git:
 
 ```text
-studio/
-  ideas/                 selected or developed research seeds
-  experiments/           behavior and technical setup definitions
-  proposals/             bounded probe contracts awaiting or past decision
+studio/                   the Studio record store (StudioStore root): ideas, seeds,
+                          experiments, proposals, studies, notes, artifacts, components,
+                          specimens, directions, sessions, and state collections, plus
+                          the generated PROCESS_NOTES.md digest
 schemas/studio/           JSON Schemas for every record type
 houdini/                  scene builders, VEX, materials, rigs, and render tools
 src/houdini_ai/           studio kernel, CLI, runners, API, and packaging
 ```
 
-Planned but not yet created: `studio/sources/` (paper/reference metadata),
-`studio/components/` (promoted immutable component records), `studio/specimens/`
-(assemblies referencing exact components), and `studio/editorial/` (approved
-public selections and field-note copy).
+Planned but not yet created: `studio/sources/` (paper/reference metadata) and
+`studio/editorial/` (approved public selections and field-note copy).
 
 Legacy mutable/generated state remains beneath ignored `work/` during migration:
 
 ```text
-work/studio/              record stores (studies, seeds, notes) and generated summaries
+work/studio/              heavy stage outputs only (handoffs, probes, lookdev,
+                          chromatic, cinematography, motion-checks, overlay, renders,
+                          diagnostics); the JSON record store lives in `studio/`
 work/jobs/                transient caches, staging, previews, renders, logs, receipts
 work/reviews/             artifact and timecoded feedback
 ```

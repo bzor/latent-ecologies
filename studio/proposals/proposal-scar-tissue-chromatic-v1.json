@@ -1,0 +1,26 @@
+{
+  "cost_tier": "probe",
+  "extensions": {
+    "studio/source-behavior-component": "component-behavior-b3bcc837c3e2",
+    "studio/source-look-component": "component-look-6013004ba32c"
+  },
+  "hypothesis": "A dark floor-to-tip ramp with electric-blue reinforcement and teal saturation will expose state transitions without obscuring relief.",
+  "id": "proposal-scar-tissue-chromatic-v1",
+  "idea_id": "idea-scar-tissue-chromatic-v1",
+  "mechanism": "Hold promoted Behavior and Look fixed; map scar_state categorically, scar_value to intensity, and scar_idle to age dimming.",
+  "outputs": [
+    "single-frame semantic colour probe",
+    "reopenable Houdini scene",
+    "exact mapping receipt"
+  ],
+  "question": "Which semantic colour mapping best differentiates dormant, reinforced, and saturated Scar Tissue field states?",
+  "runner": "look.scar_tissue_probe",
+  "schema_version": 1,
+  "state": "archived",
+  "stop_conditions": [
+    "Behavior or Look geometry changes",
+    "state roles are not visually distinct"
+  ],
+  "track": "chromatic",
+  "visibility": "private"
+}

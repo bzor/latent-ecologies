@@ -1,0 +1,29 @@
+{
+  "cheapest_informative_probe": "Compare random rewiring with one encounter-memory threshold using the same seed and force law.",
+  "conceptual_distinction": "This changes why topology evolves, not merely how frequently random rewiring occurs.",
+  "expected_emergent_behavior": "Temporary alliances, betrayal waves, territorial memory, and path-dependent reorganizations should develop.",
+  "extensions": {
+    "studio/pilot-study-003-role": "encounter-memory"
+  },
+  "id": "direction-bf5bdcdad0d3",
+  "idea_id": "idea-nonlocal-affinity-dance-b774404e",
+  "mechanism": "Keep one friend and enemy per point, but replace random rewiring with bounded memory of encounters, accumulated affinity, fatigue, and possible role reversal.",
+  "premise": "Relationship history can become persistent agent state that changes future affinity and aversion.",
+  "risks": [
+    "Memory may freeze the graph or produce undifferentiated churn without carefully bounded state."
+  ],
+  "schema_version": 1,
+  "sibling_relations": [
+    {
+      "direction_id": "direction-fbe9c254e174",
+      "relationship": "replaces stochastic rewiring with historical causation"
+    },
+    {
+      "direction_id": "direction-2e123a6324f6",
+      "relationship": "emergent topology rather than authored topology"
+    }
+  ],
+  "state": "held",
+  "title": "Encounter Memory",
+  "visibility": "private"
+}

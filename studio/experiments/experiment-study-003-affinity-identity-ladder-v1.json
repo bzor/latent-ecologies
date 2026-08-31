@@ -1,0 +1,26 @@
+{
+  "extensions": {
+    "bzor.systems/identity-manifest": "work/studies/study-003-nonlocal-affinity-dance/20-behavior/comparisons/affinity-identity-ladder-v1/identity-ladder-manifest.json",
+    "bzor.systems/output-root": "work/studies/study-003-nonlocal-affinity-dance/20-behavior/comparisons/affinity-identity-ladder-v1"
+  },
+  "id": "experiment-study-003-affinity-identity-ladder-v1",
+  "parameters": {
+    "agent_count": 5000,
+    "planar_rng": "mulberry32-v1",
+    "preset_ids": [
+      "affinity-preset-32e76e5d39d0",
+      "affinity-preset-32f02869ab53",
+      "affinity-preset-9e33c556dc55"
+    ],
+    "review_interval": 1,
+    "shallow_3d_depth": 0.15,
+    "steps": 240,
+    "trails": "canvas-display-diagnostic-only"
+  },
+  "proposal_id": "proposal-35f89d503a5b",
+  "runner": "behavior.nonlocal_affinity_3d",
+  "schema_version": 1,
+  "state": "completed",
+  "track": "behavior",
+  "visibility": "private"
+}

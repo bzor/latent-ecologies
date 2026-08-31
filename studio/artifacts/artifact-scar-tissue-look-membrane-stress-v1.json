@@ -1,0 +1,13 @@
+{
+  "decision": "archive",
+  "decision_note": "Archived by the Study 002 Behavior reset; retained as historical evidence only.",
+  "experiment_id": "experiment-scar-tissue-look-membrane-stress",
+  "id": "artifact-scar-tissue-look-membrane-stress-v1",
+  "path": "work/jobs/scar-tissue-look-membrane-stress-v1/lookdev/membrane-stress.png",
+  "schema_version": 1,
+  "sha256": "sha256:21a742ef0072a08ca67bea89f190d4ddb655761988d3dadfd3a13ae9ee4e3373",
+  "state": "verified",
+  "track": "look",
+  "verified": true,
+  "visibility": "private"
+}

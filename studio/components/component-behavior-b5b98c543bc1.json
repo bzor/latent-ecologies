@@ -1,0 +1,13 @@
+{
+  "component_kind": "behavior",
+  "content_hash": "sha256:d3a7a800f56403ee4ec97ac592ea15ca3ad396e239749cb3120390938e061bec",
+  "id": "component-behavior-b5b98c543bc1",
+  "rationale": "Corrects the truncated prepared schedule while preserving the accepted initialization and exact historical event/state prefix; rewiring now continues through the complete animation horizon.",
+  "schema_version": 1,
+  "source_artifact_ref": "work/studio/handoffs/study-003-affinity-continuous-rewire-v2/behavior-correction-receipt.json",
+  "source_experiment_id": "experiment-study-003-affinity-continuous-rewire-v2",
+  "state": "promoted",
+  "supersedes_id": "component-behavior-2e6832d7d826",
+  "track": "behavior",
+  "visibility": "private"
+}

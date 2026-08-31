@@ -1,0 +1,19 @@
+{
+  "experiment_id": "experiment-study-003-affinity-3d-100k-v1",
+  "extensions": {
+    "studio/comparison-manifest": "work/studies/study-003-nonlocal-affinity-dance/20-behavior/comparisons/affinity-3d-100k-v1/comparison-manifest.json",
+    "studio/legacy-path": "work/studio/handoffs/study-003-affinity-3d-100k-v1/affinity-3d-100k-neutral-comparison.mp4",
+    "studio/look-status": "deferred",
+    "studio/review-receipt": "work/studies/study-003-nonlocal-affinity-dance/20-behavior/comparisons/affinity-3d-100k-v1/review/review-receipt.json",
+    "studio/review-sample": "5000 deterministic points per 100000-point cache",
+    "studio/state-authority": "vex-geometry"
+  },
+  "id": "artifact-study-003-affinity-3d-100k-v1",
+  "path": "studies/study_003_nonlocal-affinity-dance/01_behavior/02_review/migrated_verified/artifact-study-003-affinity-3d-100k-v1/affinity-3d-100k-neutral-comparison.mp4",
+  "schema_version": 1,
+  "sha256": "sha256:51bd82413580ae7d25798095bf37c95b8e1a5b07ed05f51fc32f7bf13d1125ae",
+  "state": "verified",
+  "track": "behavior",
+  "verified": true,
+  "visibility": "private"
+}

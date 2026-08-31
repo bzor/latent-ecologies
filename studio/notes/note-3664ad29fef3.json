@@ -1,0 +1,10 @@
+{
+  "category": "missing-functionality",
+  "created_at": "2026-08-13T12:57:55Z",
+  "id": "note-3664ad29fef3",
+  "schema_version": 1,
+  "stage": "probe",
+  "text": "after the idea phase, I think you have this as the Probe phase, once the idea is promoted into the pipeline I'd like a brainstorming chat session picking various directions for the behaviour phase. so very different simulation ideas but within the umbrella of the idea. then we pick one or more of the directions to go into the behaviour lab, which actually simulates each of them in different ways (like what you did with scar tissue). so basically adding a brainstorming session in between the idea pick and the sim, to nail down what is actually being simulated (can be several that compete).",
+  "track": "behavior",
+  "visibility": "private"
+}

@@ -1,0 +1,23 @@
+{
+  "cost_tier": "probe",
+  "id": "proposal-scar-tissue-base",
+  "idea_id": "idea-scar-tissue",
+  "mechanism": "Agents deposit oriented memory, follow viable scars, avoid refractory paths, and revisit decayed territory.",
+  "outputs": [
+    "diagnostic-loop",
+    "metrics",
+    "hip",
+    "cache"
+  ],
+  "question": "Can oriented path memory produce reinforcement, abandonment, and renewal?",
+  "runner": "behavior.scar_tissue_probe",
+  "schema_version": 1,
+  "state": "approved",
+  "stop_conditions": [
+    "persistent synchronized looping",
+    "no directional alignment",
+    "no return events"
+  ],
+  "track": "behavior",
+  "visibility": "private"
+}

@@ -1,0 +1,129 @@
+{
+  "id": "experiment-c2-radius-2",
+  "parameters": {
+    "agent_count": 6,
+    "collision_policy": "frame-exchange",
+    "collisions": 10,
+    "contested_cells": 8,
+    "frame_exchanges": 20,
+    "initial_agents": [
+      [
+        [
+          2,
+          0,
+          0
+        ],
+        [
+          -1,
+          0,
+          0
+        ],
+        [
+          0,
+          0,
+          1
+        ]
+      ],
+      [
+        [
+          -2,
+          0,
+          0
+        ],
+        [
+          1,
+          0,
+          0
+        ],
+        [
+          0,
+          0,
+          1
+        ]
+      ],
+      [
+        [
+          0,
+          2,
+          0
+        ],
+        [
+          0,
+          -1,
+          0
+        ],
+        [
+          0,
+          0,
+          1
+        ]
+      ],
+      [
+        [
+          0,
+          -2,
+          0
+        ],
+        [
+          0,
+          1,
+          0
+        ],
+        [
+          0,
+          0,
+          1
+        ]
+      ],
+      [
+        [
+          0,
+          0,
+          2
+        ],
+        [
+          0,
+          0,
+          -1
+        ],
+        [
+          0,
+          1,
+          0
+        ]
+      ],
+      [
+        [
+          0,
+          0,
+          -2
+        ],
+        [
+          0,
+          0,
+          1
+        ],
+        [
+          0,
+          1,
+          0
+        ]
+      ]
+    ],
+    "occupied_cells": 1457,
+    "schedule": "synchronous-read-intent-commit",
+    "transaction_order": [
+      0,
+      1,
+      2,
+      3,
+      4,
+      5
+    ]
+  },
+  "proposal_id": "proposal-c2-radius-2",
+  "schema_version": 1,
+  "state": "completed",
+  "track": "behavior",
+  "visibility": "private"
+}

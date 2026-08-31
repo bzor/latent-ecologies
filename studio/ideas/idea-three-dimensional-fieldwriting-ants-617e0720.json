@@ -1,0 +1,68 @@
+{
+  "constraints": [
+    "Verify a deterministic 2D multi-ant reference and the published Hamann 3D rules before judging any Studio-designed 3D descendant.",
+    "Define and receipt the full 3D orientation frame, rotation operators, lattice connectivity, collision semantics, and update order.",
+    "Keep source-observed 2D behavior explicitly separate from Studio-proposed 3D hypotheses.",
+    "Use hard spatial and temporal bounds until recurrence, growth rate, and memory requirements are understood.",
+    "Represent field states as semantic scalar indices for editable palette mapping; do not bake final colors into simulation state.",
+    "Do not republish source code or notebook content without rights clearance; the Seed remains private."
+  ],
+  "created_at": "2026-08-17T16:17:49Z",
+  "id": "idea-three-dimensional-fieldwriting-ants-617e0720",
+  "long_summary": "Observed source mechanism: the Wolfram Community post extends Langton's Ant beyond the familiar single walker. It implements toroidal and wall-bounded grids, multiple ants that read and alter one shared cell field, simultaneous or independently stepped agents, and triangular, square, and hexagonal tilings. In the reported 2D experiments, nearby initial conditions and highway collisions can make paths cross, block, redirect, or delay one another. Reflective boundaries can drive an ant back along and erase its own highway, while changing the tiling changes whether the classic highway appears at all. The post includes substantial inline Wolfram code plus an attached quantitative-analysis notebook.\n\nStudio 3D correction: although the cited 2026 Wolfram source does not define a three-dimensional ant, Hamann (2003), Bunimovich (1996), and Dorbec and Gajardo (2008) establish prior 3D and n-dimensional ant/rotator systems. The Study must first reproduce representative prior 3D rules; Studio extensions begin only after that receipt. A 3D walker needs a complete orientation frame\u2014not only a heading\u2014and a deterministic rule that maps the current voxel state and orientation to a new voxel state, rotation, and move. Candidate substrates include a cubic voxel lattice, body-centered or tetrahedral/octahedral cell complexes, and later a surface walker constrained to changing manifolds. Multiple walkers would share and rewrite the same field, making the volume an external memory and communication medium. Resulting paths could be rendered as occupied voxels, density trails, skeletal tubes, signed state volumes, or the swept topology of each lineage.\n\nThe first gate should faithfully reproduce a compact 2D multi-ant baseline and quantify highway onset, cycle length, collision outcomes, and boundary effects. The minimal 3D branch should then freeze one explicit orientation algebra, update ordering, lattice, and rule table. Only after deterministic replay should the Study compare asynchronous versus synchronous writing, multiple state alphabets, alternative 3D cell complexes, or moving boundaries. The central creative question is whether shared volumetric memory produces coherent highways and territorial structures, or merely diffuse random walks.",
+  "promoted_study_id": "study-004-three-dimensional-fieldwriting-ants",
+  "questions": [
+    "What is the smallest deterministic 3D orientation algebra that preserves the spirit of left/right state-dependent turning?",
+    "Do any 3D rule tables produce persistent highways, tubes, sheets, or periodic volumetric structures after a chaotic transient?",
+    "How do simultaneous and ordered multi-agent writes differ when several walkers enter the same voxel in one step?",
+    "Can walkers communicate indirectly through field states and create territories, barriers, or cooperative construction?",
+    "Which boundary topologies cause self-erasure, recurrence, or trapped periodic orbits in three dimensions?",
+    "How do cubic, body-centered, and tetrahedral/octahedral neighborhoods alter emergent morphology?",
+    "Can state values remain semantic scalar indices that drive an editable shader palette rather than baked geometry colors?"
+  ],
+  "raw_text": "Start from the verified two-dimensional multi-ant and variable-tiling Langton system, then define a genuinely three-dimensional agent orientation and shared voxel-writing rule to study collisions, tubes, highways, and memory in volume.",
+  "reference_links": [
+    {
+      "kind": "article",
+      "note": "Primary 2D source posted by Natsuki Devillard and crediting Alexandre Brunot, Alain Chidiac, and Natsuki Devillard. Contains inline implementations for boundaries, multiple ants, tiling variants, and measurements, plus an attached notebook. The proposed 3D extension is a Studio direction, not a claim made by the source. No explicit reuse license was observed.",
+      "title": "Understanding and analyzing deeper Langton's Ant",
+      "url": "https://community.wolfram.com/groups/-/m/t/3782476"
+    },
+    {
+      "kind": "paper",
+      "note": "Canonical cubic-lattice 3D generalized-ant definition with heading plus working plane, L/R/U/D rule strings, short-rule tables, and highway/resource classifications.",
+      "title": "Definition and Behavior of Langton's Ant in Three Dimensions",
+      "url": "https://www.complex-systems.com/abstracts/v14_i03_a04/"
+    },
+    {
+      "kind": "paper",
+      "note": "Systematic n-dimensional generalizations contrasting lattice-gas velocity models with full-orientation artificial-life models; important for distinguishing full-space from planarized trajectories.",
+      "title": "Langton's flies",
+      "url": "https://doi.org/10.1088/1751-8113/41/40/405101"
+    },
+    {
+      "kind": "paper",
+      "note": "Earlier many-dimensional Lorentz/rotator cellular-automaton framework and computational results.",
+      "title": "Many-Dimensional Lorentz Cellular Automata and Turing Machines",
+      "url": "https://doi.org/10.1142/S0218127496000618"
+    }
+  ],
+  "schema_version": 1,
+  "short_summary": "Multiple deterministic walkers read and rewrite a shared spatial field; a proposed 3D extension asks whether their collisions organize volumetric highways, tubes, cavities, or self-erasing structures.",
+  "source_urls": [
+    "https://community.wolfram.com/groups/-/m/t/3782476"
+  ],
+  "state": "promoted",
+  "tags": [
+    "cellular-automata",
+    "agents",
+    "shared-field",
+    "langtons-ant",
+    "lattice-dynamics",
+    "three-dimensional"
+  ],
+  "title": "Three-Dimensional Fieldwriting Ants",
+  "track": "behavior",
+  "updated_at": "2026-08-22T17:14:48Z",
+  "visibility": "private"
+}

@@ -1,0 +1,12 @@
+{
+  "component_kind": "behavior",
+  "content_hash": "sha256:fe98ba7006a05fdfdb03c76fedc7a94190a70ad0d90f5b8ee764e660782dca01",
+  "id": "component-behavior-4cacde29695d",
+  "rationale": "KC promoted the exact C2 radius-2 compact control as an additional synchronous frame-exchange Behavior source for Look Development. Existing promoted selections remain intact.",
+  "schema_version": 1,
+  "source_artifact_ref": "work/studio/handoffs/study-004-c2-radius-2/behavior-handoff.json",
+  "source_experiment_id": "experiment-c2-radius-2",
+  "state": "promoted",
+  "track": "behavior",
+  "visibility": "private"
+}

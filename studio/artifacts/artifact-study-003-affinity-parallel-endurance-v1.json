@@ -1,0 +1,20 @@
+{
+  "decision": "promote",
+  "decision_note": "KC approved promotion of shallow-3D Parallel after straight-on review.",
+  "experiment_id": "experiment-study-003-affinity-parallel-endurance-v1",
+  "extensions": {
+    "studio/approval-message-id": "1538666235619704842",
+    "studio/legacy-path": "work/studio/handoffs/study-003-affinity-shallow3d-parallel-v1/behavior-review-straight-on.mp4",
+    "studio/manifest": "work/studio/handoffs/study-003-affinity-shallow3d-parallel-v1/manifest.json",
+    "studio/state-authority": "vex-geometry",
+    "studio/topology-retained": true
+  },
+  "id": "artifact-study-003-affinity-parallel-endurance-v1",
+  "path": "studies/study_003_nonlocal-affinity-dance/01_behavior/03_selected/selection_001/behavior-review-straight-on.mp4",
+  "schema_version": 1,
+  "sha256": "sha256:88f3e3e94dc01ca57108e7090e5e67aec52287cbabefd7463f704ea19fba2ed1",
+  "state": "verified",
+  "track": "behavior",
+  "verified": true,
+  "visibility": "private"
+}

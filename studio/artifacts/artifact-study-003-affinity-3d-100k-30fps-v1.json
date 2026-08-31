@@ -1,0 +1,20 @@
+{
+  "experiment_id": "experiment-study-003-affinity-3d-100k-v1",
+  "extensions": {
+    "studio/frame-policy": "steps 0-240 at 30fps; no interpolation or repeated frames",
+    "studio/legacy-path": "work/studio/handoffs/study-003-affinity-3d-100k-v1/affinity-3d-100k-neutral-comparison-30fps.mp4",
+    "studio/look-status": "deferred",
+    "studio/review-receipt": "work/studies/study-003-nonlocal-affinity-dance/20-behavior/comparisons/affinity-3d-100k-v1/review-30fps/review-receipt.json",
+    "studio/review-sample": "5000 deterministic points from every simulation step per 100000-point cache",
+    "studio/source-experiment": "experiment-study-003-affinity-3d-100k-v1",
+    "studio/state-authority": "vex-geometry"
+  },
+  "id": "artifact-study-003-affinity-3d-100k-30fps-v1",
+  "path": "studies/study_003_nonlocal-affinity-dance/01_behavior/02_review/migrated_verified/artifact-study-003-affinity-3d-100k-30fps-v1/affinity-3d-100k-neutral-comparison-30fps.mp4",
+  "schema_version": 1,
+  "sha256": "sha256:ba6e3cb049ff6b36b02955258069151e86a36e3e92b096def52180066089e575",
+  "state": "verified",
+  "track": "behavior",
+  "verified": true,
+  "visibility": "private"
+}

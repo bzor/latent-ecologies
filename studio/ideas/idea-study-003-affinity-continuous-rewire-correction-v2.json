@@ -1,0 +1,25 @@
+{
+  "constraints": [
+    "Do not alter initialization, routing, force parameters, or historical events."
+  ],
+  "extensions": {
+    "studio/approval-message-id": "1539259275254169642",
+    "studio/parent-study": "study-003-nonlocal-affinity-dance"
+  },
+  "id": "idea-study-003-affinity-continuous-rewire-correction-v2",
+  "questions": [
+    "Can the accepted prefix remain bit-identical while its event stream is extended deterministically?"
+  ],
+  "raw_text": "Correct the selected Behavior so its deterministic relationship rewiring continues throughout the complete animation instead of ending with the original 240-step preparation horizon.",
+  "schema_version": 1,
+  "short_summary": "Preserve the accepted Study 003 prefix and continue its exact stochastic stream through the full horizon.",
+  "state": "proposed",
+  "tags": [
+    "graph-dynamics",
+    "nonlocal-affinity",
+    "correction"
+  ],
+  "title": "Study 003 continuous-rewire correction",
+  "track": "behavior",
+  "visibility": "private"
+}

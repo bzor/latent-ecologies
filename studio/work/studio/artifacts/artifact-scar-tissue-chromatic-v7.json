@@ -1,0 +1,11 @@
+{
+  "experiment_id": "experiment-scar-tissue-chromatic-v7",
+  "id": "artifact-scar-tissue-chromatic-v7",
+  "path": "work/jobs/scar-tissue-chromatic-v7/chromatic/scar-tissue-chromatic-v7.zip",
+  "schema_version": 1,
+  "sha256": "sha256:6bd7e9fe97cc65353605d9e45789c114f413fe30dfb2e06e3e840afba1325e15",
+  "state": "verified",
+  "track": "chromatic",
+  "verified": true,
+  "visibility": "private"
+}

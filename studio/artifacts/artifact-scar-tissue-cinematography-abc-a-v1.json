@@ -1,0 +1,13 @@
+{
+  "decision": "archive",
+  "decision_note": "Archived by the Study 002 Behavior reset; retained as historical evidence only.",
+  "experiment_id": "experiment-scar-tissue-cinematography-abc-a-v1",
+  "id": "artifact-scar-tissue-cinematography-abc-a-v1",
+  "path": "work/studio/handoffs/scar-tissue-abc-a-v1/scar-tissue-abc-a-handoff.hiplc",
+  "schema_version": 1,
+  "sha256": "sha256:ecc69b43e288c11810eb59aba7ca0704aabff6db7720081ad42a483d244667b1",
+  "state": "verified",
+  "track": "cinematography",
+  "verified": true,
+  "visibility": "private"
+}

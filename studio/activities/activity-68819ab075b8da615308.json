@@ -1,0 +1,17 @@
+{
+  "action": "behavior.promote",
+  "actor": "kc",
+  "created_at": "2026-08-23T22:27:17Z",
+  "error": "PromotionError: source artifact path must name a canonical artifact output",
+  "id": "activity-68819ab075b8da615308",
+  "idempotency_key": "discord:1541210300743950350:behavior.promote:rapid-surgical-zipper-two-turn",
+  "origin": "discord",
+  "result_refs": [],
+  "schema_version": 1,
+  "source_ref": "discord:1540779590639943842:1541210300743950350",
+  "state": "failed",
+  "study_id": "study-002-scar-tissue",
+  "summary": "Promote Rapid Surgical Zipper two-turn Behavior into Scar Tissue Look Development.",
+  "updated_at": "2026-08-23T22:27:17Z",
+  "visibility": "private"
+}

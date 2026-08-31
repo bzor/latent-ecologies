@@ -32,7 +32,7 @@ class StudioCliTests(unittest.TestCase):
             self.assertEqual(record["raw_text"], raw)
             self.assertEqual(record["visibility"], "private")
             self.assertEqual(record["source_urls"], ["https://example.com/a"])
-            self.assertIn(str(root / "work" / "studio" / "ideas" / f"{record_id}.json"), output)
+            self.assertIn(str(root / "studio" / "ideas" / f"{record_id}.json"), output)
 
     def test_ideas_show_propose_list_and_approve_do_not_execute(self) -> None:
         with tempfile.TemporaryDirectory() as directory:
@@ -91,7 +91,7 @@ class StudioCliTests(unittest.TestCase):
             self.assertNotIn(text.strip(), self.run_cli(root, "notes", "--category", "working")[1])
             code, digest_output = self.run_cli(root, "notes", "--digest")
             self.assertEqual(code, 0)
-            digest = root / "work" / "studio" / "PROCESS_NOTES.md"
+            digest = root / "studio" / "PROCESS_NOTES.md"
             self.assertIn(str(digest), digest_output)
             content = digest.read_text(encoding="utf-8")
             self.assertIn("## Missing functionality", content)

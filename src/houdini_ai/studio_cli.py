@@ -48,7 +48,7 @@ def _store(args: argparse.Namespace) -> StudioStore:
 
 def _print_record(record: dict[str, object], collection: str, root: Path) -> None:
     print(f"id: {record['id']}")
-    print(f"path: {root / 'work' / 'studio' / collection / (str(record['id']) + '.json')}")
+    print(f"path: {root / 'studio' / collection / (str(record['id']) + '.json')}")
 
 
 def command_seed(args: argparse.Namespace) -> int:

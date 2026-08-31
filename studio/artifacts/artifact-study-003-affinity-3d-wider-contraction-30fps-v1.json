@@ -1,0 +1,19 @@
+{
+  "experiment_id": "experiment-study-003-affinity-3d-wider-contraction-v1",
+  "extensions": {
+    "studio/comparison-manifest": "work/studies/study-003-nonlocal-affinity-dance/20-behavior/comparisons/affinity-3d-wider-contraction-v1/comparison-manifest.json",
+    "studio/frame-policy": "steps 0-240 at 30fps; no interpolation",
+    "studio/legacy-path": "work/studio/handoffs/study-003-affinity-3d-wider-contraction-v1/affinity-3d-100k-wider-contraction-30fps.mp4",
+    "studio/look-status": "deferred",
+    "studio/review-receipt": "work/studies/study-003-nonlocal-affinity-dance/20-behavior/comparisons/affinity-3d-wider-contraction-v1/review/review-receipt.json",
+    "studio/state-authority": "vex-geometry"
+  },
+  "id": "artifact-study-003-affinity-3d-wider-contraction-30fps-v1",
+  "path": "studies/study_003_nonlocal-affinity-dance/01_behavior/02_review/migrated_verified/artifact-study-003-affinity-3d-wider-contraction-30fps-v1/affinity-3d-100k-wider-contraction-30fps.mp4",
+  "schema_version": 1,
+  "sha256": "sha256:6c584495dbb4726c23e2c037dd156d287fa1e08a334c6d1e189a3d699638f223",
+  "state": "verified",
+  "track": "behavior",
+  "verified": true,
+  "visibility": "private"
+}

@@ -1,0 +1,31 @@
+{
+  "cost_tier": "probe",
+  "direction_ids": [
+    "direction-fbe9c254e174"
+  ],
+  "extensions": {
+    "studio/execution-authority": "separate-approval-required",
+    "studio/pilot-study-003-role": "faithful-probe"
+  },
+  "hypothesis": "Compact rotating cliques, follower tails, partial loops, and continuing structural reorganization should emerge without local-neighbor queries.",
+  "id": "proposal-7a3a84b384e8",
+  "idea_id": "idea-nonlocal-affinity-dance-b774404e",
+  "mechanism": "Initialize 1000 points in 2D with one independently drawn friend and enemy index. Synchronously update x_next = 0.995*x + 0.02*phi(friend-x) - 0.01*phi(enemy-x), where phi(d)=d/(0.01+norm(d)); occasionally rewire one point with independent random draws.",
+  "outputs": [
+    "reference-metrics.json",
+    "vex-parity.json",
+    "motion-check.mp4",
+    "receipt.json"
+  ],
+  "question": "What does Faithful Nonlocal Signed Graph reveal under its cheapest informative probe?",
+  "runner": "behavior.probe",
+  "schema_version": 1,
+  "state": "approved",
+  "stop_conditions": [
+    "Stop on non-finite positions, invalid relationship indices, or VEX compile/cook errors.",
+    "Stop if the same-seed Python and VEX tracer states differ beyond the declared tolerance.",
+    "Stop before presentation rendering or any unrecorded causal additions."
+  ],
+  "track": "behavior",
+  "visibility": "private"
+}

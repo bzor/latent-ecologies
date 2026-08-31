@@ -1,0 +1,13 @@
+{
+  "decision": "promote",
+  "decision_note": "KC selected the original Rapid Surgical Zipper after matched two-turn 3D comparison.",
+  "experiment_id": "experiment-scar-tissue-rapid-surgical-zipper-two-turn",
+  "id": "artifact-scar-tissue-rapid-surgical-zipper-two-turn",
+  "path": "studies/study_002_scar-tissue/01_behavior/03_selected/selection_002/package-manifest.json",
+  "schema_version": 1,
+  "sha256": "sha256:f3e6d1ec7f43845a3e2cb2859bfb5f462431f93bcda933ca8d43b20f3bc52147",
+  "state": "verified",
+  "track": "behavior",
+  "verified": true,
+  "visibility": "private"
+}

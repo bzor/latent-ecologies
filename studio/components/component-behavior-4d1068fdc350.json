@@ -1,0 +1,13 @@
+{
+  "component_kind": "behavior",
+  "content_hash": "sha256:cf99410ce42cef0e175e33ad83b18b8ab49c81a96acb8ca42dca698f8dc35769",
+  "id": "component-behavior-4d1068fdc350",
+  "rationale": "KC selected the original Rapid Surgical Zipper after reviewing matched two-turn 3D parameter alternatives; promote its verified helical lift unchanged into artist-led Look Development.",
+  "schema_version": 1,
+  "source_artifact_ref": "studies/study_002_scar-tissue/01_behavior/03_selected/selection_002/package-manifest.json",
+  "source_experiment_id": "experiment-scar-tissue-rapid-surgical-zipper-two-turn",
+  "state": "promoted",
+  "supersedes_id": "component-behavior-b3bcc837c3e2",
+  "track": "behavior",
+  "visibility": "private"
+}

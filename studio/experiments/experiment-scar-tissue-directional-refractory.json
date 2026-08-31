@@ -1,0 +1,28 @@
+{
+  "id": "experiment-scar-tissue-directional-refractory",
+  "parameters": {
+    "agent_count": 256,
+    "attraction_threshold": 0.12,
+    "decay": 0.992,
+    "deposit": 0.15,
+    "domain_height": 13.5,
+    "domain_width": 9.0,
+    "field_strength": 1.1,
+    "fps": 30,
+    "frame_end": 300,
+    "frame_start": 1,
+    "grid_height": 108,
+    "grid_width": 72,
+    "mutation": "directional-refractory",
+    "saturation_threshold": 0.42,
+    "seed": 9137,
+    "sensor_distance": 0.32,
+    "speed": 1.2
+  },
+  "proposal_id": "proposal-scar-tissue-base",
+  "runner": "behavior.scar_tissue_probe",
+  "schema_version": 1,
+  "state": "completed",
+  "track": "behavior",
+  "visibility": "private"
+}

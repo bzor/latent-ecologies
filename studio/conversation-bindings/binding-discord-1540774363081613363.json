@@ -1,0 +1,13 @@
+{
+  "created_at": "2026-08-22T17:28:10Z",
+  "guild_id": "1538362418277908530",
+  "id": "binding-discord-1540774363081613363",
+  "parent_channel_id": "1538634193485963318",
+  "platform": "discord",
+  "schema_version": 1,
+  "state": "inactive",
+  "study_id": "legacy-mass-flow",
+  "thread_id": "1540774363081613363",
+  "updated_at": "2026-08-22T17:47:05Z",
+  "visibility": "private"
+}

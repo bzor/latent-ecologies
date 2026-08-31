@@ -1,0 +1,20 @@
+{
+  "experiment_id": "experiment-pilot-study-003-faithful-v1",
+  "extensions": {
+    "studio/legacy-path": "work/jobs/pilot-study-003-faithful-v1/review/motion/motion-check.mp4",
+    "studio/motion-receipt": "work/jobs/pilot-study-003-faithful-v1/review/motion/receipt.json",
+    "studio/pilot-study-003-role": "faithful-baseline-motion-check",
+    "studio/reference-metrics": "work/jobs/pilot-study-003-faithful-v1/review/reference-metrics.json",
+    "studio/reference-policy": "immutable-ancestor-not-aesthetic-constraint",
+    "studio/state-authority": "vex-geometry",
+    "studio/vex-parity": "work/jobs/pilot-study-003-faithful-v1/review/vex-parity.json"
+  },
+  "id": "artifact-pilot-study-003-faithful-v1",
+  "path": "studies/study_003_nonlocal-affinity-dance/01_behavior/02_review/migrated_verified/artifact-pilot-study-003-faithful-v1/motion-check.mp4",
+  "schema_version": 1,
+  "sha256": "sha256:c27d7499ad3f2071f86964f1ed4b27cfa0ccf49ec93b392b88cffa0e96f1f22b",
+  "state": "verified",
+  "track": "behavior",
+  "verified": true,
+  "visibility": "private"
+}

@@ -1,0 +1,26 @@
+{
+  "cost_tier": "study",
+  "id": "proposal-scar-tissue-rapid-surgical-zipper",
+  "idea_id": "idea-scar-tissue-rapid-surgical-zipper",
+  "mechanism": "Two straight antipodal wound-bank chains preserve the approved excitable zipper state machine; pair settlement drives radial contraction and shared angular winding around Y.",
+  "outputs": [
+    "300-frame-cache",
+    "reopenable-hiplc",
+    "unwrapped-review",
+    "oblique-xyz-review",
+    "verification-receipt"
+  ],
+  "question": "Does Rapid Surgical Zipper remain behaviorally identical when lifted into a ratchet-coupled two-turn cylindrical embedding?",
+  "runner": "behavior.scar_mechanics_vex",
+  "schema_version": 1,
+  "state": "approved",
+  "stop_conditions": [
+    "any kinetic-state mismatch",
+    "noncontiguous cache",
+    "topology change",
+    "HIPLC reopen failure",
+    "unreadable XYZ winding"
+  ],
+  "track": "behavior",
+  "visibility": "private"
+}

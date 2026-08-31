@@ -1,0 +1,31 @@
+{
+  "action": "behavior.promote",
+  "actor": "kc",
+  "created_at": "2026-08-23T22:29:22Z",
+  "id": "activity-289b0f10bfa09b962528",
+  "idempotency_key": "discord:1541210300743950350:behavior.promote:rapid-surgical-zipper-two-turn:retry-1",
+  "origin": "discord",
+  "result": {
+    "component_kind": "behavior",
+    "content_hash": "sha256:cf99410ce42cef0e175e33ad83b18b8ab49c81a96acb8ca42dca698f8dc35769",
+    "id": "component-behavior-4d1068fdc350",
+    "rationale": "KC selected the original Rapid Surgical Zipper after reviewing matched two-turn 3D parameter alternatives; promote its verified helical lift unchanged into artist-led Look Development.",
+    "schema_version": 1,
+    "source_artifact_ref": "studies/study_002_scar-tissue/01_behavior/03_selected/selection_002/package-manifest.json",
+    "source_experiment_id": "experiment-scar-tissue-rapid-surgical-zipper-two-turn",
+    "state": "promoted",
+    "supersedes_id": "component-behavior-b3bcc837c3e2",
+    "track": "behavior",
+    "visibility": "private"
+  },
+  "result_refs": [
+    "component-behavior-4d1068fdc350"
+  ],
+  "schema_version": 1,
+  "source_ref": "discord:1540779590639943842:1541210300743950350",
+  "state": "completed",
+  "study_id": "study-002-scar-tissue",
+  "summary": "Retry promotion after canonical Study selected-path validator repair.",
+  "updated_at": "2026-08-23T22:29:22Z",
+  "visibility": "private"
+}

@@ -1,0 +1,12 @@
+{
+  "component_kind": "behavior",
+  "content_hash": "sha256:29483de90647e1592cebbff32561a5076b929a79b61c3c6382f48fa4af5108cf",
+  "id": "component-behavior-e31f9a6c8add",
+  "rationale": "KC approved C2 radius-3 as the canonical synchronous frame-exchange collision-chemistry Behavior.",
+  "schema_version": 1,
+  "source_artifact_ref": "work/studio/handoffs/study-004-c2-radius-3/behavior-handoff.json",
+  "source_experiment_id": "experiment-c2-radius-3",
+  "state": "promoted",
+  "track": "behavior",
+  "visibility": "private"
+}

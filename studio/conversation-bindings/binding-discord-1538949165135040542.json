@@ -1,0 +1,13 @@
+{
+  "created_at": "2026-08-17T16:34:33Z",
+  "guild_id": "1538362418277908530",
+  "id": "binding-discord-1538949165135040542",
+  "parent_channel_id": "1538634194882924726",
+  "platform": "discord",
+  "schema_version": 1,
+  "seed_id": "idea-gradient-rose-attractors-5efabf57",
+  "state": "active",
+  "thread_id": "1538949165135040542",
+  "updated_at": "2026-08-17T16:34:33Z",
+  "visibility": "private"
+}

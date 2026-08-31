@@ -1,0 +1,12 @@
+{
+  "component_kind": "shot",
+  "content_hash": "sha256:ec3feb8cfc1d97432d5e5d048c7ccf47c05d235bfc7839a58e8953e57d5a2608",
+  "id": "component-shot-scar-tissue-abc-a-v1",
+  "rationale": "KC selected the A1-B-C-A2 continuous portrait handoff with per-view stage camera controls.",
+  "schema_version": 1,
+  "source_artifact_ref": "work/studio/handoffs/scar-tissue-abc-a-v1/scar-tissue-abc-a-handoff.hiplc",
+  "source_experiment_id": "experiment-scar-tissue-cinematography-abc-a-v1",
+  "state": "archived",
+  "track": "cinematography",
+  "visibility": "private"
+}

@@ -1,0 +1,12 @@
+{
+  "component_kind": "look",
+  "content_hash": "sha256:49621a0bf84e9464939caae58d6a9784c81d2742f9108cd1cd57b972ea6081fd",
+  "id": "component-look-6013004ba32c",
+  "rationale": "KC approved v6 as the selected structural Look: memory-driven beveled grid relief, twelve-frame eased directional hairs with tip-weighted bending, and small centered shared-chrome agent segments. Palette, final lighting, and cinematography remain deferred.",
+  "schema_version": 1,
+  "source_artifact_ref": "work/jobs/scar-tissue-look-memory-grid-v6/lookdev/scar-tissue-look-memory-grid-v6.zip",
+  "source_experiment_id": "experiment-scar-tissue-look-memory-grid-v6",
+  "state": "archived",
+  "track": "look",
+  "visibility": "private"
+}

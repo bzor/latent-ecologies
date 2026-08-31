@@ -1,0 +1,32 @@
+{
+  "cost_tier": "study",
+  "direction_ids": [
+    "direction-fbe9c254e174"
+  ],
+  "extensions": {
+    "bzor.systems/explicit-user-approval": "KC approved proceeding with the structure-preserving 5k-to-100k lift."
+  },
+  "hypothesis": "Twenty descendants per Canvas anchor will preserve the large-scale swirl vocabulary; controlled cohort routing will determine whether density reads as layers, braid, or interwoven volume.",
+  "id": "proposal-2e6cbb9f15de",
+  "idea_id": "idea-nonlocal-affinity-dance-b774404e",
+  "mechanism": "Preserve the exact Tight Swirls Mulberry32 anchor graph and event history, add the approved shallow Z lift, expand every anchor and every event 20x, and compare parallel, neighbor, and mixed within-cohort edge routing.",
+  "outputs": [
+    "three 100k VEX-authoritative caches",
+    "241-state 20k-stratified review streams",
+    "30fps comparison",
+    "topology and cache receipts"
+  ],
+  "question": "Can the exact 5k Canvas morphology scale to 100k by lifting its graph rather than reseeding it?",
+  "runner": "behavior.nonlocal_affinity_3d",
+  "schema_version": 1,
+  "state": "approved",
+  "stop_conditions": [
+    "macro-edge violation",
+    "final relationship digest mismatch",
+    "VEX error",
+    "non-finite geometry",
+    "incomplete review schedule"
+  ],
+  "track": "behavior",
+  "visibility": "private"
+}

@@ -58,7 +58,7 @@ class NonlocalAffinityProductionTests(unittest.TestCase):
                     "integration_authority": "houdini-vex",
                 },
             })
-            preset_path = root / "work" / "studio" / "affinity-presets" / f'{preset["id"]}.json'
+            preset_path = root / "studio" / "affinity-presets" / f'{preset["id"]}.json'
             output = root / "production"
             result = subprocess.run(
                 [

@@ -1,0 +1,21 @@
+{
+  "cost_tier": "specimen",
+  "id": "proposal-scar-tissue-cinematography-abc-a-v1",
+  "idea_id": "idea-scar-tissue-cinematography-abc-a-v1",
+  "mechanism": "Use a continuous 45 fps timeline with tight-isometric, low-grazing, and intimate-tracking camera families.",
+  "outputs": [
+    "editable-handoff",
+    "motion-check",
+    "portrait-frame-sequence"
+  ],
+  "question": "Can A-B-C-A coverage explain the whole field, enter it, inspect local activity, and return coherently?",
+  "runner": "cinematography.scar_tissue_handoff",
+  "schema_version": 1,
+  "state": "archived",
+  "stop_conditions": [
+    "coverage loses system legibility",
+    "camera transitions break timeline continuity"
+  ],
+  "track": "cinematography",
+  "visibility": "private"
+}

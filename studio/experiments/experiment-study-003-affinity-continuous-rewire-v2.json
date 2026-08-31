@@ -1,0 +1,23 @@
+{
+  "extensions": {
+    "studio/handoff": "work/studio/handoffs/study-003-affinity-continuous-rewire-v2",
+    "studio/state-authority": "vex-geometry"
+  },
+  "id": "experiment-study-003-affinity-continuous-rewire-v2",
+  "parameters": {
+    "agent_count": 100000,
+    "anchor_count": 5000,
+    "cache_frame_end": 650,
+    "cache_frame_start": 201,
+    "cohort_size": 20,
+    "rewiring": "same deterministic stream active through complete horizon",
+    "routing": "parallel",
+    "steps": 960
+  },
+  "proposal_id": "proposal-study-003-affinity-continuous-rewire-v2",
+  "runner": "behavior.nonlocal_affinity_3d",
+  "schema_version": 1,
+  "state": "completed",
+  "track": "behavior",
+  "visibility": "private"
+}

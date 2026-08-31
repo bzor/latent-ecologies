@@ -1,0 +1,23 @@
+{
+  "cheapest_informative_probe": "Compare a seeded tiny Python reference with a three-step live VEX cook, then inspect a short fixed-camera point motion check.",
+  "conceptual_distinction": "This is the immutable source-faithful calibration branch, not a parameter or presentation variation.",
+  "expected_emergent_behavior": "Compact rotating cliques, follower tails, partial loops, and continuing structural reorganization should emerge without local-neighbor queries.",
+  "extensions": {
+    "studio/pilot-study-003-role": "faithful-baseline",
+    "studio/reference-policy": "fidelity-gate-then-independent-departure",
+    "studio/source-url": "https://community.wolfram.com/groups/-/m/t/122095"
+  },
+  "id": "direction-fbe9c254e174",
+  "idea_id": "idea-nonlocal-affinity-dance-b774404e",
+  "mechanism": "Initialize 1000 points in 2D with one independently drawn friend and enemy index. Synchronously update x_next = 0.995*x + 0.02*phi(friend-x) - 0.01*phi(enemy-x), where phi(d)=d/(0.01+norm(d)); occasionally rewire one point with independent random draws.",
+  "premise": "A directed nonlocal friend/enemy graph can continuously organize spatial form without nearest-neighbor flocking.",
+  "risks": [
+    "Incorrect update ordering could produce an asynchronous system unlike the source.",
+    "A visually plausible result could conceal different rewiring semantics."
+  ],
+  "schema_version": 1,
+  "sibling_relations": [],
+  "state": "selected",
+  "title": "Faithful Nonlocal Signed Graph",
+  "visibility": "private"
+}

@@ -1,0 +1,53 @@
+{
+  "id": "experiment-a3-gap-4",
+  "parameters": {
+    "collision_policy": "same-destination-pitch-apart",
+    "collisions": 2,
+    "initial_agents": [
+      [
+        [
+          -2,
+          0,
+          0
+        ],
+        [
+          0,
+          1,
+          0
+        ],
+        [
+          0,
+          0,
+          1
+        ]
+      ],
+      [
+        [
+          2,
+          0,
+          0
+        ],
+        [
+          0,
+          1,
+          0
+        ],
+        [
+          0,
+          0,
+          1
+        ]
+      ]
+    ],
+    "initial_separation": 4.0,
+    "left_rule": "LRLUUUR",
+    "right_rule": "RLRUUUL",
+    "schedule": "synchronous-read-intent-commit",
+    "shared_rewrites": 1360
+  },
+  "proposal_id": "proposal-a3-gap-4",
+  "schema_version": 1,
+  "state": "completed",
+  "track": "behavior",
+  "visibility": "private"
+}

@@ -1,0 +1,40 @@
+{
+  "constraints": [
+    "Preserve the promoted directional-refractory Behavior and its exact evidence lineage.",
+    "Do not bake Look, palette, camera, or sound decisions into simulation mechanics.",
+    "Represent semantic field states independently from editable shader colors.",
+    "Treat every pre-reset Look, palette, camera, specimen, render, and delivery decision as archived evidence only.",
+    "Begin new Look Development only after the selected Behavior is packaged and freshly verified as a live HDA.",
+    "Keep publication private until rights and editorial approval are separately recorded."
+  ],
+  "created_at": "2026-08-15T16:15:59Z",
+  "extensions": {
+    "studio/lineage-role": "behavior-reset-source",
+    "studio/source-role": "original-studio-work"
+  },
+  "id": "idea-scar-tissue",
+  "long_summary": "Scar Tissue asks whether a space can remember movement strongly enough that absence, damage, healing, and renewed occupation remain visible. Its retained directional-refractory v3 Behavior uses mobile agents and a persistent oriented field: traversal writes memory, repeated use reinforces viable paths, saturation creates refractory structure, and abandoned regions decay until they can be occupied and rewritten. The Behavior remains independent from shader, palette, camera, sound, and delivery decisions.\n\nScar Tissue is now Study 002 and has been explicitly rewound to Behavior. The promoted Behavior component and verified diagnostic are the only active selections. The former Look, Chromatic, Cinematography, specimen, render, and delivery lineage is archived historical evidence and must not feed the new pass. Next, review the retained Behavior, package it as a live re-simmable HDA with artist controls, fresh-reopen it, and only then begin the current artist-led Look setup brainstorm.\n\nThis is original private Studio work. Promotion into a Study does not make the Seed or its artifacts public; any public inclusion still requires independent rights clearance and explicit editorial approval.",
+  "promoted_study_id": "study-002-scar-tissue",
+  "questions": [
+    "Can directional memory survive abandonment and renewal?",
+    "How do reinforced, saturated, dormant, and recovering regions remain legible without changing the mechanics?",
+    "Which controls must the live Behavior HDA expose before artist-led Look Development begins?"
+  ],
+  "raw_text": "Persistent oriented path memory with refractory decay and renewed traversal.",
+  "reference_links": [],
+  "schema_version": 1,
+  "short_summary": "Mobile agents write directional memory into a refractory field; abandoned paths decay while renewed traversal reinforces and scars the shared environment.",
+  "source_urls": [],
+  "state": "promoted",
+  "tags": [
+    "agents",
+    "directional-memory",
+    "refractory-field",
+    "path-renewal",
+    "behavior-reset"
+  ],
+  "title": "Scar Tissue",
+  "track": "behavior",
+  "updated_at": "2026-08-22T17:47:05Z",
+  "visibility": "private"
+}

@@ -1,0 +1,42 @@
+{
+  "approved": false,
+  "component_ids": [
+    "component-behavior-b3bcc837c3e2",
+    "component-look-6013004ba32c",
+    "component-palette-a52433fdb147",
+    "component-shot-scar-tissue-abc-a-v1"
+  ],
+  "cost_tier": "specimen",
+  "creative_reason": "First complete end-to-end proving run of the Computational Studio, preserving Scar Tissue's selected behavior, structural look, semantic palette, and A-B-C-A cinematography.",
+  "deliverables": [
+    "portrait-png-sequence-1080x1920",
+    "28-second-portrait-video",
+    "private-field-note"
+  ],
+  "extensions": {
+    "studio/archive-reason": "Study 002 reset to promoted Behavior; previous downstream golden-run assembly retired.",
+    "studio/archived-at": "2026-08-22T17:47:05Z",
+    "studio/handoff-path": "work/studio/handoffs/scar-tissue-abc-a-v1/scar-tissue-abc-a-handoff.hiplc",
+    "studio/lineage-role": "golden-reference",
+    "studio/project-slug": "scar-tissue",
+    "studio/render-progress": {
+      "complete": false,
+      "completed_frames": 219,
+      "contiguous_frames": 218,
+      "expected_frames": 1260,
+      "highest_complete_frame": 473,
+      "next_frame": 219
+    },
+    "studio/shot-order": [
+      "A1",
+      "B",
+      "C",
+      "A2"
+    ],
+    "studio/sound-decision": "undecided"
+  },
+  "id": "specimen-scar-tissue-v1",
+  "schema_version": 1,
+  "state": "archived",
+  "visibility": "private"
+}

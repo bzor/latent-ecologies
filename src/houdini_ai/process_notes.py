@@ -77,7 +77,7 @@ def write_digest(store: StudioStore, path: Path | None = None) -> Path:
     lines = [
         "# Studio process notes",
         "",
-        "Private observations captured during real-world use. Source records under `work/studio/notes/` are canonical.",
+        "Private observations captured during real-world use. Source records under `studio/notes/` are canonical.",
         "",
     ]
     for category in NOTE_CATEGORIES:

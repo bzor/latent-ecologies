@@ -1,0 +1,25 @@
+{
+  "cost_tier": "probe",
+  "extensions": {
+    "studio/source-component": "component-behavior-b3bcc837c3e2"
+  },
+  "id": "proposal-2e3c487dff24",
+  "idea_id": "idea-8368a08c4dc5",
+  "mechanism": "Render the fixed promoted behavior through fibrous memory, etched substrate, and membrane stress treatments.",
+  "outputs": [
+    "look-comparison",
+    "three-look-stills",
+    "checksummed-receipt"
+  ],
+  "question": "Which visual grammar best reveals stored direction, abandonment, and renewal?",
+  "runner": "look.scar_tissue_probe",
+  "schema_version": 1,
+  "state": "archived",
+  "stop_conditions": [
+    "behavior becomes illegible",
+    "looks collapse into palette-only variations",
+    "camera composition changes the comparison"
+  ],
+  "track": "look",
+  "visibility": "private"
+}

@@ -47,7 +47,7 @@ class StudioAPITests(unittest.TestCase):
             self.assertEqual(idea["state"], "inbox")
             self.assertTrue(idea["id"].startswith("idea-"))
             self.assertEqual(api.list_records("ideas")["items"], [idea])
-            self.assertTrue((root / "work" / "studio" / "ideas" / f'{idea["id"]}.json').is_file())
+            self.assertTrue((root / "studio" / "ideas" / f'{idea["id"]}.json').is_file())
             self.assertFalse((root / "escaped").exists())
 
     def test_create_proposal_lists_details_and_enforces_status_transitions(self) -> None:

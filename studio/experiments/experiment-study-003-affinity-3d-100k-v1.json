@@ -1,0 +1,32 @@
+{
+  "extensions": {
+    "bzor.systems/comparison-manifest": "E:\\Projects\\houdini-ai\\work\\studies\\study-003-nonlocal-affinity-dance\\20-behavior\\comparisons\\affinity-3d-100k-v1\\comparison-manifest.json",
+    "bzor.systems/output-root": "E:\\Projects\\houdini-ai\\work\\studies\\study-003-nonlocal-affinity-dance\\20-behavior\\comparisons\\affinity-3d-100k-v1",
+    "bzor.systems/verified-branches": [
+      "affinity-preset-32e76e5d39d0",
+      "affinity-preset-32f02869ab53",
+      "affinity-preset-9e33c556dc55"
+    ]
+  },
+  "id": "experiment-study-003-affinity-3d-100k-v1",
+  "parameters": {
+    "agent_count": 100000,
+    "checkpoint_interval": 12,
+    "dimensions": 3,
+    "point_geometry": "deferred-to-look-development",
+    "preset_ids": [
+      "affinity-preset-32e76e5d39d0",
+      "affinity-preset-32f02869ab53",
+      "affinity-preset-9e33c556dc55"
+    ],
+    "review_point_count": 5000,
+    "steps": 240,
+    "trails": "deferred-to-look-development"
+  },
+  "proposal_id": "proposal-c5421b02875c",
+  "runner": "behavior.nonlocal_affinity_3d",
+  "schema_version": 1,
+  "state": "completed",
+  "track": "behavior",
+  "visibility": "private"
+}

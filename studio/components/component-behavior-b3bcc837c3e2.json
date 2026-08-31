@@ -1,0 +1,12 @@
+{
+  "component_kind": "behavior",
+  "content_hash": "sha256:f2cc80c8a433d168a069e90e0921b0991a37568b503295e8af503376068f17be",
+  "id": "component-behavior-b3bcc837c3e2",
+  "rationale": "KC approved v3: it preserves directional memory and refractory renewal while replacing synchronized tight circles with varied, longer agent trajectories.",
+  "schema_version": 1,
+  "source_artifact_ref": "work/jobs/scar-tissue-directional-refractory-v3/review/diagnostic.mp4",
+  "source_experiment_id": "experiment-scar-tissue-directional-refractory",
+  "state": "superseded",
+  "track": "behavior",
+  "visibility": "private"
+}

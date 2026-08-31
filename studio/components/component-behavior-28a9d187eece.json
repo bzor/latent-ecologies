@@ -1,0 +1,12 @@
+{
+  "component_kind": "behavior",
+  "content_hash": "sha256:1b4fe0771dd193106705b6205afe7d756a4ef1f1e8ae699f992c18c6f2189e4d",
+  "id": "component-behavior-28a9d187eece",
+  "rationale": "KC approved A3 gap-4 as the canonical mirrored chiral shared-field highway Behavior.",
+  "schema_version": 1,
+  "source_artifact_ref": "work/studio/handoffs/study-004-a3-gap-4/behavior-handoff.json",
+  "source_experiment_id": "experiment-a3-gap-4",
+  "state": "promoted",
+  "track": "behavior",
+  "visibility": "private"
+}

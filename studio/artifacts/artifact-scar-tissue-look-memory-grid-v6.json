@@ -1,0 +1,13 @@
+{
+  "decision": "archive",
+  "decision_note": "Archived by the Study 002 Behavior reset; retained as historical evidence only.",
+  "experiment_id": "experiment-scar-tissue-look-memory-grid-v6",
+  "id": "artifact-scar-tissue-look-memory-grid-v6",
+  "path": "work/jobs/scar-tissue-look-memory-grid-v6/lookdev/scar-tissue-look-memory-grid-v6.zip",
+  "schema_version": 1,
+  "sha256": "sha256:9d188cb85936591e816ea30d1dc1727075978697e6f2a2df4fb42d3ad64a42b7",
+  "state": "verified",
+  "track": "look",
+  "verified": true,
+  "visibility": "private"
+}

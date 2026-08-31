@@ -1,0 +1,11 @@
+{
+  "category": "working",
+  "created_at": "2026-08-16T13:22:53Z",
+  "id": "note-9fe28481e7c1",
+  "reference_id": "experiment-study-003-affinity-cohort-100k-v1",
+  "schema_version": 1,
+  "stage": "workflow",
+  "text": "Simulation pipeline decision: begin Behavior discovery and production scaling with agent-friendly external Python/Hython orchestration plus VEX-authoritative integration. This keeps deterministic graph/event receipts, automated verification, cache recovery, and batch execution simple. Treat an artist-editable Solver/HDA as an optional later packaging and handoff stage after behavior stabilizes\u2014especially when sharing a HIP. Not every project requires an HDA; when one is warranted, expose proven controls first and add requested sliders or modes incrementally without replacing the verified batch backend.",
+  "track": "behavior",
+  "visibility": "private"
+}

@@ -1,0 +1,30 @@
+{
+  "cost_tier": "study",
+  "direction_ids": [
+    "direction-fbe9c254e174"
+  ],
+  "extensions": {
+    "studio/approval-message-id": "1538663472307642562"
+  },
+  "hypothesis": "Parallel routing will retain the lifted graph while surviving collapse and re-expansion without settling into a static point mass.",
+  "id": "proposal-study-003-affinity-parallel-endurance-v1",
+  "idea_id": "idea-study-003-affinity-parallel-behavior-v1",
+  "mechanism": "Run the exact 100k shallow-3D Parallel prepared receipt for 960 VEX-authoritative synchronous steps and review a 20k stratified XY sample.",
+  "outputs": [
+    "960-step VEX-authoritative cache",
+    "straight-on XY motion review",
+    "verified topology and endurance receipt"
+  ],
+  "question": "Does shallow-3D Parallel retain topology and continue reorganizing through a 960-step endurance horizon?",
+  "runner": "behavior.nonlocal_affinity_3d",
+  "schema_version": 1,
+  "state": "approved",
+  "stop_conditions": [
+    "relationship digest mismatch",
+    "VEX error",
+    "non-finite geometry",
+    "late motion convergence"
+  ],
+  "track": "behavior",
+  "visibility": "private"
+}

@@ -1,0 +1,20 @@
+{
+  "experiment_id": "experiment-study-003-affinity-cohort-100k-v1",
+  "extensions": {
+    "studio/cohort-manifest": "work/studies/study-003-nonlocal-affinity-dance/20-behavior/comparisons/affinity-cohort-100k-v1/cohort-comparison-manifest.json",
+    "studio/cohort-strategies": "parallel, neighbor, mixed",
+    "studio/frame-policy": "241 genuine VEX states at 30fps; 20k stratified sample per 100k branch; no interpolation; Canvas persistence alpha 0.21",
+    "studio/legacy-path": "work/studio/handoffs/study-003-affinity-cohort-100k-v1/tight-swirls-cohort-100k-comparison.mp4",
+    "studio/review-receipt": "work/studies/study-003-nonlocal-affinity-dance/20-behavior/comparisons/affinity-cohort-100k-v1/review/review-receipt.json",
+    "studio/scaling-role": "exact 5k Canvas anchor graph expanded to 20 descendants per anchor",
+    "studio/state-authority": "vex-geometry"
+  },
+  "id": "artifact-study-003-affinity-cohort-100k-30fps-v1",
+  "path": "studies/study_003_nonlocal-affinity-dance/01_behavior/02_review/migrated_verified/artifact-study-003-affinity-cohort-100k-30fps-v1/tight-swirls-cohort-100k-comparison.mp4",
+  "schema_version": 1,
+  "sha256": "sha256:a032cf2fe38bca2c4a64d13c2ef4c3cacf8f51c5416825ba7facb42a0d17556c",
+  "state": "verified",
+  "track": "behavior",
+  "verified": true,
+  "visibility": "private"
+}

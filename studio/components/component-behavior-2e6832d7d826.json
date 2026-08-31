@@ -1,0 +1,15 @@
+{
+  "component_kind": "behavior",
+  "content_hash": "sha256:da847421736d8179c34d51afbcc7ab9f96a925ed461f4d0b2fb190db4b49983c",
+  "extensions": {
+    "studio/legacy-source-artifact-ref": "work/studio/handoffs/study-003-affinity-shallow3d-parallel-v1/behavior-review-straight-on.mp4"
+  },
+  "id": "component-behavior-2e6832d7d826",
+  "rationale": "KC approved shallow-3D Parallel cohorts as Study 003's canonical Behavior after the straight-on 960-step endurance review; Mixed remains an exploratory sibling and Neighbor remains held evidence.",
+  "schema_version": 1,
+  "source_artifact_ref": "studies/study_003_nonlocal-affinity-dance/01_behavior/03_selected/selection_001/behavior-review-straight-on.mp4",
+  "source_experiment_id": "experiment-study-003-affinity-parallel-endurance-v1",
+  "state": "superseded",
+  "track": "behavior",
+  "visibility": "private"
+}

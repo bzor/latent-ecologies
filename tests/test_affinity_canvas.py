@@ -174,7 +174,7 @@ class AffinityCanvasCoreTests(unittest.TestCase):
             self.assertIn("created_at", record)
             self.assertEqual(api.list_records("affinity-presets")["items"], [record])
             self.assertTrue(
-                (Path(directory) / "work" / "studio" / "affinity-presets" / f'{record["id"]}.json').is_file()
+                (Path(directory) / "studio" / "affinity-presets" / f'{record["id"]}.json').is_file()
             )
             value["production_hint"]["execution_authorized"] = True
             with self.assertRaisesRegex(ValueError, "execution_authorized"):

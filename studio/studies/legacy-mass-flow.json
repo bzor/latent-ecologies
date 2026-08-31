@@ -1,0 +1,24 @@
+{
+  "approved_selection_ids": [],
+  "blockers": [],
+  "created_at": "2026-08-22T17:28:10Z",
+  "current_phase": "look",
+  "extensions": {
+    "studio/former-study-id": "study-002-mass-flow",
+    "studio/legacy-source": "studies/002-mass-flow/study.json",
+    "studio/legacy-study-id": "002-mass-flow",
+    "studio/prototype-era": true,
+    "studio/replaced-number-by": "study-002-scar-tissue"
+  },
+  "id": "legacy-mass-flow",
+  "intent": "Test deterministic large-population volumetric flow, bounded checkpointing, local cohort motion, trail memory, and Karma fiber presentation as a scale-and-motion capability study.",
+  "recommended_next_action": "Retain as historical scale-and-motion evidence and a regression fixture; do not resume without explicitly reopening the Study.",
+  "schema_version": 1,
+  "state": "archived",
+  "title": "Legacy \u2014 Mass Flow",
+  "unresolved_questions": [
+    "The corrected full-rate 600-frame Karma sequence remained unfinished when the prototype era closed."
+  ],
+  "updated_at": "2026-08-22T17:47:05Z",
+  "visibility": "private"
+}

@@ -1,0 +1,47 @@
+{
+  "constraints": [
+    "Preserve exact topological state and rewrite-event order independently from spatial embedding.",
+    "Prove replication through explicit equivalence and lineage records rather than visual resemblance.",
+    "Begin with bounded rule spaces and hard population, generation, and memory limits.",
+    "Keep failed, extinct, and residue-producing branches as recoverable evidence rather than deleting them.",
+    "Implement independently and retain source attribution; publication remains private until rights and editorial approval are separate and explicit."
+  ],
+  "created_at": "2026-08-17T16:17:48Z",
+  "id": "idea-lineage-machines-2951fbb2",
+  "long_summary": "Observed source mechanism: Matheo Tripnaux develops a framework for recognizing self-replication in discrete rewriting systems, using causally invariant hypergraph rewrites as the demonstration substrate. A connected component changes through local rewrite events; when it splits, each resulting component becomes a branch in a lineage tree. Graph isomorphism supplies equivalence classes, allowing the system to distinguish a recurring organism from arbitrary duplication. The notebook introduces replication paths, splitting distance, replication period, residues, guns, chain lineages, and more complex cases in which reproduction passes through multiple intermediate forms.\n\nStudio direction: build a deterministic rewriting laboratory in which the canonical object is not only the current embedded graph but its complete ancestry. Spatial embedding should be treated as a view of exact topological state, never as the identity test itself. Promising visual directions include organisms that bud off residues, lineages whose inherited rewrite grammar changes after mutation, genealogical forests drawn through time, and spatial colonies in which parent and descendant equivalence classes remain visibly related. The strongest artistic distinction from ordinary growth systems is that apparent copying must be proven by topology and recurrence, while failed or partial reproduction remains part of the visible record.\n\nA first behavior probe should use a tiny bounded rule family and explicit equivalence checks, then classify outcomes into extinction, residue, periodic recurrence, direct cloning, guns, and expanding lineages. Only after stable lineage semantics exist should the system scale to large embedded populations or introduce mutation. Source theory and notebook code remain research references with unresolved reuse rights; any production implementation should be independent and provenance-preserving.",
+  "questions": [
+    "Which minimal rewrite rules generate visually legible but nontrivial replication lineages?",
+    "How should graph equivalence be defined when production embeddings deform continuously in space?",
+    "Can mutation operate on rewrite rules while retaining a traceable parent-child grammar lineage?",
+    "Which emitted residues become environmental resources, obstacles, or catalysts for later descendants?",
+    "Can replication period and splitting distance drive temporal composition without turning into a conventional branching animation?",
+    "What distinguishes a compelling self-replicating ecology from uncontrolled exponential graph growth?"
+  ],
+  "raw_text": "Explore self-replication as a branching history of graph-rewrite events, making ancestry, mutation, splitting, persistence, and emitted residues visible as the primary material of an artwork.",
+  "reference_links": [
+    {
+      "kind": "article",
+      "note": "Primary source by Matheo Tripnaux. The attached Wolfram notebook contains the theoretical framework, terminology, examples, and executable analysis. No explicit reuse license was observed.",
+      "title": "Self-Replication in Rewriting Systems",
+      "url": "https://community.wolfram.com/groups/-/m/t/3762980"
+    }
+  ],
+  "schema_version": 1,
+  "short_summary": "Hypergraph components rewrite, split, recur, and emit descendants whose equivalence classes form a visible genealogy of genuine self-replication.",
+  "source_urls": [
+    "https://community.wolfram.com/groups/-/m/t/3762980"
+  ],
+  "state": "inbox",
+  "tags": [
+    "hypergraph",
+    "rewriting-systems",
+    "self-replication",
+    "lineage",
+    "graph-dynamics",
+    "generative-ecology"
+  ],
+  "title": "Lineage Machines",
+  "track": "behavior",
+  "updated_at": "2026-08-17T16:17:48Z",
+  "visibility": "private"
+}

@@ -1,0 +1,10 @@
+{
+  "category": "working",
+  "created_at": "2026-08-14T11:55:35Z",
+  "id": "note-a7273a4f784f",
+  "schema_version": 1,
+  "stage": "cinematography",
+  "text": "Collaborative cinematography handoffs should always separate artist framing from approved camera motion. Each semantic shot/view should expose a clearly named Stage-context parent or offset transform that can be adjusted while looking through the final camera in Solaris; subtle movement remains a relative layer. Controls default to identity or the approved framing, remain unkeyed, preserve cuts, and are grouped and documented in the Stage network.",
+  "track": "cinematography",
+  "visibility": "private"
+}

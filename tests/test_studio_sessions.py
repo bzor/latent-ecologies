@@ -41,7 +41,7 @@ class StudioSessionTests(unittest.TestCase):
                 PHASES,
                 ("seed", "directions", "behavior", "look", "specimen", "delivery"),
             )
-            self.assertTrue((root / "work" / "studio" / "session-state" / "active.json").is_file())
+            self.assertTrue((root / "studio" / "session-state" / "active.json").is_file())
 
     def test_activation_rejects_unknown_or_path_like_session_ids(self) -> None:
         with tempfile.TemporaryDirectory() as directory:

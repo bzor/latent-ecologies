@@ -1,0 +1,13 @@
+{
+  "decision": "archive",
+  "decision_note": "Archived by the Study 002 Behavior reset; retained as historical evidence only.",
+  "experiment_id": "experiment-scar-tissue-look-fibrous-memory",
+  "id": "artifact-scar-tissue-look-fibrous-memory-v1",
+  "path": "work/jobs/scar-tissue-look-fibrous-memory-v1/lookdev/fibrous-memory.png",
+  "schema_version": 1,
+  "sha256": "sha256:1001f2c1f3c87166394c60cdfb72223ab9d0df5c7ea0bdbd5466a21fcf0c3afb",
+  "state": "verified",
+  "track": "look",
+  "verified": true,
+  "visibility": "private"
+}

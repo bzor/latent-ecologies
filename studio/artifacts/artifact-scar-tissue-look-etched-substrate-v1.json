@@ -1,0 +1,13 @@
+{
+  "decision": "archive",
+  "decision_note": "Archived by the Study 002 Behavior reset; retained as historical evidence only.",
+  "experiment_id": "experiment-scar-tissue-look-etched-substrate",
+  "id": "artifact-scar-tissue-look-etched-substrate-v1",
+  "path": "work/jobs/scar-tissue-look-etched-substrate-v1/lookdev/etched-substrate.png",
+  "schema_version": 1,
+  "sha256": "sha256:15adfa6a127e81224a99ac0f9d036212a745890d0c55cdc9eae414365ce0ad00",
+  "state": "verified",
+  "track": "look",
+  "verified": true,
+  "visibility": "private"
+}

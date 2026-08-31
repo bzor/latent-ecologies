@@ -55,7 +55,7 @@ class StudyTests(unittest.TestCase):
             records = list_studies(store)
             self.assertEqual([item["id"] for item in records if item["is_focused"]], [second["id"]])
             self.assertEqual({item["state"] for item in records}, {"active"})
-            self.assertTrue((Path(directory) / "work" / "studio" / "study-state" / "focused.json").is_file())
+            self.assertTrue((Path(directory) / "studio" / "study-state" / "focused.json").is_file())
 
     def test_session_migration_is_dry_run_preserving_idempotent_and_maps_known_project_identity(self) -> None:
         with tempfile.TemporaryDirectory() as directory:

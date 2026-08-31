@@ -14,13 +14,13 @@ _WRITE_LOCK = threading.RLock()
 
 
 class StudioStore:
-    """Contained JSON record storage rooted beneath ``work/studio``."""
+    """Contained JSON record storage rooted beneath ``studio/``."""
 
     def __init__(self, root: Path):
         if root is None:
             raise TypeError("root must be explicitly supplied")
         self.root = Path(root).resolve()
-        self.directory = self.root / "work" / "studio"
+        self.directory = self.root / "studio"
 
     def _path(self, collection: str, record_id: str) -> Path:
         if not _ID_PATTERN.fullmatch(collection):

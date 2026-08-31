@@ -1,0 +1,33 @@
+{
+  "extensions": {
+    "bzor.systems/comparison-manifest": "work/studies/study-003-nonlocal-affinity-dance/20-behavior/comparisons/affinity-3d-wider-contraction-v1/comparison-manifest.json",
+    "bzor.systems/output-root": "work/studies/study-003-nonlocal-affinity-dance/20-behavior/comparisons/affinity-3d-wider-contraction-v1",
+    "bzor.systems/review": "work/studies/study-003-nonlocal-affinity-dance/20-behavior/comparisons/affinity-3d-wider-contraction-v1/review/affinity-3d-100k-neutral-comparison.mp4"
+  },
+  "id": "experiment-study-003-affinity-3d-wider-contraction-v1",
+  "parameters": {
+    "agent_count": 100000,
+    "checkpoint_interval": 12,
+    "derived_preset_ids": [
+      "affinity-preset-c76cf48fefa8",
+      "affinity-preset-294fe0033144",
+      "affinity-preset-d5cf9ee1f072"
+    ],
+    "dimensions": 3,
+    "review_interval": 1,
+    "review_point_count": 5000,
+    "source_preset_ids": [
+      "affinity-preset-32e76e5d39d0",
+      "affinity-preset-32f02869ab53",
+      "affinity-preset-9e33c556dc55"
+    ],
+    "steps": 240,
+    "trails": "deferred-to-look-development"
+  },
+  "proposal_id": "proposal-e9ea97408575",
+  "runner": "behavior.nonlocal_affinity_3d",
+  "schema_version": 1,
+  "state": "completed",
+  "track": "behavior",
+  "visibility": "private"
+}

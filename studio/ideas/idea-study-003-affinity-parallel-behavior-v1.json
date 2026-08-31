@@ -1,0 +1,24 @@
+{
+  "constraints": [
+    "Preserve the exact Canvas anchor identity and ordered events.",
+    "Do not alter Behavior during Look Development."
+  ],
+  "created_at": "2026-08-16T21:53:31Z",
+  "extensions": {
+    "studio/parent-study": "study-003-nonlocal-affinity-dance"
+  },
+  "id": "idea-study-003-affinity-parallel-behavior-v1",
+  "raw_text": "Promote the identity-preserving 100k shallow-3D Parallel cohort lift as Study 003's canonical Behavior while retaining Mixed and Neighbor as siblings.",
+  "schema_version": 1,
+  "short_summary": "Canonical Study 003 Behavior candidate selected after a verified 960-step endurance check.",
+  "state": "proposed",
+  "tags": [
+    "nonlocal-affinity",
+    "parallel-cohorts",
+    "shallow-3d"
+  ],
+  "title": "Shallow-3D Parallel cohorts",
+  "track": "behavior",
+  "updated_at": "2026-08-16T21:53:31Z",
+  "visibility": "private"
+}

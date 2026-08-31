@@ -1,0 +1,44 @@
+{
+  "constraints": [
+    "Prove the original 2D synchronous mechanism before adding new causal rules.",
+    "Keep representation, look, palette, and cinematography out of behavior approval.",
+    "Evaluate descendants on their own temporal identity after fidelity is established."
+  ],
+  "created_at": "2026-08-15T19:00:26Z",
+  "extensions": {
+    "studio/pilot-study-003-role": "seed",
+    "studio/source-author": "Simon Woods",
+    "studio/source-role": "faithful-launchpad",
+    "studio/source-title": "Dancing with friends and enemies: boids' swarm intelligence"
+  },
+  "id": "idea-nonlocal-affinity-dance-b774404e",
+  "long_summary": "Faithfully reproduce Simon Woods' synchronous nonlocal friend/enemy particle mechanism, preserve it as a verified ancestor, then use its mutable relationship graph as a launchpad for independent animation systems.",
+  "promoted_study_id": "study-003-nonlocal-affinity-dance",
+  "questions": [
+    "How does a mutable network of attraction and aversion write itself into spatial form?"
+  ],
+  "raw_text": "Faithfully reproduce Simon Woods' nonlocal friend/enemy particle dance once, preserve it as a baseline, then use it as a launchpad for independent animation systems rather than a rigid aesthetic reference.",
+  "reference_links": [
+    {
+      "kind": "article",
+      "note": "Primary mechanism and provenance source by Simon Woods.",
+      "title": "Dancing with friends and enemies: boids' swarm intelligence",
+      "url": "https://community.wolfram.com/groups/-/m/t/122095"
+    }
+  ],
+  "schema_version": 1,
+  "short_summary": "A mutable directed network of attraction and aversion writes itself into spatial form.",
+  "source_urls": [
+    "https://community.wolfram.com/groups/-/m/t/122095"
+  ],
+  "state": "promoted",
+  "tags": [
+    "agents",
+    "graph-dynamics",
+    "nonlocal-affinity"
+  ],
+  "title": "Non-Local Affinity",
+  "track": "behavior",
+  "updated_at": "2026-08-16T20:03:13Z",
+  "visibility": "private"
+}

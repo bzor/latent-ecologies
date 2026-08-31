@@ -1,0 +1,19 @@
+{
+  "decision": "promote",
+  "decision_note": "KC corrected the intended mechanism: rewiring must continue throughout the whole animation.",
+  "experiment_id": "experiment-study-003-affinity-continuous-rewire-v2",
+  "extensions": {
+    "studio/approval-message-id": "1539259275254169642",
+    "studio/last-visible-rewire-frame": 650,
+    "studio/manifest": "work/studio/handoffs/study-003-affinity-continuous-rewire-v2/manifest.json",
+    "studio/state-authority": "vex-geometry"
+  },
+  "id": "artifact-study-003-affinity-continuous-rewire-v2",
+  "path": "work/studio/handoffs/study-003-affinity-continuous-rewire-v2/behavior-correction-receipt.json",
+  "schema_version": 1,
+  "sha256": "sha256:649bcadf800ffdae2c1f42c817d0341c9decd8b54ff7fc3922b86f7ff4308902",
+  "state": "verified",
+  "track": "behavior",
+  "verified": true,
+  "visibility": "private"
+}

@@ -1,0 +1,11 @@
+{
+  "experiment_id": "experiment-a3-gap-4",
+  "id": "artifact-a3-gap-4",
+  "path": "work/studio/handoffs/study-004-a3-gap-4/behavior-handoff.json",
+  "schema_version": 1,
+  "sha256": "sha256:22d3af82389c974fbdd3de0e867062befe8ff44f1ac3fbfd6f33ea9576c59c9b",
+  "state": "verified",
+  "track": "behavior",
+  "verified": true,
+  "visibility": "private"
+}

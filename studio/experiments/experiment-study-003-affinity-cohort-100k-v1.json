@@ -1,0 +1,28 @@
+{
+  "extensions": {
+    "bzor.systems/cohort-manifest": "work/studies/study-003-nonlocal-affinity-dance/20-behavior/comparisons/affinity-cohort-100k-v1/cohort-comparison-manifest.json",
+    "bzor.systems/output-root": "work/studies/study-003-nonlocal-affinity-dance/20-behavior/comparisons/affinity-cohort-100k-v1"
+  },
+  "id": "experiment-study-003-affinity-cohort-100k-v1",
+  "parameters": {
+    "agent_count": 100000,
+    "anchor_count": 5000,
+    "anchor_depth": 0.15,
+    "cohort_radius": 0.012,
+    "cohort_size": 20,
+    "preset_id": "affinity-preset-32e76e5d39d0",
+    "review_count": 20000,
+    "routing_strategies": [
+      "parallel",
+      "neighbor",
+      "mixed"
+    ],
+    "steps": 240
+  },
+  "proposal_id": "proposal-2e6cbb9f15de",
+  "runner": "behavior.nonlocal_affinity_3d",
+  "schema_version": 1,
+  "state": "completed",
+  "track": "behavior",
+  "visibility": "private"
+}

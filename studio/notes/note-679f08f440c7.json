@@ -1,0 +1,11 @@
+{
+  "category": "pain-point",
+  "created_at": "2026-08-13T12:52:57Z",
+  "id": "note-679f08f440c7",
+  "reference_id": "component-look-6013004ba32c",
+  "schema_version": 1,
+  "stage": "workflow",
+  "text": "The canonical promotion path exposed lifecycle contradictions: decided artifacts became schema-invalid, and proposal creation did not advance the source Idea to the promotion-compatible state.",
+  "track": "field-station",
+  "visibility": "private"
+}

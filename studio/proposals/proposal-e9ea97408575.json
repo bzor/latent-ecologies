@@ -1,0 +1,30 @@
+{
+  "cost_tier": "study",
+  "direction_ids": [
+    "direction-fbe9c254e174"
+  ],
+  "extensions": {
+    "bzor.systems/explicit-user-approval": "KC requested raising contraction on all three, approximately 1.5x, to make the forms wider; literal multiplication was rejected as unstable and mapped to a 1.5x weaker inward gap."
+  },
+  "hypothesis": "Moving contraction one-third closer to neutral 1.0 will widen each regime while preserving its graph-turnover character.",
+  "id": "proposal-e9ea97408575",
+  "idea_id": "idea-nonlocal-affinity-dance-b774404e",
+  "mechanism": "Preserve seed, attraction, repulsion, softening, and rewiring exactly; change only contraction to 0.9932, 0.9945, and 0.9932; rerun 100k VEX-authoritative 3D states and capture every step for 30fps review.",
+  "outputs": [
+    "three 100k 3D VEX cache sequences",
+    "one 30fps no-interpolation comparison",
+    "geometry receipts and original-versus-derived final metrics"
+  ],
+  "question": "Does a one-third reduction in inward contraction release all three selected 3D affinity regimes from the center without destroying their distinct motion?",
+  "runner": "behavior.nonlocal_affinity_3d",
+  "schema_version": 1,
+  "state": "approved",
+  "stop_conditions": [
+    "any VEX error or non-finite position",
+    "wrong point count",
+    "failed cache checksum",
+    "loss of source preset provenance"
+  ],
+  "track": "behavior",
+  "visibility": "private"
+}

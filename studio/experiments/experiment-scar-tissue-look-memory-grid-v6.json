@@ -1,0 +1,25 @@
+{
+  "id": "experiment-scar-tissue-look-memory-grid-v6",
+  "parameters": {
+    "agent_layer_height": 0.9,
+    "agent_scale": 0.015,
+    "cube_height_mapping": "smoothstep",
+    "hair_bend_exponent": 2.2,
+    "hair_history_alpha": 0.28,
+    "hair_history_frames": 12,
+    "hair_maximum_lean": 0.58,
+    "look": "memory-grid-direction-hairs-chrome-agents-v6",
+    "review_frame": 150,
+    "selection_scope": "structure only; palette and cinematography deferred",
+    "source_behavior_artifact_ref": "work/jobs/scar-tissue-directional-refractory-v3/review/diagnostic.mp4",
+    "source_behavior_component_id": "component-behavior-b3bcc837c3e2",
+    "trail_endpoint_scale": 0.015,
+    "trail_radius": 0.004
+  },
+  "proposal_id": "proposal-2e3c487dff24",
+  "runner": "look.scar_tissue_probe",
+  "schema_version": 1,
+  "state": "archived",
+  "track": "look",
+  "visibility": "private"
+}

@@ -1,0 +1,22 @@
+{
+  "extensions": {
+    "studio/endurance-receipt": "work/studio/handoffs/study-003-affinity-shallow3d-parallel-v1/endurance-receipt.json",
+    "studio/topology-retained": true
+  },
+  "id": "experiment-study-003-affinity-parallel-endurance-v1",
+  "parameters": {
+    "agent_count": 100000,
+    "branch": "parallel",
+    "depth": "shallow",
+    "dimensions": 3,
+    "review_count": 20000,
+    "review_interval": 4,
+    "steps": 960
+  },
+  "proposal_id": "proposal-study-003-affinity-parallel-endurance-v1",
+  "runner": "behavior.nonlocal_affinity_3d",
+  "schema_version": 1,
+  "state": "completed",
+  "track": "behavior",
+  "visibility": "private"
+}

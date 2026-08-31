@@ -1,0 +1,32 @@
+{
+  "cost_tier": "study",
+  "direction_ids": [
+    "direction-fbe9c254e174"
+  ],
+  "extensions": {
+    "studio/approval-message-id": "1539259275254169642"
+  },
+  "hypothesis": "Extending the original Mulberry32 draw stream while preserving its exact 240-step prefix will retain the accepted early Behavior and continue graph rewiring through the visible endpoint.",
+  "id": "proposal-study-003-affinity-continuous-rewire-v2",
+  "idea_id": "idea-study-003-affinity-continuous-rewire-correction-v2",
+  "mechanism": "Replay the same 5k Canvas initialization, shallow-Z lift, 20-member Parallel cohort routing, and exact historical event prefix, then continue the same deterministic RNG stream through step 960 before VEX-authoritative evolution.",
+  "outputs": [
+    "corrected 960-step prepared schedule",
+    "450 consecutive 100k-point caches for frames 201-650",
+    "all-frame relationship-change audit"
+  ],
+  "question": "Can the promoted shallow-3D Parallel Behavior be corrected so deterministic rewiring remains active throughout its complete 960-step horizon?",
+  "runner": "behavior.nonlocal_affinity_3d",
+  "schema_version": 1,
+  "state": "approved",
+  "stop_conditions": [
+    "historical prefix mismatch",
+    "missing late rewires",
+    "VEX error",
+    "point-count drift",
+    "non-finite geometry",
+    "invalid friend or enemy index"
+  ],
+  "track": "behavior",
+  "visibility": "private"
+}

@@ -1,0 +1,25 @@
+{
+  "approved_selection_ids": [
+    "direction-fbe9c254e174"
+  ],
+  "blockers": [],
+  "created_at": "2026-08-15T19:00:26Z",
+  "current_phase": "behavior",
+  "extensions": {
+    "studio/pilot-study-003-role": "session"
+  },
+  "id": "session-pilot-study-003-b84d90c7",
+  "idea_id": "idea-nonlocal-affinity-dance-b774404e",
+  "intent": "Prove the source-faithful nonlocal affinity mechanism, freeze it as an ancestor, then depart into independently judged experimental animation systems.",
+  "project_slug": "pilot-study-003",
+  "recommended_next_action": "Review the faithful VEX motion check and decide whether it passes the reference fidelity gate.",
+  "schema_version": 1,
+  "selected_branch_id": "direction-fbe9c254e174",
+  "state": "open",
+  "title": "Pilot Study 003 \u2014 Nonlocal Affinity Dance",
+  "unresolved_questions": [
+    "Does the faithful implementation preserve continuing reorganization rather than settling into a static graph drawing?"
+  ],
+  "updated_at": "2026-08-15T19:09:53Z",
+  "visibility": "private"
+}

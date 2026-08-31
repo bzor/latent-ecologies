@@ -1,0 +1,20 @@
+{
+  "approved_selection_ids": [
+    "component-behavior-28a9d187eece",
+    "component-behavior-e31f9a6c8add",
+    "component-behavior-4cacde29695d"
+  ],
+  "blockers": [],
+  "created_at": "2026-08-22T17:14:48Z",
+  "current_phase": "look",
+  "id": "study-004-three-dimensional-fieldwriting-ants",
+  "idea_id": "idea-three-dimensional-fieldwriting-ants-617e0720",
+  "intent": "Observed source mechanism: the Wolfram Community post extends Langton's Ant beyond the familiar single walker. It implements toroidal and wall-bounded grids, multiple ants that read and alter one shared cell field, simultaneous or independently stepped agents, and triangular, square, and hexagonal tilings. In the reported 2D experiments, nearby initial conditions and highway collisions can make paths cross, block, redirect, or delay one another. Reflective boundaries can drive an ant back along and erase its own highway, while changing the tiling changes whether the classic highway appears at all. The post includes substantial inline Wolfram code plus an attached quantitative-analysis notebook.\n\nStudio 3D correction: although the cited 2026 Wolfram source does not define a three-dimensional ant, Hamann (2003), Bunimovich (1996), and Dorbec and Gajardo (2008) establish prior 3D and n-dimensional ant/rotator systems. The Study must first reproduce representative prior 3D rules; Studio extensions begin only after that receipt. A 3D walker needs a complete orientation frame\u2014not only a heading\u2014and a deterministic rule that maps the current voxel state and orientation to a new voxel state, rotation, and move. Candidate substrates include a cubic voxel lattice, body-centered or tetrahedral/octahedral cell complexes, and later a surface walker constrained to changing manifolds. Multiple walkers would share and rewrite the same field, making the volume an external memory and communication medium. Resulting paths could be rendered as occupied voxels, density trails, skeletal tubes, signed state volumes, or the swept topology of each lineage.\n\nThe first gate should faithfully reproduce a compact 2D multi-ant baseline and quantify highway onset, cycle length, collision outcomes, and boundary effects. The minimal 3D branch should then freeze one explicit orientation algebra, update ordering, lattice, and rule table. Only after deterministic replay should the Study compare asynchronous versus synchronous writing, multiple state alphabets, alternative 3D cell complexes, or moving boundaries. The central creative question is whether shared volumetric memory produces coherent highways and territorial structures, or merely diffuse random walks.",
+  "recommended_next_action": "Begin artist-owned Look Development from the newly promoted C2 radius-2 compact control, preserving its immutable cache and semantic field indices. After Look Development, resume the held torsion-cage and orbital-shear branches through the same bounded prewarm/capture system for variations. Existing A3 gap-4 and C2 radius-3 selections remain available and unchanged.",
+  "schema_version": 1,
+  "state": "active",
+  "title": "Study 004 \u2014 Three-Dimensional Fieldwriting Ants",
+  "unresolved_questions": [],
+  "updated_at": "2026-08-23T20:54:56Z",
+  "visibility": "private"
+}

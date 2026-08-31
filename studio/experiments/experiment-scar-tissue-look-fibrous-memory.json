@@ -1,0 +1,17 @@
+{
+  "id": "experiment-scar-tissue-look-fibrous-memory",
+  "parameters": {
+    "height": 810,
+    "instrument": "fixed-final-state",
+    "look": "fibrous-memory",
+    "source_behavior_component_id": "component-behavior-b3bcc837c3e2",
+    "source_behavior_state_sha256": "56b9e60a0b54fd2eb94a0d47e1438aadcfe3c9fadd527730a89074ebf8221ce0",
+    "width": 540
+  },
+  "proposal_id": "proposal-2e3c487dff24",
+  "runner": "look.scar_tissue_probe",
+  "schema_version": 1,
+  "state": "archived",
+  "track": "look",
+  "visibility": "private"
+}

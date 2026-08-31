@@ -24,7 +24,7 @@ class StudioStoreTests(unittest.TestCase):
             records, errors = store.list("ideas")
             self.assertEqual(records, [idea])
             self.assertEqual(errors, [])
-            self.assertTrue((root / "work" / "studio" / "ideas" / "idea-001.json").is_file())
+            self.assertTrue((root / "studio" / "ideas" / "idea-001.json").is_file())
 
     def test_duplicate_create_fails_and_explicit_update_replaces_record(self) -> None:
         with tempfile.TemporaryDirectory() as directory:
@@ -52,7 +52,7 @@ class StudioStoreTests(unittest.TestCase):
     def test_symlinked_collection_cannot_escape_supplied_root(self) -> None:
         with tempfile.TemporaryDirectory() as directory, tempfile.TemporaryDirectory() as outside_directory:
             root = Path(directory)
-            studio = root / "work" / "studio"
+            studio = root / "studio"
             studio.mkdir(parents=True)
             try:
                 (studio / "ideas").symlink_to(Path(outside_directory), target_is_directory=True)
@@ -70,7 +70,7 @@ class StudioStoreTests(unittest.TestCase):
             root = Path(directory)
             store = StudioStore(root)
             store.create("ideas", "idea-001", {"id": "idea-001"})
-            self.assertTrue((root / "work" / "studio" / "ideas" / "idea-001.json").is_file())
+            self.assertTrue((root / "studio" / "ideas" / "idea-001.json").is_file())
 
     def test_malformed_and_interrupted_siblings_are_reported_without_hiding_valid_records(self) -> None:
         with tempfile.TemporaryDirectory() as directory:
@@ -78,7 +78,7 @@ class StudioStoreTests(unittest.TestCase):
             store = StudioStore(root)
             valid = {"id": "idea-valid", "text": "safe"}
             store.create("ideas", "idea-valid", valid)
-            records_dir = root / "work" / "studio" / "ideas"
+            records_dir = root / "studio" / "ideas"
             (records_dir / "idea-broken.json").write_text("{not json", encoding="utf-8")
             (records_dir / "BAD.json").write_text('{"id": "bad-name"}', encoding="utf-8")
             (records_dir / "idea-interrupted.tmp").write_text('{"id": "partial"', encoding="utf-8")
@@ -96,7 +96,7 @@ class StudioStoreTests(unittest.TestCase):
         with tempfile.TemporaryDirectory() as directory:
             root = Path(directory)
             store = StudioStore(root)
-            path = root / "work" / "studio" / "ideas" / "idea-001.json"
+            path = root / "studio" / "ideas" / "idea-001.json"
 
             with patch("houdini_ai.studio_store.os.replace", wraps=os.replace) as replace:
                 store.create("ideas", "idea-001", {"id": "idea-001"})

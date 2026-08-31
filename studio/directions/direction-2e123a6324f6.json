@@ -1,0 +1,25 @@
+{
+  "cheapest_informative_probe": "Run three fixed graph motifs with identical initial positions and compare topology and trajectory diagnostics.",
+  "conceptual_distinction": "This changes relationship topology while holding the source force law stable.",
+  "expected_emergent_behavior": "Legible formations should assemble, deform, exchange members, and transition between graph-authored spatial phrases.",
+  "extensions": {
+    "studio/pilot-study-003-role": "graph-choreography"
+  },
+  "id": "direction-2e123a6324f6",
+  "idea_id": "idea-nonlocal-affinity-dance-b774404e",
+  "mechanism": "Keep the baseline pull/push response but replace random relationship topology with explicit rings, chains, cliques, and scheduled graph transitions.",
+  "premise": "Designed relationship motifs can choreograph transitions while preserving the original spatial force law.",
+  "risks": [
+    "Over-designed topology may become mechanical rather than emergent."
+  ],
+  "schema_version": 1,
+  "sibling_relations": [
+    {
+      "direction_id": "direction-fbe9c254e174",
+      "relationship": "replaces random topology with designed motifs"
+    }
+  ],
+  "state": "held",
+  "title": "Graph Choreography",
+  "visibility": "private"
+}

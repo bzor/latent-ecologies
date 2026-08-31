@@ -1,0 +1,31 @@
+{
+  "extensions": {
+    "studio/source-experiment-id": "experiment-scar-tissue-v5-rapid-zipper-two-turn-helix",
+    "studio/verification": "studies/study_002_scar-tissue/01_behavior/03_selected/selection_002/package-verification.json"
+  },
+  "id": "experiment-scar-tissue-rapid-surgical-zipper-two-turn",
+  "parameters": {
+    "activator_decay": 0.34,
+    "bank_half_width": 1.15,
+    "closure_gain": 0.82,
+    "edge_count": 128,
+    "myosin_response": 0.58,
+    "ratchet_heterogeneity": 0.0,
+    "ratchet_rate": 0.28,
+    "refractory_decay": 0.055,
+    "tube_azimuth": 0.61,
+    "tube_twist_turns": 2.0,
+    "wave_transfer": 0.82,
+    "wound_height": 11.5,
+    "zip_capture": 1.55,
+    "zip_front_boost": 0.22,
+    "zip_rate": 0.16,
+    "zipper_space_mode": 1
+  },
+  "proposal_id": "proposal-scar-tissue-rapid-surgical-zipper",
+  "runner": "behavior.scar_mechanics_vex",
+  "schema_version": 1,
+  "state": "completed",
+  "track": "behavior",
+  "visibility": "private"
+}

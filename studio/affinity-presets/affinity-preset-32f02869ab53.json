@@ -1,0 +1,41 @@
+{
+  "created_at": "2026-08-15T23:03:03.784778+00:00",
+  "dimensions": 2,
+  "display": {
+    "point_size": 2,
+    "show_links": false,
+    "trail_alpha": 0.21,
+    "viewport_scale": 1.25
+  },
+  "id": "affinity-preset-32f02869ab53",
+  "mechanism": "nonlocal-affinity-v1",
+  "note": "wide swirls with small pockets of outliers",
+  "parameters": {
+    "attraction": 0.063,
+    "contraction": 0.9917,
+    "repulsion": 0.01,
+    "softening": 0.1
+  },
+  "preview": {
+    "agent_count": 5000,
+    "initialization": "uniform-square-minus-one-to-one",
+    "rng": "mulberry32-v1",
+    "steps_per_display_frame": 1
+  },
+  "production_hint": {
+    "execution_authorized": false,
+    "integration_authority": "houdini-vex",
+    "state": "candidate"
+  },
+  "project_id": "study-003-nonlocal-affinity-dance",
+  "rewiring": {
+    "ordering": "before-synchronous-position-update",
+    "probability_per_simulation_step": 0.337,
+    "rewires_per_event": 2
+  },
+  "schema_version": 1,
+  "seed": 122095,
+  "state": "candidate",
+  "title": "Wide Swirls wOutliers",
+  "visibility": "private"
+}

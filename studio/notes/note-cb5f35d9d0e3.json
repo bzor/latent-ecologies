@@ -1,0 +1,11 @@
+{
+  "category": "missing-functionality",
+  "created_at": "2026-08-13T14:22:00Z",
+  "id": "note-cb5f35d9d0e3",
+  "reference_id": "component-look-6013004ba32c",
+  "schema_version": 1,
+  "stage": "chromatic",
+  "text": "before starting the chromatic phase let's have a quick brainstorm where you summarize all of the sim components and values we have to work with, to better prep assigning colors to different objects/parameters. maybe summarize all values then suggest a few options then i can approve or suggest my own approaches before implmenting",
+  "track": "chromatic",
+  "visibility": "private"
+}

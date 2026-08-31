@@ -1,0 +1,47 @@
+{
+  "constraints": [
+    "Evaluate full temporal trajectories; do not optimize solely against one rendered frame.",
+    "Store genotype, initial condition, evaluator version, random seed, metrics, and ancestry for every retained candidate.",
+    "Use bounded evaluation budgets and deterministic replay before scaling resolution or population size.",
+    "Keep behavior objectives separate from Look, Chromatic, and Cinematography preferences.",
+    "Treat source code as reference material with unresolved rights and implement reusable infrastructure independently."
+  ],
+  "created_at": "2026-08-17T16:17:49Z",
+  "id": "idea-evolving-the-rule-not-the-form-85217be6",
+  "long_summary": "Observed source mechanism: Jhoan Eduardo Saldarriaga Serna searches an enormous family of two-dimensional totalistic cellular-automaton rules for systems that grow a circle from one active cell. The final contour is evaluated geometrically by measuring the spread of radial distances from its center. Four adaptive strategies\u2014hill climbing, a population evolution strategy, an island model with migration, and a sexual genetic algorithm\u2014are compared under a shared evaluation budget. The reported conclusion is especially relevant to the Studio: the particular evolutionary strategy mattered less than the definition of fitness.\n\nStudio direction: turn that insight into a reusable mechanism-discovery instrument. The goal is not to evolve circles or optimize a finished look, but to search rule and parameter spaces for temporal qualities that are difficult to tune directly: persistent reorganization, intermittent phase change, bounded expansion, nested voids, coherent fragmentation, long-memory recurrence, or transitions between behavioral regimes. Fitness should be multi-objective and built from measurable diagnostics over complete trajectories, not from a single final image. Novelty search, diversity archives, Pareto fronts, and human-curated selection could prevent convergence toward one sterile optimum.\n\nThis Seed has a dual role. Creatively, it may produce a Study about populations of rules adapting toward incompatible behavioral pressures. Systemically, parts of it may belong in engine-room as a reusable search harness for later Studies. Those roles must stay distinct: infrastructure can be reused, while any resulting Seed or Study retains its own objective definitions, receipts, and lineage. Source notebook code is available for study but has no observed explicit reuse license; production code should be independently implemented.",
+  "questions": [
+    "Which trajectory-level metrics describe artistic behavior without merely encoding a preferred final silhouette?",
+    "How can novelty and diversity be preserved when a scalar objective rewards convergence?",
+    "Should rules, initial conditions, boundary conditions, or combinations of all three constitute the genotype?",
+    "Can human selections be incorporated as bounded preferences without making experiments irreproducible?",
+    "Which diagnostics are cheap enough for broad search but predictive of high-resolution Houdini behavior?",
+    "How should search infrastructure be separated from the canonical creative lineage of each discovered mechanism?"
+  ],
+  "raw_text": "Develop an evolutionary search system in which cellular-automaton rules are the genotype and selected temporal or morphological qualities define fitness, allowing the Studio to discover mechanisms rather than hand-tune finished shapes.",
+  "reference_links": [
+    {
+      "kind": "article",
+      "note": "Primary source by Jhoan Eduardo Saldarriaga Serna. The attached notebook implements totalistic CA evaluation, circularity fitness, and four adaptive search strategies. No explicit reuse license was observed.",
+      "title": "Evolving Circles: Adaptive Search in a Cellular Automaton Rule Space",
+      "url": "https://community.wolfram.com/groups/-/m/t/3763335"
+    }
+  ],
+  "schema_version": 1,
+  "short_summary": "Evolution searches cellular-automaton rule space against explicit behavioral metrics, turning fitness design into a creative instrument for discovering new dynamics.",
+  "source_urls": [
+    "https://community.wolfram.com/groups/-/m/t/3763335"
+  ],
+  "state": "inbox",
+  "tags": [
+    "cellular-automata",
+    "evolutionary-search",
+    "rule-space",
+    "fitness-design",
+    "novelty-search",
+    "generative-discovery"
+  ],
+  "title": "Evolving the Rule, Not the Form",
+  "track": "behavior",
+  "updated_at": "2026-08-17T16:17:49Z",
+  "visibility": "private"
+}

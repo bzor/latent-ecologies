@@ -11,7 +11,7 @@ from houdini_ai.nonlocal_affinity import lift_prepared_to_3d, prepare_canvas_run
 
 
 ROOT = Path(__file__).resolve().parents[1]
-PRESET = ROOT / "work/studio/affinity-presets/affinity-preset-32e76e5d39d0.json"
+PRESET = ROOT / "studio/affinity-presets/affinity-preset-32e76e5d39d0.json"
 
 
 class NonlocalAffinityHDATests(unittest.TestCase):

@@ -1,0 +1,11 @@
+{
+  "experiment_id": "experiment-scar-tissue-directional-refractory",
+  "id": "artifact-scar-tissue-directional-refractory-v3",
+  "path": "work/jobs/scar-tissue-directional-refractory-v3/review/diagnostic.mp4",
+  "schema_version": 1,
+  "sha256": "sha256:a66f3fa9885478b7766f94a0b0dd391bb04c9585428d5e8ed62a69c9095877e4",
+  "state": "verified",
+  "track": "behavior",
+  "verified": true,
+  "visibility": "private"
+}

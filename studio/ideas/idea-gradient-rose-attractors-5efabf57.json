@@ -1,0 +1,54 @@
+{
+  "constraints": [
+    "Reproduce and diagnose the exact 2D recurrence before introducing new operators or aesthetic treatments.",
+    "Use deterministic initial conditions and persist complete parameter and state-digest receipts.",
+    "Treat normalization, boundary conditions, precision, and filter stencil as causal simulation parameters, not hidden implementation details.",
+    "Keep 3D extensions explicitly labeled as Studio hypotheses rather than behavior claimed by the source.",
+    "Do not republish source code or imagery without a separate rights decision; publication remains private by default."
+  ],
+  "created_at": "2026-08-17T16:17:48Z",
+  "id": "idea-gradient-rose-attractors-5efabf57",
+  "long_summary": "Observed source mechanism: Simon Woods initializes a 2D scalar image from random values or a symmetric disk, subtracts a Sobel GradientFilter response from the current image, rescales the result, and feeds it back into the next iteration. Small numerical asymmetries rapidly amplify into a persistent swirling rose. A rounded variant changes the available state space, and an accompanying reply by Vitaliy Kaurov adds a nonlinear power term, relating the recurrence conceptually to Belousov-Zhabotinsky reaction media and the complex Ginzburg-Landau equation. Woods also reports a slower 3D image-volume version.\n\nStudio direction: treat this as an iterative field attractor rather than as a request to reproduce one spiral image. Begin with a deterministic Python oracle for the exact recurrence and diagnostics for symmetry loss, spectral energy, convergence, periodicity, and basin identity. Establish whether the rose is a fixed point, limit cycle, slowly rotating attractor, or display artifact. Then translate verified operators into Houdini volumes/COPs or VEX/OpenCL and explore 3D scalar fields, anisotropic kernels, bounded quantization, nonlinear feedback, multi-channel coupling, and evolving boundary conditions. A compelling result would expose a family of attractor basins in which tiny changes of initial condition, filter stencil, or nonlinearity produce materially different volumetric organisms.\n\nThis Seed is source-derived research, not publication clearance. The mathematical mechanism may be independently reimplemented and cited, but source code, images, and notebooks must not be republished without separate rights review.",
+  "questions": [
+    "What invariant or feedback imbalance causes symmetric initial conditions to lose symmetry after the first iterations?",
+    "Is the rose a fixed point, a limit cycle, a rotating attractor, or a consequence of normalization and finite precision?",
+    "How many distinct attractor basins exist across initial conditions, gradient stencils, quantization steps, and nonlinear exponents?",
+    "Which diagnostics distinguish genuine field dynamics from display rescaling artifacts?",
+    "Does a three-dimensional recurrence form sheets, tubes, cavities, knots, or a single dominant volumetric attractor?",
+    "Can coupled channels create competitive or symbiotic field species without collapsing into ordinary reaction-diffusion imagery?"
+  ],
+  "raw_text": "Explore Simon Woods's iterative gradient-filter recurrence as a deterministic field system: first verify its 2D attractors, then study nonlinear and volumetric descendants without treating the source aesthetic as a required destination.",
+  "reference_links": [
+    {
+      "kind": "article",
+      "note": "Primary source by Simon Woods. Contains the short 2D recurrence inline, rounded and 3D variants, and a reply connecting the system to reaction media through an added nonlinear term. No explicit reuse license was observed.",
+      "title": "Iterative image processing and spiral asymmetric behavior",
+      "url": "https://community.wolfram.com/groups/-/m/t/123945"
+    },
+    {
+      "kind": "paper",
+      "note": "Background reference linked from the Wolfram discussion; useful for separating Woods's image recurrence from established nonlinear-field dynamics.",
+      "title": "The World of the Complex Ginzburg-Landau Equation",
+      "url": "https://arxiv.org/abs/cond-mat/0106115"
+    }
+  ],
+  "schema_version": 1,
+  "short_summary": "A scalar field repeatedly subtracts its own spatial gradient and rescaled feedback, breaking symmetry and converging toward spiral or rose-like attractors.",
+  "source_urls": [
+    "https://community.wolfram.com/groups/-/m/t/123945",
+    "https://arxiv.org/abs/cond-mat/0106115"
+  ],
+  "state": "inbox",
+  "tags": [
+    "field-dynamics",
+    "iterative-image",
+    "attractors",
+    "reaction-diffusion",
+    "volumetric",
+    "simon-woods"
+  ],
+  "title": "Gradient-Rose Attractors",
+  "track": "behavior",
+  "updated_at": "2026-08-17T16:17:48Z",
+  "visibility": "private"
+}

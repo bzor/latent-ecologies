@@ -1,0 +1,19 @@
+{
+  "experiment_id": "experiment-study-003-affinity-identity-ladder-v1",
+  "extensions": {
+    "studio/frame-policy": "all 5000 points; steps 0-240 at 30fps; no interpolation; Canvas display persistence",
+    "studio/identity-manifest": "work/studies/study-003-nonlocal-affinity-dance/20-behavior/comparisons/affinity-identity-ladder-v1/identity-ladder-manifest.json",
+    "studio/identity-role": "same Canvas graph/events and XY with deterministic Z depth 0.15",
+    "studio/legacy-path": "work/studio/handoffs/study-003-affinity-identity-ladder-v1/affinity-identity-shallow-3d-5k-30fps.mp4",
+    "studio/review-receipt": "work/studies/study-003-nonlocal-affinity-dance/20-behavior/comparisons/affinity-identity-ladder-v1/review-shallow-3d/review-receipt.json",
+    "studio/state-authority": "vex-geometry"
+  },
+  "id": "artifact-study-003-affinity-identity-shallow-3d-5k-30fps-v1",
+  "path": "studies/study_003_nonlocal-affinity-dance/01_behavior/02_review/migrated_verified/artifact-study-003-affinity-identity-shallow-3d-5k-30fps-v1/affinity-identity-shallow-3d-5k-30fps.mp4",
+  "schema_version": 1,
+  "sha256": "sha256:f6eec51b3a3651481bcd84d837233dffdd04bc01e63e616a78ca6fd8536d1966",
+  "state": "verified",
+  "track": "behavior",
+  "verified": true,
+  "visibility": "private"
+}

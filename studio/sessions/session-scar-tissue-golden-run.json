@@ -1,0 +1,29 @@
+{
+  "approved_selection_ids": [
+    "component-behavior-b3bcc837c3e2",
+    "component-look-6013004ba32c",
+    "component-palette-a52433fdb147",
+    "component-shot-scar-tissue-abc-a-v1"
+  ],
+  "blockers": [
+    "Portrait render is incomplete: 218/1260 contiguous frames."
+  ],
+  "created_at": "2026-08-15T16:15:59Z",
+  "current_phase": "delivery",
+  "extensions": {
+    "studio/lineage-role": "golden-reference"
+  },
+  "id": "session-scar-tissue-golden-run",
+  "intent": "Complete and validate the first end-to-end proving run of the Computational Studio without altering its approved creative components.",
+  "project_slug": "scar-tissue",
+  "recommended_next_action": "Resume the portrait render at frame 219, then validate the complete sequence.",
+  "schema_version": 1,
+  "specimen_id": "specimen-scar-tissue-v1",
+  "state": "archived",
+  "title": "Scar Tissue \u2014 Golden Run",
+  "unresolved_questions": [
+    "Should the final specimen use designed sound or intentional silence?"
+  ],
+  "updated_at": "2026-08-22T17:47:05Z",
+  "visibility": "private"
+}

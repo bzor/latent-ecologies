@@ -1,0 +1,25 @@
+{
+  "extensions": {
+    "studio/pilot-study-003-role": "faithful-baseline",
+    "studio/reference-policy": "immutable-ancestor-not-aesthetic-constraint",
+    "studio/source-url": "https://community.wolfram.com/groups/-/m/t/122095"
+  },
+  "id": "experiment-pilot-study-003-faithful-v1",
+  "parameters": {
+    "agent_count": 1000,
+    "attraction": 0.02,
+    "contraction": 0.995,
+    "dimensions": 2,
+    "fps": 20,
+    "repulsion": 0.01,
+    "seed": 122095,
+    "softening": 0.01,
+    "steps": 240
+  },
+  "proposal_id": "proposal-7a3a84b384e8",
+  "runner": "behavior.probe",
+  "schema_version": 1,
+  "state": "completed",
+  "track": "behavior",
+  "visibility": "private"
+}

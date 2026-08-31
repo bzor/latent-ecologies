@@ -1,0 +1,11 @@
+{
+  "experiment_id": "experiment-c2-radius-3",
+  "id": "artifact-c2-radius-3",
+  "path": "work/studio/handoffs/study-004-c2-radius-3/behavior-handoff.json",
+  "schema_version": 1,
+  "sha256": "sha256:0e47858a985747a4fbc513e86825f69a99f046dbf0fdcccedd3537d57b21bd67",
+  "state": "verified",
+  "track": "behavior",
+  "verified": true,
+  "visibility": "private"
+}

@@ -1,0 +1,23 @@
+{
+  "constraints": [
+    "Preserve all 300 authoritative caches.",
+    "Keep activator, refractory, myosin, ratchet, capture and fusion histories immutable in Look Development."
+  ],
+  "extensions": {
+    "studio/parent-idea": "idea-scar-tissue",
+    "studio/promotion-message-id": "1541210300743950350",
+    "studio/study-id": "study-002-scar-tissue"
+  },
+  "id": "idea-scar-tissue-rapid-surgical-zipper",
+  "questions": [
+    "Can the selected zipper state drive a biologically legible artist-owned Look without altering its mechanics?"
+  ],
+  "raw_text": "Promote the verified Rapid Surgical Zipper with ratchet-coupled two-turn cylindrical settlement as the active Scar Tissue Behavior.",
+  "schema_version": 1,
+  "short_summary": "A tip-led excitable wound zipper contracts radially and winds into two turns while preserving the approved planar kinetic state machine.",
+  "source_urls": [],
+  "state": "proposed",
+  "title": "Scar Tissue \u2014 Rapid Surgical Zipper Behavior Candidate",
+  "track": "behavior",
+  "visibility": "private"
+}
