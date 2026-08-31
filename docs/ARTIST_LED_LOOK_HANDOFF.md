@@ -129,7 +129,10 @@ The delivery must be immediately usable and artist-readable:
 - the HIP reopens in a fresh Hython process;
 - no unrequested visual solution is presented as completed Look Development.
 
-The file is placed directly in the Study's flat `02_look` directory, normally as `look.hiplc`.
+The file is placed directly in the Study's flat `02_look` directory, named with the
+three-axis stem and starting revision: `bhvr_NNN_var_NNN_<slug>.look_r001.hiplc`
+(see STUDY_VAULT.md; a new behavior takes the next behavior number, and a new
+variation copies the HIP under the next variation number).
 There are no Look brief/work subdirectories: KC owns colour, materials, lighting, camera, and
 framing together in this HIP.
 
@@ -213,7 +216,7 @@ A delivery render is one run over the whole frame range, with `renders/` empty s
 every frame is pending. Cost probes render to a scratch path, never into the delivery
 directory, because a reused single-frame run is the worst case of this failure.
 
-`render_look_sequence.py` records run structure in its receipt, warns when a render
+`houdini/render_look_sequence.py` records run structure in its receipt, warns when a render
 would be stitched from several runs, and refuses to start under `--require-contiguous`
 when it would reuse frames.
 

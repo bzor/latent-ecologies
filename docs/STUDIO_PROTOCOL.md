@@ -299,7 +299,7 @@ Hermes should not:
 - respond to every note with another expensive render;
 - keep polishing a branch because the pipeline can.
 
-## Proposed Studio workflow
+## Studio workflow
 
 1. **Inbox:** KC seeds ideas through conversation or a quick form.
 2. **Proposal:** Hermes writes one or more bounded probe contracts.
@@ -315,16 +315,11 @@ Hermes should not:
 12. **Approval:** KC approves the exact package.
 13. **Publication:** an authorized account posts and records canonical URLs.
 
-## Initial implementation priority
+## Implementation status
 
-The first interaction milestone should extend the local Studio with:
-
-1. an idea inbox that accepts free text, an optional source URL, tags, and context;
-2. structured proposal cards with cost and diagnostic outputs;
-3. expanded review decisions including mutate, hold, archive, and promote;
-4. promotion records linking exact artifacts and rationale;
-5. publication tags and a private-by-default candidate queue;
-6. a conversational summary that Hermes can read and update without scraping UI state.
-
-This supplies a practical working relationship before building the public website or any
-social-platform integration.
+The interaction milestone above is built into the Studio CLI: the idea inbox
+(`inbox`), structured proposal cards (`propose`, `proposals`, `approve`), review
+decisions including mutate, hold, archive, and promote (`decide`, `promote`),
+promotion records with rationale, publication tags with a private-by-default
+candidate queue (`tag`, `untag`, `editorial`), and conversational process notes
+(`note`, `notes`, `work/studio/PROCESS_NOTES.md`).

@@ -23,7 +23,9 @@ overlay project:
   only (the overlay system's rule is no fake greeble). Text identity (number,
   title, summaries, bullets, headline params) comes from the Study's
   `00_study/study-card.json` (`src/houdini_ai/study_card.py`), seeded from the
-  Seed record and maintained conversationally; per-frame data (subject bbox,
+  Seed record and maintained conversationally. A legacy vault without
+  `00_study/` has no card, and those sidecar fields degrade to empty (the
+  Study 001 promote shipped with empty `summary`/`bullets`/`credits`); per-frame data (subject bbox,
   tracked-point screen positions/depths/values, scalar series) comes from
   `houdini/export_overlay_study.py` — tracked points are flagged in the HIP via
   the `overlay_track` point group + optional `track_label` attrib, or by point
@@ -107,7 +109,9 @@ that skip when the tool is absent).
   rewrite of the delivered package.
 - A promote requires canonical variation identity and emits
   `bhvr_NNN_var_NNN_title-slug.delivery.mp4`, `bhvr_NNN_var_NNN_title-slug.delivery.json`, and a
-  variation-matched overlay-frame directory.
+  variation-matched overlay-frame directory. Platform derivatives beside them
+  (`*.delivery-preview.mp4`, `*.delivery-discord.mp4`, `*.delivery-review.jpg`)
+  are produced by the encode/package stage, not by `detail_promote.py` itself.
 
 ## Practical notes
 

@@ -50,7 +50,7 @@ and high-confidence stock AI phrases before the text reaches the overlay. Aspect
 interface labels, and component defaults follow the same rule. Legacy aspect strings are
 accepted as import aliases but are normalized before display or export.
 
-Approved Look variations may provide a checksum-aware `overlay-parameter-manifest.json`
+Approved Look variations may provide a checksum-aware `<name>.overlay-parameters.json` manifest
 exported from the live Behavior HDA. Each record has a stable dotted key, label, Houdini
 parameter token, scalar value, type, units, optional fixed comparison range, and animation
 status. The generated `study.json` retains the records in `overlay_parameters`; components
@@ -128,7 +128,9 @@ Each component in `components.js` registers via
   - `"bool"`
   - `"select"` `{options: [...]}`
   - `"series"` (select over `Object.keys(study.series)`)
+  - `"track"` (select over `Object.keys(study.tracks)`)
   - `"text"`
+  - `"list"` `{itemSchema, itemDefaults, min}` — repeatable instance list
 - `draw(env)` — `env = { ctx, L, P, study, frame, p, shared, T, h }`:
   - `L` layout `{W, H, u, m}` — see invariants above
   - `P` palette `{ink, faint, ghost, accent}`
@@ -165,11 +167,13 @@ vertical half the subject's bbox avoids), specTable (bottom-right label/value
 rows with cycling highlight), bars (series histogram above the table),
 summaryBlock (wrapped study-card summary column), bulletBlock (tick-marked
 study-card bullets), footer (frame counter/timecode + blink), tag (rotated
-edge text).
+edge text), scatterRects (free-placed hairline detail rects on the layout
+grid), grid (the shared layout/guide grid, normally hidden).
 
-**Component wishlist (from references, not yet built):** background grid
-(dot/line, spacing, region), hatched texture patches, scan arcs orbiting the
-bbox, vertical micro-type columns for side margins, horizontal top ruler,
+**Component wishlist (from references, not yet built):** background texture
+grid (dot/line fill over a region — distinct from the built layout-guide
+`grid` component), hatched texture patches, scan arcs orbiting the bbox,
+vertical micro-type columns for side margins, horizontal top ruler,
 free-position data column (label/value pairs per corner).
 
 ## Type system

@@ -25,7 +25,11 @@ Start here:
 - [Discord public studio architecture](docs/DISCORD_PUBLIC_STUDIO_ARCHITECTURE.md)
 - [KC–Hermes studio protocol](docs/STUDIO_PROTOCOL.md)
 - [Studio architecture](docs/STUDIO_ARCHITECTURE.md)
+- [Study vault directory contract](docs/STUDY_VAULT.md)
 - [Artist-led Look handoff](docs/ARTIST_LED_LOOK_HANDOFF.md)
+- [Render integrity](docs/RENDER_INTEGRITY.md)
+- [Detail-pass promote](docs/DETAIL_PASS_PROMOTE.md)
+- [threeJS prototype route](docs/THREEJS_PROTOTYPE_ROUTE.md)
 
 Superseded vision, roadmap, and prototype-era plans are preserved in
 [docs/archive/](docs/archive/).
@@ -42,9 +46,13 @@ Superseded vision, roadmap, and prototype-era plans are preserved in
 ## Repository map
 
 ```text
+behavior-playground/  Shared browser-sim prototype harness (threeJS route)
 config/             Shared project and render defaults
-docs/               Vision, architecture, workflow, and roadmap
+design-overlay-generator/  HUD overlay design system and headless renderer (detail pass)
+docs/               Vision, architecture, and stage protocols
 houdini/            Houdini packages, HDAs, materials, and scene tools
+schemas/            JSON schemas for studio records and presets
+scripts/            Pipeline helper scripts (render verify, overlay render, composite)
 src/houdini_ai/     Automation CLI and pipeline code
 studies/            Canonical numbered Study vaults and phase-owned artifacts
 studio/             System-wide records and reusable components
@@ -167,13 +175,15 @@ $env:PYTHONPATH = "$PWD/src"
 python -m houdini_ai doctor
 ```
 
-## First vertical slice
+## First delivered Study
 
-Study 001 is a memory-field experiment. Its first milestone is deliberately
-small: construct a deterministic Houdini scene, cache a short simulation, render
-a PNG sequence in Karma, validate the frames, encode platform variants, and
-prepare a local field-note and post draft for approval.
+Study 001 (memory field) has completed the full pipeline end to end: promoted
+behavior HDA, artist-led Look, verified 450-frame Karma render, realtime detail
+pass in the overlay generator, and a checksum-bound promote to a post-ready
+package in `04_delivery/` (2026-08-30, driven from the Discord Study thread).
+It predates the `study_NNN_slug` vault contract and stays in place under its
+legacy directory name.
 
-The complete local vertical slice and the first Phase 2 Mass Flow study now feed the
-local Review Studio. The current regression suite contains 36 tests, including HTTP
-range delivery, path-containment, artifact discovery, and feedback round trips.
+The regression suite covers the pipeline stages, including HTTP range delivery,
+path-containment, artifact discovery, detail-pass promote, and feedback round
+trips.

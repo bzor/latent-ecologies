@@ -177,9 +177,13 @@ governed by an explicit allowlist. Public exposure is treated as irreversible.
 - **Overlay manifest checksum (stage 6):** a headless manifest export cannot bind a HIP
   checksum, so locked delivery needs one manual GUI export. Fixing the dirty check in
   the HDA builder would close it.
-- **Legacy Study directories:** `studies/001-memory-field/` predates the
-  `study_NNN_slug` contract and has no `00_study/`. `study-init` would create a parallel
-  directory rather than adopt it, so migration is an explicit decision.
+- **Legacy Study directories:** `studies/001-memory-field/`, `studies/002-mass-flow/`,
+  and `studies/behavior/scar-tissue/` predate the `study_NNN_slug` contract; none has a
+  `00_study/`, and Study 001 uses `01_behavior/02_selects/` instead of `02_review/`.
+  `study-init` would create a parallel directory rather than adopt one, so migration is
+  an explicit decision. Study 001 completed the full stage 4-6 pipeline (through the
+  2026-08-30 promote) in place under its legacy name; its variation identity lives in the
+  specimen sidecar's `variation` record rather than `00_study/variations.json`.
 - **Setup library (stage 4):** only `basic` exists; grows organically with use.
 
 ## Document map
@@ -187,6 +191,8 @@ governed by an explicit allowlist. Public exposure is treated as irreversible.
 Current, canonical:
 
 - `VISION.md` — this document.
+- `STUDY_VAULT.md` — the per-Study directory and three-axis naming contract.
+- `STUDIO_ARCHITECTURE.md` — storage split, record stores, and compatibility layer.
 - `TECHNICAL_VOICE.md` — terminology, claim discipline, and writing standard for all outputs.
 - `DISCORD_PUBLIC_STUDIO_ARCHITECTURE.md` — Discord surfaces, seed bank, site states,
   publication boundary.

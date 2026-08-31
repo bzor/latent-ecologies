@@ -9,7 +9,7 @@ Run under hython:
 
     hython houdini/instantiate_look_starter.py \
         --hda studies/<study>/01_behavior/03_selected/<asset>.hda \
-        --output studies/<study>/02_look/look.hiplc
+        --output studies/<study>/02_look/bhvr_001_var_001_<slug>.look_r001.hiplc
 """
 
 from __future__ import annotations
@@ -235,7 +235,7 @@ def main() -> int:
     parser = argparse.ArgumentParser(description=__doc__)
     parser.add_argument("--template-dir", type=Path, default=DEFAULT_TEMPLATE_DIR)
     parser.add_argument("--hda", type=Path, required=True, help="promoted behavior HDA file")
-    parser.add_argument("--output", type=Path, required=True, help="starter HIP path, normally <study>/02_look/look.hiplc")
+    parser.add_argument("--output", type=Path, required=True, help="starter HIP path: <study>/02_look/<stem>.look_r001.hiplc, where <stem> is the three-axis bhvr_NNN_var_NNN_<slug> stem printed by studio study-variation-add (see docs/STUDY_VAULT.md)")
     parser.add_argument("--render-picture", help="study-local render output path for the Karma picture parm")
     parser.add_argument("--cook-frames", type=int, nargs="+", default=[1, 2])
     parser.add_argument("--force", action="store_true", help="overwrite an existing output HIP")

@@ -64,23 +64,22 @@ Versioned under Git:
 ```text
 studio/
   ideas/                 selected or developed research seeds
-  sources/               paper/reference metadata and notes
   experiments/           behavior and technical setup definitions
-  components/            promoted immutable component records
-  specimens/             assemblies referencing exact components
-  editorial/             approved public selections and field-note copy
+  proposals/             bounded probe contracts awaiting or past decision
 schemas/studio/           JSON Schemas for every record type
 houdini/                  scene builders, VEX, materials, rigs, and render tools
 src/houdini_ai/           studio kernel, CLI, runners, API, and packaging
 ```
 
+Planned but not yet created: `studio/sources/` (paper/reference metadata),
+`studio/components/` (promoted immutable component records), `studio/specimens/`
+(assemblies referencing exact components), and `studio/editorial/` (approved
+public selections and field-note copy).
+
 Legacy mutable/generated state remains beneath ignored `work/` during migration:
 
 ```text
-work/studio/inbox/        quick uncured idea capture
-work/studio/proposals/    local proposals awaiting decisions
-work/studio/promotions/   pending promotion records
-work/studio/editorial/    tags and package candidates
+work/studio/              record stores (studies, seeds, notes) and generated summaries
 work/jobs/                transient caches, staging, previews, renders, logs, receipts
 work/reviews/             artifact and timecoded feedback
 ```

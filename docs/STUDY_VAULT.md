@@ -12,6 +12,17 @@ studies/study_003_nonlocal-affinity-dance/
 
 The canonical record ID remains `study-003-nonlocal-affinity-dance`; directory naming does not change record identity or Discord bindings.
 
+## Legacy vaults
+
+`studies/001-memory-field/`, `studies/002-mass-flow/`, and `studies/behavior/scar-tissue/`
+predate this contract and are grandfathered in place (see the known gap in VISION.md).
+Study 001 has no `00_study/`, `90_shared/`, or `99_archive/`, uses `01_behavior/02_selects/`
+where the contract says `02_review/` (so the artifact catalog does not see its selects), and
+carries variation identity in the specimen sidecar's `variation` record instead of
+`00_study/variations.json`. Its receipt-bound artifacts keep their historical names; all
+newly generated artifacts — including its `03_specimen/` and `04_delivery/` files — already
+follow the three-axis stem.
+
 ## Required directory contract
 
 ```text
@@ -50,8 +61,7 @@ sit directly in the phase directory:
 
 03_specimen/
 ├── bhvr_001_var_001_primary-treatment.specimen.json
-├── bhvr_001_var_001_primary-treatment.overlay-config.json
-└── bhvr_001_var_001_primary-treatment.preview.mp4
+└── bhvr_001_var_001_primary-treatment.overlay-config.json
 
 04_delivery/
 ├── bhvr_001_var_001_primary-treatment.delivery.mp4

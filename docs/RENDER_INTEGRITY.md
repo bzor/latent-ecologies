@@ -35,7 +35,7 @@ Three consequences:
 
 Point 3 is the one that reaches a delivery.
 
-`render_look_sequence.py` is resumable: it renders contiguous runs of missing frames
+`houdini/render_look_sequence.py` is resumable: it renders contiguous runs of missing frames
 and skips frames already on disk. Each run re-cooks the solver from the start frame.
 Because the solver drifts between processes, frames from different runs do not share
 a trajectory, and the join is a discontinuity.
@@ -107,7 +107,7 @@ before handing a render to the detail pass, and again after any partial re-rende
 4. Verify with `verify_render_sequence.py`.
 5. Encode the preview and write the receipt.
 
-`render_look_sequence.py` records `runs`, `run_ranges`, `single_contiguous_run`, and
+`houdini/render_look_sequence.py` records `runs`, `run_ranges`, `single_contiguous_run`, and
 `seam_risk` in its receipt, warns when a render would be stitched, and refuses to
 start under `--require-contiguous` when frames would be reused.
 
@@ -138,7 +138,7 @@ referenced relative to `$HIP`, so a snapshot under `02_look/locked/` loads with 
 HDA unresolved and the simulation output returns zero points.
 
 Snapshots under `locked/` are archival records for checksum binding. To run one, copy
-it back beside `look.hiplc` first. Render from the authoritative HIP.
+it back beside the authoritative Look HIP first, and render from that HIP.
 
 ## Operational notes
 

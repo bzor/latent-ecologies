@@ -46,7 +46,7 @@ fonts to load before the shot.
   raw pixels. Margins come from `L.m`.
 - **UI is generated**: never hand-write panel controls for component params —
   add `defaults` + `schema` entries in components.js and the panel builds
-  itself (types: number/bool/select/series/text). Same for palettes
+  itself (types: number/bool/select/series/track/text/list). Same for palettes
   (`OVERLAY.PALETTES`) and fonts (`FONT_LIBRARY` in fonts.js).
 - **Config compatibility**: saved configs deep-merge over defaults (localStorage
   key `dog.study.<id>`), so *adding* params is safe; avoid renaming existing

@@ -21,7 +21,8 @@ When a new Behavior enters Look Development, Hermes runs
 `houdini/instantiate_look_starter.py`, which:
 
 1. copies `basic.hiplc` directly into the Study's flat `02_look` directory, named
-   `look.hiplc` unless KC asks for another name;
+   `bhvr_NNN_var_NNN_<slug>.look_r001.hiplc` from the variation's three-axis stem
+   (docs/STUDY_VAULT.md) unless KC asks for another name;
 2. copies the promoted behavior HDA beside the HIP and installs it;
 3. creates a `PROMOTED_BEHAVIOR` HDA node inside `/obj/PLAYGROUND_SIM` and wires it
    into `ENSURE_POINT_VISIBILITY` — the behavior stays live and re-simmable;
