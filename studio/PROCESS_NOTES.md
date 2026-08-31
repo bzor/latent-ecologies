@@ -1,6 +1,6 @@
 # Studio process notes
 
-Private observations captured during real-world use. Source records under `work/studio/notes/` are canonical.
+Private observations captured during real-world use. Source records under `studio/notes/` are canonical.
 
 ## Working
 
@@ -32,6 +32,9 @@ Private observations captured during real-world use. Source records under `work/
 
 - **2026-08-13T16:39:47Z · look / workflow · component-look-6013004ba32c**
   when I open the .hip files the nodes are all on top of each other, could use a quick cleanup/organization if possible
+
+- **2026-08-31T16:31:18Z · behavior / behavior**
+  behavior-stage renders drifted 'kind of all over the place in color and size'; adopted a postable standard: black and white as it's more about the behavior, CMYK colors if we need to differentiate things, postable 30fps 1080x1350 videos for eventual X posting. Shipped as houdini_ai.behavior_postable the same day.
 
 ## Missing functionality
 

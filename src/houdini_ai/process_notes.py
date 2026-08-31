@@ -49,7 +49,40 @@ def capture_note(
     if errors:
         raise ValueError("; ".join(errors))
     store.create("notes", str(record["id"]), record)
+    try:
+        write_digest(store)
+    except ValueError:
+        pass
     return record
+
+
+def capture_retro(
+    store: StudioStore,
+    stage: str,
+    track: str,
+    *,
+    dragged: str | None = None,
+    fun: str | None = None,
+    reference_id: str | None = None,
+) -> list[dict[str, Any]]:
+    """Record a gate micro-retro: what dragged and what was fun, verbatim.
+
+    Each answer becomes an ordinary process note (pain-point / working), so retros
+    accumulate in the same digest KC already reviews. At least one answer is
+    required; skipping the other is fine — a quick retro beats a complete one.
+    """
+    if not (dragged and dragged.strip()) and not (fun and fun.strip()):
+        raise ValueError("a retro needs at least one answer: what dragged, or what was fun")
+    records = []
+    if dragged and dragged.strip():
+        records.append(
+            capture_note(store, dragged, "pain-point", stage, track, reference_id=reference_id)
+        )
+    if fun and fun.strip():
+        records.append(
+            capture_note(store, fun, "working", stage, track, reference_id=reference_id)
+        )
+    return records
 
 
 def filtered_notes(

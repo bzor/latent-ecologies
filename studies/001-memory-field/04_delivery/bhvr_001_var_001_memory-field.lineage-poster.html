@@ -1,0 +1,66 @@
+<!DOCTYPE html>
+<html><head><meta charset="utf-8"><style>
+@font-face{font-family:'numeral';src:url('file:///E:/Projects/houdini-ai/design-overlay-generator/web/fonts/Isonorm%20Monospaced%20Regular.otf')}@font-face{font-family:'display';src:url('file:///E:/Projects/houdini-ai/design-overlay-generator/web/fonts/Isonorm%20Regular.otf')}@font-face{font-family:'mono';src:url('file:///E:/Projects/houdini-ai/design-overlay-generator/web/fonts/IosevkaTermNerdFontMono-Light.ttf')}
+*{margin:0;padding:0;box-sizing:border-box}
+html,body{width:1080px;height:1350px;overflow:hidden}
+body{background:#b4b5b7;color:#2f183c;font-family:'mono',Consolas,monospace;position:relative}
+.frame{position:absolute;inset:26px;pointer-events:none}
+.frame i{position:absolute;width:14px;height:14px;border:0 solid #2f183c}
+.frame i:nth-child(1){top:0;left:0;border-top-width:1px;border-left-width:1px}
+.frame i:nth-child(2){top:0;right:0;border-top-width:1px;border-right-width:1px}
+.frame i:nth-child(3){bottom:0;left:0;border-bottom-width:1px;border-left-width:1px}
+.frame i:nth-child(4){bottom:0;right:0;border-bottom-width:1px;border-right-width:1px}
+.reg{position:absolute;background:#2f183c;opacity:.55}
+.reg.h{width:9px;height:1px}.reg.v{width:1px;height:9px}
+.micro{font-size:10px;letter-spacing:.06em;line-height:1.5;opacity:.75}
+.top{position:absolute;top:44px;left:54px;right:54px;display:flex;justify-content:space-between}
+.top .right{text-align:right}
+.content{position:absolute;top:96px;left:54px;right:54px;bottom:150px;display:flex;gap:44px}
+.left-col{width:436px;display:flex;flex-direction:column}
+.numeral{font-family:'numeral','display',Consolas,monospace;font-size:250px;line-height:.86;letter-spacing:-.03em;margin-top:6px}
+.title{font-family:'display',Consolas,monospace;font-size:32px;letter-spacing:.14em;margin-top:20px}
+.variation{font-size:12px;letter-spacing:.1em;opacity:.75;margin-top:8px}
+.subtitle{font-size:13px;line-height:1.55;margin-top:16px;max-width:380px;opacity:.9}
+.rule{height:1px;background:#2f183c;opacity:.4;margin:26px 0 22px}
+.plate{margin-top:auto}
+.plate img{width:100%;display:block;border:1px solid #2f183c}
+.plate-caption{font-size:9px;letter-spacing:.08em;opacity:.7;margin-top:8px;line-height:1.5}
+.rail{flex:1;position:relative;padding-left:26px;margin-top:10px;display:flex;flex-direction:column}
+.rail::before{content:'';position:absolute;left:4px;top:8px;bottom:8px;width:1px;background:#2f183c;opacity:.45}
+.rail-title{font-size:11px;letter-spacing:.28em;margin-bottom:26px;margin-left:-26px;opacity:.8}
+.stages{flex:1;display:flex;flex-direction:column;justify-content:space-evenly;padding-bottom:34px}
+.stage{position:relative}
+.node{position:absolute;left:-26px;top:3px;width:7px;height:7px;border:1px solid #2f183c;background:#b4b5b7}
+.node.gate{background:#c76666;border-color:#c76666}
+.stage-head{display:flex;align-items:baseline;gap:12px}
+.stage-label{font-family:'display',Consolas,monospace;font-size:15px;letter-spacing:.2em}
+.date{font-size:10px;opacity:.7}
+.hash{font-size:10px;color:#c76666;margin-left:auto;letter-spacing:.05em}
+.fact{font-size:11px;line-height:1.6;opacity:.82;margin-top:3px}
+.footer{position:absolute;left:54px;right:54px;bottom:52px;border-top:1px solid #2f183c;padding-top:14px;display:flex;justify-content:space-between;align-items:flex-end}
+.footer .lines{font-size:9.5px;letter-spacing:.06em;line-height:1.7;opacity:.8}
+.footer .complete{font-family:'display',Consolas,monospace;font-size:13px;letter-spacing:.3em;color:#c76666;text-align:right}
+.accentbar{position:absolute;left:54px;top:96px;width:34px;height:5px;background:#c76666}
+</style></head><body>
+<div class="frame"><i></i><i></i><i></i><i></i></div>
+<div class="reg h" style="top:26px;left:50%"></div><div class="reg v" style="top:26px;left:50%"></div>
+<div class="reg h" style="bottom:26px;left:50%"></div><div class="reg v" style="bottom:26px;left:50%"></div>
+<div class="reg h" style="top:50%;left:26px"></div><div class="reg h" style="top:50%;right:26px"></div>
+<div class="top micro"><div>BZOR COMPUTATIONAL STUDIO</div><div class="right">STUDY 001 · SPECIMEN LINEAGE</div></div>
+<div class="accentbar"></div>
+<div class="content">
+  <div class="left-col">
+    <div class="numeral">001</div>
+    <div class="title">MEMORY FIELD</div>
+    <div class="variation">BHVR 001 / VAR 001 · MEMORY-FIELD</div>
+    <div class="subtitle">agents shape territory through their own decaying memory</div>
+    <div class="rule"></div>
+    <div class='plate'><img src='file:///E:/Projects/houdini-ai/studies/001-memory-field/04_delivery/bhvr_001_var_001_memory-field.lineage-poster-plate.png' alt=''><div class='plate-caption'>DELIVERY FRAME · KARMA RENDER + REALTIME DETAIL PASS · 1080 × 1350</div></div>
+  </div>
+  <div class="rail">
+    <div class="rail-title">PIPELINE RECORD</div>
+    <div class="stages"><div class='stage'><span class='node gate'></span><div class='stage-body'><div class='stage-head'><span class='stage-label'>BEHAVIOR</span><span class='hash'>78b5de6</span></div><div class='fact'>POP/VEX solver · deterministic seed 18432 · 512 agents</div><div class='fact'>resource / inhibition / occupancy fields</div><div class='fact'>sense → steer → consume → deposit → decay</div><div class='fact'>promoted as live HDA bzor::refractory_route::1.0</div></div></div><div class='stage'><span class='node gate'></span><div class='stage-body'><div class='stage-head'><span class='stage-label'>LOOK</span><span class='hash'>74b986a</span></div><div class='fact'>artist-led · authored directly in the flat Look HIP</div><div class='fact'>declared locked at revision r004 · Houdini 22.0.368</div><div class='fact'>camera 80mm f/5.6 · focus 5.0 · ACES 2.0</div></div></div><div class='stage'><span class='node'></span><div class='stage-body'><div class='stage-head'><span class='stage-label'>RENDER</span><span class='hash'>afe7936</span></div><div class='fact'>450 frames · Karma · one uninterrupted pass</div><div class='fact'>2 h 30 m 33 s · every frame decoded and verified</div><div class='fact'>receipt bound to the locked HIP checksum</div></div></div><div class='stage'><span class='node gate'></span><div class='stage-body'><div class='stage-head'><span class='stage-label'>DETAIL PASS</span><span class='hash'>e8975dd</span></div><div class='fact'>design overlay generator · realtime over the verified render</div><div class='fact'>450 overlay frames · custom four-color palette</div><div class='fact'>four tracked agents · P1 P128 P256 P380</div></div></div><div class='stage'><span class='node gate'></span><div class='stage-body'><div class='stage-head'><span class='stage-label'>PACKAGE</span><span class='date'>2026-08-30</span><span class='hash'>f128598</span></div><div class='fact'>post-ready · 76.1 MB checksummed composite delivery</div><div class='fact'>promoted from the Discord Study thread</div><div class='fact'>state: post-ready · destination approval pending</div></div></div></div>
+  </div>
+</div>
+<div class="footer"><div class="lines"><div>SEED 18432 · POP/VEX · 450 FRAMES @ 30 FPS · 1080 × 1350</div><div>COMPOSITE SHA256 F128598A…A8CA621 · EVERY GATE AN EXPLICIT KC DECISION</div><div>REPRODUCIBLE FROM THE STUDY VAULT · STUDIES/001-MEMORY-FIELD</div></div><div class="complete">PIPELINE<br>COMPLETE<br>2026-08-30</div></div>
+</body></html>

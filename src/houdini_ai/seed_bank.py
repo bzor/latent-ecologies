@@ -198,3 +198,54 @@ def promote_seed_to_study_command(
         ),
         summary=f"Promote Seed {context.seed_id} into Study {study_id}.",
     )
+
+_DIGEST_ORDER = ("inbox", "incubating", "proposed", "ready", "promoted", "archived")
+_DIGEST_HEADINGS = {
+    "inbox": "Inbox — not yet incubated",
+    "incubating": "Incubating",
+    "proposed": "Proposed — probe contracts drafted",
+    "ready": "Ready — awaiting a promotion decision",
+    "promoted": "Promoted into Studies",
+    "archived": "Archived",
+}
+
+
+def build_seed_digest(store: StudioStore, *, today: str) -> str:
+    """Render the private Seed Bank digest as Discord-postable markdown.
+
+    A ritual artifact: posted to keep the front of the pipeline warm during
+    production weeks. Groups seeds by lifecycle state, oldest first within each
+    group so long-waiting seeds surface. Archived seeds appear as a count only.
+    """
+    records, errors = store.list("ideas")
+    if errors:
+        raise ValueError("; ".join(error["error"] for error in errors))
+    by_state: dict[str, list[dict[str, Any]]] = {}
+    for record in records:
+        by_state.setdefault(str(record.get("state", "inbox")), []).append(record)
+
+    lines = [f"**Seed Bank digest · {today}**", ""]
+    for state in _DIGEST_ORDER:
+        seeds = sorted(by_state.pop(state, []), key=lambda r: str(r.get("updated_at") or r.get("created_at") or ""))
+        if not seeds:
+            continue
+        if state == "archived":
+            lines.extend((f"_{len(seeds)} archived seed(s) held as evidence._", ""))
+            continue
+        lines.append(f"**{_DIGEST_HEADINGS[state]}** ({len(seeds)})")
+        for record in seeds:
+            title = str(record.get("title") or record.get("raw_text") or record.get("id", "")).strip()
+            if len(title) > 90:
+                title = title[:87] + "..."
+            touched = str(record.get("updated_at") or record.get("created_at") or "")[:10]
+            questions = record.get("questions") or []
+            question_note = f" · {len(questions)} open question(s)" if questions else ""
+            study = record.get("promoted_study_id")
+            study_note = f" · -> {study}" if study else ""
+            lines.append(f"- {title} · `{record.get('id', '')}` · {record.get('track', '?')} · touched {touched}{question_note}{study_note}")
+        lines.append("")
+    for state, seeds in sorted(by_state.items()):
+        lines.append(f"**{state}** ({len(seeds)}) — unrecognized lifecycle state; records need review")
+        lines.append("")
+    lines.append("_Reply with a seed id to incubate, promote, or archive it._")
+    return "\n".join(lines).rstrip() + "\n"

@@ -1,0 +1,10 @@
+{
+  "category": "pain-point",
+  "created_at": "2026-08-31T16:31:18Z",
+  "id": "note-5f33c506d696",
+  "schema_version": 1,
+  "stage": "behavior",
+  "text": "behavior-stage renders drifted 'kind of all over the place in color and size'; adopted a postable standard: black and white as it's more about the behavior, CMYK colors if we need to differentiate things, postable 30fps 1080x1350 videos for eventual X posting. Shipped as houdini_ai.behavior_postable the same day.",
+  "track": "behavior",
+  "visibility": "private"
+}

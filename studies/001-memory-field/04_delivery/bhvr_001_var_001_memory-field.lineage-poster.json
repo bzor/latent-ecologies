@@ -1,0 +1,77 @@
+{
+  "study": {
+    "number": 1,
+    "title": "Memory Field",
+    "subtitle": "agents shape territory through their own decaying memory",
+    "variation": "BHVR 001 / VAR 001 \u00b7 MEMORY-FIELD",
+    "completed": "2026-08-30",
+    "credit": "BZOR COMPUTATIONAL STUDIO"
+  },
+  "palette": {
+    "ground": "#b4b5b7",
+    "ink": "#2f183c",
+    "accent": "#c76666"
+  },
+  "plate": {
+    "image": "studies/001-memory-field/04_delivery/bhvr_001_var_001_memory-field.lineage-poster-plate.png",
+    "caption": "DELIVERY FRAME \u00b7 KARMA RENDER + REALTIME DETAIL PASS \u00b7 1080 \u00d7 1350"
+  },
+  "stages": [
+    {
+      "label": "BEHAVIOR",
+      "gate": true,
+      "hash": "78b5de6",
+      "facts": [
+        "POP/VEX solver \u00b7 deterministic seed 18432 \u00b7 512 agents",
+        "resource / inhibition / occupancy fields",
+        "sense \u2192 steer \u2192 consume \u2192 deposit \u2192 decay",
+        "promoted as live HDA bzor::refractory_route::1.0"
+      ]
+    },
+    {
+      "label": "LOOK",
+      "gate": true,
+      "hash": "74b986a",
+      "facts": [
+        "artist-led \u00b7 authored directly in the flat Look HIP",
+        "declared locked at revision r004 \u00b7 Houdini 22.0.368",
+        "camera 80mm f/5.6 \u00b7 focus 5.0 \u00b7 ACES 2.0"
+      ]
+    },
+    {
+      "label": "RENDER",
+      "hash": "afe7936",
+      "facts": [
+        "450 frames \u00b7 Karma \u00b7 one uninterrupted pass",
+        "2 h 30 m 33 s \u00b7 every frame decoded and verified",
+        "receipt bound to the locked HIP checksum"
+      ]
+    },
+    {
+      "label": "DETAIL PASS",
+      "gate": true,
+      "hash": "e8975dd",
+      "facts": [
+        "design overlay generator \u00b7 realtime over the verified render",
+        "450 overlay frames \u00b7 custom four-color palette",
+        "four tracked agents \u00b7 P1 P128 P256 P380"
+      ]
+    },
+    {
+      "label": "PACKAGE",
+      "date": "2026-08-30",
+      "gate": true,
+      "hash": "f128598",
+      "facts": [
+        "post-ready \u00b7 76.1 MB checksummed composite delivery",
+        "promoted from the Discord Study thread",
+        "state: post-ready \u00b7 destination approval pending"
+      ]
+    }
+  ],
+  "footer": [
+    "SEED 18432 \u00b7 POP/VEX \u00b7 450 FRAMES @ 30 FPS \u00b7 1080 \u00d7 1350",
+    "COMPOSITE SHA256 F128598A\u2026A8CA621 \u00b7 EVERY GATE AN EXPLICIT KC DECISION",
+    "REPRODUCIBLE FROM THE STUDY VAULT \u00b7 STUDIES/001-MEMORY-FIELD"
+  ]
+}
