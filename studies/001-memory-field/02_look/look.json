@@ -55,6 +55,29 @@
     "note": "450 frames encoded at 30 fps. The scene, render, and specimen sidecar are authored at 24 fps; this preview plays the same frames 25 percent faster (15.0 s rather than 18.75 s).",
     "path": "bhvr_001_var_001_memory-field.look-render.mp4"
   },
+  "delivery": {
+    "fps": 30,
+    "frames": 450,
+    "resolution": [
+      1080,
+      1350
+    ],
+    "state": "post-ready",
+    "video": "../04_delivery/bhvr_001_var_001_memory-field.delivery.mp4",
+    "video_bytes": 76139750,
+    "video_sha256": "f128598a4fb3535ffe08914fdb10c8aa41bbb4b7c753fea7a822458c5a8ca621",
+    "preview": "../04_delivery/bhvr_001_var_001_memory-field.delivery-preview.mp4",
+    "preview_bytes": 6641148,
+    "preview_resolution": [
+      544,
+      680
+    ],
+    "preview_sha256": "f541bbb7590d29bff316749ef40ccaab57aba8613aefd41571d43d4771cae631",
+    "receipt": "../04_delivery/bhvr_001_var_001_memory-field.delivery.json",
+    "overlay_frames": "../04_delivery/bhvr_001_var_001_memory-field.overlay_frames",
+    "promoted_at": "2026-08-31T00:12:03Z",
+    "publication_authorized": false
+  },
   "render_authorized": true,
   "render_picture": "$HIP/renders/look.$F4.png",
   "render_receipt": "renders/render-receipt.json",
@@ -67,7 +90,7 @@
   "schema_version": 1,
   "setup_id": "basic",
   "setup_path": "houdini/look_setups/basic/basic.hiplc",
-  "state": "render-complete",
+  "state": "post-ready",
   "study_id": "study-001-memory-field",
   "variation": {
     "behavior_number": 1,

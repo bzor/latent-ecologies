@@ -192,3 +192,21 @@ not carried into the HDA. Handoff package and audit:
 live re-simmable HDA at `/obj/PLAYGROUND_SIM/PROMOTED_BEHAVIOR`, default preset 1,
 2 steps per display frame, render bound to `$HIP/renders/look.$F4.png`). KC owns
 Look Development from here; rendering waits for an explicit lock.
+
+## 2026-08-31 — Detail pass promoted to post-ready Delivery
+
+**Artist direction:** KC issued `promote` from the Study thread after completing
+the overlay configuration for variation 001, Memory Field.
+
+**Execution (measured):** The canonical 450-frame specimen sidecar and exported
+overlay config were validated, rebuilt through the pinned headless overlay renderer,
+and composited over the verified Look PNG sequence. The resulting H.264 delivery is
+1080×1350, 30 fps, 450 frames, and 15.0 seconds. All 450 RGBA overlay frames passed
+size, alpha, and presence checks. FFprobe confirmed the encoded frame count and
+format; early, middle, and late visual checks found the render and overlay present,
+temporally distinct, and without an obvious crop or composite failure.
+
+**Status:** Post-ready private delivery. Receipt and media:
+`04_delivery/bhvr_001_var_001_memory-field.delivery.json` and
+`04_delivery/bhvr_001_var_001_memory-field.delivery.mp4`. Public publishing remains
+separately approval-gated and is not authorized by this promotion.
