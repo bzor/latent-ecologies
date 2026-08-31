@@ -18,13 +18,13 @@
   },
   "type": {
     "numeral": "Isonorm Monospaced",
-    "numeralSize": 118,
+    "numeralSize": 120,
     "numeralTracking": -0.15,
-    "display": "Isonorm MN",
-    "titleSize": 18,
-    "titleTracking": 0.14,
-    "mini": "Iosevka Mono Light",
-    "miniSize": 8,
+    "display": "Isonorm",
+    "titleSize": 22.7,
+    "titleTracking": 0.01,
+    "mini": "Iosevka Mono Medium",
+    "miniSize": 11.5,
     "miniTracking": 0,
     "miniLineHeight": 12,
     "miniMarginSide": 0,
@@ -138,7 +138,7 @@
       "kicker": true,
       "accent": true,
       "subtitle": true,
-      "gapTop": -190,
+      "gapTop": -220,
       "kickerMarginSide": 1,
       "gapKickerNumeral": -8,
       "numeralMarginSide": -11,
@@ -147,7 +147,13 @@
       "accentWidth": 40,
       "gapAccentTitle": -9,
       "titleMarginSide": 0,
-      "gapTitleSubtitle": 0,
+      "gapTitleSubtitle": -11,
+      "variationLine": true,
+      "variationSize": 14,
+      "variationMarginSide": 0,
+      "gapVariationSubtitle": 0,
+      "sourceLine": false,
+      "dateLine": true,
       "subtitleMarginSide": 0,
       "subtitleWidth": 125
     },
@@ -491,7 +497,7 @@
         },
         {
           "gx": 0,
-          "gy": 28.8,
+          "gy": 28.92,
           "width": 2,
           "height": 0.02,
           "mirror": false
@@ -513,6 +519,20 @@
         {
           "gx": 0,
           "gy": 24.2,
+          "width": 0.1,
+          "height": 0.05,
+          "mirror": false
+        },
+        {
+          "gx": 3,
+          "gy": 22.4,
+          "width": 0.1,
+          "height": 0.05,
+          "mirror": false
+        },
+        {
+          "gx": 3,
+          "gy": 22.33,
           "width": 0.1,
           "height": 0.05,
           "mirror": false
