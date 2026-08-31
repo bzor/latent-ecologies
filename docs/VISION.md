@@ -177,9 +177,9 @@ governed by an explicit allowlist. Public exposure is treated as irreversible.
 - **Overlay manifest checksum (stage 6):** a headless manifest export cannot bind a HIP
   checksum, so locked delivery needs one manual GUI export. Fixing the dirty check in
   the HDA builder would close it.
-- **Legacy Study directories:** `studies/001-memory-field/`, `studies/002-mass-flow/`,
-  and `studies/behavior/scar-tissue/` predate the `study_NNN_slug` contract; none has a
-  `00_study/`, and Study 001 uses `01_behavior/02_selects/` instead of `02_review/`.
+- **Legacy Study directories:** `studies/001-memory-field/` predates the
+  `study_NNN_slug` contract (retired sibling records live under `studies/archive/`); it
+  has no `00_study/` and uses `01_behavior/02_selects/` instead of `02_review/`.
   `study-init` would create a parallel directory rather than adopt one, so migration is
   an explicit decision. Study 001 completed the full stage 4-6 pipeline (through the
   2026-08-30 promote) in place under its legacy name; its variation identity lives in the

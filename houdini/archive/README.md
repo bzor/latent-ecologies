@@ -10,3 +10,5 @@ for reproducibility of historical renders; not part of the current pipeline.
   Scar Tissue look experiments.
 - `stage_affinity_behavior_cache.py` — superseded by
   `../stage_affinity_continuous_rewire_cache.py`.
+- `stage_affinity_continuous_rewire_cache.py` — Study 003 continuous-rewire cache
+  staging; superseded flow, promotion counterpart archived in `scripts/archive/`.

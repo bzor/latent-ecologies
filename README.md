@@ -128,7 +128,7 @@ local JSON: tagging an artifact never uploads or publishes it.
 Scar Tissue now has three versioned mutation records, deterministic reference diagnostics,
 and a separate sequential Houdini/VEX-authoritative probe. The latter persists agent and
 oriented field geometry from one VEX cook to the next; it does not claim numerical parity
-with the Python reference model. See `studies/behavior/scar-tissue/lab-log.md` for measured
+with the Python reference model. See `studies/archive/behavior-scar-tissue/lab-log.md` for measured
 scope and remaining observational evidence gaps.
 
 ```powershell

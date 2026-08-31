@@ -14,8 +14,8 @@ The canonical record ID remains `study-003-nonlocal-affinity-dance`; directory n
 
 ## Legacy vaults
 
-`studies/001-memory-field/`, `studies/002-mass-flow/`, and `studies/behavior/scar-tissue/`
-predate this contract and are grandfathered in place (see the known gap in VISION.md).
+`studies/001-memory-field/` predates this contract and is grandfathered in place;
+the retired `002-mass-flow` and `behavior-scar-tissue` records live under `studies/archive/` (see the known gap in VISION.md).
 Study 001 has no `00_study/`, `90_shared/`, or `99_archive/`, uses `01_behavior/02_selects/`
 where the contract says `02_review/` (so the artifact catalog does not see its selects), and
 carries variation identity in the specimen sidecar's `variation` record instead of

@@ -79,7 +79,7 @@ The promoted Behavior handoff JSON requires:
   `01_behavior/03_selected/` handoff. Cache byte counts and SHA-256 values are frozen during
   preparation and rechecked before execution and final review.
 
-Direction briefs follow `docs/examples/look-direction-briefs.example.json`. Every brief includes
+Direction briefs follow `docs/archive/examples/look-direction-briefs.example.json`. Every brief includes
 a `visual_target` packet: references, final-image thesis, required and prohibited reads, material,
 framing, lighting, and temporal intent. Materials, palette, framing, lighting, or cinematography
 cannot be listed as deferred exclusions. Every aesthetic
