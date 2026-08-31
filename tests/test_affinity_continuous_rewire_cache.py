@@ -10,6 +10,12 @@ OLD = ROOT / "studies/study_003_nonlocal-affinity-dance/01_behavior/03_selected/
 NEW = ROOT / "studies/study_003_nonlocal-affinity-dance/01_behavior/03_selected/selection_002"
 
 
+# The selection caches are local-only vault data (gitignored under 03_selected/);
+# the historical-preservation assertions below only run on a checkout that has them.
+@unittest.skipUnless(
+    (OLD / "cache_sequence/receipt.json").is_file() or (NEW / "cache_sequence/receipt.json").is_file(),
+    "study_003 03_selected caches are not present in this checkout",
+)
 class AffinityContinuousRewireCacheTests(unittest.TestCase):
     def test_corrected_behavior_rewires_through_visible_end(self) -> None:
         self.assertTrue((OLD / "cache_sequence/receipt.json").is_file(), "historical selection_001 must remain preserved")

@@ -13,6 +13,12 @@ SOURCE = SELECTION / "look-source.json"
 RECEIPT = SELECTION / "cache_sequence/receipt.json"
 
 
+# The selection caches are local-only vault data (gitignored under 03_selected/);
+# skip on checkouts without them instead of failing the suite.
+@unittest.skipUnless(
+    SELECTION.is_dir(),
+    "study_003 03_selected caches are not present in this checkout",
+)
 class AffinitySelectedCacheSequenceTests(unittest.TestCase):
     def test_selected_cache_sequence_is_contiguous_and_houdini_readable(self) -> None:
         self.assertTrue(SOURCE.is_file(), f"missing {SOURCE}")
