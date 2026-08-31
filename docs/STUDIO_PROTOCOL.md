@@ -134,6 +134,46 @@ Useful patterns include:
 Hermes translates feedback into one or more bounded proposals and labels its interpretation.
 Feedback does not directly mutate source or queue a render.
 
+### Close a round with a review packet
+
+Every work round that produces comparable candidates ends in exactly one postable
+review packet, built with `python -m houdini_ai.review_packet`. The packet is a
+labelled contact sheet (`review-packet.png`), a labelled side-by-side comparison
+video when the candidates have motion evidence (`review-packet.mp4`), a
+ready-to-post caption (`review-packet.md`), and a checksummed receipt. Candidates
+share identical cell size, frame rate, and letter ordering across all three, so a
+decision needs only a reply like `B, but calmer — iterate`.
+
+Hermes posts the packet in the Study thread instead of individual file paths.
+Rooting through round directories to find media is a recorded pain point; the
+packet exists so KC never has to. Packets live beside the round they close
+(for example `01_behavior/01_work/<round>/packet/`). A round with a single
+candidate still gets a packet — the caption then asks a keep/iterate question
+rather than a selection.
+
+### Make a behavior postable
+
+`Make this behavior postable` (or naming a candidate/round) asks Hermes to conform a
+behavior render to the canonical postable standard defined in
+`houdini_ai/behavior_postable.py`:
+
+- 1080×1350 portrait at 30 fps — the same feed-portrait geometry the delivery
+  pipeline ships;
+- monochrome by default (near-black ground, paper-white structure): the behavior is
+  the subject;
+- the CMYK accents (cyan, magenta, yellow) reserved for differentiating populations,
+  lineages, or states when monochrome cannot;
+- H.264, CRF 18, yuv420p, faststart, no audio; X's 140-second cap checked in the
+  receipt.
+
+`python -m houdini_ai.behavior_postable <video-or-frames> --out <name>.postable.mp4`
+conforms an existing render (`--monochrome` desaturates legacy colored diagnostics;
+early artifacts are not retrofitted unless asked). New behavior renderers draw with
+the module's palette and geometry constants directly instead of converting after the
+fact. Postables live beside their source round with a checksummed receipt. A postable
+is a candidate, not a publication: posting still goes through editorial tags
+(`publish:x`) and the explicit approval boundary.
+
 ### Capture process observations
 
 Real-world workflow feedback should be recorded while it is fresh rather than reconstructed
@@ -185,6 +225,19 @@ Promotion requires:
 - lineage links.
 
 Promotion never automatically begins an expensive specimen render.
+
+### Gate micro-retro
+
+Every gate decision is followed by a sixty-second retro: Hermes asks KC two
+questions — **what dragged?** and **what was actually fun?** — and records the
+answers verbatim with `studio retro --stage <stage> --track <track> --dragged "..."
+--fun "..."`. Each answer lands as an ordinary process note (pain-point / working),
+so retros accumulate in the digest KC already reviews. One answer is enough; a quick
+retro beats a complete one, and "nothing dragged" is itself an answer worth a
+`working` note. The `decide` and `promote` commands print the reminder so the habit
+is carried by the harness, not by memory. Gates are the natural pause; a retro
+skipped at the gate is usually never captured at all — the notes silence between
+2026-08-16 and 2026-08-31 spanned exactly the studio's busiest delivery stretch.
 
 ### Enter a new phase
 
@@ -248,6 +301,30 @@ Publication tags are structured metadata, not external actions. Proposed vocabul
 
 An artifact can target several destinations and editorial roles. `visibility:private` wins
 over all public-candidate tags until explicitly changed.
+
+## Studio rituals
+
+Recurring moments that keep the studio fun and the pipeline warm. Rituals are
+Hermes-initiated; each produces a small, real artifact rather than a ceremony.
+
+**Completion poster.** When a Study finishes the pipeline, Hermes assembles a spec
+from the canonical records and renders a lineage poster with
+`python -m houdini_ai.lineage_poster <spec.json> --out <...>.lineage-poster.png` —
+one large typographic moment, the pipeline record with real dates, measurements, and
+checksums, a specimen plate from the delivery. The poster and its spec live in the
+Study's delivery directory. Finishing a Study should feel like something.
+
+**Study-close revisit.** When a Study closes, Hermes surfaces its held branches
+(`00_study/held-branches.json`) and archived directions and asks one question: *do
+any of these look different now that the Look exists?* Held branches were preserved
+precisely for this moment; a revisit that takes five minutes and reopens nothing is
+still a success.
+
+**Weekly Seed Bank digest.** During production weeks the front of the pipeline goes
+quiet. Once a week, Hermes posts `studio seed-digest` — seeds grouped by lifecycle,
+longest-waiting first, with open-question counts — so incubating ideas stay visible
+without demanding anything. The digest ends with the reply shorthand; replying with
+a seed id is enough to act on one.
 
 ## Approval boundaries
 

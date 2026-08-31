@@ -96,6 +96,11 @@ The system builds each promoted direction. Two legitimate routes:
 Either route produces simple diagnostic renders per candidate. Iteration concentrates on
 the most promising candidate; the others are archived with their evidence, not deleted.
 
+Diagnostic renders KC may want to post follow the behavior postable standard
+(1080×1350, 30 fps, monochrome with reserved CMYK accents — see `STUDIO_PROTOCOL.md`
+§ "Make a behavior postable"). Working diagnostics are unconstrained; the standard
+applies to what leaves the lab.
+
 **Gate:** KC promotes the best behaviour to look development.
 
 ### 4. Look development
@@ -167,16 +172,18 @@ governed by an explicit allowlist. Public exposure is treated as irreversible.
   but packaging a behavior as an HDA is still per-behavior bespoke work following the
   `build_nonlocal_affinity_hda.py` pattern; a reusable packaging path emerges as more
   behaviors repeat it.
-- **Detail-pass promote (stage 6):** built — see `DETAIL_PASS_PROMOTE.md`. The
-  remaining wiring is Hermes-side: calling `python -m houdini_ai.detail_promote` when
-  KC promotes in the Study thread, and posting the preview back.
+- **Detail-pass promote (stage 6):** built — see `DETAIL_PASS_PROMOTE.md`, which also
+  defines the promote runbook. The remaining gap is operational: the Hermes session in
+  the Study thread must actually run `python -m houdini_ai.detail_promote` on KC's
+  promote and post the preview back, every time.
 - **Safe resume (stage 5):** a delivery render must currently run in one pass, because
   runs do not share a solver trajectory. Caching a simulation to disk in the Look HIP
   removes the cause and makes resume safe. Not yet adopted; it is a post-lock scene
   change and needs KC's approval per Study. See `RENDER_INTEGRITY.md`.
-- **Overlay manifest checksum (stage 6):** a headless manifest export cannot bind a HIP
-  checksum, so locked delivery needs one manual GUI export. Fixing the dirty check in
-  the HDA builder would close it.
+- **Overlay manifest checksum (stage 6):** closed 2026-08-31 —
+  `houdini/export_overlay_manifest_headless.py` verifies a clean load and binds the
+  checksum without a GUI export or an HDA rebuild (see `RENDER_INTEGRITY.md`). Not yet
+  exercised against a real locked delivery.
 - **Legacy Study directories:** `studies/001-memory-field/` predates the
   `study_NNN_slug` contract (retired sibling records live under `studies/archive/`); it
   has no `00_study/` and uses `01_behavior/02_selects/` instead of `02_review/`.

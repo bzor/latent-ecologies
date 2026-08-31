@@ -20,6 +20,7 @@ decision with a durable local record.
 
 Start here:
 
+- [Current studio state and whose turn it is](STATE.md)
 - [Vision — the canonical pipeline](docs/VISION.md)
 - [Scientific and technical voice](docs/TECHNICAL_VOICE.md)
 - [Discord public studio architecture](docs/DISCORD_PUBLIC_STUDIO_ARCHITECTURE.md)

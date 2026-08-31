@@ -159,6 +159,7 @@ Tracks follow point numbers rather than ids, which assumes constant point topolo
 the frame range. Add `--track-value ATTRIB` to sample a float point attribute per tracked
 point per frame, normalized across the range, so a callout can carry a live readout.
 
-**A headless manifest export is never checksum-bound.** See the operational note in
-`RENDER_INTEGRITY.md`. The result is valid for the detail pass and must be
-regenerated from the GUI for locked delivery.
+**A bare headless manifest export is not checksum-bound.** For locked delivery, use
+`hython houdini/export_overlay_manifest_headless.py <locked.hiplc> <node_path>`, which
+verifies a clean load and binds the checksum itself — see the operational note in
+`RENDER_INTEGRITY.md`. An unbound export remains valid for the detail pass.

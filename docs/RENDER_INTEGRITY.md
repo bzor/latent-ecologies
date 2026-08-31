@@ -151,11 +151,22 @@ taking node paths.
 and `/stage` and evaluating each one crashed hython on this scene by forcing USD stage
 evaluation. Scope a parameter diff to the node being changed.
 
-**The overlay parameter manifest cannot be checksum-bound headlessly.** The exporter
-records a HIP checksum only when `hou.hipFile.hasUnsavedChanges()` is false
+**The HDA cannot checksum-bind its own manifest headlessly.** The exporter records a
+HIP checksum only when `hou.hipFile.hasUnsavedChanges()` is false
 (`build_refractory_route_hda.py`). In hython that call returns true immediately after
 a clean load, before anything is modified, and Houdini 22 has no
-`hou.hipFile.clearUnsavedChanges()`. A headless export therefore always produces
+`hou.hipFile.clearUnsavedChanges()`. A bare headless export therefore produces
 `hip_dirty: true` and `hip_sha256: null`, which is valid for the detail pass and not
-valid for locked delivery. Press `Export Overlay Parameter Manifest` once in the GUI,
-or change the dirty check and rebuild the HDA.
+valid for locked delivery.
+
+For locked delivery, run the system driver instead:
+
+```powershell
+hython houdini\export_overlay_manifest_headless.py <locked.hiplc> <node_path>
+```
+
+The driver hashes the HIP before loading, presses the HDA's exporter with no other
+scene mutation, verifies the file is unchanged afterwards, and binds the manifest to
+that hash (`bind_headless_overlay_manifest` in `overlay_parameter_manifest.py`). The
+binding is recorded as `source.checksum_binding: "headless-clean-load"`; a GUI export
+stays valid and is left untouched. No HDA rebuild is required.
