@@ -71,9 +71,17 @@ and bottom 320 px. The overlay generator's 9:16 preset and safe-zone guide toggl
 cover this at detail-pass time; a TikTok-sized guide variant is a small follow-up
 there (its reserved areas are slightly larger than Instagram's).
 
-A true 9:16 hero cut comes from a 9:16 overlay config at the detail pass. Padding a
-4:5 delivery into the vertical frame is a legitimate fallback and the receipt
-records which one happened.
+**Dual-camera practice (KC direction, 2026-08-31, from Study 002 on):** the Look
+HIP carries two cameras, one framed 4:5 (1080×1350) and one framed 9:16
+(1080×1920), both authored by KC during Look development. The lock covers both;
+each camera gets its own single-pass verified render (run overnight, back to
+back) and its own overlay config and detail-pass composite. Each aspect is a
+composed frame, never a crop or pad of the other.
+
+Padding a 4:5 delivery into the vertical frame remains the fallback when a study
+has only one camera (Study 001 ships this way for Reels/Shorts/TikTok, accepted
+by KC 2026-08-31); the kit receipt records the source, so a padded vertical is
+always identifiable.
 
 ## Captions
 

@@ -49,9 +49,11 @@ _Last updated: 2026-08-31_
   now; Phase 2 (Discord approval loop → Postiz adapter → publication receipts)
   and Phase 3 (post queue + weekly nudge) are specified in the doc. First
   candidates: Study 001's delivery video and lineage poster. Study 001's card
-  is drafted at `studies/001-memory-field/00_study/study-card.json` (summary
-  wording awaiting KC review); Study 002 still needs a card before a kit can
-  build.
+  is KC-approved (wording edited 2026-08-31); its vertical derivative ships
+  padded (accepted). Study 002 still needs a card before a kit can build.
+  From Study 002 on, Look HIPs carry a second 9:16 camera so both aspects
+  render overnight from one lock (dual-camera practice, `SOCIAL_PUBLISHING.md`
+  § Derivative matrix) — applies to the Looks now active in 002, 003, and 004.
 
 - **Studio rituals (2026-08-31):** completion posters
   (`python -m houdini_ai.lineage_poster`), the study-close held-branch revisit, and
