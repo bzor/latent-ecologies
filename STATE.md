@@ -9,13 +9,20 @@ _Last updated: 2026-08-31_
 ## Studies
 
 ### Study 001 — memory field (`studies/001-memory-field/`, legacy layout)
-- **Phase:** complete — full pipeline delivered 2026-08-30 (promoted behavior HDA,
-  artist-led Look, verified 450-frame Karma render, detail pass, checksum-bound
-  package in `04_delivery/`).
-- **Waiting on:** KC — post the final mp4. After it's posted, `02_look/renders/`
-  (~1.1 GB) can be deleted (deferred cleanup).
+- **Phase:** reopened for a vertical Look pass (KC decision 2026-08-31). The 4:5
+  delivery of 2026-08-30 stands (promoted behavior HDA, artist-led Look, verified
+  450-frame Karma render, detail pass, checksum-bound package in `04_delivery/`);
+  KC is adding a 9:16 camera to the Look HIP as the dual-camera practice's first
+  run, then re-lock → overnight verified render → 9:16 overlay config → vertical
+  delivery. Plan: `.hermes/plans/2026-09-01_overlay-aspect-flexibility.md`.
+- **Waiting on:** KC — 2026-09-01 session: long aspect-flexibility pass on the
+  design overlay generator (corner/edge anchoring, procedural edge placement)
+  with the Study 001 9:16 Look as the live test case. Final 4:5 mp4 post still
+  pending. Hold the `02_look/renders/` (~1.1 GB) cleanup until the vertical pass
+  completes.
 - Stays under its legacy directory name; migration to the vault contract is an
-  explicit decision, not assumed.
+  explicit decision, not assumed. `00_study/` now holds the KC-approved study
+  card (created for the post kit; not a vault migration).
 
 ### Study 002 — scar tissue (`studies/study_002_scar-tissue/`)
 - **Phase:** look (active). Behavior promoted 2026-08-23: Rapid Surgical Zipper —

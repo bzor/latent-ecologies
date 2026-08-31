@@ -1,0 +1,11 @@
+{
+  "category": "missing-functionality",
+  "created_at": "2026-08-31T23:46:36Z",
+  "id": "note-135ad4e7e27d",
+  "reference_id": "study-001-memory-field",
+  "schema_version": 1,
+  "stage": "specimen",
+  "text": "overlay elements are hand-placed per aspect; KC: make things snap to corners and procedurally be placed along the edges so it looks fine in either aspect ratio. Long flexibility pass on the detail generator planned 2026-09-01, with Study 001 reopened for a 9:16 Look as the live test case.",
+  "track": "specimen",
+  "visibility": "private"
+}

@@ -53,6 +53,9 @@ Private observations captured during real-world use. Source records under `studi
 - **2026-08-13T14:22:00Z · chromatic / chromatic · component-look-6013004ba32c**
   before starting the chromatic phase let's have a quick brainstorm where you summarize all of the sim components and values we have to work with, to better prep assigning colors to different objects/parameters. maybe summarize all values then suggest a few options then i can approve or suggest my own approaches before implmenting
 
+- **2026-08-31T23:46:36Z · specimen / specimen · study-001-memory-field**
+  overlay elements are hand-placed per aspect; KC: make things snap to corners and procedurally be placed along the edges so it looks fine in either aspect ratio. Long flexibility pass on the detail generator planned 2026-09-01, with Study 001 reopened for a 9:16 Look as the live test case.
+
 ## Ideas
 
 - **2026-08-13T12:59:48Z · behavior / probe · component-look-6013004ba32c**

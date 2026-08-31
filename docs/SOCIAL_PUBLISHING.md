@@ -79,9 +79,10 @@ back) and its own overlay config and detail-pass composite. Each aspect is a
 composed frame, never a crop or pad of the other.
 
 Padding a 4:5 delivery into the vertical frame remains the fallback when a study
-has only one camera (Study 001 ships this way for Reels/Shorts/TikTok, accepted
-by KC 2026-08-31); the kit receipt records the source, so a padded vertical is
-always identifiable.
+has only one camera; the kit receipt records the source, so a padded vertical is
+always identifiable. Study 001 briefly accepted the padded route, then KC opted
+the same day to reopen its Look for a true 9:16 camera as the dual-camera
+practice's first run (`.hermes/plans/2026-09-01_overlay-aspect-flexibility.md`).
 
 ## Captions
 
