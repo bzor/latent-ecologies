@@ -54,6 +54,9 @@ local receipt. The system proposes and produces; **KC promotes**.
 - Behavior renders that leave the lab follow the postable standard
   (`houdini_ai/behavior_postable.py`): 1080×1350, 30 fps, monochrome with reserved
   CMYK accents. `python -m houdini_ai.behavior_postable` conforms existing renders.
+- Social posts start from a post kit (`python -m houdini_ai.post_kit`): derivatives,
+  caption drafts, alt text, and constraint checks per `docs/SOCIAL_PUBLISHING.md`.
+  KC approves the exact media and text; nothing posts automatically.
 - Capture process observations (`working` / `pain-point` / `missing-functionality` /
   `idea` / `question`) via `studio note` **while fresh** — opportunistically, whenever
   KC gripes or praises, without being asked. After every gate decision, run the

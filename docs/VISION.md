@@ -208,6 +208,8 @@ Current, canonical:
 - `RENDER_INTEGRITY.md` — stage 5 reproducibility limits, the single-run rule, and sequence verification.
 - `DETAIL_PASS_PROMOTE.md` — stage 6 detail-pass and promote flow.
 - `THREEJS_PROTOTYPE_ROUTE.md` — stage 3 browser-prototype route and identity contract.
+- `SOCIAL_PUBLISHING.md` — stage 7 social strategy: platform set, content tiers,
+  derivative matrix, and the phased path to approval-gated posting.
 
 Historical documents (superseded vision/roadmap/plans, retired workflows) are being moved
 to `docs/archive/` — kept for reference, no longer authoritative.

@@ -40,6 +40,17 @@ _Last updated: 2026-08-31_
 
 ## System — recently shipped
 
+- **Social publishing, Phase 1 (2026-08-31):** strategy and phased plan in
+  `docs/SOCIAL_PUBLISHING.md` (X, Instagram, Bluesky, Shorts, TikTok; process /
+  hero / recap tiers tied to pipeline gates). `python -m houdini_ai.post_kit`
+  builds the complete post kit: feed (1080×1350) and vertical (1080×1920)
+  derivatives, per-platform caption drafts from the study card, alt text,
+  Discord summary, receipt with constraint checks. Hand-post from the kit for
+  now; Phase 2 (Discord approval loop → Postiz adapter → publication receipts)
+  and Phase 3 (post queue + weekly nudge) are specified in the doc. First
+  candidates: Study 001's delivery video and lineage poster (Studies 001/002
+  need a `00_study/study-card.json` before a kit can build).
+
 - **Studio rituals (2026-08-31):** completion posters
   (`python -m houdini_ai.lineage_poster`), the study-close held-branch revisit, and
   the weekly Seed Bank digest (`studio seed-digest`) — see `docs/STUDIO_PROTOCOL.md`
